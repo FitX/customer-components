@@ -1,0 +1,39 @@
+// -----------------------------------------------------------------------------
+// This file contains all color declarations.
+// -----------------------------------------------------------------------------
+
+$fitx-color-anthracite: rgb(24, 29, 30); // #181d1e
+$fitx-color-anthracite-1: rgb(28, 34, 35); // #1c2223
+$fitx-color-anthracite-2: rgb(38, 43, 44); // #262b2c
+$fitx-color-anthracite-3: rgb(45, 49, 50); // #2d3132
+$fitx-color-anthracite-4: rgb(48, 58, 61); // #303a3d
+
+$fitx-color-blue: rgb(53, 72, 79); // #35484f
+
+$fitx-color-orange: rgb(237, 106, 18); // #ed6a12
+$fitx-color-orange-1: rgb(241, 136, 65); // #f18841
+$fitx-color-orange-2: rgb(246, 172, 111); // #f6ac6f
+$fitx-color-orange-3: rgb(246, 237, 230); // #f6ede6
+
+$fitx-color-white: rgb(255, 255, 255); // #ffffff
+$fitx-color-white-1: rgb(244, 242, 239); // #f4f2ef
+$fitx-color-white-2: rgb(235, 234, 232); // #ebeae8
+
+@mixin brand-colors() {
+  --brand-color-anthracite: #{$fitx-color-anthracite};
+  --brand-color-anthracite-1: #{$fitx-color-anthracite-1};
+  --brand-color-anthracite-2: #{$fitx-color-anthracite-2};
+  --brand-color-anthracite-3: #{$fitx-color-anthracite-3};
+  --brand-color-anthracite-4: #{$fitx-color-anthracite-4};
+
+  --brand-color-blue: #{$fitx-color-blue};
+
+  --brand-color-orange: #{$fitx-color-orange};
+  --brand-color-orange-1: #{$fitx-color-orange-1};
+  --brand-color-orange-2: #{$fitx-color-orange-2};
+  --brand-color-orange-3: #{$fitx-color-orange-3};
+
+  --brand-color-white: #{$fitx-color-white};
+  --brand-color-white-1: #{$fitx-color-white-1};
+  --brand-color-white-2: #{$fitx-color-white-2};
+}
