@@ -2,14 +2,20 @@
   "name": "customer-components",
   "version": "0.1.0",
   "private": true,
+  "main": "./dist/customer-components.common.js",
+  "files": [
+    "dist/*",
+    "src/**/*.vue"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:lib": "vue-cli-service build --target lib --name customer-components ./src/index.js",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -c .storybook"
   },
   "dependencies": {
     "core-js": "^3.6.5",
