@@ -57,7 +57,7 @@ Disabled.args = {
 export const WithSlot = Template.bind({});
 WithSlot.args = {
   slotProps: {
-    icon: ':)',
+    icon: '🍕',
     default: 'Text in Slot',
   },
 };

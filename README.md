@@ -1,11 +1,31 @@
 # customer-components
-Vue Brand-Evo Components and Widget Library for Customer Apps. [Overview](https://customer-components.netlify.app)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/72371083-7785-4449-bddc-842826333f40/deploy-status)](https://app.netlify.com/sites/customer-components/deploys)
+Vue 3 Brand-Evo Components and Widget Library for Customer Apps. [Overview](https://customer-components.netlify.app)
+
+
+![Netlify](https://img.shields.io/netlify/72371083-7785-4449-bddc-842826333f40)
 ![npm (scoped)](https://img.shields.io/npm/v/@fitx/customer-components?style=flat-square)
 ![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@fitx/customer-components)
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@fitx/customer-components)
-## Project setup
+
+
+## Use Package 🐨
+### Install
+
+```
+npm i @fitx/customer-components
+```
+### Use in App
+```
+import { TextButton } from '@fitx/customer-components';
+```
+
+## Development 🤖
+
+All Designs located as sketch files in [sketch cloud ✍](https://www.sketch.com/s/afae2a3c-0eaf-4735-9bd3-d0269c5c5bb3)
+
+![Node Version](https://img.shields.io/badge/Node-lts%20_v.14_-blue)
+
 ```
 npm install
 ```
@@ -56,14 +76,18 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## Local testing
 ### Link Lib to other Repo
 Create local SymLink to Package
+
 ```
 npm link
 ```
-Go to consuming Package, link and install
+
+Go to consuming App, link and install
+
 ```
 npm link customer-components
 npm i customer-components
 ```
+
 ## Publish Lib
 ```
 npm publish --access public
