@@ -17,6 +17,7 @@
 
 <script>
 import useModifier from '@/use/modifier-class';
+
 export default {
   props: {
     tag: {
