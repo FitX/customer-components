@@ -2,7 +2,9 @@
 Vue Brand-Evo Components and Widget Library for Customer Apps. [Overview](https://customer-components.netlify.app)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/72371083-7785-4449-bddc-842826333f40/deploy-status)](https://app.netlify.com/sites/customer-components/deploys)
-
+![npm (scoped)](https://img.shields.io/npm/v/@fitx/customer-components?style=flat-square)
+![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@fitx/customer-components)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@fitx/customer-components)
 ## Project setup
 ```
 npm install
