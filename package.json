@@ -1,5 +1,5 @@
 {
-  "name": "customer-components",
+  "name": "@fitx/customer-components",
   "version": "0.1.0",
   "private": true,
   "main": "./dist/customer-components.common.js",
@@ -49,5 +49,19 @@
   },
   "resolutions": {
     "vue-loader": "^16.5.0"
-  }
+  },
+  "description": "Vue Brand-Evo Components and Widget Library for Customer Apps. [Overview](https://customer-components.netlify.app)",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FitX/customer-components.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FitX/customer-components/issues"
+  },
+  "homepage": "https://github.com/FitX/customer-components#readme"
 }
