@@ -1,4 +1,7 @@
 # customer-components
+Vue Brand-Evo Components and Widget Library for Customer Apps. [Overview](https://customer-components.netlify.app)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/72371083-7785-4449-bddc-842826333f40/deploy-status)](https://app.netlify.com/sites/customer-components/deploys)
 
 ## Project setup
 ```
