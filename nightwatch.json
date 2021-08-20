@@ -1,0 +1,71 @@
+{
+  "src_folders": ["src/components/**/*"],
+  "output_folder": "reports",
+  "page_objects_path": "",
+  "globals_path": "",
+  "selenium": {
+    "start_process": false,
+    "server_path": "",
+    "log_path": "",
+    "host": "hub.lambdatest.com",
+    "port": 80,
+    "cli_args": {
+      "webdriver.chrome.driver": "",
+      "webdriver.ie.driver": "",
+      "webdriver.firefox.profile": ""
+    }
+  },
+  "test_workers": {
+    "enabled": true,
+    "workers": "auto"
+  },
+  "test_settings": {
+    "default": {
+      "request_timeout_options": {
+        "timeout": 1000000
+      },
+      "filter": "src/components/**/*.e2e.spec.js",
+      "launch_url": "https://lambdatest.com",
+      "selenium_port": 80,
+      "selenium_host": "hub.lambdatest.com",
+      "silent": false,
+      "screenshots": {
+        "enabled": true,
+        "path": ""
+      },
+      "username": "",
+      "access_key": "",
+      "skip_testcases_on_fail": false,
+      "desiredCapabilities": {
+        "build": "Nightwatch-Selenium-Sample",
+        "visual": true,
+        "console": true,
+        "network": true
+      }
+    },
+    "ios": {
+      "desiredCapabilities": {
+        "platform": "iOS",
+        "deviceName": "iPad (6th generation)",
+        "platformVersion": "14.2",
+        "browserName": "safari",
+        "visual": true,
+        "geoLocation": "DE",
+        "console": true,
+        "network": true
+      }
+    },
+    "ios-tunnel": {
+      "desiredCapabilities": {
+        "tunnel": true,
+        "platform": "iOS",
+        "deviceName": "iPad (6th generation)",
+        "platformVersion": "14.2",
+        "browserName": "safari",
+        "visual": true,
+        "console": true,
+        "network": true
+      }
+    }
+  }
+}
