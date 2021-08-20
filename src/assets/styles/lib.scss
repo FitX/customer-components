@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
 // Required Styles
 // -----------------------------------------------------------------------------
-
+@import '~@/assets/styles/colors.scss';
 @import '~@/assets/styles/fonts.scss';
 
 *,
@@ -17,4 +17,5 @@
   --font-stack-normal: 'Niveau Grotesk',
   'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: 62.5%; /* 62.5% of 16px = 10px */
+  @include brand-colors();
 }
