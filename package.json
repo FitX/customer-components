@@ -12,6 +12,7 @@
     "build:lib": "vue-cli-service build --target lib --name customer-components ./src/index.js",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "./node_modules/.bin/nightwatch -e ios-tunnel tests/local-tunnel-test.js",
+    "test:e2e-local": "./node_modules/.bin/nightwatch -c nightwatch.local.json tests/local-test.js",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -c .storybook"
