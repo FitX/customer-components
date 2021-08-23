@@ -36,4 +36,13 @@ $fitx-color-white-2: rgb(235, 234, 232); // #ebeae8
   --brand-color-white: #{$fitx-color-white};
   --brand-color-white-1: #{$fitx-color-white-1};
   --brand-color-white-2: #{$fitx-color-white-2};
+
+  /**
+    Alias Names for Styleguide
+   */
+  --primary-brand-color-anthracite: #{$fitx-color-anthracite};
+  --primary-brand-color-blue: #{$fitx-color-blue};
+  --primary-brand-color-orange: #{$fitx-color-orange};
+
+  --secondary-brand-color-white: #{$fitx-color-white};
 }

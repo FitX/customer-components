@@ -1,26 +1,43 @@
 <template>
-  <ul class="colors">
-    <li
-      v-for="color in colors"
-      class="color"
-      :key="color.value">
-      <span class="color__figure" :style="`--color: ${color.value}`"></span>
-      <span class="color__details">
-        <input
-          class="color__input"
-          :value="color.name"
-          readonly />
-        <input
-          class="color__input"
-          :value="color.value"
-          readonly />
-      </span>
-    </li>
-  </ul>
+  <section class="demo">
+    <h1>Primäre Markenfarben</h1>
+    <p>Unsere primären Markenfarben sind Weiß und Schwarz. Sie werden verwendet, um Zugänglichkeit, Einfachheit und Konsistenz in der gesamten Markenkommunikation zu gewährleisten.</p>
+    <color-list :colors="primaryColors" />
+  </section>
+
+  <section class="demo">
+    <h1>Sekundäre Markenfarben</h1>
+    <p>Da gibt es wohl nichts zu sagen.</p>
+    <color-list :colors="primaryColors" />
+  </section>
+
+  <section class="demo">
+    <h1>Anthrazitabstufungen</h1>
+    <p>Da gibt es wohl nichts zu sagen.</p>
+    <color-list :colors="anthraciteColors" />
+  </section>
+
+  <section class="demo">
+    <h1>Orangeabstufungen</h1>
+    <p>Da gibt es wohl nichts zu sagen.</p>
+    <color-list :colors="orangeColors" />
+  </section>
+
+  <section class="demo">
+    <h1>Weißabstufungen</h1>
+    <p>Da gibt es wohl nichts zu sagen.</p>
+    <color-list :colors="whiteColors" />
+  </section>
+
+  <section class="demo">
+    <h1>All Colors:</h1>
+    <color-list :colors="colors" />
+  </section>
 </template>
 
 <script>
 import { onMounted, ref } from 'vue';
+import ColorList from './ColorList.vue';
 
 /*
  Check if the stylesheet is internal or hosted on the current domain.
@@ -50,7 +67,7 @@ const isStyleRule = (rule) => rule.type === 1;
  * @return array<array[string, string]>
  * ex; [["--color-accent", "#b9f500"], ["--color-text", "#252525"], ...]
  */
-const getCSSCustomPropIndex = () =>
+const getCSSCustomPropIndex = (filterString = '--brand-color') =>
   // styleSheets is array-like, so we convert it to an array.
   // Filter out any stylesheets not on this domain
   [...document.styleSheets].filter(isSameDomain).reduce(
@@ -63,7 +80,7 @@ const getCSSCustomPropIndex = () =>
             rule.style.getPropertyValue(propName).trim(),
           ])
           // Discard any props that don't start with "--". Custom props are required to.
-          .filter(([propName]) => propName.indexOf('--brand-color') === 0);
+          .filter(([propName]) => propName.indexOf(filterString) === 0);
         console.log('propValArr', ...propValArr);
         console.log('props', ...props);
         return [...propValArr, ...props];
@@ -76,52 +93,41 @@ const getCSSCustomPropIndex = () =>
     }));
 
 export default {
+  components: {
+    ColorList,
+  },
   setup() {
     const colors = ref([]);
+    const primaryColors = ref([]);
+    const secondaryColors = ref([]);
+    const anthraciteColors = ref([]);
+    const orangeColors = ref([]);
+    const whiteColors = ref([]);
     onMounted(() => {
       colors.value = getCSSCustomPropIndex();
+      primaryColors.value = getCSSCustomPropIndex('--primary-brand-color');
+      secondaryColors.value = getCSSCustomPropIndex('--secondary-brand-color');
+      anthraciteColors.value = getCSSCustomPropIndex('--brand-color-anthracite');
+      orangeColors.value = getCSSCustomPropIndex('--brand-color-orange');
+      whiteColors.value = getCSSCustomPropIndex('--brand-color-white');
     });
     return {
       colors,
+      primaryColors,
+      secondaryColors,
+      anthraciteColors,
+      orangeColors,
+      whiteColors,
     };
   },
 };
 </script>
 
 <style scoped lang="scss">
-.colors {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.color {
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  padding: 0.5rem;
-  transition: box-shadow 0.15s;
-  &__figure {
-    background-color: var(--color);
-    border-radius: 2px 2px 0 0;
-    display: block;
-    height: 10rem;
-  }
-  &__details {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: 1fr 10ch;
-    font-size: 1.6rem;
-  }
-  &__input {
-    border: 0;
-    display: block;
-    font-size: inherit;
-    margin: 0;
-    padding: 0.5rem;
-    width: 100%;
+.demo {
+  margin-bottom: 4rem;
+  p {
+    max-width: 60ch;
   }
 }
 </style>

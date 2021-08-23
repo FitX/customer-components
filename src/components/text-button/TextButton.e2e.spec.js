@@ -1,5 +1,5 @@
 describe('local test', () => {
-  before((client) => client.url('http://localhost:6006/iframe.html?id=buttons-textbutton--default-button&viewMode=story'));
+  before((client) => client.url('http://localhost:6006/iframe.html?id=components-buttons-textbutton--default-button&viewMode=story'));
   test('demo', (client) => {
     client
       .waitForElementPresent('body', 10000)

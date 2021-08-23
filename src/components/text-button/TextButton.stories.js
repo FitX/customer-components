@@ -1,7 +1,7 @@
 import TextButton from './TextButton.vue';
 
 export default {
-  title: 'Buttons/TextButton',
+  title: 'Components/Buttons/TextButton',
   component: TextButton,
   argTypes: {
     tag: {

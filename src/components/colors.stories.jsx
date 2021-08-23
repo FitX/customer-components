@@ -1,7 +1,7 @@
 import ColorPalette from '../doc-helper/ColorPalette.vue';
 
 export default {
-  title: 'Willkommen/Colors',
+  title: 'Introduction/Styleguide/Colors',
   // component: ColorPalette,
   parameters: {
     options: {
