@@ -1,5 +1,5 @@
 {
-  "src_folders" : ["src/components/**/*"],
+  "src_folders" : ["src/components"],
   "output_folder" : "reports",
   "webdriver" : {
     "start_process": true,
@@ -8,6 +8,7 @@
   },
   "test_settings" : {
     "default" : {
+      "filter": "**/*.e2e.spec.js",
       "desiredCapabilities": {
         "browserName": "chrome"
       }
