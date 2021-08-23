@@ -30,6 +30,12 @@
   </section>
 
   <section class="demo">
+    <h1>Grauabstufungen</h1>
+    <p>Das sind quasi die Farben der Formulare.</p>
+    <color-list :colors="grayColors" />
+  </section>
+
+  <section class="demo">
     <h1>All Colors:</h1>
     <color-list :colors="colors" />
   </section>
@@ -103,6 +109,7 @@ export default {
     const anthraciteColors = ref([]);
     const orangeColors = ref([]);
     const whiteColors = ref([]);
+    const grayColors = ref([]);
     onMounted(() => {
       colors.value = getCSSCustomPropIndex();
       primaryColors.value = getCSSCustomPropIndex('--primary-brand-color');
@@ -110,6 +117,7 @@ export default {
       anthraciteColors.value = getCSSCustomPropIndex('--brand-color-anthracite');
       orangeColors.value = getCSSCustomPropIndex('--brand-color-orange');
       whiteColors.value = getCSSCustomPropIndex('--brand-color-white');
+      grayColors.value = getCSSCustomPropIndex('--brand-color-gray');
     });
     return {
       colors,
@@ -118,6 +126,7 @@ export default {
       anthraciteColors,
       orangeColors,
       whiteColors,
+      grayColors,
     };
   },
 };

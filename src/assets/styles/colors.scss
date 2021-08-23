@@ -19,6 +19,18 @@ $fitx-color-white: rgb(255, 255, 255); // #ffffff
 $fitx-color-white-1: rgb(244, 242, 239); // #f4f2ef
 $fitx-color-white-2: rgb(235, 234, 232); // #ebeae8
 
+$fitx-color-coal: rgb(54, 54, 54); // #363636
+$fitx-color-carbon: rgb(68, 68, 68); // #444
+$fitx-color-graphite: rgb(113, 113, 113); // #717171
+$fitx-color-cement: rgb(153, 153, 153); // #999
+$fitx-color-stone: rgb(181, 181, 181); // #b5b5b5
+$fitx-color-silver: rgb(192, 192, 192); // #c0c0c0
+$fitx-color-steel: rgb(204, 204, 204); // #ccc
+$fitx-color-plumb: rgb(221, 221, 221); // #ddd
+$fitx-color-ash: rgb(229, 229, 229); // #e5e5e5
+$fitx-color-smoke: rgb(238, 238, 238); // #eee
+$fitx-color-chalk: rgb(245, 245, 245); // #f5f5f5
+
 @mixin brand-colors() {
   --brand-color-anthracite: #{$fitx-color-anthracite};
   --brand-color-anthracite-1: #{$fitx-color-anthracite-1};
@@ -45,4 +57,19 @@ $fitx-color-white-2: rgb(235, 234, 232); // #ebeae8
   --primary-brand-color-orange: #{$fitx-color-orange};
 
   --secondary-brand-color-white: #{$fitx-color-white};
+
+  /**
+    Gray Tones, main usage for forms
+   */
+  --brand-color-gray-coal: #{$fitx-color-coal};
+  --brand-color-gray-carbon-: #{$fitx-color-carbon};
+  --brand-color-gray-graphite: #{$fitx-color-graphite};
+  --brand-color-gray-cement: #{$fitx-color-cement};
+  --brand-color-gray-stone: #{$fitx-color-stone};
+  --brand-color-gray-silver: #{$fitx-color-silver};
+  --brand-color-gray-steel: #{$fitx-color-steel};
+  --brand-color-gray-plumb: #{$fitx-color-plumb};
+  --brand-color-gray-ash: #{$fitx-color-ash};
+  --brand-color-gray-smoke: #{$fitx-color-smoke};
+  --brand-color-gray-chalk: #{$fitx-color-chalk};
 }
