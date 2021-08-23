@@ -25,3 +25,9 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# local test and debug files
+*.log
+LT
+reports
+ltcupdate
