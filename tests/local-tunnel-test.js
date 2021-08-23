@@ -11,7 +11,7 @@ module.exports = {
   "@tags": ["test"],
   'Glocal test for craftsman implementation': function(client) {
     client
-      .url("http://localhost:6006/iframe.html?id=buttons-textbutton--default-button&viewMode=story")
+      .url("http://localhost:6006/iframe.html?id=components-buttons-textbutton--default-button&viewMode=story")
       .waitForElementPresent("body", 10000)
       .assert.containsText('[class="btn__text"]', 'Button')
       .end();
