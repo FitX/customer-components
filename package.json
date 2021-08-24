@@ -48,6 +48,7 @@
     "nightwatch": "^1.7.7",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
+    "storybook-addon-themes": "^6.1.0",
     "typescript": "~3.9.3",
     "vue-jest": "^5.0.0-0",
     "vue-loader": "^16.5.0"
