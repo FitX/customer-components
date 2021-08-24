@@ -1,5 +1,5 @@
 import { getCurrentInstance, ref, computed } from 'vue';
-import addons from '@storybook/addons';
+import { TemplateWrapper } from '../../../.storybook/custom-templates';
 import BaseButton, {
   modifier,
 } from './BaseButton.vue';
@@ -24,35 +24,16 @@ export default {
   },
 };
 
-const Template = (args, context) => {
-  return {
-    // Components used in your story `template` are defined in the `components` object
-    components: { BaseButton },
-    // The story's `args` need to be mapped into the template through the `setup()` method
-    setup(props) {
-      const selectedTheme = ref(undefined);
-      const isDarkMode = computed(() => selectedTheme.value === 'fitx-dark');
-      const instance = getCurrentInstance();
-      console.log('context', context);
-      console.log('instance', instance.parent.parent);
-      const channel = addons.getChannel();
-      channel.on('storybook-addon-themes/change', (name) => {
-        selectedTheme.value = name;
-      })
-      console.log('addons.getChannel()', addons.getChannel());
-      // const { backgrounds } = context.globals;
-      return {
-        args,
-        isDarkMode,
-        // backgrounds,
-      };
-    },
-    // And then the `args` are bound to your component with `v-bind="args"`
-    template: `<base-button v-bind="args">{{ isDarkMode }}
+const baseTemplate = () => `<base-button v-bind="args">{{ isDarkMode }} {{ backgroundColor }}
     <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
-    </base-button>`,
-  };
-};
+    </base-button>`;
+
+const Template = (args, context) => TemplateWrapper({
+  args,
+  context,
+  components: { BaseButton },
+  template: baseTemplate(),
+});
 
 export const DefaultButton = Template.bind({});
 DefaultButton.args = {
