@@ -7,7 +7,7 @@
     <slot>
       {{ text }}
     </slot>
-    <span class="btn__loading" /> {{ isDarkMode }}
+    <span class="btn__loading" /> {{ typeof isDarkMode }} {{ isDarkMode }}
   </component>
 </template>
 

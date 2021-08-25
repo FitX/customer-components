@@ -1,5 +1,5 @@
 import { reactive, toRefs } from 'vue';
-import { isDarkMode } from './use-template-theme-detection';
+import isDarkMode from './use-template-theme-detection';
 /**
  * Template Wrapper to watch for theme-changes in storybook-addon-themes
  * @param {object} args Components Args e.g { tag: 'button', text: 'Button' }
