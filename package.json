@@ -18,13 +18,14 @@
     "build-storybook": "build-storybook -c .storybook"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^3.0.0",
-    "vue-svg-loader": "^0.16.0",
     "@lambdatest/node-rest-client": "^1.0.0",
+    "@vueuse/core": "^6.0.0",
     "audit": "0.0.6",
+    "core-js": "^3.6.5",
     "fix": "0.0.6",
-    "selenium-webdriver": "^4.0.0-beta.4"
+    "selenium-webdriver": "^4.0.0-beta.4",
+    "vue": "^3.0.0",
+    "vue-svg-loader": "^0.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",

@@ -1,4 +1,5 @@
 import addons from '@storybook/addons';
+import { get } from '@vueuse/core'
 import { computed, ref } from 'vue';
 import { parameters } from '../preview';
 
@@ -16,4 +17,4 @@ channel.on(THEME_UPDATE_KEY, (name) => {
   selectedTheme.value = name;
 });
 export const isDarkMode = computed(() => selectedTheme.value === 'fitx-dark');
-export default isDarkMode;
+export default get(isDarkMode);

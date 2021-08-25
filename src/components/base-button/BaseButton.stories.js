@@ -155,6 +155,59 @@ const Template2 = (args) => {
 export const Defaul2tButton = Template2.bind({});
 Defaul2tButton.args = {
   tag: 'button',
-  text: `blubb ${isDarkMode.value}`,
+  text: 'blubb',
   isDarkMode,
 };
+
+const TemplateGroup2 = (group) => ({
+  // Components used in your story `template` are defined in the `components` object
+  components: { BaseButton },
+  // The story's `args` need to be mapped into the template through the `setup()` method
+  setup() {
+    return { group };
+  },
+  // And then the `args` are bound to your component with `v-bind="args"`
+  template: `
+    <div style="display: flex; gap: 1rem">
+      <base-button v-for="(button, index) in group" :kex="index" v-bind="button.args" />
+    </div>
+  `,
+});
+
+export const PrimaryButtons2 = () => TemplateGroup2([
+  {
+    args: {
+      tag: 'button',
+      text: 'Primary Button',
+      isDarkMode,
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      disabled: true,
+      text: 'Primary disabled',
+      isDarkMode,
+    },
+  },
+]);
+
+export const SecondaryButtons2 = () => TemplateGroup2([
+  {
+    args: {
+      tag: 'button',
+      modifier: 'secondary',
+      text: 'Secondary Button',
+      isDarkMode,
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      modifier: 'secondary',
+      disabled: true,
+      text: 'Secondary disabled',
+      isDarkMode,
+    },
+  },
+]);
