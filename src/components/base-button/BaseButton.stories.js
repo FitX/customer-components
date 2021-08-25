@@ -1,4 +1,4 @@
-import { TemplateWrapper } from '../../../.storybook/custom-templates';
+import { TemplateWrapper } from '../../../.storybook/template-helpers/custom-templates';
 import BaseButton, {
   modifier,
 } from './BaseButton.vue';
@@ -28,7 +28,7 @@ export default {
   },
 };
 
-const baseTemplate = () => `<base-button v-bind="args">{{ backgroundColor }}
+const baseTemplate = () => `<base-button v-bind="args">
     <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
     </base-button>`;
 
@@ -43,6 +43,13 @@ export const DefaultButton = Template.bind({});
 DefaultButton.args = {
   tag: 'button',
   text: 'Button',
+};
+DefaultButton.parameters = {
+  docs: {
+    source: {
+      code: '<base-button text="Button" />',
+    },
+  },
 };
 
 export const PrimaryAsLink = Template.bind({});
