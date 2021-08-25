@@ -7,6 +7,7 @@
     <slot>
       {{ text }}
     </slot>
+    {{ isDarkMode }}
     <span class="btn__loading" />
   </component>
 </template>
@@ -29,6 +30,10 @@ export default {
     text: {
       type: String,
       default: null,
+    },
+    isDarkMode: {
+      type: Boolean,
+      default: false,
     },
     modifier: {
       type: [String, Array],

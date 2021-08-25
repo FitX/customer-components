@@ -1,4 +1,3 @@
-import { getCurrentInstance, ref, computed } from 'vue';
 import { TemplateWrapper } from '../../../.storybook/custom-templates';
 import BaseButton, {
   modifier,
@@ -20,11 +19,16 @@ export default {
         type: 'multi-select',
       },
     },
+    isDarkMode: {
+      control: {
+        type: 'boolean',
+      },
+    },
     onClick: {},
   },
 };
 
-const baseTemplate = () => `<base-button v-bind="args">{{ isDarkMode }} {{ backgroundColor }}
+const baseTemplate = () => `<base-button v-bind="args">{{ backgroundColor }}
     <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
     </base-button>`;
 
@@ -126,22 +130,50 @@ const TemplateGroup = (group) => ({
   components: { BaseButton },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    const prefersDark = typeof window !== 'undefined'
-      ? window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      : false;
     return {
       group,
-      prefersDark,
     };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <div style="display: flex; gap: 1rem">
-    {{ prefersDark }}
       <base-button v-for="(button, index) in group" :kex="index" v-bind="button.args" />
     </div>
   `,
 });
+
+const groupTemplate = (group) => (args) => TemplateWrapper({
+  args,
+  additionalSetup: {
+    group,
+  },
+  components: { BaseButton },
+  template: `
+    <div style="display: flex; gap: 1rem">
+      <base-button
+        v-for="(button, index) in group"
+        :key="index"
+        isDarkMode
+        v-bind="button.args" />
+    </div>
+  `,
+});
+
+export const PrimaryButtonsTest = groupTemplate([
+  {
+    args: {
+      tag: 'button',
+      text: 'Primary Button',
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      disabled: true,
+      text: 'Primary disabled',
+    },
+  },
+]);
 
 export const PrimaryButtons = () => TemplateGroup([
   {

@@ -5,3 +5,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 2rem;
 }
+
+.fitx-dark-theme {
+  &,
+  .docs-story {
+    background-color: var(--brand-color-anthracite);
+  }
+}

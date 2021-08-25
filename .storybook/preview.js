@@ -1,9 +1,9 @@
-import { addDecorator } from '@storybook/vue3';
-import { withThemes } from 'storybook-addon-themes/vue';
+// import { addDecorator } from '@storybook/vue3';
+// import { withThemes } from 'storybook-addon-themes/vue';
 import '!style-loader!css-loader!sass-loader!../src/assets/styles/lib.scss';
 import '!style-loader!css-loader!sass-loader!./base.scss';
 
-addDecorator(withThemes);
+// addDecorator(withThemes);
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -21,6 +21,9 @@ export const parameters = {
         value: '#181D1E',
       },
     ],
+  },
+  bla: {
+    keks: 'keksi',
   }, */
   themes: {
     clearable: false,

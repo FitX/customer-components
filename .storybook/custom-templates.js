@@ -5,13 +5,13 @@ import { parameters } from './preview';
 /**
  * Template Wrapper to watch for theme-changes in storybook-addon-themes
  * @param args
- * @param context
+ * @param {object} additionalSetup
  * @param template
  * @param components
  * @return {{template, components, setup(): {args: *, isDarkMode: ComputedRef<boolean> | WritableComputedRef<unknown>}}|{args, isDarkMode: ComputedRef<boolean>}}
  * @constructor
  */
-export const TemplateWrapper = ({ args, context, template, components}) => {
+export const TemplateWrapper = ({ args, additionalSetup = {}, template, components}) => {
   return {
     components,
     setup() {
@@ -33,9 +33,16 @@ export const TemplateWrapper = ({ args, context, template, components}) => {
       channel.on(THEME_UPDATE_KEY, (name) => {
         selectedTheme.value = name;
       });
+      console.log('channel', channel);
+      channel.on('updateGlobals', (blubb) => {
+        console.log('update', blubb);
+      });
       return {
-        args,
-        isDarkMode,
+        ...additionalSetup,
+        args: {
+          ...args,
+          isDarkMode,
+        },
         backgroundColor,
       };
     },
