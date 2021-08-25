@@ -35,8 +35,8 @@ const baseTemplate = `
 </base-button>`;
 
 const groupTemplate = `
-  <div style="display: flex; gap: 1rem">
-    <base-button v-for="(button, index) in group" :key="index" v-bind="button.args" :is-dark-mode="isDarkMode" />
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1rem">
+    <base-button v-for="(button, index) in group" :key="index" v-bind="button.args" />
   </div>
 `;
 
@@ -46,7 +46,7 @@ const groupTemplate = `
 const Template = (argsObject) => ({
   setup() {
     const args = argsObject;
-    if (!args.isDarkMode) {
+    if (typeof args.isDarkMode === 'undefined') {
       args.isDarkMode = isDarkMode;
     }
     return {
@@ -57,12 +57,18 @@ const Template = (argsObject) => ({
   template: baseTemplate,
 });
 
-const TemplateGroup = (group) => ({
+const TemplateGroup = (groupItems) => ({
   components: { BaseButton },
   setup() {
+    const group = groupItems.map((item) => {
+      const itemCopy = item;
+      if (typeof item.args.isDarkMode === 'undefined') {
+        itemCopy.args.isDarkMode = isDarkMode;
+      }
+      return itemCopy;
+    });
     return {
-      group,
-      isDarkMode,
+      group: reactive(group),
     };
   },
   template: groupTemplate,
@@ -75,7 +81,7 @@ export const DefaultButton = Template.bind({});
 DefaultButton.args = {
   tag: 'button',
   text: 'Button',
-  // isDarkMode: false,
+  isDarkMode: false,
 };
 /**
  * Overwrite Default Button code
@@ -123,7 +129,6 @@ export const PrimaryButtons = () => TemplateGroup([
     args: {
       tag: 'button',
       text: 'Primary Button',
-      // isDarkMode,
     },
   },
   {
@@ -131,7 +136,6 @@ export const PrimaryButtons = () => TemplateGroup([
       tag: 'button',
       disabled: true,
       text: 'Primary disabled',
-      // isDarkMode,
     },
   },
 ]);
@@ -142,7 +146,7 @@ export const SecondaryButtons = () => TemplateGroup([
       tag: 'button',
       modifier: 'secondary',
       text: 'Secondary Button',
-      // isDarkMode,
+      isDarkMode: false,
     },
   },
   {
@@ -151,7 +155,6 @@ export const SecondaryButtons = () => TemplateGroup([
       modifier: 'secondary',
       disabled: true,
       text: 'Secondary disabled',
-      // isDarkMode,
     },
   },
 ]);
