@@ -1,3 +1,4 @@
+import { reactive, toRefs } from 'vue';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
 import BaseButton, {
   modifier,
@@ -29,7 +30,7 @@ export default {
  * @type {string}
  */
 const baseTemplate = `
-<base-button v-bind="args" :is-dark-mode="isDarkMode">
+<base-button v-bind="args">
   <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
 </base-button>`;
 
@@ -42,12 +43,14 @@ const groupTemplate = `
 /* ******************************** */
 /// Story Wrapper
 /* ******************************** */
-const Template = (args) => ({
+const Template = (argsObject) => ({
   setup() {
-    // const isDarkMode = computed(() => selectedTheme.value === 'fitx-dark');
+    const args = argsObject;
+    if (!args.isDarkMode) {
+      args.isDarkMode = isDarkMode;
+    }
     return {
-      args,
-      isDarkMode,
+      args: reactive(args),
     };
   },
   components: { BaseButton },
@@ -72,7 +75,7 @@ export const DefaultButton = Template.bind({});
 DefaultButton.args = {
   tag: 'button',
   text: 'Button',
-  isDarkMode: false,
+  // isDarkMode: false,
 };
 /**
  * Overwrite Default Button code
