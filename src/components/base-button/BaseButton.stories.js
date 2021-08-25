@@ -1,4 +1,4 @@
-import { reactive, toRefs } from 'vue';
+import { reactive } from 'vue';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
 import BaseButton, {
   modifier,
