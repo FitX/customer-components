@@ -1,4 +1,5 @@
 import { TemplateWrapper } from '../../../.storybook/template-helpers/custom-templates';
+import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
 import BaseButton, {
   modifier,
 } from './BaseButton.vue';
@@ -19,31 +20,50 @@ export default {
         type: 'multi-select',
       },
     },
-    isDarkMode: {
+    /* isDarkMode: {
       control: {
         type: 'boolean',
       },
-    },
+    }, */
     onClick: {},
   },
 };
 
-const baseTemplate = () => `<base-button v-bind="args">
-    <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
-    </base-button>`;
+/// Templates
+/**
+ * Base Button Template with default Slot
+ * @type {string}
+ */
+const baseTemplate = `
+<base-button v-bind="args">
+  <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
+</base-button>`;
 
-const Template = (args, context) => TemplateWrapper({
+/// Story Wrapper
+/**
+ * Default Story Template Wrapper
+ * @param args
+ * @param additionalSetup
+ * @return {{template, components, setup(): {args: *, isDarkMode: (ComputedRef<boolean>|WritableComputedRef<*>)}}|{args, isDarkMode: ComputedRef<boolean>}}
+ * @constructor
+ */
+const Template = (args, additionalSetup) => TemplateWrapper({
   args,
-  context,
+  additionalSetup,
   components: { BaseButton },
-  template: baseTemplate(),
+  template: baseTemplate,
 });
 
+/// Stories
 export const DefaultButton = Template.bind({});
 DefaultButton.args = {
   tag: 'button',
   text: 'Button',
 };
+/**
+ * Overwrite Default Button code
+ * @type {{docs: {source: {code: string}}}}
+ */
 DefaultButton.parameters = {
   docs: {
     source: {
@@ -77,159 +97,64 @@ WithSlot.args = {
   },
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  modifier: 'secondary',
-  text: 'Secondary',
-};
-
-export const SecondaryDisabled = Template.bind({});
-SecondaryDisabled.args = {
-  modifier: ['secondary', 'disabled'],
-  text: 'Secondary disabled',
-};
-
-export const Tertiary = Template.bind({});
-Tertiary.args = {
-  modifier: 'tertiary',
-  text: 'Tertiary',
-};
-
-export const TertiaryDisabled = Template.bind({});
-TertiaryDisabled.args = {
-  modifier: ['tertiary', 'disabled'],
-  text: 'Tertiary disabled',
-};
-
-const PrimaryGroupItems = [
-  {
-    args: {
-      tag: 'button',
-      text: 'Primary Button',
-    },
-  },
-  {
-    args: {
-      tag: 'button',
-      disabled: true,
-      text: 'Primary disabled',
-    },
-  },
-];
-
-export const PrimaryGroup = () => ({
-  // Components used in your story `template` are defined in the `components` object
-  components: { BaseButton },
-  // The story's `args` need to be mapped into the template through the `setup()` method
-  setup() {
-    return { PrimaryGroupItems };
-  },
-  // And then the `args` are bound to your component with `v-bind="args"`
-  template: `
-    <div style="display: flex; gap: 1rem">
-      <base-button v-for="(button, index) in PrimaryGroupItems" :kex="index" v-bind="button.args" />
-    </div>
-  `,
-});
-
-const TemplateGroup = (group) => ({
-  // Components used in your story `template` are defined in the `components` object
-  components: { BaseButton },
-  // The story's `args` need to be mapped into the template through the `setup()` method
-  setup() {
-    return {
-      group,
-    };
-  },
-  // And then the `args` are bound to your component with `v-bind="args"`
-  template: `
-    <div style="display: flex; gap: 1rem">
-      <base-button v-for="(button, index) in group" :kex="index" v-bind="button.args" />
-    </div>
-  `,
-});
-
-const groupTemplate = (group) => (args) => TemplateWrapper({
+const groupTemplate = `
+  <div style="display: flex; gap: 1rem">
+    <base-button
+    v-for="(button, index) in PrimaryGroupItems"
+    :key="index"
+    v-bind="{ ...button.args, ...args }" />
+  </div>
+`;
+const TemplateGroup = (args, additionalSetup) => TemplateWrapper({
   args,
-  additionalSetup: {
-    group,
-  },
+  additionalSetup,
   components: { BaseButton },
-  template: `
-    <div style="display: flex; gap: 1rem">
-      <base-button
-        v-for="(button, index) in group"
-        :key="index"
-        isDarkMode
-        v-bind="button.args" />
-    </div>
-  `,
+  template: groupTemplate,
 });
 
-export const PrimaryButtonsTest = groupTemplate([
-  {
-    args: {
-      tag: 'button',
-      text: 'Primary Button',
+export const PrimaryButtons = () => TemplateGroup({}, {
+  PrimaryGroupItems: [
+    {
+      args: {
+        tag: 'button',
+        text: 'Primary Button',
+      },
     },
-  },
-  {
-    args: {
-      tag: 'button',
-      disabled: true,
-      text: 'Primary disabled',
+    {
+      args: {
+        tag: 'button',
+        disabled: true,
+        text: 'Primary disabled',
+      },
     },
-  },
-]);
+  ],
+});
 
-export const PrimaryButtons = () => TemplateGroup([
-  {
-    args: {
-      tag: 'button',
-      text: 'Primary Button',
-    },
-  },
-  {
-    args: {
-      tag: 'button',
-      disabled: true,
-      text: 'Primary disabled',
-    },
-  },
-]);
 
-export const SecondaryButtons = () => TemplateGroup([
-  {
-    args: {
-      tag: 'button',
-      modifier: 'secondary',
-      text: 'Secondary Button',
-    },
-  },
-  {
-    args: {
-      tag: 'button',
-      modifier: 'secondary',
-      disabled: true,
-      text: 'Secondary disabled',
-    },
-  },
-]);
 
-export const TertiaryButtons = () => TemplateGroup([
-  {
-    args: {
-      tag: 'button',
-      modifier: 'tertiary',
-      text: 'Tertiary Button',
+
+
+
+
+
+const Template2 = (args) => {
+  return {
+    // Components used in your story `template` are defined in the `components` object
+    components: { BaseButton },
+    // The story's `args` need to be mapped into the template through the `setup()` method
+    setup() {
+      return { args };
     },
-  },
-  {
-    args: {
-      tag: 'button',
-      modifier: 'tertiary',
-      disabled: true,
-      text: 'Tertiary disabled',
-    },
-  },
-]);
+    // And then the `args` are bound to your component with `v-bind="args"`
+    template: `<base-button v-bind="args">
+    <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
+    </base-button>`,
+  };
+};
+
+export const Defaul2tButton = Template2.bind({});
+Defaul2tButton.args = {
+  tag: 'button',
+  text: `blubb ${isDarkMode.value}`,
+  isDarkMode,
+};

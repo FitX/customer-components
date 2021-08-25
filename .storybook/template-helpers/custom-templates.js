@@ -1,4 +1,5 @@
-import useThemeDetection from './use-template-theme-detection';
+import { reactive, toRefs } from 'vue';
+import { isDarkMode } from './use-template-theme-detection';
 /**
  * Template Wrapper to watch for theme-changes in storybook-addon-themes
  * @param {object} args Components Args e.g { tag: 'button', text: 'Button' }
@@ -12,15 +13,15 @@ export const TemplateWrapper = ({ args, additionalSetup = {}, template, componen
   return {
     components,
     setup() {
-      const {
-        isDarkMode,
-      } = useThemeDetection();
-      return {
+      const data = reactive({
         ...additionalSetup,
         args: {
           ...args,
           isDarkMode,
-        },
+        }
+      })
+      return {
+        ...toRefs(data),
       };
     },
     template,
