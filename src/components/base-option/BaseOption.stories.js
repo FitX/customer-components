@@ -99,7 +99,7 @@ DefaultBaseOption.args = {
   text: 'Option',
 };
 
-export const DefaultBaseOption = () => TemplateGroup([
+export const DefaultBaseOptions = () => TemplateGroup([
   {
     args: {
       text: 'Button 1',
