@@ -1,9 +1,5 @@
 // import { addDecorator } from '@storybook/vue3';
 // import { withThemes } from 'storybook-addon-themes/vue';
-// import '!style-loader!css-loader!sass-loader!../src/assets/styles/lib.scss';
-// import '!style-loader!css-loader!sass-loader!../src/assets/styles/lib.scss';
-// import '!style-loader!css-loader!sass-loader!./base.scss';
-
 import '@/assets/styles/lib.scss';
 import './base.scss';
 
