@@ -5,6 +5,19 @@ import BaseButton, {
   modifier,
 } from './BaseButton.vue';
 
+const storyDescription = `
+  **Verwendung:**
+  Base Button Component wird verwendet um @TODO
+  
+  **Hinweise:**
+  Alle Buttons existieren auch als _small_ Variante.
+
+  Folgende Varianten sollen aber nicht klein benutzt werden @TODO: Feedback
+
+  - Tertiary
+  - Primary auf Hintergrund
+`
+
 export default {
   title: 'Components/Buttons/BaseButton',
   component: BaseButton,
@@ -26,7 +39,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Base Button Component wird verwendet um @TODO',
+        component: storyDescription,
       },
     },
   },
@@ -195,22 +208,41 @@ DisabledOptions.parameters = {
 export const PrimaryButtons = () => TemplateGroup([
   {
     args: {
-      tag: 'button',
       text: 'Primary Button',
     },
   },
   {
     args: {
-      tag: 'button',
       text: 'Primary Hover',
       modifier: 'fake-hover',
     },
   },
   {
     args: {
-      tag: 'button',
       disabled: true,
       text: 'Primary disabled',
+    },
+  },
+]);
+
+export const PrimaryButtonsSmall = () => TemplateGroup([
+  {
+    args: {
+      text: 'Small',
+      modifier: 'small',
+    },
+  },
+  {
+    args: {
+      text: 'Small Hover',
+      modifier: ['small', 'fake-hover'],
+    },
+  },
+  {
+    args: {
+      disabled: true,
+      modifier: 'small',
+      text: 'Small disabled',
     },
   },
 ]);
@@ -218,21 +250,18 @@ export const PrimaryButtons = () => TemplateGroup([
 export const SecondaryButtons = () => TemplateGroup([
   {
     args: {
-      tag: 'button',
       modifier: 'secondary',
       text: 'Secondary Button',
     },
   },
   {
     args: {
-      tag: 'button',
       modifier: ['secondary', 'fake-hover'],
       text: 'Secondary Hover',
     },
   },
   {
     args: {
-      tag: 'button',
       modifier: 'secondary',
       disabled: true,
       text: 'Secondary disabled',
@@ -240,24 +269,43 @@ export const SecondaryButtons = () => TemplateGroup([
   },
 ]);
 
+export const SecondaryButtonsSmall = () => TemplateGroup([
+  {
+    args: {
+      modifier: ['small', 'secondary'],
+      text: 'Small',
+    },
+  },
+  {
+    args: {
+      modifier: ['small', 'secondary', 'fake-hover'],
+      text: 'Small Hover',
+    },
+  },
+  {
+    args: {
+      modifier: ['small', 'secondary'],
+      disabled: true,
+      text: 'Small disabled',
+    },
+  },
+]);
+
 export const TertiaryButtons = () => TemplateGroup([
   {
     args: {
-      tag: 'button',
       modifier: 'tertiary',
       text: 'Tertiary Button',
     },
   },
   {
     args: {
-      tag: 'button',
       modifier: ['tertiary', 'fake-hover'],
       text: 'Tertiary Hover',
     },
   },
   {
     args: {
-      tag: 'button',
       modifier: 'tertiary',
       disabled: true,
       text: 'Tertiary disabled',
@@ -265,30 +313,48 @@ export const TertiaryButtons = () => TemplateGroup([
   },
 ]);
 
+export const TertiaryButtonsSmall = () => TemplateGroup([
+  {
+    args: {
+      modifier: ['small', 'tertiary'],
+      text: 'Small',
+    },
+  },
+  {
+    args: {
+      modifier: ['small','tertiary', 'fake-hover'],
+      text: 'Small Hover',
+    },
+  },
+  {
+    args: {
+      modifier: ['small', 'tertiary'],
+      disabled: true,
+      text: 'Small disabled',
+    },
+  },
+]);
+
 export const QuaternaryButtons = () => TemplateGroupBackground([
   {
     args: {
-      tag: 'button',
       text: 'Primary Button',
     },
   },
   {
     args: {
-      tag: 'button',
       text: 'Primary Hover',
       modifier: 'fake-hover',
     },
   },
   {
     args: {
-      tag: 'button',
       modifier: 'quaternary',
       text: 'Quaternary Button',
     },
   },
   {
     args: {
-      tag: 'button',
       modifier: ['quaternary', 'fake-hover'],
       text: 'Quaternary Hover',
     },
@@ -302,3 +368,30 @@ QuaternaryButtons.parameters = {
     },
   },
 };
+
+export const QuaternaryButtonsSmall = () => TemplateGroupBackground([
+  {
+    args: {
+      text: 'Small Primary',
+      modifier: 'small',
+    },
+  },
+  {
+    args: {
+      text: 'Small Primary Hover',
+      modifier: ['small', 'fake-hover'],
+    },
+  },
+  {
+    args: {
+      modifier: ['small', 'quaternary'],
+      text: 'Small Quaternary',
+    },
+  },
+  {
+    args: {
+      modifier: ['small', 'quaternary', 'fake-hover'],
+      text: 'Small Quaternary Hover',
+    },
+  },
+]);

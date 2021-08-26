@@ -19,6 +19,7 @@ export const modifier = [
   'tertiary',
   'quaternary',
   'disabled',
+  'small',
   'fake-hover',
 ];
 
@@ -68,15 +69,17 @@ export default {
   --btn-color-bg: var(--primary-brand-color-orange, #ED6A12);
   --btn-color-border: var(--btn-color-bg);
   --btn-color: #fff;
+  --btn-font-size: 1.8rem;
+  --btn-padding: 1.5rem;
   --loader-size: 1.5rem;
   position: relative;
   width: 28rem;
   max-width: 100%;
-  font-size: 1.8rem;
+  font-size: var(--btn-font-size);
   font-weight: 400;
   background: var(--btn-color-bg);
   color: var(--btn-color);
-  padding: 1.6rem;
+  padding: var(--btn-padding);
   border: 2px solid var(--btn-color-border);
   border-radius: 2.6rem;
   cursor: pointer;
@@ -101,6 +104,14 @@ export default {
         --btn-color: var(--brand-color-gray-cement);
       }
     }
+  }
+
+  &--small {
+    --btn-font-size: 1.6rem;
+    --btn-padding: 0.7rem;
+    padding: var(--btn-padding) calc(3 * var(--btn-padding));
+    display: inline-block;
+    width: auto;
   }
 
   &--secondary {
