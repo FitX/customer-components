@@ -7,12 +7,19 @@ import BaseOption, {
 const storyDescription = `
   **Verwendung:**
   Base Option Component wird verwendet um **@TODO**
-`
+  Aber auf gar keinen Fall in Forms, Dafür gibt es dann wieder eine eigene Komponente die genauso ist nur in klein, dafür mit Error State.
+`;
 
 export default {
   title: 'Components/BaseOption',
   component: BaseOption,
   argTypes: {
+    modifier: {
+      options: modifier,
+      control: {
+        type: 'multi-select',
+      },
+    },
     onClick: {},
   },
   parameters: {
@@ -99,7 +106,7 @@ DefaultBaseOption.args = {
   title: 'Option',
 };
 
-export const DefaultBaseOptions = () => TemplateGroup([
+export const BaseOptions = () => TemplateGroup([
   {
     args: {
       title: 'Option',
@@ -125,7 +132,7 @@ export const DefaultBaseOptions = () => TemplateGroup([
   },
 ]);
 
-export const DefaultBaseOptionsExtra = () => TemplateGroup([
+export const BaseOptionsExtra = () => TemplateGroup([
   {
     args: {
       title: 'Option',

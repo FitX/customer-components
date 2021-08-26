@@ -119,10 +119,43 @@ export default {
     }
   }
 
+  &--dark {
+    --btn-color-bg: transparent;
+    --btn-color: #fff;
+    --btn-color-border: var(--brand-color-gray-stone);
+
+    &:hover,
+    &#{$self}--fake-hover {
+      --btn-color-bg: var(--brand-color-gray-coal);
+    }
+
+    &:disabled,
+    &#{$self}--disabled {
+      &,
+      &:hover {
+        --btn-color-bg: transparent;
+        --btn-color: var(--brand-color-gray-cement);
+        --btn-color-border: var(--brand-color-gray-carbon);
+      }
+    }
+    &#{$self}--active {
+      &,
+      &:hover,
+      &#{$self}--fake-hover {
+        --btn-color-bg: #fff;
+        --btn-color-border: #fff;
+        --btn-color: var(--brand-color-anthracite);
+      }
+    }
+  }
+
   &__additional {
     font-size: 1.4rem;
     font-weight: 300;
     color: var(--brand-color-gray-steel);
+    #{$self}--dark & {
+      color: var(--brand-color-gray-graphite);
+    }
   }
 
 }
