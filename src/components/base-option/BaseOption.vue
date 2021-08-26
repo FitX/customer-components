@@ -1,33 +1,34 @@
 <template>
-  <component
-    :is="tag"
+  <button
     v-bind="$attrs"
     :class="[ getModifierClasses('btn', modifier), { 'btn--dark' : isDarkMode } ]"
     class="btn">
     <slot>
-      {{ text }}
+      {{ title }}
     </slot>
-    <span class="btn__loading" />
-  </component>
+    <span class="btn__additional">
+      <slot name="additional">
+        {{ text }}
+      </slot>
+    </span>
+  </button>
 </template>
 
 <script>
 import useModifier from '@/use/modifier-class';
 
 export const modifier = [
-  'secondary',
-  'tertiary',
-  'quaternary',
   'disabled',
-  'small',
+  'active',
+  'extra',
   'fake-hover',
 ];
 
 export default {
   props: {
-    tag: {
+    title: {
       type: String,
-      default: 'button',
+      default: null,
     },
     text: {
       type: String,
@@ -66,28 +67,45 @@ export default {
   @include btn-reset();
 
   $self: &;
-  --btn-color-bg: var(--primary-brand-color-orange, #ED6A12);
-  --btn-color-border: var(--btn-color-bg);
-  --btn-color: #fff;
+  --btn-color-bg: #fff;
+  --btn-color-border: var(--brand-color-gray-stone);
+  --btn-color: var(--brand-color-anthracite);
   --btn-font-size: 1.8rem;
-  --btn-padding: 1.5rem;
-  --btn-border-width: 2px;
-  --loader-size: 1.5rem;
-  position: relative;
-  width: 28rem;
-  max-width: 100%;
+  --btn-padding: 3rem;
+  --btn-border-width: 1px;
+
+  height: 8rem;
   font-size: var(--btn-font-size);
   font-weight: 400;
   background: var(--btn-color-bg);
   color: var(--btn-color);
   padding: var(--btn-padding);
   border: var(--btn-border-width) solid var(--btn-color-border);
-  border-radius: 2.6rem;
+  border-radius: 0.8rem;
   cursor: pointer;
   text-align: center;
+
   &:hover,
   &--fake-hover {
-    --btn-color-bg: var(--brand-color-orange-1);
+    --btn-color-bg: var(--brand-color-gray-chalk);
+  }
+
+  &--extra {
+    --btn-padding: 1.8rem;
+    display: grid;
+    text-align: left;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  &--active {
+    &,
+    &:hover,
+    &#{$self}--fake-hover {
+      --btn-color-bg: var(--brand-color-anthracite-1);
+      --btn-color-border: var(--btn-color-bg);
+      --btn-color: #fff;
+    }
   }
 
   &:disabled,
@@ -95,128 +113,17 @@ export default {
     &,
     &:hover {
       --btn-color-bg: var(--brand-color-gray-chalk);
+      --btn-color-border: var(--brand-color-gray-ash);
       --btn-color: var(--brand-color-gray-cement);
       cursor: not-allowed;
     }
-    &#{$self}--dark {
-      &,
-      &:hover {
-        --btn-color-bg: var(--brand-color-anthracite-3);
-        --btn-color: var(--brand-color-gray-cement);
-      }
-    }
   }
 
-  &--small {
-    --btn-font-size: 1.6rem;
-    --btn-padding: 0.7rem;
-    --btn-border-width: 1px;
-    padding: var(--btn-padding) calc(3 * var(--btn-padding));
-    display: inline-block;
-    width: auto;
+  &__additional {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--brand-color-gray-steel);
   }
 
-  &--secondary {
-    --btn-color-bg: transparent;
-    --btn-color-border: var(--brand-color-anthracite);
-    --btn-color: var(--brand-color-anthracite);
-
-    &:hover,
-    &#{$self}--fake-hover {
-      --btn-color-bg: var(--brand-color-gray-chalk);
-    }
-    &:disabled,
-    &#{$self}--disabled {
-      &,
-      &:hover {
-        --btn-color-bg: transparent;
-        --btn-color: var(--brand-color-gray-cement);
-        --btn-color-border: var(--brand-color-gray-ash);
-      }
-    }
-
-    &#{$self}--dark {
-      --btn-color-bg: transparent;
-      --btn-color: #fff;
-      --btn-color-border: #fff;
-
-      &:hover,
-      &#{$self}--fake-hover {
-        --btn-color-bg: var(--brand-color-anthracite-3);
-      }
-
-      &:disabled,
-      &#{$self}--disabled {
-        &,
-        &:hover {
-          --btn-color-bg: transparent;
-          --btn-color: var(--brand-color-gray-cement);
-          --btn-color-border: var(--brand-color-anthracite-3);
-        }
-      }
-    }
-  }
-
-  &--tertiary {
-    --btn-color-bg: transparent;
-    --btn-color-border: transparent;
-    --btn-color: var(--brand-color-anthracite);
-
-    &:hover,
-    &#{$self}--fake-hover {
-      --btn-color-bg: var(--brand-color-gray-chalk);
-    }
-    &:disabled,
-    &#{$self}--disabled {
-      --btn-color: var(--brand-color-gray-cement);
-    }
-    &#{$self}--dark {
-      --btn-color: #fff;
-      &:hover,
-      &#{$self}--fake-hover {
-        --btn-color-bg: var(--brand-color-anthracite-3);
-      }
-    }
-  }
-
-  &--quaternary {
-    --btn-color-bg: #fff;
-    --btn-color-border: #fff;
-    --btn-color: var(--brand-color-anthracite);
-
-    &:hover,
-    &#{$self}--fake-hover {
-      --btn-color-border: var(--brand-color-gray-chalk);
-      --btn-color-bg: var(--brand-color-gray-chalk);
-    }
-  }
-
-  &:active #{&}__loading {
-    display: inline-block;
-    width: var(--loader-size);
-    height: var(--loader-size);
-    position: absolute;
-    right: 1.8rem;
-    top: 50%;
-    transform: translate3d(0, -50%, 0);
-    &:after {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 0.2rem solid #fff;
-      border-color: #fff transparent #fff transparent;
-      animation: ring 1s linear infinite;
-    }
-    @keyframes ring {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  }
 }
 </style>

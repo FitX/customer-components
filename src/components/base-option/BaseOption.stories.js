@@ -96,13 +96,91 @@ const TemplateGroup = (groupItems) => ({
 /* ******************************** */
 export const DefaultBaseOption = Template.bind({});
 DefaultBaseOption.args = {
-  text: 'Option',
+  title: 'Option',
 };
 
 export const DefaultBaseOptions = () => TemplateGroup([
   {
     args: {
-      text: 'Button 1',
+      title: 'Option',
+    },
+  },
+  {
+    args: {
+      title: 'Option Hover',
+      modifier: 'fake-hover',
+    },
+  },
+  {
+    args: {
+      title: 'Option Activated',
+      modifier: 'active',
+    },
+  },
+  {
+    args: {
+      title: 'Option Disabled',
+      disabled: true,
+    },
+  },
+]);
+
+export const DefaultBaseOptionsExtra = () => TemplateGroup([
+  {
+    args: {
+      title: 'Option',
+      text: 'Additional',
+      modifier: ['extra'],
+    },
+  },
+  {
+    args: {
+      title: 'Option Hover',
+      text: 'Additional',
+      modifier: ['extra', 'fake-hover'],
+    },
+  },
+  {
+    args: {
+      title: 'Option Activated',
+      text: 'Additional',
+      modifier: ['extra', 'active'],
+    },
+  },
+  {
+    args: {
+      title: 'Option Disabled',
+      text: 'Additional',
+      modifier: ['extra'],
+      disabled: true,
+    },
+  },
+]);
+
+export const BaseOptionsSmall = () => TemplateGroup([
+  {
+    args: {
+      title: 'Option',
+      modifier: 'small',
+    },
+  },
+  {
+    args: {
+      title: 'Option Hover',
+      modifier: ['small', 'fake-hover'],
+    },
+  },
+  {
+    args: {
+      title: 'Option Activated',
+      modifier: ['small', 'active'],
+    },
+  },
+  {
+    args: {
+      title: 'Option Disabled',
+      modifier: 'small',
+      disabled: true,
     },
   },
 ]);
