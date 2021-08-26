@@ -1,5 +1,6 @@
 import { reactive } from 'vue';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
+import exampleBackGroundImage from '../../../.storybook/example-background.png';
 import BaseButton, {
   modifier,
 } from './BaseButton.vue';
@@ -52,6 +53,16 @@ const groupTemplate = `
   <base-button v-for="(button, index) in group" :key="index" v-bind="button.args" />
 </div>`;
 
+
+/**
+ * Base Buttons Group Template with Background
+ * @type {string}
+ */
+const groupTemplateBackground = `
+<div style="padding: 2rem; display: grid; grid-template-columns: repeat(2, auto); justify-content: center; gap: 2rem; background: url(${exampleBackGroundImage})">
+  <base-button v-for="(button, index) in group" :key="index" v-bind="button.args" />
+</div>`;
+
 /* ******************************** */
 /// Story Wrapper
 /* ******************************** */
@@ -96,6 +107,16 @@ const TemplateGroup = (groupItems) => ({
     };
   },
   template: groupTemplate,
+});
+
+const TemplateGroupBackground = (group) => ({
+  components: { BaseButton },
+  setup() {
+    return {
+      group,
+    };
+  },
+  template: groupTemplateBackground,
 });
 
 //* ******************************** */
@@ -243,3 +264,41 @@ export const TertiaryButtons = () => TemplateGroup([
     },
   },
 ]);
+
+export const QuaternaryButtons = () => TemplateGroupBackground([
+  {
+    args: {
+      tag: 'button',
+      text: 'Primary Button',
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      text: 'Primary Hover',
+      modifier: 'fake-hover',
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      modifier: 'quaternary',
+      text: 'Quaternary Button',
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      modifier: ['quaternary', 'fake-hover'],
+      text: 'Quaternary Hover',
+    },
+  },
+]);
+
+QuaternaryButtons.parameters = {
+  docs: {
+    description: {
+      story: 'Auf Hintergrund kommt primär der Primäry Button zum Einsatz. Sollte dieser nicht passen kann auch der Quaternary Button benutzt werden. Ein Einsatz von disable Styles ist nicht vorgesehen.',
+    },
+  },
+};

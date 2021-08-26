@@ -17,6 +17,7 @@ import useModifier from '@/use/modifier-class';
 export const modifier = [
   'secondary',
   'tertiary',
+  'quaternary',
   'disabled',
   'fake-hover',
 ];
@@ -162,6 +163,18 @@ export default {
       &#{$self}--fake-hover {
         --btn-color-bg: var(--brand-color-anthracite-3);
       }
+    }
+  }
+
+  &--quaternary {
+    --btn-color-bg: #fff;
+    --btn-color-border: #fff;
+    --btn-color: var(--brand-color-anthracite);
+
+    &:hover,
+    &#{$self}--fake-hover {
+      --btn-color-border: var(--brand-color-gray-chalk);
+      --btn-color-bg: var(--brand-color-gray-chalk);
     }
   }
 
