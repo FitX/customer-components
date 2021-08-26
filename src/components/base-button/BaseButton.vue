@@ -2,7 +2,7 @@
   <component
     :is="tag"
     v-bind="$attrs"
-    :class="[ getModifierClasses('btn', modifier) ]"
+    :class="[ getModifierClasses('btn', modifier), { 'btn--dark' : isDarkMode } ]"
     class="btn">
     <slot>
       {{ text }}
@@ -91,6 +91,13 @@ export default {
       --btn-color: var(--brand-color-gray-cement);
       cursor: not-allowed;
     }
+    &#{$self}--dark {
+      &,
+      &:hover {
+        --btn-color-bg: var(--brand-color-anthracite-3);
+        --btn-color: var(--brand-color-gray-cement);
+      }
+    }
   }
 
   &--secondary {
@@ -103,8 +110,32 @@ export default {
     }
     &:disabled,
     &#{$self}--disabled {
-      --btn-color: var(--brand-color-gray-cement);
-      --btn-color-border: var(--brand-color-gray-ash);
+      &,
+      &:hover {
+        --btn-color-bg: transparent;
+        --btn-color: var(--brand-color-gray-cement);
+        --btn-color-border: var(--brand-color-gray-ash);
+      }
+    }
+
+    &#{$self}--dark {
+      --btn-color-bg: transparent;
+      --btn-color: #fff;
+      --btn-color-border: #fff;
+
+      &:hover {
+        --btn-color-bg: var(--brand-color-anthracite-3);
+      }
+
+      &:disabled,
+      &#{$self}--disabled {
+        &,
+        &:hover {
+          --btn-color-bg: transparent;
+          --btn-color: var(--brand-color-gray-cement);
+          --btn-color-border: var(--brand-color-anthracite-3);
+        }
+      }
     }
   }
 
@@ -119,6 +150,12 @@ export default {
     &:disabled,
     &#{$self}--disabled {
       --btn-color: var(--brand-color-gray-cement);
+    }
+    &#{$self}--dark {
+      --btn-color: #fff;
+      &:hover {
+        --btn-color-bg: var(--brand-color-anthracite-3);
+      }
     }
   }
 
