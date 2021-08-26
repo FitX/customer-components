@@ -6,11 +6,6 @@
     <slot>
       {{ title }}
     </slot>
-    <span class="btn__additional">
-      <slot name="additional">
-        {{ text }}
-      </slot>
-    </span>
   </button>
 </template>
 
@@ -20,17 +15,13 @@ import useModifier from '@/use/modifier-class';
 export const modifier = [
   'disabled',
   'active',
-  'extra',
+  'error',
   'fake-hover',
 ];
 
 export default {
   props: {
     title: {
-      type: String,
-      default: null,
-    },
-    text: {
       type: String,
       default: null,
     },
@@ -71,10 +62,10 @@ export default {
   --btn-color-border: var(--brand-color-gray-stone);
   --btn-color: var(--brand-color-anthracite);
   --btn-font-size: 1.8rem;
-  --btn-padding: 3rem;
+  --btn-padding: 1.8rem;
   --btn-border-width: 1px;
 
-  height: 8rem;
+  height: 6rem;
   font-size: var(--btn-font-size);
   font-weight: 400;
   background: var(--btn-color-bg);
@@ -88,14 +79,6 @@ export default {
   &:hover,
   &--fake-hover {
     --btn-color-bg: var(--brand-color-gray-chalk);
-  }
-
-  &--extra {
-    --btn-padding: 1.8rem;
-    display: grid;
-    text-align: left;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
   }
 
   &--active {
@@ -149,13 +132,11 @@ export default {
     }
   }
 
-  &__additional {
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: var(--brand-color-gray-steel);
-    #{$self}--dark & {
-      color: var(--brand-color-gray-graphite);
-    }
+  &--error {
+    // @TODO FUNKTIONSFARBEN EINRICHTEN
+    --btn-color-bg: transparent;
+    --btn-color: #E83623;
+    --btn-color-border: #E83623;
   }
 
 }

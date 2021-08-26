@@ -1,18 +1,18 @@
 import { reactive } from 'vue';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
-import BaseOption, {
+import BaseOptionForm, {
   modifier,
-} from './BaseOption.vue';
+} from './BaseOptionForm.vue';
 
 const storyDescription = `
   **Verwendung:**
-  Base Option Component wird verwendet um **@TODO**
-  Aber auf gar keinen Fall in Forms, Dafür gibt es dann wieder eine eigene Komponente die genauso ist nur in klein, dafür mit Error State.
+  Base Option Form Component wird verwendet um **@TODO**
+  Nur in Formularen und irgendwie unterscheiden die sich von Radios?!
 `;
 
 export default {
-  title: 'Components/BaseOption',
-  component: BaseOption,
+  title: 'Components/BaseOptionForm',
+  component: BaseOptionForm,
   argTypes: {
     modifier: {
       options: modifier,
@@ -39,9 +39,9 @@ export default {
  * @type {string}
  */
 const baseTemplate = `
-<base-option v-bind="args">
+<base-option-form v-bind="args">
   <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
-</base-option>`;
+</base-option-form>`;
 
 /**
  * Base Buttons Group Template
@@ -49,7 +49,7 @@ const baseTemplate = `
  */
 const groupTemplate = `
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1rem">
-  <base-option v-for="(button, index) in group" :key="index" v-bind="button.args" />
+  <base-option-form v-for="(button, index) in group" :key="index" v-bind="button.args" />
 </div>`;
 
 /* ******************************** */
@@ -71,7 +71,7 @@ const Template = (argsObject) => ({
       args: reactive(args),
     };
   },
-  components: { BaseOption },
+  components: { BaseOptionForm },
   template: baseTemplate,
 });
 
@@ -82,7 +82,7 @@ const Template = (argsObject) => ({
  * @constructor
  */
 const TemplateGroup = (groupItems) => ({
-  components: { BaseOption },
+  components: { BaseOptionForm },
   setup() {
     const group = groupItems.map((item) => {
       const itemCopy = item;
@@ -103,10 +103,10 @@ const TemplateGroup = (groupItems) => ({
 /* ******************************** */
 export const DefaultBaseOption = Template.bind({});
 DefaultBaseOption.args = {
-  title: 'Option',
+  title: 'Base Option Form',
 };
 
-export const BaseOptions = () => TemplateGroup([
+export const BaseOptionsForms = () => TemplateGroup([
   {
     args: {
       title: 'Option',
@@ -115,13 +115,13 @@ export const BaseOptions = () => TemplateGroup([
   {
     args: {
       title: 'Option Hover',
-      modifier: 'fake-hover',
+      modifier: ['fake-hover'],
     },
   },
   {
     args: {
       title: 'Option Activated',
-      modifier: 'active',
+      modifier: ['active'],
     },
   },
   {
@@ -130,64 +130,10 @@ export const BaseOptions = () => TemplateGroup([
       disabled: true,
     },
   },
-]);
-
-export const BaseOptionsExtra = () => TemplateGroup([
   {
     args: {
-      title: 'Option',
-      text: 'Additional',
-      modifier: ['extra'],
-    },
-  },
-  {
-    args: {
-      title: 'Option Hover',
-      text: 'Additional',
-      modifier: ['extra', 'fake-hover'],
-    },
-  },
-  {
-    args: {
-      title: 'Option Activated',
-      text: 'Additional',
-      modifier: ['extra', 'active'],
-    },
-  },
-  {
-    args: {
-      title: 'Option Disabled',
-      text: 'Additional',
-      modifier: ['extra'],
-      disabled: true,
-    },
-  },
-]);
-
-export const BaseOptionsSmall = () => TemplateGroup([
-  {
-    args: {
-      title: 'Option',
-      modifier: 'small',
-    },
-  },
-  {
-    args: {
-      title: 'Option Hover',
-      modifier: ['small', 'fake-hover'],
-    },
-  },
-  {
-    args: {
-      title: 'Option Activated',
-      modifier: ['small', 'active'],
-    },
-  },
-  {
-    args: {
-      title: 'Option Disabled',
-      modifier: 'small',
-      disabled: true,
+      title: 'Error',
+      modifier: 'error',
     },
   },
 ]);
