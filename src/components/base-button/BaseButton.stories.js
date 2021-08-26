@@ -261,27 +261,13 @@ export const TertiaryButtons = () => TemplateGroup([
   },
 ]);
 
-export const TertiaryButtonsSmall = () => TemplateGroup([
-  {
-    args: {
-      modifier: ['small', 'tertiary'],
-      text: 'Small',
+TertiaryButtons.parameters = {
+  docs: {
+    description: {
+      story: 'Die mögliche **Small Variante darf nicht benutzt** werden.',
     },
   },
-  {
-    args: {
-      modifier: ['small','tertiary', 'fake-hover'],
-      text: 'Small Hover',
-    },
-  },
-  {
-    args: {
-      modifier: ['small', 'tertiary'],
-      disabled: true,
-      text: 'Small disabled',
-    },
-  },
-]);
+};
 
 export const QuaternaryButtons = () => TemplateGroupBackground([
   {
@@ -312,24 +298,12 @@ export const QuaternaryButtons = () => TemplateGroupBackground([
 QuaternaryButtons.parameters = {
   docs: {
     description: {
-      story: 'Auf Hintergrund kommt primär der Primäry Button zum Einsatz. Sollte dieser nicht passen kann auch der Quaternary Button benutzt werden. Ein Einsatz von disable Styles ist nicht vorgesehen.',
+      story: 'Auf Hintergrund kommt primär der Primäry Button zum Einsatz. Sollte dieser nicht passen kann auch der Quaternary Button benutzt werden. Ein Einsatz von disable Styles ist nicht vorgesehen. **Hinweis:** Der Quaternary Button darf nicht Aseits eines Hintergrundes benutzt werden.',
     },
   },
 };
 
 export const QuaternaryButtonsSmall = () => TemplateGroupBackground([
-  {
-    args: {
-      text: 'Small Primary',
-      modifier: 'small',
-    },
-  },
-  {
-    args: {
-      text: 'Small Primary Hover',
-      modifier: ['small', 'fake-hover'],
-    },
-  },
   {
     args: {
       modifier: ['small', 'quaternary'],
@@ -344,11 +318,21 @@ export const QuaternaryButtonsSmall = () => TemplateGroupBackground([
   },
 ]);
 
+QuaternaryButtonsSmall.parameters = {
+  docs: {
+    description: {
+      story: 'Als Small Variante darf nur der Quaternary Button genutzt werden.',
+    },
+  },
+};
+
 /**
  * Specials
  */
 
-export const InfoForDevs = () => ('foo');
+export const InfoForDevs = () => ({
+  template: 'Some Special Cases',
+});
 
 export const DisabledOptions = () => TemplateGroup([
   {

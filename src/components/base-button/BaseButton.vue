@@ -71,6 +71,7 @@ export default {
   --btn-color: #fff;
   --btn-font-size: 1.8rem;
   --btn-padding: 1.5rem;
+  --btn-border-width: 2px;
   --loader-size: 1.5rem;
   position: relative;
   width: 28rem;
@@ -80,7 +81,7 @@ export default {
   background: var(--btn-color-bg);
   color: var(--btn-color);
   padding: var(--btn-padding);
-  border: 2px solid var(--btn-color-border);
+  border: var(--btn-border-width) solid var(--btn-color-border);
   border-radius: 2.6rem;
   cursor: pointer;
   text-align: center;
@@ -109,6 +110,7 @@ export default {
   &--small {
     --btn-font-size: 1.6rem;
     --btn-padding: 0.7rem;
+    --btn-border-width: 1px;
     padding: var(--btn-padding) calc(3 * var(--btn-padding));
     display: inline-block;
     width: auto;
