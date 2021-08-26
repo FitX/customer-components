@@ -7,15 +7,7 @@ import BaseButton, {
 
 const storyDescription = `
   **Verwendung:**
-  Base Button Component wird verwendet um @TODO
-
-  **Hinweise:**
-  Alle Buttons existieren auch als _small_ Variante.
-
-  Folgende Varianten sollen aber nicht klein benutzt werden @TODO: Feedback
-
-  - Tertiary
-  - Primary auf Hintergrund
+  Base Button Component wird verwendet um **@TODO**
 `
 
 export default {
