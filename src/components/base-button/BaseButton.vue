@@ -7,7 +7,7 @@
     <slot>
       {{ text }}
     </slot>
-    <span class="btn__loading" /> {{ typeof isDarkMode }} {{ isDarkMode }}
+    <span class="btn__loading" />
   </component>
 </template>
 
@@ -18,6 +18,7 @@ export const modifier = [
   'secondary',
   'tertiary',
   'disabled',
+  'fake-hover',
 ];
 
 export default {
@@ -79,7 +80,8 @@ export default {
   border-radius: 2.6rem;
   cursor: pointer;
   text-align: center;
-  &:hover {
+  &:hover,
+  &--fake-hover {
     --btn-color-bg: var(--brand-color-orange-1);
   }
 
@@ -105,7 +107,8 @@ export default {
     --btn-color-border: var(--brand-color-anthracite);
     --btn-color: var(--brand-color-anthracite);
 
-    &:hover {
+    &:hover,
+    &#{$self}--fake-hover {
       --btn-color-bg: var(--brand-color-gray-chalk);
     }
     &:disabled,
@@ -123,7 +126,8 @@ export default {
       --btn-color: #fff;
       --btn-color-border: #fff;
 
-      &:hover {
+      &:hover,
+      &#{$self}--fake-hover {
         --btn-color-bg: var(--brand-color-anthracite-3);
       }
 
@@ -144,7 +148,8 @@ export default {
     --btn-color-border: transparent;
     --btn-color: var(--brand-color-anthracite);
 
-    &:hover {
+    &:hover,
+    &#{$self}--fake-hover {
       --btn-color-bg: var(--brand-color-gray-chalk);
     }
     &:disabled,
@@ -153,7 +158,8 @@ export default {
     }
     &#{$self}--dark {
       --btn-color: #fff;
-      &:hover {
+      &:hover,
+      &#{$self}--fake-hover {
         --btn-color-bg: var(--brand-color-anthracite-3);
       }
     }

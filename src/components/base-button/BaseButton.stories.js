@@ -22,6 +22,13 @@ export default {
     },
     onClick: {},
   },
+  parameters: {
+    docs: {
+      description: {
+        component: 'Base Button Component wird verwendet um @TODO',
+      },
+    },
+  },
 };
 
 /* ******************************** */
@@ -118,19 +125,12 @@ PrimaryAsLink.args = {
   text: 'Primary as Link',
   // isDarkMode,,
 };
-
-export const PrimaryDisabled = Template.bind({});
-PrimaryDisabled.args = {
-  modifier: 'disabled',
-  text: 'Primary disabled',
-  // isDarkMode,,
-};
-
-export const PrimaryNativeDisabled = Template.bind({});
-PrimaryNativeDisabled.args = {
-  disabled: 'disabled',
-  text: 'Primary disabled',
-  // isDarkMode,,
+PrimaryAsLink.parameters = {
+  docs: {
+    description: {
+      story: 'Button kann auch als mit anderen Tags benutzt werden. `a, button` ... **Auf Zugänglichkeit achten.**',
+    },
+  },
 };
 
 export const WithSlot = Template.bind({});
@@ -138,7 +138,37 @@ WithSlot.args = {
   slotProps: {
     default: 'Text in Slot',
   },
-  // isDarkMode,,
+};
+WithSlot.parameters = {
+  docs: {
+    description: {
+      story: 'Button kann via `text=👀` als auch per slot befüllt werden `<base-button>👀</base-button>`',
+    },
+  },
+};
+
+export const DisabledOptions = () => TemplateGroup([
+  {
+    args: {
+      tag: 'button',
+      text: 'Native Disabled',
+      disabled: true,
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      text: 'Modifier Disabled',
+      modifier: 'disabled',
+    },
+  },
+]);
+DisabledOptions.parameters = {
+  docs: {
+    description: {
+      story: 'Button kann nativ disabled werden `disabled=true` als auch per modifier `<base-button modifier="disabled" />`',
+    },
+  },
 };
 
 export const PrimaryButtons = () => TemplateGroup([
@@ -146,6 +176,13 @@ export const PrimaryButtons = () => TemplateGroup([
     args: {
       tag: 'button',
       text: 'Primary Button',
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      text: 'Primary Hover',
+      modifier: 'fake-hover',
     },
   },
   {
@@ -168,6 +205,13 @@ export const SecondaryButtons = () => TemplateGroup([
   {
     args: {
       tag: 'button',
+      modifier: ['secondary', 'fake-hover'],
+      text: 'Secondary Hover',
+    },
+  },
+  {
+    args: {
+      tag: 'button',
       modifier: 'secondary',
       disabled: true,
       text: 'Secondary disabled',
@@ -181,6 +225,13 @@ export const TertiaryButtons = () => TemplateGroup([
       tag: 'button',
       modifier: 'tertiary',
       text: 'Tertiary Button',
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      modifier: ['tertiary', 'fake-hover'],
+      text: 'Tertiary Hover',
     },
   },
   {
