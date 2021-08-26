@@ -8,7 +8,7 @@ import BaseButton, {
 const storyDescription = `
   **Verwendung:**
   Base Button Component wird verwendet um @TODO
-  
+
   **Hinweise:**
   Alle Buttons existieren auch als _small_ Variante.
 
@@ -149,58 +149,6 @@ DefaultButton.parameters = {
   docs: {
     source: {
       code: '<base-button text="Button" />',
-    },
-  },
-};
-
-export const PrimaryAsLink = Template.bind({});
-PrimaryAsLink.args = {
-  tag: 'a',
-  text: 'Primary as Link',
-  // isDarkMode,,
-};
-PrimaryAsLink.parameters = {
-  docs: {
-    description: {
-      story: 'Button kann auch als mit anderen Tags benutzt werden. `a, button` ... **Auf Zugänglichkeit achten.**',
-    },
-  },
-};
-
-export const WithSlot = Template.bind({});
-WithSlot.args = {
-  slotProps: {
-    default: 'Text in Slot',
-  },
-};
-WithSlot.parameters = {
-  docs: {
-    description: {
-      story: 'Button kann via `text=👀` als auch per slot befüllt werden `<base-button>👀</base-button>`',
-    },
-  },
-};
-
-export const DisabledOptions = () => TemplateGroup([
-  {
-    args: {
-      tag: 'button',
-      text: 'Native Disabled',
-      disabled: true,
-    },
-  },
-  {
-    args: {
-      tag: 'button',
-      text: 'Modifier Disabled',
-      modifier: 'disabled',
-    },
-  },
-]);
-DisabledOptions.parameters = {
-  docs: {
-    description: {
-      story: 'Button kann nativ disabled werden `disabled=true` als auch per modifier `<base-button modifier="disabled" />`',
     },
   },
 };
@@ -395,3 +343,61 @@ export const QuaternaryButtonsSmall = () => TemplateGroupBackground([
     },
   },
 ]);
+
+/**
+ * Specials
+ */
+
+export const InfoForDevs = () => ('foo');
+
+export const DisabledOptions = () => TemplateGroup([
+  {
+    args: {
+      tag: 'button',
+      text: 'Native Disabled',
+      disabled: true,
+    },
+  },
+  {
+    args: {
+      tag: 'button',
+      text: 'Modifier Disabled',
+      modifier: 'disabled',
+    },
+  },
+]);
+DisabledOptions.parameters = {
+  docs: {
+    description: {
+      story: 'Button kann nativ disabled werden `disabled=true` als auch per modifier `<base-button modifier="disabled" />`',
+    },
+  },
+};
+
+export const PrimaryAsLink = Template.bind({});
+PrimaryAsLink.args = {
+  tag: 'a',
+  text: 'Primary as Link',
+  // isDarkMode,,
+};
+PrimaryAsLink.parameters = {
+  docs: {
+    description: {
+      story: 'Button kann auch als mit anderen Tags benutzt werden. `a, button` ... **Auf Zugänglichkeit achten.**',
+    },
+  },
+};
+
+export const WithSlot = Template.bind({});
+WithSlot.args = {
+  slotProps: {
+    default: 'Text in Slot',
+  },
+};
+WithSlot.parameters = {
+  docs: {
+    description: {
+      story: 'Button kann via `text=👀` als auch per slot befüllt werden `<base-button>👀</base-button>`',
+    },
+  },
+};
