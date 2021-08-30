@@ -1,7 +1,12 @@
 <template>
   <button
     v-bind="$attrs"
-    :class="[ getModifierClasses('btn', modifier), { 'btn--dark' : isDarkMode } ]"
+    :class="[
+      getModifierClasses('btn', modifier),
+      { 'btn--dark' : isDarkMode },
+      { 'btn--active' : localIsActive },
+    ]"
+    @click="handleClick"
     class="btn">
     <slot>
       {{ title }}
@@ -10,16 +15,31 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import useModifier from '@/use/modifier-class';
 
 export const modifier = [
   'disabled',
-  'active',
   'error',
   'fake-hover',
 ];
 
+const validateValueWithList = (value, list = []) => {
+  if (!value) {
+    return false;
+  }
+  if (typeof value === 'object') {
+    const filtered = list.filter((mod) => value.includes(mod));
+    return filtered.length > 0;
+  }
+  return list.includes(value);
+};
+
 export default {
+  emits: [
+    'selected',
+    'unselected',
+  ],
   props: {
     title: {
       type: String,
@@ -29,22 +49,32 @@ export default {
       type: Boolean,
       default: false,
     },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
     modifier: {
       type: [String, Array],
       default: null,
-      validator: (value) => {
-        if (typeof value === 'object') {
-          const filtered = modifier.filter((mod) => value.includes(mod));
-          return filtered.length > 0;
-        }
-        return modifier.includes(value);
-      },
+      validator: (value) => validateValueWithList(value, modifier),
     },
   },
-  setup() {
+  setup(props, { emit }) {
     const { getModifierClasses } = useModifier();
+    const localIsActive = ref(props.isActive);
+    function handleClick(e) {
+      if (localIsActive.value) {
+        emit('unselected', e);
+      } else {
+        emit('selected', e);
+      }
+
+      localIsActive.value = !localIsActive.value;
+    }
     return {
       getModifierClasses,
+      handleClick,
+      localIsActive,
     };
   },
 };
