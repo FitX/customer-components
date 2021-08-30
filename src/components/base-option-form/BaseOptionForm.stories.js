@@ -20,9 +20,12 @@ export default {
         type: 'multi-select',
       },
     },
-    onClick: {},
+    onClick: {
+      action: 'selected',
+    },
   },
   parameters: {
+    actions: { argTypesRegex: '^on.*' },
     docs: {
       description: {
         component: storyDescription,
@@ -121,7 +124,7 @@ export const BaseOptionsForms = () => TemplateGroup([
   {
     args: {
       title: 'Option Activated',
-      modifier: ['active'],
+      isActive: true,
     },
   },
   {
