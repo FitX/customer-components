@@ -4,7 +4,6 @@ import '@/assets/styles/lib.scss';
 import './base.scss';
 
 // addDecorator(withThemes);
-
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   /* backgrounds: {

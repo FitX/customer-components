@@ -1,4 +1,5 @@
 import { reactive } from 'vue';
+// import { action } from '@storybook/addon-actions';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
 import BaseOptionForm, {
   modifier,
@@ -10,6 +11,11 @@ const storyDescription = `
   Nur in Formularen und irgendwie unterscheiden die sich von Radios?!
 `;
 
+const eventListener = {
+  onSelected: () => alert('selected'),
+  onUnselected: () => alert('unselected'),
+};
+
 export default {
   title: 'Components/BaseOptionForm',
   component: BaseOptionForm,
@@ -20,12 +26,9 @@ export default {
         type: 'multi-select',
       },
     },
-    onClick: {
-      action: 'selected',
-    },
+    ...eventListener,
   },
   parameters: {
-    actions: { argTypesRegex: '^on.*' },
     docs: {
       description: {
         component: storyDescription,
@@ -71,7 +74,10 @@ const Template = (argsObject) => ({
       args.isDarkMode = isDarkMode;
     }
     return {
-      args: reactive(args),
+      args: reactive({
+        ...args,
+        ...eventListener,
+      }),
     };
   },
   components: { BaseOptionForm },
@@ -113,6 +119,7 @@ export const BaseOptionsForms = () => TemplateGroup([
   {
     args: {
       title: 'Option',
+      ...eventListener,
     },
   },
   {
