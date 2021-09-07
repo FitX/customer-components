@@ -17,6 +17,11 @@
 
 <script>
 import useModifier from '@/use/modifier-class';
+import validateValueWithList from '@/use/validate-value-with-list';
+
+const modifier = [
+  'disabled',
+];
 
 export default {
   props: {
@@ -31,16 +36,7 @@ export default {
     modifier: {
       type: [String, Array],
       default: null,
-      validator: (value) => {
-        const modifier = [
-          'disabled',
-        ];
-        if (typeof value === 'object') {
-          const filtered = modifier.filter((mod) => value.includes(mod));
-          return filtered.length > 0;
-        }
-        return modifier.includes(value);
-      },
+      validator: (value) => validateValueWithList(value, modifier),
     },
   },
   setup() {

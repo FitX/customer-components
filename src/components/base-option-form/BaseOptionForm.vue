@@ -17,7 +17,7 @@
 <script>
 import { ref } from 'vue';
 import useModifier from '@/use/modifier-class';
-import validateValueWithList from '@/use/validateValueWithList';
+import validateValueWithList from '@/use/validate-value-with-list';
 
 export const modifier = [
   'disabled',

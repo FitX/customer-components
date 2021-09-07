@@ -1,4 +1,4 @@
-import validateValueWithList from '@/use/validateValueWithList';
+import validateValueWithList from '@/use/validate-value-with-list';
 
 describe('validateValueWithList', () => {
   it('returns false when no value', () => {

@@ -1,7 +1,7 @@
 /**
- * validator function
- * @param value
- * @param list
+ * check if validate list contains value validator function
+ * @param {string|array|object} value
+ * @param {array} list
  * @returns {boolean}
  */
 export default function (value, list = []) {
