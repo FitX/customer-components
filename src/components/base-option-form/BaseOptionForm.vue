@@ -75,10 +75,28 @@ export default {
   setup(props, { emit }) {
     const { getModifierClasses } = useModifier();
     const localIsActive = ref(props.isActive);
+    /**
+     * Toggle Button State and emit current state
+     *
+     * @public
+     * @param {object} Dom Event
+     */
     function handleClick(e) {
       if (localIsActive.value) {
+        /**
+         * Unselected event.
+         *
+         * @event unselected
+         * @type {object}
+         */
         emit('unselected', e);
       } else {
+        /**
+         * selected event.
+         *
+         * @event selected
+         * @type {object}
+         */
         emit('selected', e);
       }
 
