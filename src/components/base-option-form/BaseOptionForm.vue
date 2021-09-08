@@ -8,6 +8,9 @@
     ]"
     @click="handleClick"
     class="btn">
+    <!--
+      @slot Default Content Slot
+    -->
     <slot>
       {{ title }}
     </slot>
@@ -27,22 +30,42 @@ export const modifier = [
 
 export default {
   emits: [
+    /**
+     * Fires when selected
+     * @type {event} Dom Event
+     */
     'selected',
+    /**
+     * Fires when unselected
+     * @type {event} Dom Event
+     */
     'unselected',
   ],
   props: {
+    /**
+     * optional Title, rendered in default slot
+     */
     title: {
       type: String,
       default: null,
     },
+    /**
+     * Option to render in Dark Mode
+     */
     isDarkMode: {
       type: Boolean,
       default: false,
     },
+    /**
+     * If activated
+     */
     isActive: {
       type: Boolean,
       default: false,
     },
+    /**
+     * Component Modifier
+     */
     modifier: {
       type: [String, Array],
       default: null,

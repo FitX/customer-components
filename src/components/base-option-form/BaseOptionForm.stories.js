@@ -26,7 +26,7 @@ export default {
         type: 'multi-select',
       },
     },
-    ...eventListener,
+    // ...eventListener,
   },
   parameters: {
     docs: {
