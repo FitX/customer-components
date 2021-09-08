@@ -36,9 +36,17 @@
   </section>
 
   <section class="demo">
+    <h1>Funktionale Farben</h1>
+    <p>Da gibt es wohl nichts zu sagen.</p>
+    <color-list :colors="funcColors" />
+  </section>
+
+  <!--
+  <section class="demo">
     <h1>All Colors:</h1>
     <color-list :colors="colors" />
   </section>
+  -->
 </template>
 
 <script>
@@ -87,8 +95,6 @@ const getCSSCustomPropIndex = (filterString = '--brand-color') =>
           ])
           // Discard any props that don't start with "--". Custom props are required to.
           .filter(([propName]) => propName.indexOf(filterString) === 0);
-        console.log('propValArr', ...propValArr);
-        console.log('props', ...props);
         return [...propValArr, ...props];
       }, []),
     ), [],
@@ -110,6 +116,7 @@ export default {
     const orangeColors = ref([]);
     const whiteColors = ref([]);
     const grayColors = ref([]);
+    const funcColors = ref([]);
     onMounted(() => {
       colors.value = getCSSCustomPropIndex();
       primaryColors.value = getCSSCustomPropIndex('--primary-brand-color');
@@ -118,6 +125,7 @@ export default {
       orangeColors.value = getCSSCustomPropIndex('--brand-color-orange');
       whiteColors.value = getCSSCustomPropIndex('--brand-color-white');
       grayColors.value = getCSSCustomPropIndex('--brand-color-gray');
+      funcColors.value = getCSSCustomPropIndex('--functional-color');
     });
     return {
       colors,
@@ -127,6 +135,7 @@ export default {
       orangeColors,
       whiteColors,
       grayColors,
+      funcColors,
     };
   },
 };

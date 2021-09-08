@@ -18,4 +18,5 @@
   'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: 62.5%; /* 62.5% of 16px = 10px */
   @include brand-colors();
+  @include functional-colors();
 }
