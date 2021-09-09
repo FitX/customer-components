@@ -12,8 +12,8 @@ const storyDescription = `
 `;
 
 const eventListener = {
-  onSelected: () => alert('selected'),
-  onUnselected: () => alert('unselected'),
+  onSelected: () => console.log('selected'),
+  onUnselected: () => console.log('unselected'),
 };
 
 export default {

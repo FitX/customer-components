@@ -3,13 +3,15 @@
     v-bind="$attrs"
     :class="[ getModifierClasses('btn', modifier), { 'btn--dark' : isDarkMode } ]"
     class="btn">
-    <slot>
-      {{ title }}
-    </slot>
-    <span class="btn__additional">
-      <slot name="additional">
-        {{ text }}
+    <span class="btn__content">
+      <slot>
+        {{ title }}
       </slot>
+      <span class="btn__additional">
+        <slot name="additional">
+          {{ text }}
+        </slot>
+      </span>
     </span>
   </button>
 </template>
@@ -22,6 +24,7 @@ export const modifier = [
   'disabled',
   'active',
   'extra',
+  'small',
   'fake-hover',
 ];
 
@@ -67,18 +70,25 @@ export default {
   --btn-color: var(--brand-color-anthracite);
   --btn-font-size: 1.8rem;
   --btn-padding: 3rem;
+  --btn-padding-h: var(--btn-padding);
+  --btn-padding-v: 0;
+  --btn-height: 8rem;
   --btn-border-width: 1px;
 
-  height: 8rem;
+  height: var(--btn-height);
   font-size: var(--btn-font-size);
   font-weight: 400;
   background: var(--btn-color-bg);
   color: var(--btn-color);
-  padding: var(--btn-padding);
+  padding: var(--btn-padding-v) var(--btn-padding-h);
   border: var(--btn-border-width) solid var(--btn-color-border);
   border-radius: 0.8rem;
   cursor: pointer;
   text-align: center;
+
+  &--small {
+    --btn-height: 6rem;
+  }
 
   &:hover,
   &--fake-hover {
@@ -86,11 +96,13 @@ export default {
   }
 
   &--extra {
-    --btn-padding: 1.8rem;
-    display: grid;
-    text-align: left;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+    --btn-padding-h: 1.8rem;
+    #{$self}__content {
+      display: grid;
+      text-align: left;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+    }
   }
 
   &--active {
