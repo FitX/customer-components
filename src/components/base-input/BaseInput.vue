@@ -15,7 +15,7 @@
         ref="input"
         v-bind="removeByKey($attrs, 'class')"
         :value="modelValue"
-        @input="emitValue($event.target.value)"
+        @input="updateValue($event.target.value)"
         class="field__input"
         :class="[
           { 'field__input--not-empty' : isFilled },
@@ -24,8 +24,12 @@
       <span
         class="field__text"
         v-if="label">{{ label }}</span>
+      <button
+        class="field__icon clearable-icon"
+        @click.prevent="clearInput()"
+        v-if="clearable">x</button>
       <valid-icon
-        class="valid-icon"
+        class="field__icon valid-icon"
         v-if="isValid && modelValue" />
       <span
         class="field__btn-wrapper"
@@ -89,6 +93,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    clearable: {
+      type: Boolean,
+      default: false,
+    },
     debounce: {
       type: Number,
       default: 0,
@@ -132,16 +140,21 @@ export default {
         input.value.removeEventListener('animationstart', handleAutofilled);
       }
     });
-    const emitValue = useDebounceFn((val) => {
-      emit('update:modelValue', val);
+    const emitValue = (val) => emit('update:modelValue', val);
+    const updateValue = useDebounceFn((val) => {
+      emitValue(val);
     }, props.debounce);
+    const clearInput = () => {
+      emitValue(null);
+    };
     return {
       getModifierClasses,
       removeByKey,
       input,
       autofilled,
       isFilled,
-      emitValue,
+      updateValue,
+      clearInput,
     };
   },
 };
@@ -246,6 +259,12 @@ label {
       border-color: var(--field-color-border)
     }
   }
+  &__icon {
+    position: absolute;
+    top: 50%;
+    right: var(--field-padding-h);
+    transform: translate3d(0, -50%, 0);
+  }
   &__text {
     font-size: var(--field-label-font-size);
     position: absolute;
@@ -266,11 +285,9 @@ label {
   padding-top: 0.6rem;
 }
 
-.valid-icon {
-  position: absolute;
-  top: 50%;
-  right: var(--field-padding-h);
-  transform: translate3d(0, -50%, 0);
+.clearable-icon {
+  @include btn-reset();
+  background: none;
 }
 </style>
 
@@ -302,4 +319,3 @@ input:not(:-webkit-autofill) {
   to {/**/}
 }
 </style>
-
