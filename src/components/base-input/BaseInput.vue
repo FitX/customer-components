@@ -78,7 +78,7 @@ export default {
   emits: [
     /**
      * Fires on Model Update
-     * @type {event} Dom Event
+     * @property {BaseInputModelValue} val - Input Value
      */
     'update:modelValue',
     /**
@@ -86,6 +86,11 @@ export default {
      * @type {event} Dom Event
      */
     'auto-filled',
+    /**
+     * Fires when Input cleared
+     * @type {event} Dom Event
+     */
+    'cleared',
   ],
   props: {
     label: {
@@ -96,6 +101,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * @model
+     */
     modelValue: {
       type: [String, Number],
       default: null,
@@ -107,6 +115,9 @@ export default {
       type: String,
       default: null,
     },
+    /**
+     * Rendering Valid State
+     */
     isValid: {
       type: Boolean,
       default: false,
@@ -195,6 +206,7 @@ export default {
      */
     const clearInput = () => {
       emitValue(null);
+      emit('cleared');
     };
     return {
       getModifierClasses,
