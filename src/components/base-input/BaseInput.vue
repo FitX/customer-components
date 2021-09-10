@@ -290,9 +290,14 @@ label {
   }
 
   &--error {
-    --field-color-border: var(--functional-color-error);
-    --field-color-bg: var(--functional-color-error-1-light);
-    --field-color-label: var(--functional-color-error);
+    & {
+      --field-color-border: var(--functional-color-error);
+      --field-color-bg: var(--functional-color-error-1-light);
+      --field-color-label: var(--functional-color-error);
+    }
+    &#{$self}--dark {
+      --field-color-bg: var(--functional-color-error-1-dark);
+    }
   }
 
   &:hover,
@@ -343,7 +348,7 @@ label {
         --field-label-font-size: 1.4rem;
         top: 1rem;
         transform: translate3d(var(--field-padding-h), 0, 0);
-        #{$self}--dark & {
+        #{$self}--dark:not(#{$self}--error) & {
           --field-color-label: var(--brand-color-gray-cement);
         }
       }
@@ -382,10 +387,18 @@ label {
   padding-top: 0.6rem;
 }
 
+/**
+  Temp @TODO optimize after Icons are final
+ */
 .clearable-icon {
   @include btn-reset();
+  // Temp
   background: #fff;
   border-radius: 10rem;
+
+  .field--dark & {
+    background: var(--brand-color-gray-carbon);
+  }
 }
 </style>
 
