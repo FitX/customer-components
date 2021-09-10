@@ -34,6 +34,9 @@
       <span
         class="field__btn-wrapper"
       >
+        <!--
+          @slot Default Content Slot
+        -->
         <slot />
       </span>
     </label>
@@ -56,6 +59,10 @@ import { useDebounceFn } from '@vueuse/core';
 import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
 
+/**
+ * @typedef {string|number|null} BaseInputModelValue
+ */
+
 export const modifier = [
   'disabled',
   'fake-focus',
@@ -69,7 +76,15 @@ export default {
   },
   inheritAttrs: false,
   emits: [
+    /**
+     * Fires on Model Update
+     * @type {event} Dom Event
+     */
     'update:modelValue',
+    /**
+     * Fires when detecting Autofill
+     * @type {event} Dom Event
+     */
     'auto-filled',
   ],
   props: {
@@ -85,6 +100,9 @@ export default {
       type: [String, Number],
       default: null,
     },
+    /**
+     * Rendering Error Message if not null
+     */
     errorMessage: {
       type: String,
       default: null,
@@ -93,10 +111,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Option for clearing Input Value
+     */
     clearable: {
       type: Boolean,
       default: false,
     },
+    /**
+     * Optional Debounce e.g for Search
+     */
     debounce: {
       type: Number,
       default: 0,
@@ -110,8 +134,9 @@ export default {
   setup(props, { emit }) {
     const { getModifierClasses } = useModifier();
     /**
-     * @param myObj
-     * @param deleteKey
+     * Removes Key from Object
+     * @param {object} myObj
+     * @param {string} deleteKey
      */
     function removeByKey(myObj, deleteKey) {
       return Object.keys(myObj)
@@ -122,9 +147,19 @@ export default {
           return result;
         }, {});
     }
+
+    /**
+     * Template Ref
+     * @type {ToRef<null>}
+     */
     const input = ref(null);
     const autofilled = ref(false);
     const isFilled = computed(() => !!props.modelValue);
+
+    /**
+     * Detect autofilled for correct Rendering
+     * @param e
+     */
     function handleAutofilled(e) {
       const isAutoFilled = /^onAutoFillStart/.test(e.animationName);
       autofilled.value = isAutoFilled;
@@ -132,6 +167,9 @@ export default {
     }
     onMounted(() => {
       if (input.value) {
+        /**
+         * Trigger Autofill
+         */
         input.value.addEventListener('animationstart', handleAutofilled);
       }
     });
@@ -140,10 +178,21 @@ export default {
         input.value.removeEventListener('animationstart', handleAutofilled);
       }
     });
+    /**
+     * Emit Model Value
+     * @param {BaseInputModelValue} val
+     */
     const emitValue = (val) => emit('update:modelValue', val);
+    /**
+     * Update with optional debounce
+     * @type {(function(*=): void)|*}
+     */
     const updateValue = useDebounceFn((val) => {
       emitValue(val);
     }, props.debounce);
+    /**
+     * Clear Input Value
+     */
     const clearInput = () => {
       emitValue(null);
     };
