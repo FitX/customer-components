@@ -8,6 +8,7 @@
         'field--dark': isDarkMode,
         'field--valid': isValid,
         'field--disabled': $attrs.disabled,
+        'field--fake-focus': hasFocus,
         }
       ]"
       class="field">
@@ -16,6 +17,8 @@
         v-bind="removeByKey($attrs, 'class')"
         :value="modelValue"
         @input="updateValue($event.target.value)"
+        @focus="handleFocus()"
+        @blur="handleBlur()"
         class="field__input"
         :class="[
           { 'field__input--not-empty' : isFilled },
@@ -55,7 +58,9 @@ import {
   ref,
   computed,
 } from 'vue';
-import { useDebounceFn } from '@vueuse/core';
+import {
+  useDebounceFn,
+} from '@vueuse/core';
 import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
 
@@ -143,6 +148,7 @@ export default {
     },
   },
   setup(props, { emit }) {
+    const hasFocus = ref(false);
     const { getModifierClasses } = useModifier();
     /**
      * Removes Key from Object
@@ -208,6 +214,14 @@ export default {
       emitValue(null);
       emit('cleared');
     };
+    const handleFocus = () => {
+      hasFocus.value = true;
+      console.log('focus');
+    };
+    const handleBlur = () => {
+      hasFocus.value = false;
+      console.log('kein focus');
+    };
     return {
       getModifierClasses,
       removeByKey,
@@ -216,6 +230,9 @@ export default {
       isFilled,
       updateValue,
       clearInput,
+      handleFocus,
+      handleBlur,
+      hasFocus,
     };
   },
 };
@@ -250,10 +267,24 @@ label {
   font-size: var(--field-font-size);
   height: 6rem;
 
+  &--dark {
+    --field-color-label: var(--brand-color-gray-stone);
+    --field-color-bg: transparent;
+    --field-color-input: var(--brand-color-white);
+    --field-color-border: var(--brand-color-gray-carbon);
+  }
+
   &--disabled,
   &__input[disabled] {
     --field-color-border: var(--brand-color-gray-stone);
     --field-color-bg: var(--brand-color-gray-chalk);
+    --field-color-input: var(--brand-color-gray-cement);
+    --field-color-label: var(--brand-color-gray-stone);
+  }
+  &--dark#{$self}--disabled,
+  &--dark &__input[disabled] {
+    --field-color-border: var(--brand-color-gray-coal);
+    --field-color-bg: var(--brand-color-gray-coal);
     --field-color-input: var(--brand-color-gray-cement);
     --field-color-label: var(--brand-color-gray-cement);
   }
@@ -268,9 +299,11 @@ label {
   &--fake-hover {
     --field-color-border: var(--brand-color-gray-graphite);
   }
-  &:focus,
   &--fake-focus {
     --field-color-border: var(--brand-color-anthracite);
+    &#{$self}--dark {
+      --field-color-border: var(--brand-color-gray-cement);
+    }
   }
   &__input {
     -webkit-appearance: none;
@@ -310,6 +343,9 @@ label {
         --field-label-font-size: 1.4rem;
         top: 1rem;
         transform: translate3d(var(--field-padding-h), 0, 0);
+        #{$self}--dark & {
+          --field-color-label: var(--brand-color-gray-cement);
+        }
       }
     }
     // @TODO Designer Accessibility Workshop!
@@ -348,7 +384,8 @@ label {
 
 .clearable-icon {
   @include btn-reset();
-  background: none;
+  background: #fff;
+  border-radius: 10rem;
 }
 </style>
 
