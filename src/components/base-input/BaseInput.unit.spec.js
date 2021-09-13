@@ -39,7 +39,7 @@ describe('Base Input', () => {
     });
     expect(wrapper.find('label').element).toHaveClass('field--error field');
     expect(wrapper.find('.error-message').exists()).toBeTruthy();
-    expect(wrapper.find('.error-message').attributes('error-message')).toBe('This is an error');
+    expect(wrapper.find('.error-message').attributes('errormessage')).toBe('This is an error');
   });
 
   it('sets not empty and autofilled classes ', async () => {
