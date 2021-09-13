@@ -1,6 +1,6 @@
 {
   "name": "@fitx/customer-components",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "main": "./dist/customer-components.umd.js",
   "files": [
     "dist/*",
