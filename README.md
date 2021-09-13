@@ -84,8 +84,8 @@ npm link
 Go to consuming App, link and install
 
 ```
-npm link customer-components
-npm i customer-components
+npm link @fitx/customer-components
+npm i @fitx/customer-components
 ```
 
 ## Publish Lib
