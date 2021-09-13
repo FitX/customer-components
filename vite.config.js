@@ -3,16 +3,18 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
-  alias: [
-    {
-      find: '@',
-      replacement: resolve(__dirname, 'src'),
-    },
-    {
-      find: '~@',
-      replacement: resolve(__dirname, 'src'),
-    },
-  ],
+  resolve: {
+    alias: [
+      {
+        find: '@',
+        replacement: resolve(__dirname, 'src'),
+      },
+      {
+        find: '~@',
+        replacement: resolve(__dirname, 'src'),
+      },
+    ],
+  },
   plugins: [vue()],
   build: {
     lib: {
@@ -29,6 +31,7 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
         },
+        exports: 'named',
       },
     },
   },

@@ -28,7 +28,7 @@ export {
   BaseInput,
 }; */
 // export * from './components/index';
-
+/*
 import TextButton from '@/components/text-button/TextButton.vue';
 import BaseInput from '@/components/base-input/BaseInput.vue';
 import BaseButton from '@/components/base-button/BaseButton.vue';
@@ -51,10 +51,27 @@ function install(instance) {
   }
 }
 
-export default { install };
+export default { install }; */
 
-export { default as TextButton } from '@/components/text-button/TextButton.vue';
+/* export { default as TextButton } from '@/components/text-button/TextButton.vue';
 export { default as BaseInput } from '@/components/base-input/BaseInput.vue';
 export { default as BaseButton } from '@/components/base-button/BaseButton.vue';
 export { default as BaseOption } from '@/components/base-option/BaseOption.vue';
-export { default as BaseOptionForm } from '@/components/base-option-form/BaseOptionForm.vue';
+export { default as BaseOptionForm } from '@/components/base-option-form/BaseOptionForm.vue'; */
+
+import '@/assets/styles/lib.scss';
+import * as components from '@/components/index';
+
+// install function executed by Vue.use()
+const install = (app) => {
+  Object.entries(components).forEach(([componentName, component]) => {
+    app.component(componentName, component);
+  });
+};
+
+// Create module definition for Vue.use()
+export default install;
+
+// To allow individual component use, export components
+// each can be registered via Vue.component()
+export * from '@/components/index';
