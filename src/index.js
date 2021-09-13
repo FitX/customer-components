@@ -14,3 +14,6 @@ export {
 };
 */
 export default components;
+export {
+  components,
+};
