@@ -1,5 +1,5 @@
 // import { App } from 'vue';
-import * as components from './components/index';
+// import * as components from './components/index';
 /*
 function install(Vue = App) {
   // eslint-disable-next-line guard-for-in,no-restricted-syntax
@@ -13,7 +13,4 @@ export {
   components,
 };
 */
-export default components;
-export {
-  components,
-};
+export * from './components/index';
