@@ -5,7 +5,7 @@ import BaseOption from '@/components/base-option/BaseOption.vue';
 describe('Base Button', () => {
   it('renders as button as default', () => {
     const wrapper = shallowMount(BaseOption);
-    expect(wrapper.html()).toMatch('<button class="btn"><span class="btn__additional"></span></button>');
+    expect(wrapper.html()).toMatch('<button class="btn"><span class="btn__content"><span class="btn__additional"></span></span></button>');
   });
 
   it('shows title and text', () => {
