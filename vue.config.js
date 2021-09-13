@@ -1,6 +1,11 @@
 const PACKAGE_JSON = require('./package.json');
 
 module.exports = {
+  configureWebpack: {
+    output: {
+      libraryExport: 'default',
+    },
+  },
   chainWebpack: (config) => {
     config.plugin('define')
       .tap((args) => {

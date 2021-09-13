@@ -1,6 +1,7 @@
 {
   "name": "@fitx/customer-components",
   "version": "0.1.7",
+  "main": "./dist/customer-components.common.js",
   "files": [
     "dist/*",
     "src/**/*.vue"
