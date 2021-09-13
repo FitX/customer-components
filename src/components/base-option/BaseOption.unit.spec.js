@@ -11,7 +11,7 @@ describe('Base Button', () => {
   it('shows title and text', () => {
     const wrapper = shallowMount(BaseOption, {
       props: {
-        title: 'hello world',
+        title: 'hello wo1rld',
         text: 'foo bar',
       },
     });
