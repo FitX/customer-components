@@ -72,7 +72,7 @@
   },
   "description": "Vue Brand-Evo Components and Widget Library for Customer Apps. [Overview](https://customer-components.netlify.app)",
   "directories": {
-    "lib": "lib",
+    "lib": "dist",
     "test": "tests"
   },
   "repository": {
