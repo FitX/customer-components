@@ -1,23 +1,23 @@
-import type { UserConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-const path = require('path');
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
-const config: UserConfig = {
+export default defineConfig({
   alias: [
     {
       find: '@',
-      replacement: path.resolve(__dirname, 'src'),
+      replacement: resolve(__dirname, 'src'),
     },
     {
       find: '~@',
-      replacement: path.resolve(__dirname, 'src'),
+      replacement: resolve(__dirname, 'src'),
     },
   ],
   plugins: [vue()],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.js'),
-      name: 'Equal',
+      entry: resolve(__dirname, 'src/index.js'),
+      name: 'customer-components',
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
@@ -32,6 +32,4 @@ const config: UserConfig = {
       },
     },
   },
-}
-
-export default config;
+});

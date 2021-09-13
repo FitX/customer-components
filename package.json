@@ -9,13 +9,12 @@
   "module": "./dist/customer-components.es.js",
   "exports": {
     ".": {
-      "import": "./dist/my-lib.es.js",
-      "require": "./dist/my-lib.umd.js"
+      "import": "./dist/customer-components.es.js",
+      "require": "./dist/customer-components.umd.js"
     }
   },
   "peerDependencies": {
-    "vue": "^3.0.0",
-    "vue-class-component": "^8.0.0-0"
+    "vue": "^3.0.0"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -49,7 +48,7 @@
     "@storybook/addon-storyshots": "^6.3.7",
     "@storybook/vue3": "^6.3.7",
     "@testing-library/jest-dom": "^5.14.1",
-    "@vitejs/plugin-vue": "^1.1.0",
+    "@vitejs/plugin-vue": "^1.6.2",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "~4.5.0",
@@ -69,7 +68,7 @@
     "sass-loader": "^8.0.2",
     "storybook-addon-themes": "^6.1.0",
     "typescript": "~3.9.3",
-    "vite": "^2.0.0-beta.40",
+    "vite": "^2.4.3",
     "vue-jest": "^5.0.0-0",
     "vue-loader": "^16.4.1"
   },

@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue';
+import ErrorIcon from '@/components/error-icon/ErrorIcon.vue';
 
 export default {
   name: 'ErrorMessage',
   components: {
-    ErrorIcon: defineAsyncComponent(() => import('@/components/error-icon/ErrorIcon.vue')),
+    ErrorIcon,
   },
   props: {
     errorMessage: {
