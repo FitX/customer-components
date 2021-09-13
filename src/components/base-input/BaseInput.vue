@@ -8,6 +8,7 @@
         'field--dark': isDarkMode,
         'field--valid': isValid,
         'field--disabled': $attrs.disabled,
+        'field--fake-focus': hasFocus,
         }
       ]"
       class="field">
@@ -15,7 +16,9 @@
         ref="input"
         v-bind="removeByKey($attrs, 'class')"
         :value="modelValue"
-        @input="emitValue($event.target.value)"
+        @input="updateValue($event.target.value)"
+        @focus="handleFocus()"
+        @blur="handleBlur()"
         class="field__input"
         :class="[
           { 'field__input--not-empty' : isFilled },
@@ -24,12 +27,19 @@
       <span
         class="field__text"
         v-if="label">{{ label }}</span>
+      <button
+        class="field__icon clearable-icon"
+        @click.prevent="clearInput()"
+        v-if="clearable">x</button>
       <valid-icon
-        class="valid-icon"
+        class="field__icon valid-icon"
         v-if="isValid && modelValue" />
       <span
         class="field__btn-wrapper"
       >
+        <!--
+          @slot Default Content Slot
+        -->
         <slot />
       </span>
     </label>
@@ -48,9 +58,15 @@ import {
   ref,
   computed,
 } from 'vue';
-import { useDebounceFn } from '@vueuse/core';
+import {
+  useDebounceFn,
+} from '@vueuse/core';
 import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
+
+/**
+ * @typedef {string|number|null} BaseInputModelValue
+ */
 
 export const modifier = [
   'disabled',
@@ -59,14 +75,28 @@ export const modifier = [
 ];
 
 export default {
+  name: 'BaseInput',
   components: {
     ErrorText: defineAsyncComponent(() => import('@/components/error-message/ErrorMessage.vue')),
     ValidIcon: defineAsyncComponent(() => import('@/components/valid-icon/ValidIcon.vue')),
   },
   inheritAttrs: false,
   emits: [
+    /**
+     * Fires on Model Update
+     * @property {BaseInputModelValue} val - Input Value
+     */
     'update:modelValue',
+    /**
+     * Fires when detecting Autofill
+     * @type {event} Dom Event
+     */
     'auto-filled',
+    /**
+     * Fires when Input cleared
+     * @type {event} Dom Event
+     */
+    'cleared',
   ],
   props: {
     label: {
@@ -77,18 +107,37 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * @model
+     */
     modelValue: {
       type: [String, Number],
       default: null,
     },
+    /**
+     * Rendering Error Message if not null
+     */
     errorMessage: {
       type: String,
       default: null,
     },
+    /**
+     * Rendering Valid State
+     */
     isValid: {
       type: Boolean,
       default: false,
     },
+    /**
+     * Option for clearing Input Value
+     */
+    clearable: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Optional Debounce e.g for Search
+     */
     debounce: {
       type: Number,
       default: 0,
@@ -100,10 +149,12 @@ export default {
     },
   },
   setup(props, { emit }) {
+    const hasFocus = ref(false);
     const { getModifierClasses } = useModifier();
     /**
-     * @param myObj
-     * @param deleteKey
+     * Removes Key from Object
+     * @param {object} myObj
+     * @param {string} deleteKey
      */
     function removeByKey(myObj, deleteKey) {
       return Object.keys(myObj)
@@ -114,9 +165,19 @@ export default {
           return result;
         }, {});
     }
+
+    /**
+     * Template Ref
+     * @type {ToRef<null>}
+     */
     const input = ref(null);
     const autofilled = ref(false);
     const isFilled = computed(() => !!props.modelValue);
+
+    /**
+     * Detect autofilled for correct Rendering
+     * @param e
+     */
     function handleAutofilled(e) {
       const isAutoFilled = /^onAutoFillStart/.test(e.animationName);
       autofilled.value = isAutoFilled;
@@ -124,6 +185,9 @@ export default {
     }
     onMounted(() => {
       if (input.value) {
+        /**
+         * Trigger Autofill
+         */
         input.value.addEventListener('animationstart', handleAutofilled);
       }
     });
@@ -132,16 +196,44 @@ export default {
         input.value.removeEventListener('animationstart', handleAutofilled);
       }
     });
-    const emitValue = useDebounceFn((val) => {
-      emit('update:modelValue', val);
+    /**
+     * Emit Model Value
+     * @param {BaseInputModelValue} val
+     */
+    const emitValue = (val) => emit('update:modelValue', val);
+    /**
+     * Update with optional debounce
+     * @type {(function(*=): void)|*}
+     */
+    const updateValue = useDebounceFn((val) => {
+      emitValue(val);
     }, props.debounce);
+    /**
+     * Clear Input Value
+     */
+    const clearInput = () => {
+      emitValue(null);
+      emit('cleared');
+    };
+    const handleFocus = () => {
+      hasFocus.value = true;
+      console.log('focus');
+    };
+    const handleBlur = () => {
+      hasFocus.value = false;
+      console.log('kein focus');
+    };
     return {
       getModifierClasses,
       removeByKey,
       input,
       autofilled,
       isFilled,
-      emitValue,
+      updateValue,
+      clearInput,
+      handleFocus,
+      handleBlur,
+      hasFocus,
     };
   },
 };
@@ -176,27 +268,48 @@ label {
   font-size: var(--field-font-size);
   height: 6rem;
 
+  &--dark {
+    --field-color-label: var(--brand-color-gray-stone);
+    --field-color-bg: transparent;
+    --field-color-input: var(--brand-color-white);
+    --field-color-border: var(--brand-color-gray-carbon);
+  }
+
   &--disabled,
   &__input[disabled] {
     --field-color-border: var(--brand-color-gray-stone);
     --field-color-bg: var(--brand-color-gray-chalk);
     --field-color-input: var(--brand-color-gray-cement);
+    --field-color-label: var(--brand-color-gray-stone);
+  }
+  &--dark#{$self}--disabled,
+  &--dark &__input[disabled] {
+    --field-color-border: var(--brand-color-gray-coal);
+    --field-color-bg: var(--brand-color-gray-coal);
+    --field-color-input: var(--brand-color-gray-cement);
     --field-color-label: var(--brand-color-gray-cement);
   }
 
   &--error {
-    --field-color-border: var(--functional-color-error);
-    --field-color-bg: var(--functional-color-error-1-light);
-    --field-color-label: var(--functional-color-error);
+    & {
+      --field-color-border: var(--functional-color-error);
+      --field-color-bg: var(--functional-color-error-1-light);
+      --field-color-label: var(--functional-color-error);
+    }
+    &#{$self}--dark {
+      --field-color-bg: var(--functional-color-error-1-dark);
+    }
   }
 
   &:hover,
   &--fake-hover {
     --field-color-border: var(--brand-color-gray-graphite);
   }
-  &:focus,
   &--fake-focus {
     --field-color-border: var(--brand-color-anthracite);
+    &#{$self}--dark {
+      --field-color-border: var(--brand-color-gray-cement);
+    }
   }
   &__input {
     -webkit-appearance: none;
@@ -236,6 +349,9 @@ label {
         --field-label-font-size: 1.4rem;
         top: 1rem;
         transform: translate3d(var(--field-padding-h), 0, 0);
+        #{$self}--dark:not(#{$self}--error) & {
+          --field-color-label: var(--brand-color-gray-cement);
+        }
       }
     }
     // @TODO Designer Accessibility Workshop!
@@ -245,6 +361,12 @@ label {
     &:focus-visible {
       border-color: var(--field-color-border)
     }
+  }
+  &__icon {
+    position: absolute;
+    top: 50%;
+    right: var(--field-padding-h);
+    transform: translate3d(0, -50%, 0);
   }
   &__text {
     font-size: var(--field-label-font-size);
@@ -266,11 +388,18 @@ label {
   padding-top: 0.6rem;
 }
 
-.valid-icon {
-  position: absolute;
-  top: 50%;
-  right: var(--field-padding-h);
-  transform: translate3d(0, -50%, 0);
+/**
+  Temp @TODO optimize after Icons are final
+ */
+.clearable-icon {
+  @include btn-reset();
+  // Temp
+  background: #fff;
+  border-radius: 10rem;
+
+  .field--dark & {
+    background: var(--brand-color-gray-carbon);
+  }
 }
 </style>
 
@@ -302,4 +431,3 @@ input:not(:-webkit-autofill) {
   to {/**/}
 }
 </style>
-

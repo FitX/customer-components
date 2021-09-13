@@ -15,6 +15,7 @@
 import { defineAsyncComponent } from 'vue';
 
 export default {
+  name: 'ErrorMessage',
   components: {
     ErrorIcon: defineAsyncComponent(() => import('@/components/error-icon/ErrorIcon.vue')),
   },

@@ -25,6 +25,7 @@ export const modifier = [
 ];
 
 export default {
+  name: 'BaseButton',
   props: {
     tag: {
       type: String,

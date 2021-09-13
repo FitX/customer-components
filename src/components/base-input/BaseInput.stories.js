@@ -133,3 +133,17 @@ BaseInputDisabledPreFilled.args = {
   model: 'Demo Disabled',
   disabled: true,
 };
+
+export const BaseInputClearable = Template.bind({});
+BaseInputClearable.args = {
+  label: 'Mitgliedsnummer',
+  model: '123456',
+  clearable: true,
+};
+BaseInputClearable.parameters = {
+  docs: {
+    description: {
+      story: 'Über das clearable Attribute bekommt die Componente eine Löschfunktion. Eine Validierung soll nicht statt finden.',
+    },
+  },
+}

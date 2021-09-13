@@ -1,6 +1,16 @@
-import TextButton from '@/components/text-button/TextButton.vue';
+// import { App } from 'vue';
+// import * as components from './components/index';
+/*
+function install(Vue = App) {
+  // eslint-disable-next-line guard-for-in,no-restricted-syntax
+  for (const component in components) {
+    Vue.component(components[component].name, components[component]);
+  }
+}
 
-/* eslint-disable import/prefer-default-export */
+export default { install };
 export {
-  TextButton,
+  components,
 };
+*/
+export * from './components/index';

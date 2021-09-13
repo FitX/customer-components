@@ -84,10 +84,15 @@ npm link
 Go to consuming App, link and install
 
 ```
-npm link customer-components
-npm i customer-components
+npm link @fitx/customer-components
+npm i @fitx/customer-components
 ```
 
+## Update Lib
+Make sure to update [index file](src/index.js) after add new Components. and run
+```
+npm run build:lib
+```
 ## Publish Lib
 ```
 npm publish --access public
