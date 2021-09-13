@@ -3,18 +3,6 @@ import '@testing-library/jest-dom';
 import BaseInput from '@/components/base-input/BaseInput.vue';
 
 describe('Base Input', () => {
-  it('renders input as default', () => {
-    const wrapper = shallowMount(BaseInput);
-    // remove whitespace and remove v-if https://jaketrent.com/post/remove-whitespace-html-javascript
-    const wrapperHtml = wrapper.html()
-      .replace(/\n/g, "")
-      .replace(/[\t ]+\</g, "<")
-      .replace(/\>[\t ]+\</g, "><")
-      .replace(/\>[\t ]+$/g, ">")
-      .replace(/<!--v-if-->/gi, '');
-    expect(wrapperHtml).toMatch('<div class=""><label class="field"><input class="field__input"><span class="field__btn-wrapper"></span></label></div>');
-  });
-
   it('shows label', async () => {
     const wrapper = shallowMount(BaseInput, {
       props: {
@@ -60,7 +48,6 @@ describe('Base Input', () => {
       modelValue: 'Some value',
     });
     expect(wrapper.find('input').element).toHaveClass('field__input--not-empty');
-    // expect(wrapper.find('input').element).toHaveClass('field__input--auto-filled');
   });
 
   it('has correct modifier classes', () => {
@@ -69,5 +56,38 @@ describe('Base Input', () => {
     });
     const el = wrapper.find('label').element;
     expect(el).toHaveClass('field--disabled');
+  });
+
+  it ('updates model', () => {
+    const wrapper = shallowMount(BaseInput);
+    const input = wrapper.find('input');
+    input.setValue('Frank');
+    expect(wrapper.emitted()).toBeTruthy();
+  });
+
+  it ('set focus class', async () => {
+    const wrapper = shallowMount(BaseInput);
+    const label = wrapper.find('label').element;
+    expect(label).not.toHaveClass('field--fake-focus field');
+    const input = wrapper.find('input');
+    await input.trigger('focus');
+    expect(label).toHaveClass('field--fake-focus field');
+
+    await input.trigger('blur');
+    expect(label).not.toHaveClass('field--fake-focus field');
+    expect(label).toHaveClass('field');
+  });
+
+  it ('clears input', async () => {
+    const wrapper = shallowMount(BaseInput);
+    const input = wrapper.find('input');
+    expect(input.text()).toBe('');
+    await wrapper.setProps({
+      modelValue: 'Frank',
+      clearable: true,
+    });
+    expect(wrapper.vm.modelValue).toBe('Frank');
+    await wrapper.find('button').trigger('click');
+    expect(wrapper.emitted('cleared'));
   });
 });
