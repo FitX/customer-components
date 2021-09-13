@@ -75,6 +75,7 @@ export const modifier = [
 ];
 
 export default {
+  name: 'BaseInput',
   components: {
     ErrorText: defineAsyncComponent(() => import('@/components/error-message/ErrorMessage.vue')),
     ValidIcon: defineAsyncComponent(() => import('@/components/valid-icon/ValidIcon.vue')),

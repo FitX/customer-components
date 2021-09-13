@@ -24,6 +24,7 @@ const modifier = [
 ];
 
 export default {
+  name: 'TextButton',
   props: {
     tag: {
       type: String,
