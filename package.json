@@ -1,15 +1,21 @@
 {
   "name": "@fitx/customer-components",
   "version": "0.1.10",
-  "main": "./dist/customer-components.umd.js",
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
   "files": [
     "dist/*",
     "src/*"
   ],
+  "peerDependencies": {
+    "vue": "^3.0.0",
+    "vue-class-component": "^8.0.0-0"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:lib": "vue-cli-service build --target lib ./src/index.js",
+    "build:rolluo": "rollup -c",
     "test:unit": "vue-cli-service test:unit",
     "test:unit-update-snapshot": "vue-cli-service test:unit -u",
     "test:e2e": "./node_modules/.bin/nightwatch -e ios-tunnel tests/local-tunnel-test.js",
@@ -30,6 +36,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "rollup": "^2.41.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-vue": "^6.0.0",
     "@storybook/addon-actions": "^6.3.7",
     "@storybook/addon-essentials": "^6.3.7",
     "@storybook/addon-links": "^6.3.7",
