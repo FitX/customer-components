@@ -8,6 +8,7 @@ import packageJson from "./package.json";
 
 export default {
   input: "src/index.js",
+  external: ['@vueuse/core'],
   output: [
     {
       format: "cjs",
