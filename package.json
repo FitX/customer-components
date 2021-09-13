@@ -1,8 +1,8 @@
 {
   "name": "@fitx/customer-components",
   "version": "0.1.10",
-  "main": "lib/index.js",
-  "module": "lib/index.esm.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "files": [
     "dist/*",
     "src/*"
@@ -15,7 +15,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:lib": "vue-cli-service build --target lib ./src/index.js",
-    "build:rolluo": "rollup -c",
+    "build:rollup": "rollup -c",
     "test:unit": "vue-cli-service test:unit",
     "test:unit-update-snapshot": "vue-cli-service test:unit -u",
     "test:e2e": "./node_modules/.bin/nightwatch -e ios-tunnel tests/local-tunnel-test.js",
