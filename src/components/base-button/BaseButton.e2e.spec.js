@@ -36,7 +36,7 @@ describe('BaseButton', () => {
     //default
     client.expect.element('.btn').text.to.equal('Primary Button');
     client.expect.element('div > button:nth-of-type(1)').text.to.equal('Primary Button');
-    client.expect.element('div > button:nth-of-type(1)').to.have.css('background-color').which.equals('rgba(237, 106, 18, 1)'); 
+    client.expect.element('div > button:nth-of-type(1)').to.have.css('background-color').which.equals('rgba(237, 106, 18, 1)');
     client.expect.element('div > button:nth-of-type(1)').to.not.have.attribute('disabled');
     client.assert.cssClassPresent('div > button:nth-of-type(1)', 'btn');
 
