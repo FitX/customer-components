@@ -1,7 +1,7 @@
 {
   "name": "@fitx/customer-components",
   "version": "0.1.5",
-  "main": "./dist/customer-components.common.js",
+  "main": "./dist/customer-components.umd.js",
   "files": [
     "dist/*",
     "src/**/*.vue"
@@ -9,7 +9,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --name customer-components ./src/index.js",
+    "build:lib": "vue-cli-service build --target lib ./src/index.js",
     "test:unit": "vue-cli-service test:unit",
     "test:unit-update-snapshot": "vue-cli-service test:unit -u",
     "test:e2e": "./node_modules/.bin/nightwatch -e ios-tunnel tests/local-tunnel-test.js",
