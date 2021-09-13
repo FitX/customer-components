@@ -1,12 +1,18 @@
 {
   "name": "@fitx/customer-components",
   "version": "0.1.13",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
   "files": [
     "dist/*",
     "src/*"
   ],
+  "main": "./dist/customer-components.umd.js",
+  "module": "./dist/customer-components.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/my-lib.es.js",
+      "require": "./dist/my-lib.umd.js"
+    }
+  },
   "peerDependencies": {
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0"
@@ -15,11 +21,11 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:lib": "vue-cli-service build --target lib ./src/index.js",
-    "build:rollup": "rollup -c",
+    "build:vite": "vite build",
     "test:unit": "vue-cli-service test:unit",
     "test:unit-update-snapshot": "vue-cli-service test:unit -u",
-    "test:e2e": "./node_modules/.bin/nightwatch -e ios-tunnel tests/local-tunnel-test.js",
-    "test:e2e-local": "./node_modules/.bin/nightwatch -c nightwatch.local.json",
+    "test:e2e": "nightwatch -e ios-tunnel tests/local-tunnel-test.js",
+    "test:e2e-local": "nightwatch -c nightwatch.local.json",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -c .storybook"
@@ -30,25 +36,20 @@
     "audit": "0.0.6",
     "core-js": "^3.6.5",
     "fix": "0.0.6",
+    "sass": "^1.39.2",
     "selenium-webdriver": "^4.0.0-beta.4",
     "vue": "^3.0.0",
     "vue-svg-loader": "^0.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
-    "@rollup/plugin-commonjs": "^17.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "rollup": "^2.41.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.0",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "rollup-plugin-vue": "^6.0.0",
     "@storybook/addon-actions": "^6.3.7",
     "@storybook/addon-essentials": "^6.3.7",
     "@storybook/addon-links": "^6.3.7",
     "@storybook/addon-storyshots": "^6.3.7",
     "@storybook/vue3": "^6.3.7",
     "@testing-library/jest-dom": "^5.14.1",
+    "@vitejs/plugin-vue": "^1.1.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "~4.5.0",
@@ -64,18 +65,20 @@
     "eslint-plugin-vue": "^7.0.0",
     "jest-vue-preprocessor": "^1.7.1",
     "nightwatch": "^1.7.7",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
     "storybook-addon-themes": "^6.1.0",
     "typescript": "~3.9.3",
+    "vite": "^2.0.0-beta.40",
     "vue-jest": "^5.0.0-0",
-    "vue-loader": "^16.5.0"
+    "vue-loader": "^16.4.1"
   },
   "resolutions": {
-    "vue-loader": "^16.5.0"
+    "vue-loader": "^16.4.1"
   },
   "description": "Vue Brand-Evo Components and Widget Library for Customer Apps. [Overview](https://customer-components.netlify.app)",
   "directories": {
+    "lib": "lib",
     "test": "tests"
   },
   "repository": {
