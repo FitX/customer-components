@@ -114,9 +114,8 @@ const install = function (app) {
 };
 
 const { version } = packageData;
-
+export * from '@/components/index';
 export {
   version,
   install,
-  components,
 };
