@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '~@/assets/styles/colors.scss';
 .error-message {
   @include functional-colors();
