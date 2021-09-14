@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@/assets/styles/colors.scss';
+@import '../../assets/styles/colors.scss';
 .error-message {
   @include functional-colors();
   color: var(--functional-color-error);
