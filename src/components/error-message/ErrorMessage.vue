@@ -34,7 +34,7 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import '../../assets/styles/colors.scss';
 .error-message {
   @include functional-colors();
