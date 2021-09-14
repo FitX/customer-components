@@ -27,7 +27,7 @@ export default defineConfig({
   },
   build: {
     cssCodeSplit: true,
-    target: 'esnext', // esnext | es2015
+    target: 'es2015', // esnext | es2015
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
       formats: ['cjs', 'es', 'umd', 'esm', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
