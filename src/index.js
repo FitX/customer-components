@@ -75,4 +75,48 @@ export default install;
 // To allow individual component use, export components
 // each can be registered via Vue.component()
 export * from '@/components/index'; */
-export * from './components/index';
+import packageData from '../package.json';
+import '@/assets/styles/lib.scss';
+import * as components from './components/index';
+
+/**
+ * Convert kebab-case to camelCase
+ * @param {string} str
+ * @return {string}
+ */
+const transformCamelCase = (str = '') => str
+  .replace(/-(\w)/g, ($0, $1) => $1.toUpperCase());
+
+// components collection
+const componentsCollection = { ...components };
+
+// components desc array
+const componentsDesc = Object.keys(componentsCollection).map((item) => {
+  const component = componentsCollection[item];
+  return {
+    name: component.name || 'c-comp', // kebab-case
+    component,
+  };
+});
+
+const install = function (app) {
+  if (!app || install.installed) {
+    return;
+  }
+
+  componentsDesc.forEach((item) => {
+    const kebabCaseName = item.name
+    const camelCaseName = transformCamelCase(`-${kebabCaseName}`);
+    const registerComponent = item.component;
+    app.component(kebabCaseName, registerComponent); // kebab-case
+    app.component(camelCaseName, registerComponent); // camelCase
+  });
+};
+
+const { version } = packageData;
+
+export {
+  version,
+  install,
+  components,
+};
