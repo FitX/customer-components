@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style>
+<style module>
 .error-message {
   background: blue;
 }
