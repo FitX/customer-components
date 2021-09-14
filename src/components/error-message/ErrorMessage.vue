@@ -39,5 +39,6 @@ export default {
   grid-template-columns: 2rem 1fr;
   grid-gap: 1rem;
   align-items: center;
+  background: red;
 }
 </style>
