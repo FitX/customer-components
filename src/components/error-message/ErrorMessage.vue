@@ -29,7 +29,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '~@/assets/styles/colors.scss';
 .error-message {
+  @include functional-colors();
   color: var(--functional-color-error);
   font-size: 1.4rem;
   display: grid;
