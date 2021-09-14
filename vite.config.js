@@ -4,9 +4,16 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [
-    vue(), // for vue plugin
+    vue({
+      /**
+       * Get inlined Styles in esm modules
+       * @link https://github.com/vitejs/vite/blob/main/packages/plugin-vue/README.md#using-vue-sfcs-as-custom-elements
+       */
+      customElement: true,
+    }), // for vue plugin
   ],
   resolve: {
+    // extensions: ['.js', '.ts', '.vue', '.json'],
     alias: [
       {
         find: '@',
@@ -20,9 +27,11 @@ export default defineConfig({
   },
   build: {
     cssCodeSplit: true,
+    target: 'esnext', // esnext | es2015
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
-      name: 'customer-components',
+      formats: ['cjs', 'es', 'umd', 'esm', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
+      name: 'customerComponents',
     },
     /* rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
