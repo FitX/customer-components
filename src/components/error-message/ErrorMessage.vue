@@ -28,6 +28,12 @@ export default {
 };
 </script>
 
+<style>
+.error-message {
+  background: blue;
+}
+</style>
+
 <style lang="scss">
 @import '../../assets/styles/colors.scss';
 .error-message {
