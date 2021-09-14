@@ -12,24 +12,35 @@ export default defineConfig({
         find: '@',
         replacement: resolve(__dirname, 'src'),
       },
-      /* {
+      {
         find: '~@',
         replacement: resolve(__dirname, 'src'),
-      }, */
+      },
     ],
   },
   build: {
+    cssCodeSplit: true,
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
       name: 'customer-components',
     },
-    rollupOptions: {
+    /* rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
       external: ['vue'],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
+        globals: {
+          vue: 'Vue',
+        },
+      },
+    }, */
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        exports: 'named',
+        assetFileNames: 'customer-components.[ext]',
         globals: {
           vue: 'Vue',
         },

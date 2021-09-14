@@ -12,7 +12,7 @@
       "import": "./dist/customer-components.es.js",
       "require": "./dist/customer-components.umd.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/customer-components.css": "./dist/customer-components.css"
   },
   "scripts": {
     "serve": "vue-cli-service serve",

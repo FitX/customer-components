@@ -75,7 +75,6 @@ export default install;
 // To allow individual component use, export components
 // each can be registered via Vue.component()
 export * from '@/components/index'; */
-import packageData from '../package.json';
 import '@/assets/styles/lib.scss';
 import * as components from './components/index';
 
@@ -113,9 +112,7 @@ const install = function (app) {
   });
 };
 
-const { version } = packageData;
 export * from '@/components/index';
 export {
-  version,
   install,
 };
