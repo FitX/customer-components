@@ -243,8 +243,8 @@ export default {
 <style scoped lang="scss">
 // @use currently only with dart-sass
 // @use '~@/assets/styles/mixins.scss' as mixin;
-@import 'src/assets/styles/mixin-reset.scss';
-@import 'src/assets/styles/colors.scss';
+@import '~@/assets/styles/mixin-reset.scss';
+@import '~@/assets/styles/colors.scss';
 label {
   display: block;
   font-size: 1.8rem;

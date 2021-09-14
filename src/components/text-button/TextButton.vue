@@ -52,7 +52,7 @@ export default {
 <style scoped lang="scss">
 // @use currently only with dart-sass
 // @use '~@/assets/styles/mixins.scss' as mixin;
-@import 'src/assets/styles/mixin-reset.scss';
+@import '~@/assets/styles/mixin-reset.scss';
 .btn {
   @include btn-reset();
   --btn-color: #ED6A12;
