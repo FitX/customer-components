@@ -59,7 +59,7 @@ export { default as BaseButton } from '@/components/base-button/BaseButton.vue';
 export { default as BaseOption } from '@/components/base-option/BaseOption.vue';
 export { default as BaseOptionForm } from '@/components/base-option-form/BaseOptionForm.vue'; */
 
-import '@/assets/styles/lib.scss';
+/* import '@/assets/styles/lib.scss';
 import * as components from '@/components/index';
 
 // install function executed by Vue.use()
@@ -74,4 +74,5 @@ export default install;
 
 // To allow individual component use, export components
 // each can be registered via Vue.component()
-export * from '@/components/index';
+export * from '@/components/index'; */
+export * from './components/index';

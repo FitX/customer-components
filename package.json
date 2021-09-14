@@ -5,8 +5,8 @@
     "dist/*",
     "src/*"
   ],
-  "main": "./dist/customer-components.umd.js",
-  "module": "./dist/customer-components.es.js",
+  "main": "dist/customer-components.js",
+  "module": "dist/customer-components.esm.js",
   "exports": {
     ".": {
       "import": "./dist/customer-components.es.js",
@@ -14,11 +14,15 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
+  "resolutions": {
+    "node-sass": "npm:sass@^1.39.2"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:lib": "vue-cli-service build --target lib ./src/index.js",
     "build:vite": "vite build",
+    "build:pkg": "rollup -c",
     "test:unit": "vue-cli-service test:unit",
     "test:unit-update-snapshot": "vue-cli-service test:unit -u",
     "test:e2e": "nightwatch -e ios-tunnel tests/local-tunnel-test.js",
@@ -29,10 +33,13 @@
   },
   "dependencies": {
     "@lambdatest/node-rest-client": "^1.0.0",
+    "@rollup/plugin-alias": "^3.1.5",
     "@vueuse/core": "^6.0.0",
     "audit": "0.0.6",
     "core-js": "^3.6.5",
     "fix": "0.0.6",
+    "path": "^0.12.7",
+    "rollup-plugin-postcss": "^4.0.1",
     "sass": "^1.39.2",
     "selenium-webdriver": "^4.0.0-beta.4",
     "vue": "^3.0.0",
@@ -68,7 +75,12 @@
     "typescript": "~3.9.3",
     "vite": "^2.4.3",
     "vue-jest": "^5.0.0-0",
-    "vue-loader-v16": "^16.0.0-beta.5.4"
+    "vue-loader-v16": "^16.0.0-beta.5.4",
+    "rollup": "^2.29.0",
+    "rollup-plugin-esbuild": "^4.5.0",
+    "rollup-plugin-scss": "^3.0.0-rc1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-vue": "^6.0.0-beta.10"
   },
   "description": "Vue Brand-Evo Components and Widget Library for Customer Apps. [Overview](https://customer-components.netlify.app)",
   "directories": {
