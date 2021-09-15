@@ -9,7 +9,7 @@ export default defineConfig({
        * Get inlined Styles in esm modules
        * @link https://github.com/vitejs/vite/blob/main/packages/plugin-vue/README.md#using-vue-sfcs-as-custom-elements
        */
-      // customElement: true,
+      customElement: true,
     }), // for vue plugin
   ],
   resolve: {
@@ -30,7 +30,7 @@ export default defineConfig({
     target: 'esnext', // esnext | es2015
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
-      formats: ['cjs', 'es', 'umd', 'esm', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
+      formats: ['cjs', 'es', 'umd', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
       name: 'customerComponents',
     },
     /* rollupOptions: {
