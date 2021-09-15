@@ -114,13 +114,14 @@ const install = function (app) {
   }
 
   componentsDesc.forEach((item) => {
-    const kebabCaseName = transformKebabCase(item.name)
+    const kebabCaseName = transformKebabCase(item.name);
     const camelCaseName = transformCamelCase(`-${kebabCaseName}`);
     const registerComponent = item.component;
+    console.log(kebabCaseName, camelCaseName);
     app.component(kebabCaseName, registerComponent); // kebab-case
     app.component(camelCaseName, registerComponent); // camelCase
   });
-  install.installed = true;
+  // install.installed = true;
 };
 
 /**
