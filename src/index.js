@@ -114,7 +114,7 @@ const install = function (app) {
   }
 
   componentsDesc.forEach((item) => {
-    const kebabCaseName = item.name
+    const kebabCaseName = transformKebabCase(item.name)
     const camelCaseName = transformCamelCase(`-${kebabCaseName}`);
     const registerComponent = item.component;
     app.component(kebabCaseName, registerComponent); // kebab-case
