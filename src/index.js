@@ -102,6 +102,7 @@ const componentsCollection = { ...components };
 // components desc array
 const componentsDesc = Object.keys(componentsCollection).map((item) => {
   const component = componentsCollection[item];
+  console.log('component.name', component.name);
   return {
     name: component.name || 'c-comp', // kebab-case
     component,
