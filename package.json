@@ -7,6 +7,7 @@
   ],
   "main": "dist/customer-components.umd.js",
   "module": "dist/customer-components.es.js",
+  "unpkg": "dist/customer-components.iife.js",
   "exports": {
     ".": {
       "import": "./dist/customer-components.es.js",
@@ -14,6 +15,7 @@
     },
     "./dist/customer-components.css": "./dist/customer-components.css"
   },
+  "style": "./dist/customer-components.css",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

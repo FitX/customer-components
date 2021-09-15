@@ -112,7 +112,30 @@ const install = function (app) {
   });
 };
 
+/**
+ * Install Component as Web Component
+ * @param {string} tagName - web component name in kebab-case
+ * @param {object} component - Vue Component
+ */
+const installWebComponent = function (tagName, component) {
+  if (!tagName) {
+    return;
+  }
+  window.customElements.define(tagName, component)
+};
+
+/**
+ * Register all Components as Web Component, prefix with 'web-'
+ */
+const installWebComponents = function () {
+  componentsDesc.forEach((item) => {
+    installWebComponent(`web-${item.name}`, item.component);
+  });
+};
+
 export * from '@/components/index';
 export {
   install,
+  installWebComponent,
+  installWebComponents,
 };
