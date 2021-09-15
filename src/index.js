@@ -84,8 +84,17 @@ import * as components from './components/index';
  * @param {string} str
  * @return {string}
  */
-const transformCamelCase = (str = '') => str
+const transformCamelCase = (string = '') => string
   .replace(/-(\w)/g, ($0, $1) => $1.toUpperCase());
+
+/**
+ * Convert camelCase to kebab-case
+ * @param {string} string
+ * @return {string}
+ */
+const transformKebabCase = (string) => string
+  .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
+  .toLowerCase();
 
 // components collection
 const componentsCollection = { ...components };
@@ -122,7 +131,8 @@ const installWebComponent = function (tagName, component) {
   if (!tagName || !component) {
     return;
   }
-  window.customElements.define(tagName, defineCustomElement(component));
+  const validName = transformKebabCase(tagName);
+  window.customElements.define(validName, defineCustomElement(component));
 };
 
 /**
