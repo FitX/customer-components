@@ -118,7 +118,7 @@ const install = function (app) {
     const kebabCaseName = transformKebabCase(item.name);
     const camelCaseName = transformCamelCase(item.name);
     const registerComponent = item.component;
-    console.log(kebabCaseName, camelCaseName);
+    console.log(item.name, kebabCaseName, camelCaseName);
     app.component(kebabCaseName, registerComponent); // kebab-case
     app.component(camelCaseName, registerComponent); // camelCase
   });
