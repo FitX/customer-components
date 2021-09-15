@@ -76,6 +76,7 @@ export default install;
 // each can be registered via Vue.component()
 export * from '@/components/index'; */
 import '@/assets/styles/lib.scss';
+import { defineCustomElement } from 'vue';
 import * as components from './components/index';
 
 /**
@@ -118,10 +119,10 @@ const install = function (app) {
  * @param {object} component - Vue Component
  */
 const installWebComponent = function (tagName, component) {
-  if (!tagName) {
+  if (!tagName || !component) {
     return;
   }
-  window.customElements.define(tagName, component)
+  window.customElements.define(tagName, defineCustomElement(component));
 };
 
 /**
