@@ -1,15 +1,16 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <error-icon />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+/* eslint-disable */
+// import { ErrorIcon } from '/dist/customer-components.umd.js';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    // ErrorIcon,
   },
 };
 </script>

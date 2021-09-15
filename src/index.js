@@ -120,6 +120,7 @@ const install = function (app) {
     app.component(kebabCaseName, registerComponent); // kebab-case
     app.component(camelCaseName, registerComponent); // camelCase
   });
+  install.installed = true;
 };
 
 /**
@@ -150,3 +151,5 @@ export {
   installWebComponent,
   installWebComponents,
 };
+
+export default install;

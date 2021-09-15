@@ -17,7 +17,7 @@
   },
   "style": "./dist/customer-components.css",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve ./src/main.js",
     "build": "vue-cli-service build",
     "build:lib": "vue-cli-service build --target lib ./src/index.js",
     "build:vite": "vite build --config vite.config.js",
