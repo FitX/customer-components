@@ -9,7 +9,7 @@ export default defineConfig({
        * Get inlined Styles in esm modules
        * @link https://github.com/vitejs/vite/blob/main/packages/plugin-vue/README.md#using-vue-sfcs-as-custom-elements
        */
-      customElement: true,
+      // customElement: true,
     }), // for vue plugin
   ],
   resolve: {
