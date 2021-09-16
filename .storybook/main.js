@@ -6,6 +6,7 @@ module.exports = {
   stories: [
     '../src/**/*.stories.mdx', // mdx doc files on top to render on top in nav
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
+    // '../src/**/(BaseButton|ErrorIcon|ErrorMessage|TextButton|BaseInput).stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-links',
@@ -18,6 +19,10 @@ module.exports = {
       use: ['style-loader', 'css-loader', 'sass-loader'],
       include: path.resolve(__dirname, '../'),
     });
+
+    config.externals = {
+      '@vueuse/core': 'window.VueUse',
+    };
 
     config.resolve.alias = {
       '@': path.resolve(__dirname, "../src"),
