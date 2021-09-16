@@ -115,6 +115,7 @@ const componentsDesc = Object.keys(componentsCollection).map((item) => {
 const { createApp } = window.Vue;
 const globalApp = createApp();
 console.log('globalApp', globalApp);
+console.log('window Vue', window.Vue);
 
 /**
  * Global install Function
@@ -140,9 +141,6 @@ const install = function (app = globalApp) {
 /* const plugin = {
   install,
 }; */
-
-console.log('window.Vue', window.Vue);
-console.log('global.Vue', global.Vue);
 
 // Auto-install when vue is found (eg. in browser via <script> tag)
 let GlobalVue = null;
