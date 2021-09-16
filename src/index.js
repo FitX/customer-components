@@ -147,7 +147,7 @@ if (typeof window !== 'undefined') {
 if (GlobalVue) {
   const { createApp } = GlobalVue;
   const globalApp = createApp();
-  GlobalVue.use(install);
+  globalApp.use(install);
   console.log('global App', globalApp);
   console.log('GlobalVue App', GlobalVue);
   console.log('window Vue', window.Vue);
