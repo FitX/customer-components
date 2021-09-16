@@ -1,10 +1,12 @@
 import { createApp } from 'vue';
-import {
+/* import {
   ErrorIcon,
-} from '../dist/customer-components.es';
-import '../dist/customer-components.css';
+} from '../dist/customer-components.es'; */
+import install from '../dist/customer-components.umd';
+// import '../dist/customer-components.css';
 import App from './App.vue';
 
 const app = createApp(App);
-app.component('ErrorIcon', ErrorIcon);
+app.use(install);
+// app.component('ErrorIcon', ErrorIcon);
 app.mount('#app');
