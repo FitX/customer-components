@@ -113,8 +113,13 @@ const componentsDesc = Object.keys(componentsCollection).map((item) => {
   };
 });
 
+/**
+ * Global install Function
+ * @param app - Vue instance
+ */
 const install = function (app) {
-  if (!app || install.installed) {
+  // if (!app || install.installed) {
+  if (!install.installed) {
     return;
   }
 
@@ -126,8 +131,24 @@ const install = function (app) {
     app.component(kebabCaseName, registerComponent); // kebab-case
     app.component(camelCaseName, registerComponent); // camelCase
   });
-  // install.installed = true;
+  install.installed = true;
 };
+
+// Create module definition for Vue.use()
+const plugin = {
+  install,
+};
+
+// Auto-install when vue is found (eg. in browser via <script> tag)
+let GlobalVue = null;
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+  GlobalVue = global.Vue;
+}
+if (GlobalVue) {
+  GlobalVue.use(plugin);
+}
 
 /**
  * Install Component as Web Component
