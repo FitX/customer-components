@@ -128,6 +128,7 @@ const install = function (app) {
     const registerComponent = item.component;
     app.component(kebabCaseName, registerComponent); // kebab-case
     app.component(camelCaseName, registerComponent); // camelCase
+    app.use(registerComponent);
   });
   install.installed = true;
 };
