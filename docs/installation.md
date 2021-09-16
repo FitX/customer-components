@@ -2,11 +2,11 @@
 
 ## Environment
 
-| ![iOS](https://cdn.jsdelivr.net/npm/@browser-logos/safari/safari_32x32.png) | [Chrome](https://cdn.jsdelivr.net/npm/@browser-logos/chrome/chrome_32x32.png) |
+| ![iOS](https://cdn.jsdelivr.net/npm/@browser-logos/safari/safari_32x32.png) | ![Chrome](https://cdn.jsdelivr.net/npm/@browser-logos/chrome/chrome_32x32.png) |
 | ------------------------------- |
 | @TODO version | latest |
 
-ElementPlus is currently in a rapid development iteration:
+This Library is currently in a rapid development iteration:
 
 [![Library version badge](https://img.shields.io/npm/v/@fitx/customer-components.svg?style=flat-square)](https://www.npmjs.org/package/@fitx/customer-components)
 
@@ -20,9 +20,10 @@ so that you can utilize bundlers like [vite](https://vitejs.dev) and
 $ npm install @fitx/customer-components --save
 ```
 
-Alternatively, u can use the Library directly in tn Browser
+**Currently not @TODO web exports** Alternatively, u can use the Library directly in tn Browser
 via cdn.jsdelivr.net/npm/@fitx/customer-components or //unpkg.com/@fitx/customer-components/
 **Example:**
+
 ```html
 <head>
   <!-- Introduce styles -->
@@ -36,12 +37,16 @@ via cdn.jsdelivr.net/npm/@fitx/customer-components or //unpkg.com/@fitx/customer
 
 ## Hello Fitness Online Demo
 
-Test the Hello world page. [Online Demo](https://codepen.io/iamkun/pen/YzWMaVr)
+Test the Hello world page.
 
-<iframe height="469" style="width: 100%;" scrolling="no" title="ExXbQPv" src="https://codepen.io/webdesignberlin/embed/ExXbQPv?height=469&theme-id=light&default -tab=html,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/webdesignberlin/pen/ExXbQPv'>YzWMaVr</a> by webdesignberlin
-  (<a href='https://codepen.io/iamkun'>@iamkun</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<iframe src="https://codesandbox.io/embed/cc-test-rf1me?autoresize=1&codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&moduleview=1&theme=light"
+style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+title="cc-test"
+allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+[![Edit cc-test](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/cc-test-rf1me?autoresize=1&codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&moduleview=1&theme=light)
 
 If you are installing via npm / yarn and want to use it with
 a packaging tool, please read the

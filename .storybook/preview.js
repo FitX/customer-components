@@ -39,4 +39,9 @@ export const parameters = {
     },
   },
   backgrounds: { disable: true },
+  options: {
+    storySort: {
+      order: ['Introduction', ['Readme', 'Installation', 'QuickStart'], 'Styleguide', 'Components', '*', 'WIP'],
+    },
+  },
 }
