@@ -128,7 +128,7 @@ const install = function (app) {
     const registerComponent = item.component;
     app.component(kebabCaseName, registerComponent); // kebab-case
     app.component(camelCaseName, registerComponent); // camelCase
-    app.use(registerComponent);
+    // app.use(registerComponent);
   });
   install.installed = true;
 };
@@ -141,20 +141,18 @@ const install = function (app) {
 // Auto-install when vue is found (eg. in browser via <script> tag)
 let GlobalVue = null;
 if (typeof window !== 'undefined') {
-  window.CustomerComponents = {
-    install,
-  };
+  window.CustomerComponents = (app) => install(app);
   GlobalVue = window.Vue;
 } else if (typeof global !== 'undefined') {
   GlobalVue = global.Vue;
 }
 if (GlobalVue) {
-  const { createApp } = GlobalVue;
+  /* const { createApp } = GlobalVue;
   const globalApp = createApp();
   globalApp.use(install);
   console.log('global App', globalApp);
   console.log('GlobalVue App', GlobalVue);
-  console.log('window Vue', window.Vue);
+  console.log('window Vue', window.Vue); */
 }
 
 /**
