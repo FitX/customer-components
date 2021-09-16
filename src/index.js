@@ -93,8 +93,12 @@ const transformCamelCase = (string = '') => string
  * @return {string}
  */
 const transformKebabCase = (string) => string
-  .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
-  .toLowerCase();
+  .split('')
+  .map((letter, idx) => {
+    return letter.toUpperCase() === letter
+      ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
+      : letter;
+  }).join('');
 
 // components collection
 const componentsCollection = { ...components };
@@ -102,7 +106,7 @@ const componentsCollection = { ...components };
 // components desc array
 const componentsDesc = Object.keys(componentsCollection).map((item) => {
   const component = componentsCollection[item];
-  console.log('component.name', component.name);
+  console.log('component.name', component.name, component);
   return {
     name: component.name || 'c-comp', // kebab-case
     component,
