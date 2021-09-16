@@ -141,7 +141,9 @@ const install = function (app) {
 // Auto-install when vue is found (eg. in browser via <script> tag)
 let GlobalVue = null;
 if (typeof window !== 'undefined') {
-  window.CustomerComponents = install;
+  window.CustomerComponents = {
+    install,
+  };
   GlobalVue = window.Vue;
 } else if (typeof global !== 'undefined') {
   GlobalVue = global.Vue;
