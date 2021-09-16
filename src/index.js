@@ -112,11 +112,6 @@ const componentsDesc = Object.keys(componentsCollection).map((item) => {
   };
 });
 
-const { createApp } = window.Vue;
-const globalApp = createApp();
-console.log('globalApp', globalApp);
-console.log('window Vue', window.Vue);
-
 /**
  * Global install Function
  * @param app - Vue instance
@@ -150,7 +145,12 @@ if (typeof window !== 'undefined') {
   GlobalVue = global.Vue;
 }
 if (GlobalVue) {
+  const { createApp } = GlobalVue;
+  const globalApp = createApp();
   GlobalVue.use(install);
+  console.log('global App', globalApp);
+  console.log('GlobalVue App', GlobalVue);
+  console.log('window Vue', window.Vue);
 }
 
 /**
