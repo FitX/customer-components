@@ -106,12 +106,13 @@ const componentsCollection = { ...components };
 // components desc array
 const componentsDesc = Object.keys(componentsCollection).map((item) => {
   const component = componentsCollection[item];
-  console.log('component.name', component.name, component);
   return {
     name: component.name || 'c-comp', // kebab-case
     component,
   };
 });
+
+// const { createApp } = Vue;
 
 /**
  * Global install Function
@@ -127,7 +128,6 @@ const install = function (app) {
     const kebabCaseName = transformKebabCase(item.name);
     const camelCaseName = transformCamelCase(item.name);
     const registerComponent = item.component;
-    console.log(item.name, kebabCaseName, camelCaseName);
     app.component(kebabCaseName, registerComponent); // kebab-case
     app.component(camelCaseName, registerComponent); // camelCase
   });
@@ -138,6 +138,9 @@ const install = function (app) {
 const plugin = {
   install,
 };
+
+console.log('window.Vue', window.Vue);
+console.log('global.Vue', global.Vue);
 
 // Auto-install when vue is found (eg. in browser via <script> tag)
 let GlobalVue = null;
