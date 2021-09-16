@@ -116,7 +116,7 @@ const componentsDesc = Object.keys(componentsCollection).map((item) => {
  * Global install Function
  * @param app - Vue instance
  */
-const install = function (app = globalApp) {
+const install = function (app) {
   // if (!app || install.installed) {
   if (!install.installed) {
     return;
