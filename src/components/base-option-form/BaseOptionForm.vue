@@ -29,6 +29,7 @@ export const modifier = [
 ];
 
 export default {
+  name: 'BaseOptionForm',
   emits: [
     /**
      * Fires when selected

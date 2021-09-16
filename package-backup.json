@@ -1,11 +1,20 @@
 {
   "name": "@fitx/customer-components",
-  "version": "0.1.63",
+  "version": "0.1.62",
   "files": [
     "dist/*",
     "src/*"
   ],
   "main": "dist/customer-components.umd.js",
+  "module": "dist/customer-components.es.js",
+  "unpkg": "dist/customer-components.iife.js",
+  "exports": {
+    ".": {
+      "import": "./dist/customer-components.es.js",
+      "require": "./dist/customer-components.umd.js"
+    },
+    "./dist/customer-components.css": "./dist/customer-components.css"
+  },
   "style": "./dist/customer-components.css",
   "scripts": {
     "serve": "vue-cli-service serve ./src/main.js",

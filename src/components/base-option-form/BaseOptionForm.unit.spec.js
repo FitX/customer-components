@@ -5,7 +5,8 @@ import BaseOptionForm from '@/components/base-option-form/BaseOptionForm.vue';
 describe('Base Button', () => {
   it('renders as button as default', () => {
     const wrapper = shallowMount(BaseOptionForm);
-    expect(wrapper.html()).toMatch('<button class="btn"></button>');
+    expect(wrapper.html()).toContain('<button class="btn">');
+    expect(wrapper.html()).toContain('</button>');
   });
 
   it('shows title', () => {

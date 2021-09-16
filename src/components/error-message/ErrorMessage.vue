@@ -12,11 +12,12 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue';
+import ErrorIcon from '@/components/error-icon/ErrorIcon.vue';
 
 export default {
+  name: 'ErrorMessage',
   components: {
-    ErrorIcon: defineAsyncComponent(() => import('@/components/error-icon/ErrorIcon.vue')),
+    ErrorIcon,
   },
   props: {
     errorMessage: {
@@ -28,6 +29,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '~@/assets/styles/colors.scss';
 .error-message {
   color: var(--functional-color-error);
   font-size: 1.4rem;

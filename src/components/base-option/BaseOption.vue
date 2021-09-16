@@ -29,6 +29,7 @@ export const modifier = [
 ];
 
 export default {
+  name: 'BaseOption',
   props: {
     title: {
       type: String,

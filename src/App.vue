@@ -1,20 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1>Playground for testing different Exports</h1>
+  <base-button text="base button" />
+  <hr>
+  <error-message errorMessage="Test" />
+  <hr>
+  <error-icon />
+  <hr>
+  <base-input label="base input" />
+  <hr>
+  <text-button text="text button" />
+  <hr>
+  <base-option>base option</base-option>
+  <hr>
+  <base-option-form>base option form</base-option-form>
+  <hr>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+/* eslint-disable */
+// import { ErrorIcon } from 'dist/customer-components.es.js';
+import '../dist/customer-components.css';
+import {
+  ErrorMessage,
+  ErrorIcon,
+  BaseButton,
+  BaseInput,
+  TextButton,
+  BaseOption,
+  BaseOptionForm,
+} from '../dist/customer-components.es';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    ErrorMessage,
+    ErrorIcon,
+    BaseButton,
+    BaseInput,
+    TextButton,
+    BaseOption,
+    BaseOptionForm,
   },
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,5 +52,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+hr {
+  margin: 4rem 0;
 }
 </style>

@@ -6,6 +6,12 @@
   </span>
 </template>
 
+<script>
+export default {
+  name: 'ErrorIcon',
+};
+</script>
+
 <style scoped lang="scss">
 .error-icon {
   align-self: center;

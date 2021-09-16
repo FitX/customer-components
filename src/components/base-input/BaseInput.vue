@@ -52,7 +52,6 @@
 
 <script>
 import {
-  defineAsyncComponent,
   onMounted,
   onBeforeUnmount,
   ref,
@@ -63,6 +62,8 @@ import {
 } from '@vueuse/core';
 import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
+import ErrorText from '@/components/error-message/ErrorMessage.vue';
+import ValidIcon from '@/components/valid-icon/ValidIcon.vue';
 
 /**
  * @typedef {string|number|null} BaseInputModelValue
@@ -75,9 +76,10 @@ export const modifier = [
 ];
 
 export default {
+  name: 'BaseInput',
   components: {
-    ErrorText: defineAsyncComponent(() => import('@/components/error-message/ErrorMessage.vue')),
-    ValidIcon: defineAsyncComponent(() => import('@/components/valid-icon/ValidIcon.vue')),
+    ErrorText,
+    ValidIcon,
   },
   inheritAttrs: false,
   emits: [
