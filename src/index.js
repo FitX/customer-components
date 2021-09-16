@@ -112,13 +112,15 @@ const componentsDesc = Object.keys(componentsCollection).map((item) => {
   };
 });
 
-// const { createApp } = Vue;
+const { createApp } = window.Vue;
+const globalApp = createApp();
+console.log('globalApp', globalApp);
 
 /**
  * Global install Function
  * @param app - Vue instance
  */
-const install = function (app) {
+const install = function (app = globalApp) {
   // if (!app || install.installed) {
   if (!install.installed) {
     return;
@@ -135,9 +137,9 @@ const install = function (app) {
 };
 
 // Create module definition for Vue.use()
-const plugin = {
+/* const plugin = {
   install,
-};
+}; */
 
 console.log('window.Vue', window.Vue);
 console.log('global.Vue', global.Vue);
@@ -150,7 +152,7 @@ if (typeof window !== 'undefined') {
   GlobalVue = global.Vue;
 }
 if (GlobalVue) {
-  GlobalVue.use(plugin);
+  GlobalVue.use(install);
 }
 
 /**
