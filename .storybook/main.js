@@ -20,9 +20,15 @@ module.exports = {
       include: path.resolve(__dirname, '../'),
     });
 
-    config.externals = {
-      '@vueuse/core': 'window.VueUse',
-    };
+    /* config.externals = {
+      '@vueuse/core': 'VueUse',
+    }; */
+
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: "javascript/auto"
+    });
 
     config.resolve.alias = {
       '@': path.resolve(__dirname, "../src"),
