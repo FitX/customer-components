@@ -1,14 +1,23 @@
 <template>
   <section class="demo">
     <h1>Primäre Markenfarben</h1>
-    <p>Unsere primären Markenfarben sind Weiß und Schwarz. Sie werden verwendet, um Zugänglichkeit, Einfachheit und Konsistenz in der gesamten Markenkommunikation zu gewährleisten.</p>
+    <p>Unsere primären Markenfarben sind Weiß und Schwarz.
+      Sie werden verwendet, um Zugänglichkeit, Einfachheit und Konsistenz in der gesamten
+      Markenkommunikation zu gewährleisten.</p>
+    <p>
+      <small>
+        <b>Hinweis:</b>
+        Da es scheinbar Unstimmigkeiten zwischen Social Media und Design gab,
+        wurde das Blau (#35484f, rgb(53,72,79)) durch das "SOME Blau" ersetzt.
+      </small>
+    </p>
     <color-list :colors="primaryColors" />
   </section>
 
   <section class="demo">
     <h1>Sekundäre Markenfarben</h1>
     <p>Da gibt es wohl nichts zu sagen.</p>
-    <color-list :colors="primaryColors" />
+    <color-list :colors="secondaryColors" />
   </section>
 
   <section class="demo">
