@@ -1,22 +1,33 @@
 import { reactive } from 'vue';
 import { mapPropToArgTypes } from '../../../.storybook/helpers/manual-mapping-props-to-argtypes';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
-import BaseInput, {
+import DateInput, {
   modifier,
   baseInputProps,
-} from './BaseInput.vue';
+} from './DateInput.vue';
 
 const storyDescription = `
+  Modifizierte Version der BaseInput Component zur Darstellung für Datum z.B. Geburtsdatum.
+  - Datum Model Format: **'yyyy-MM-dd'**
+  - Masken Format: **'dd.MM.yyyy'**
   **Verwendung:**
-  Base Input Component wird verwendet um **@TODO**
+  Date Input Component wird verwendet um **@TODO**
 
   **@TODO 2** Icons nicht final.
 `;
 
+const eventListener = {
+  onInput: { action: 'onInput' },
+  onUpdate: { action: 'onModelUpdate' },
+  onBlur: { action: 'onBlur' },
+  // onBlur: action('action'),
+};
+
 export default {
-  title: 'Components/BaseInput',
-  component: BaseInput,
+  title: 'Components/DateInput',
+  component: DateInput,
   argTypes: {
+    ...eventListener,
     ...mapPropToArgTypes(baseInputProps),
     modifier: {
       options: modifier,
@@ -42,9 +53,9 @@ export default {
  * @type {string}
  */
 const baseTemplate = `
-<base-input v-bind="args" v-model="args.model">
+<date-input v-bind="args" v-model="args.model" :label="args.label || 'Geburtsdatum'">
   <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
-</base-input>`;
+</date-input>`;
 
 /* ******************************** */
 /// Story Wrapper
@@ -65,38 +76,33 @@ const Template = (argsObject) => ({
       args: reactive(args),
     };
   },
-  components: { BaseInput },
+  components: { DateInput },
   template: baseTemplate,
 });
 
 //* ******************************** */
 /// Stories
 /* ******************************** */
-export const DefaultBaseInput = Template.bind({});
-DefaultBaseInput.args = {
-  label: 'Label',
+export const DefaultDateInput = Template.bind({});
+DefaultDateInput.args = {
 };
 
-export const BaseInputHover = Template.bind({});
-BaseInputHover.args = {
-  label: 'Label',
-  model: 'Demo Hover',
+export const DateInputHover = Template.bind({});
+DateInputHover.args = {
   modifier: 'fake-hover',
 };
 
-export const BaseInputFocused = Template.bind({});
-BaseInputFocused.args = {
-  label: 'Label',
+export const DateInputFocused = Template.bind({});
+DateInputFocused.args = {
   modifier: 'fake-focus',
 };
 
-export const BaseInputValid = Template.bind({});
-BaseInputValid.args = {
-  label: 'Label',
-  model: 'Demo Valid/Activated',
+export const DateInputValid = Template.bind({});
+DateInputValid.args = {
+  model: '1984-08.11',
   isValid: true,
 };
-BaseInputValid.parameters = {
+DateInputValid.parameters = {
   docs: {
     description: {
       story: 'Vorausgefüllte Inputs müssen immer validiert werden.',
@@ -104,25 +110,22 @@ BaseInputValid.parameters = {
   },
 };
 
-export const BaseInputError = Template.bind({});
-BaseInputError.args = {
-  label: 'Label',
+export const DateInputError = Template.bind({});
+DateInputError.args = {
   errorMessage: 'Das ist ein Pflichtfeld.',
 };
 
-export const BaseInputErrorFilled = Template.bind({});
-BaseInputErrorFilled.args = {
-  label: 'Vorname',
-  model: 'Error?',
-  errorMessage: 'Dein Vorname ist ungültig.',
+export const DateInputErrorFilled = Template.bind({});
+DateInputErrorFilled.args = {
+  model: '11.08.1984',
+  errorMessage: 'Das Datum ist ungültig.',
 };
 
-export const BaseInputDisabled = Template.bind({});
-BaseInputDisabled.args = {
-  label: 'Label',
+export const DateInputDisabled = Template.bind({});
+DateInputDisabled.args = {
   disabled: true,
 };
-BaseInputDisabled.parameters = {
+DateInputDisabled.parameters = {
   docs: {
     description: {
       story: 'Disable als Attribut oder Modifier möglich.',
@@ -130,23 +133,8 @@ BaseInputDisabled.parameters = {
   },
 };
 
-export const BaseInputDisabledPreFilled = Template.bind({});
-BaseInputDisabledPreFilled.args = {
-  label: 'Label',
-  model: 'Demo Disabled',
+export const DateInputDisabledPreFilled = Template.bind({});
+DateInputDisabledPreFilled.args = {
+  model: '1984-08.11',
   disabled: true,
 };
-
-export const BaseInputClearable = Template.bind({});
-BaseInputClearable.args = {
-  label: 'Mitgliedsnummer',
-  model: '123456',
-  clearable: true,
-};
-BaseInputClearable.parameters = {
-  docs: {
-    description: {
-      story: 'Über das clearable Attribute bekommt die Componente eine Löschfunktion. Eine Validierung soll nicht statt finden.',
-    },
-  },
-}

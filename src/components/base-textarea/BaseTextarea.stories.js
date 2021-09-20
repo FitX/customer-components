@@ -1,22 +1,28 @@
 import { reactive } from 'vue';
 import { mapPropToArgTypes } from '../../../.storybook/helpers/manual-mapping-props-to-argtypes';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
-import BaseInput, {
+import BaseTextarea, {
   modifier,
   baseInputProps,
-} from './BaseInput.vue';
+} from './BaseTextarea.vue';
 
 const storyDescription = `
-  **Verwendung:**
-  Base Input Component wird verwendet um **@TODO**
-
+  Modifizierte Version der BaseInput Component zur Darstellung für längere Texte.
   **@TODO 2** Icons nicht final.
 `;
 
+const eventListener = {
+  onInput: { action: 'onInput' },
+  onUpdate: { action: 'onModelUpdate' },
+  onBlur: { action: 'onBlur' },
+  // onBlur: action('action'),
+};
+
 export default {
-  title: 'Components/BaseInput',
-  component: BaseInput,
+  title: 'Components/BaseTextarea',
+  component: BaseTextarea,
   argTypes: {
+    ...eventListener,
     ...mapPropToArgTypes(baseInputProps),
     modifier: {
       options: modifier,
@@ -42,9 +48,9 @@ export default {
  * @type {string}
  */
 const baseTemplate = `
-<base-input v-bind="args" v-model="args.model">
+<base-textarea v-bind="args" v-model="args.model" :label="args.label || 'Kommentar'" :max-count="200">
   <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
-</base-input>`;
+</base-textarea>`;
 
 /* ******************************** */
 /// Story Wrapper
@@ -65,38 +71,33 @@ const Template = (argsObject) => ({
       args: reactive(args),
     };
   },
-  components: { BaseInput },
+  components: { BaseTextarea },
   template: baseTemplate,
 });
 
 //* ******************************** */
 /// Stories
 /* ******************************** */
-export const DefaultBaseInput = Template.bind({});
-DefaultBaseInput.args = {
-  label: 'Label',
+export const DefaultBaseTextarea = Template.bind({});
+DefaultBaseTextarea.args = {
 };
 
-export const BaseInputHover = Template.bind({});
-BaseInputHover.args = {
-  label: 'Label',
-  model: 'Demo Hover',
+export const BaseTextareaHover = Template.bind({});
+BaseTextareaHover.args = {
   modifier: 'fake-hover',
 };
 
-export const BaseInputFocused = Template.bind({});
-BaseInputFocused.args = {
-  label: 'Label',
+export const BaseTextareaFocused = Template.bind({});
+BaseTextareaFocused.args = {
   modifier: 'fake-focus',
 };
 
-export const BaseInputValid = Template.bind({});
-BaseInputValid.args = {
-  label: 'Label',
-  model: 'Demo Valid/Activated',
+export const BaseTextareaValid = Template.bind({});
+BaseTextareaValid.args = {
+  model: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores.',
   isValid: true,
 };
-BaseInputValid.parameters = {
+BaseTextareaValid.parameters = {
   docs: {
     description: {
       story: 'Vorausgefüllte Inputs müssen immer validiert werden.',
@@ -104,25 +105,16 @@ BaseInputValid.parameters = {
   },
 };
 
-export const BaseInputError = Template.bind({});
-BaseInputError.args = {
-  label: 'Label',
+export const BaseTextareaError = Template.bind({});
+BaseTextareaError.args = {
   errorMessage: 'Das ist ein Pflichtfeld.',
 };
 
-export const BaseInputErrorFilled = Template.bind({});
-BaseInputErrorFilled.args = {
-  label: 'Vorname',
-  model: 'Error?',
-  errorMessage: 'Dein Vorname ist ungültig.',
-};
-
-export const BaseInputDisabled = Template.bind({});
-BaseInputDisabled.args = {
-  label: 'Label',
+export const BaseTextareaDisabled = Template.bind({});
+BaseTextareaDisabled.args = {
   disabled: true,
 };
-BaseInputDisabled.parameters = {
+BaseTextareaDisabled.parameters = {
   docs: {
     description: {
       story: 'Disable als Attribut oder Modifier möglich.',
@@ -130,23 +122,8 @@ BaseInputDisabled.parameters = {
   },
 };
 
-export const BaseInputDisabledPreFilled = Template.bind({});
-BaseInputDisabledPreFilled.args = {
-  label: 'Label',
-  model: 'Demo Disabled',
+export const BaseTextareaDisabledPreFilled = Template.bind({});
+BaseTextareaDisabledPreFilled.args = {
+  model: 'Blubb',
   disabled: true,
 };
-
-export const BaseInputClearable = Template.bind({});
-BaseInputClearable.args = {
-  label: 'Mitgliedsnummer',
-  model: '123456',
-  clearable: true,
-};
-BaseInputClearable.parameters = {
-  docs: {
-    description: {
-      story: 'Über das clearable Attribute bekommt die Componente eine Löschfunktion. Eine Validierung soll nicht statt finden.',
-    },
-  },
-}
