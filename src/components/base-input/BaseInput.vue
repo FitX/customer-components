@@ -9,10 +9,27 @@
         'field--valid': isValid,
         'field--disabled': $attrs.disabled,
         'field--fake-focus': hasFocus,
+        'field--textarea': $attrs.type === 'textarea',
         }
       ]"
       class="field">
+      <textarea
+        v-if="$attrs.type === 'textarea'"
+        ref="input"
+        v-bind="removeByKey($attrs, 'class')"
+        :value="modelValue"
+        @input="updateValue($event.target.value)"
+        @focus="handleFocus()"
+        @blur="handleBlur()"
+        class="field__input field__input--textarea"
+        :class="[
+          { 'field__input--not-empty' : isFilled },
+          { 'field__input--auto-filled' : !!autofilled }
+        ]"
+        cols="30"
+        rows="10"></textarea>
       <input
+        v-else
         ref="input"
         v-bind="removeByKey($attrs, 'class')"
         :value="modelValue"
@@ -43,10 +60,17 @@
         <slot />
       </span>
     </label>
-    <error-text
-      v-if="errorMessage"
-      class="error-message"
-      :error-message="errorMessage" />
+    <div class="additional">
+      <span>
+        <error-text
+          v-if="errorMessage"
+          class="error-message"
+          :error-message="errorMessage" />
+      </span>
+      <span class="additional__count">
+        <slot name="count" />
+      </span>
+    </div>
   </div>
 </template>
 
@@ -270,6 +294,10 @@ label {
   font-size: var(--field-font-size);
   height: 6rem;
 
+  &--textarea {
+    min-height: 10rem;
+  }
+
   &--dark {
     --field-color-label: var(--brand-color-gray-stone);
     --field-color-bg: transparent;
@@ -354,8 +382,19 @@ label {
         #{$self}--dark:not(#{$self}--error) & {
           --field-color-label: var(--brand-color-gray-cement);
         }
+        #{$self}--textarea & {
+          // if textarea dont show label on focus
+         display: none;
+        }
       }
     }
+    #{$self}--fake-focus#{$self}--textarea & {
+      & + .field__text {
+        // if textarea dont show label on focus
+        display: none;
+      }
+    }
+    &:focus,
     // @TODO Designer Accessibility Workshop!
     &:focus {
       outline: none;
@@ -369,6 +408,11 @@ label {
     top: 50%;
     right: var(--field-padding-h);
     transform: translate3d(0, -50%, 0);
+    #{$self}--textarea & {
+      top: initial;
+      bottom: var(--field-padding-v);
+      transform: translate3d(0, 0, 0);
+    }
   }
   &__text {
     font-size: var(--field-label-font-size);
@@ -378,6 +422,10 @@ label {
     display: block;
     line-height: 1;
     color: var(--field-color-label);
+    #{$self}--textarea & {
+      top: var(--field-padding-h);
+      transform: translate3d(var(--field-padding-h), 0, 0);
+    }
   }
   &__btn-wrapper {
     position: absolute;
@@ -385,9 +433,6 @@ label {
     top: 50%;
     transform: translate3d(0, -50%, 0);
   }
-}
-.error-message {
-  padding-top: 0.6rem;
 }
 
 /**
@@ -401,6 +446,20 @@ label {
 
   .field--dark & {
     background: var(--brand-color-gray-carbon);
+  }
+}
+.additional {
+  display: grid;
+  width: 100%;
+  grid-gap: 1rem;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  padding-top: 0.6rem;
+
+  &__count {
+    justify-self: flex-end;
+    align-self: center;
   }
 }
 </style>

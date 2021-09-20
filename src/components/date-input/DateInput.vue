@@ -34,6 +34,7 @@ import BaseInput, {
 export { modifier };
 export { baseInputProps };
 export default {
+  name: 'DateInput',
   components: {
     BaseInput,
   },
