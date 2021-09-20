@@ -10,8 +10,8 @@ module.exports = {
   ],
   addons: [
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
     'storybook-addon-themes',
+    '@storybook/addon-essentials',
   ],
   webpackFinal: (config, { configType }) => {
     config.module.rules.push({

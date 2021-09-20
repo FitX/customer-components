@@ -75,6 +75,56 @@ export const modifier = [
   'fake-hover',
 ];
 
+export const baseInputProps = {
+  label: {
+    type: String,
+    default: null,
+  },
+  isDarkMode: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * @model
+   */
+  modelValue: {
+    type: [String, Number],
+    default: null,
+  },
+  /**
+   * Rendering Error Message if not null
+   */
+  errorMessage: {
+    type: String,
+    default: null,
+  },
+  /**
+   * Rendering Valid State
+   */
+  isValid: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Option for clearing Input Value
+   */
+  clearable: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Optional Debounce e.g for Search
+   */
+  debounce: {
+    type: Number,
+    default: 0,
+  },
+  modifier: {
+    type: [String, Array],
+    default: null,
+    validator: (value) => validateValueWithList(value, modifier),
+  },
+};
 export default {
   name: 'BaseInput',
   components: {
@@ -99,56 +149,7 @@ export default {
      */
     'cleared',
   ],
-  props: {
-    label: {
-      type: String,
-      default: null,
-    },
-    isDarkMode: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * @model
-     */
-    modelValue: {
-      type: [String, Number],
-      default: null,
-    },
-    /**
-     * Rendering Error Message if not null
-     */
-    errorMessage: {
-      type: String,
-      default: null,
-    },
-    /**
-     * Rendering Valid State
-     */
-    isValid: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Option for clearing Input Value
-     */
-    clearable: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Optional Debounce e.g for Search
-     */
-    debounce: {
-      type: Number,
-      default: 0,
-    },
-    modifier: {
-      type: [String, Array],
-      default: null,
-      validator: (value) => validateValueWithList(value, modifier),
-    },
-  },
+  props: baseInputProps,
   setup(props, { emit }) {
     const hasFocus = ref(false);
     const { getModifierClasses } = useModifier();
