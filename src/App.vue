@@ -14,6 +14,10 @@
   <hr>
   <base-option-form>base option form</base-option-form>
   <hr>
+  <date-input label="date input" />
+  <hr>
+  <base-textarea label="text area" />
+  <hr>
 </template>
 
 <script>
@@ -28,6 +32,8 @@ import {
   TextButton,
   BaseOption,
   BaseOptionForm,
+  DateInput,
+  BaseTextarea,
 } from '../dist/customer-components.es';
 
 export default {
@@ -40,6 +46,8 @@ export default {
     TextButton,
     BaseOption,
     BaseOptionForm,
+    DateInput,
+    BaseTextarea,
   },
 };
 </script>
