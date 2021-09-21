@@ -21,7 +21,6 @@ jobs:
       - name: Run unit tests
         run: |
           npm ci
-          npm run build
           npm run test:unit
       # merge after successfull build and test
       - name: Merge branch to main
