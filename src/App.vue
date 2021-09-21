@@ -18,6 +18,8 @@
   <hr>
   <base-textarea label="text area" />
   <hr>
+  <base-checkbox label="checkbox" />
+  <hr>
 </template>
 
 <script>
@@ -34,6 +36,7 @@ import {
   BaseOptionForm,
   DateInput,
   BaseTextarea,
+  BaseCheckbox,
 } from '../dist/customer-components.es';
 
 export default {
@@ -48,6 +51,7 @@ export default {
     BaseOptionForm,
     DateInput,
     BaseTextarea,
+    BaseCheckbox,
   },
 };
 </script>

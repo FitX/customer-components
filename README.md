@@ -97,3 +97,14 @@ npm run build:lib
 ```
 npm publish --access public
 ```
+
+## Release to NPM and publish to netlify
+As soon as you merge or push into branch 'release' GitHub Actions starts a workflow:
+- run unit tests
+- merge into branch 'main'
+- publish to NPM
+- netlify will update
+
+❗ If version in package.json is not updated, NPM release will fail ❗
+
+![github actions](public/actions.png)

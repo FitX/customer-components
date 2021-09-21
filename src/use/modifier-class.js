@@ -21,7 +21,11 @@ export default function useModifier() {
     if (typeof modifiers === 'string') {
       return [getModifierClass(defaultClass, modifiers)];
     }
-    return modifiers.map((mod) => `${defaultClass}--${mod}`);
+    return modifiers.map((mod) => {
+      if (mod) {
+        return `${defaultClass}--${mod}`;
+      }
+    });
   };
   return {
     componentModifier,
