@@ -53,6 +53,10 @@ export default {
   },
   inheritAttrs: false,
   props: {
+    isDarkMode: {
+      type: Boolean,
+      default: false,
+    },
     /**
      * @model
      */
@@ -86,10 +90,10 @@ export default {
       type: [Boolean, String, Number],
       default: false,
     },
-    checked: {
+    /* checked: {
       type: Boolean,
       default: false,
-    },
+    }, */
     modifier: {
       type: [String, Array],
       default: null,
@@ -160,6 +164,8 @@ export default {
   grid-template-columns: var(--checkbox-icon-size) 1fr;
   --checkbox-color-border-inner-1: transparent;
   --checkbox-color-border-inner-2: transparent;
+  user-select: none;
+  cursor: pointer;
 
   &__input-wrapper {
     display: block;
