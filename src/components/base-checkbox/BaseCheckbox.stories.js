@@ -149,11 +149,13 @@ export const ArrayValueCheckboxes = () => TemplateGroup([
     args: {
       value: 'unselected-error',
       label: 'unselected error',
+      modifier: 'error',
     },
   },
   {
     args: {
       value: 'selected-error',
+      modifier: 'error',
       checked: true,
       label: 'selected error',
     },
