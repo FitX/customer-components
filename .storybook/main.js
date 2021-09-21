@@ -35,24 +35,17 @@ module.exports = {
       // we need runtime compiler (becuase console error)
       vue: 'vue/dist/vue.esm-bundler',
     }
-    // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
-    // You can change the configuration based on that.
-    // 'PRODUCTION' is used when building the static version of storybook.
-    let rule = config.module.rules.find(r =>
-      // it can be another rule with file loader
-      // we should get only svg related
-      r.test && r.test.toString().includes('svg') &&
-      // file-loader might be resolved to js file path so "endsWith" is not reliable enough
-      r.loader && r.loader.includes('file-loader')
-    );
-    rule.test = /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani)(\?.*)?$/;
+    const svgRule = config.module.rules.find(rule => rule.test.test('.svg'));
 
-    config.module.rules.push(
-      {
-        test: /\.svg$/,
-        use: ['vue-svg-loader']
-      }
-    )
+    svgRule.test = /\.(png|jpe?g|gif|webp)$/;
+
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [
+        'vue-loader-v16',
+        'vue-svg-loader',
+      ],
+    });
 
     return config;
     // return { ...config, module: { ...config.module, rules: customWebpackConfigVue.module.rules } };
