@@ -46,12 +46,14 @@ const baseTemplate = `
  * @type {string}
  */
 const groupTemplate = `
+<div style="display: grid; max-width: calc(3 * (20rem + 2rem)); grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 1rem;">
 <base-checkbox
     v-for="(item, index) in group"
     :key="index"
     v-bind="item.args"
     v-model="model">{{ item.args.label }}</base-checkbox>
-<p>Model: {{ model }}</p>
+</div>
+<small><pre>Auswahl: {{ model }}</pre></small>
 `;
 
 /* ******************************** */
@@ -87,7 +89,12 @@ const Template = (argsObject) => ({
 const TemplateGroup = (groupItems) => ({
   components: { BaseCheckbox },
   setup() {
-    const model = ref([]);
+    const model = ref([
+      'selected-disabled',
+      'selected-error',
+      'selected-focused',
+      'selected',
+    ]);
     const group = groupItems.map((item) => {
       const itemCopy = item;
       if (typeof item.args.isDarkMode === 'undefined') {
@@ -141,7 +148,7 @@ export const ArrayValueCheckboxes = () => TemplateGroup([
     args: {
       value: 'selected-disabled',
       disabled: 'disabled',
-      checked: true,
+      // checked: true,
       label: 'selected disabled',
     },
   },
@@ -156,7 +163,7 @@ export const ArrayValueCheckboxes = () => TemplateGroup([
     args: {
       value: 'selected-error',
       modifier: 'error',
-      checked: true,
+      // checked: true,
       label: 'selected error',
     },
   },
@@ -170,7 +177,7 @@ export const ArrayValueCheckboxes = () => TemplateGroup([
   {
     args: {
       value: 'selected-focused',
-      checked: true,
+      // checked: true,
       modifier: 'fake-focus',
       label: 'selected focus',
     },
@@ -178,7 +185,7 @@ export const ArrayValueCheckboxes = () => TemplateGroup([
   {
     args: {
       value: 'selected',
-      checked: true,
+      // checked: true,
       label: 'selected',
     },
   },

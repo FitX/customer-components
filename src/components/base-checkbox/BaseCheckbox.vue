@@ -3,7 +3,7 @@
     class="checkbox"
     :class="[
       getModifierClasses('checkbox', [
-        checked ? 'checked' : null,
+        // checked ? 'checked' : null,
         $attrs.disabled ? 'disabled' : null,
       ]),
       getModifierClasses('checkbox', modifier),
@@ -23,6 +23,7 @@
     </span>
     <span class="checkbox__text">
       <slot>{{ label }}</slot>
+      {{ isChecked }}
     </span>
   </label>
 </template>
@@ -128,10 +129,18 @@ export default {
         emit('update:modelValue', value);
       },
     });
+    const isChecked = computed(() => {
+      if (props.modelValue instanceof Array) {
+        return props.modelValue.includes(props.value);
+      }
+      // Note that `true-value` and `false-value` are camelCase in the JS
+      return props.modelValue === props.trueValue;
+    });
     const { getModifierClasses } = useModifier();
     return {
       computedValue,
       getModifierClasses,
+      isChecked,
     };
   },
 };
@@ -240,7 +249,7 @@ export default {
     #{$self}__input:focus + & {
       opacity: 1;
     }
-    #{$self}--fake-focus:not(#{$self}--checked) &,
+    #{$self}--fake-focus:not(#{$self}--checked) #{$self}__input:not(:checked) + &,
     #{$self}__input:focus:not(:checked) + & {
       --checkbox-icon-fill: var(--brand-color-gray-graphite);
     }
