@@ -1,19 +1,34 @@
 <template>
-  <label>
-    <input
-      v-model="computedValue"
-      type="checkbox"
-      v-bind="$attrs"
-      :value="value"
-      :checked="checked"
-    />
-    <slot></slot>
+  <label
+    :class="[
+      getModifierClasses('checkbox', modifier),
+    ]"
+    class="checkbox">
+    <span class="checkbox__input-wrapper">
+      <input
+        class="checkbox__input"
+        v-model="computedValue"
+        type="checkbox"
+        v-bind="$attrs"
+        :true-value="trueValue"
+        :false-value="falseValue"
+        :value="value"
+        :checked="checked"
+      />
+      <icon-checkmark class="checkbox__icon" />
+    </span>
+    <span class="checkbox__text">
+      <slot>{{ label }}</slot>
+    </span>
   </label>
 </template>
 
 <script>
 import { computed } from 'vue';
 import validateValueWithList from '@/use/validate-value-with-list';
+import useModifier from '@/use/modifier-class';
+import iconCheckmark from '../../assets/icons/icon-checkmark.svg';
+// import iconCheckmark from '!!vue-svg-loader!../../assets/icons/icon-checkmark.svg';
 
 /**
  * @typedef {string|number|null|Array<string | number>} BaseCheckboxModelValue
@@ -27,6 +42,9 @@ export const modifier = [
 
 export default {
   name: 'BaseCheckbox',
+  components: {
+    iconCheckmark,
+  },
   inheritAttrs: false,
   props: {
     /**
@@ -71,6 +89,13 @@ export default {
       default: null,
       validator: (value) => validateValueWithList(value, modifier),
     },
+    /**
+     * Optional Label for Slot
+     */
+    label: {
+      type: [String, Number],
+      default: null,
+    },
   },
   emits: [
     /**
@@ -98,9 +123,40 @@ export default {
         emit('update:modelValue', value);
       },
     });
-    return { computedValue };
+    const { getModifierClasses } = useModifier();
+    return {
+      computedValue,
+      getModifierClasses,
+    };
   },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.checkbox {
+  $self: &;
+  --checkbox-color-border: var(--brand-color-gray-stone);
+  --checkbox-color-bg: transparent;
+  display: inline-grid;
+  grid-template-columns: auto 1fr;
+
+  &__input {
+    appearance: none;
+    border: 1px solid var(--checkbox-color-border);
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 0.4rem;
+
+    #{$self}--fake-hover &,
+    #{$self}:hover & {
+      --checkbox-color-border: var(--brand-color-gray-graphite);
+    }
+
+    #{$self}--disabled &,
+    &[disabled] {
+      --checkbox-color-bg: var(--brand-color-gray-chalk);
+      --checkbox-color-border: var(--brand-color-gray-plumb);
+    }
+  }
+}
+</style>

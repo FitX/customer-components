@@ -47,10 +47,10 @@ const baseTemplate = `
  */
 const groupTemplate = `
 <base-checkbox
-    v-for="(item, index) in items"
+    v-for="(item, index) in group"
     :key="index"
     v-bind="item.args"
-    v-model="model" />
+    v-model="model">{{ item.args.label }}</base-checkbox>
 <p>Model: {{ model }}</p>
 `;
 
@@ -64,6 +64,7 @@ const groupTemplate = `
  * @constructor
  */
 const Template = (argsObject) => ({
+  inheritAttrs: false,
   setup() {
     const args = argsObject;
     if (typeof args.isDarkMode === 'undefined') {
@@ -86,7 +87,7 @@ const Template = (argsObject) => ({
 const TemplateGroup = (groupItems) => ({
   components: { BaseCheckbox },
   setup() {
-    const model = ref(null);
+    const model = ref([]);
     const group = groupItems.map((item) => {
       const itemCopy = item;
       if (typeof item.args.isDarkMode === 'undefined') {
@@ -114,3 +115,69 @@ TrueFalseValuesCheckbox.args = {
   falseValue: 'not-checked',
   model: null,
 };
+
+export const ArrayValueCheckboxes = () => TemplateGroup([
+  {
+    args: {
+      value: 'unselected',
+      label: 'unselected',
+    },
+  },
+  {
+    args: {
+      value: 'unselected-hover',
+      modifier: 'fake-hover',
+      label: 'unselected hover',
+    },
+  },
+  {
+    args: {
+      value: 'unselected-disabled',
+      disabled: 'disabled',
+      label: 'unselected disabled',
+    },
+  },
+  {
+    args: {
+      value: 'selected-disabled',
+      disabled: 'disabled',
+      checked: true,
+      label: 'selected disabled',
+    },
+  },
+  {
+    args: {
+      value: 'unselected-error',
+      label: 'unselected error',
+    },
+  },
+  {
+    args: {
+      value: 'selected-error',
+      checked: true,
+      label: 'selected error',
+    },
+  },
+  {
+    args: {
+      value: 'unselected-focused',
+      modifier: 'fake-focus',
+      label: 'unselected focus',
+    },
+  },
+  {
+    args: {
+      value: 'selected-focused',
+      checked: true,
+      modifier: 'fake-focus',
+      label: 'selected focus',
+    },
+  },
+  {
+    args: {
+      value: 'selected',
+      checked: true,
+      label: 'selected',
+    },
+  },
+]);
