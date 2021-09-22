@@ -1,4 +1,4 @@
-import { shallowMount } from '@vue/test-utils';
+import { shallowMount, mount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import BaseInput from '@/components/base-input/BaseInput.vue';
 
@@ -88,6 +88,23 @@ describe('Base Input', () => {
     });
     expect(wrapper.vm.modelValue).toBe('Frank');
     await wrapper.find('button').trigger('click');
-    expect(wrapper.emitted('cleared'));
+    expect(wrapper.emitted('cleared')).toHaveLength(1);
+  });
+
+  it ('emits value on autofill', async () => {
+    const wrapper = mount(BaseInput, {
+      props: {
+        modelValue: '',
+      },
+    });
+    /*
+    console.log('wrapper.vm.autofilled', wrapper.vm.autofilled);
+    const input = wrapper.find('input');
+    await input.setValue('Fra');
+    const emit = wrapper.emitted('auto-filled');
+    // expect(wrapper.emitted()).toHaveProperty('auto-filled');
+    expect(emit).toHaveLength(1);
+    // expect(wrapper.emitted().greet[0]).toEqual([true]);
+    */
   });
 });
