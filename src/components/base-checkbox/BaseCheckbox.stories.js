@@ -38,7 +38,9 @@ export default {
  */
 const baseTemplate = `
 <base-checkbox v-bind="args" v-model="args.model" />
-<p>{{ args.model }}</p>
+<small :style="{ color: isDarkMode ? '#fff' : 'currentColor' }">
+<pre>{{ args.model }}</pre>
+</small>
 `;
 
 /**
@@ -53,7 +55,9 @@ const groupTemplate = `
     v-bind="item.args"
     v-model="model">{{ item.args.label }}</base-checkbox>
 </div>
-<small><pre>Auswahl: {{ model }}</pre></small>
+<small :style="{ color: isDarkMode ? '#fff' : 'currentColor' }">
+<pre>Auswahl: {{ model }}</pre>
+</small>
 `;
 
 /* ******************************** */
@@ -74,6 +78,7 @@ const Template = (argsObject) => ({
     }
     return {
       args: reactive(args),
+      isDarkMode,
     };
   },
   components: { BaseCheckbox },
@@ -105,6 +110,7 @@ const TemplateGroup = (groupItems) => ({
     return {
       group: reactive(group),
       model,
+      isDarkMode,
     };
   },
   template: groupTemplate,
