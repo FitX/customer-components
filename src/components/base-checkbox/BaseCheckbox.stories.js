@@ -193,6 +193,7 @@ export const ArrayValueCheckboxes = () => TemplateGroup([
       value: 'selected',
       // checked: true,
       label: 'selected',
+      isDarkMode,
     },
   },
 ]);
