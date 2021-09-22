@@ -107,4 +107,4 @@ As soon as you merge or push into branch 'release' GitHub Actions starts a workf
 
 ❗ If version in package.json is not updated, NPM release will fail ❗
 
-![github actions](src/assets/actions.png)
+![github actions](public/actions.png)
