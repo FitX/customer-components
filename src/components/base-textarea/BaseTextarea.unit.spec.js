@@ -1,10 +1,9 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import BaseTextarea from '@/components/base-textarea/BaseTextarea.vue';
 
 describe('TextArea', () => {
   it('renders textarea', () => {
-    expect(true).toBe(true);
     const wrapper = mount(BaseTextarea);
     const textarea = wrapper.find('textarea');
     expect(textarea.attributes('type')).toBe('textarea');
