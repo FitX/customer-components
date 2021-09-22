@@ -272,6 +272,11 @@ export default {
         --checkbox-icon-fill: var(--brand-color-anthracite);
       }
     }
+    #{$self}--dark#{$self}--checked#{$self}--disabled &,
+    #{$self}--dark#{$self}--disabled &:checked {
+      --checkbox-color-border: var(--brand-color-gray-plumb);
+      --checkbox-color-bg: var(--brand-color-gray-plumb);
+    }
     #{$self}--dark#{$self}--fake-focus &:checked {
       // --checkbox-color-border: var(--brand-color-gray-coal);
       --checkbox-color-bg: #fff;

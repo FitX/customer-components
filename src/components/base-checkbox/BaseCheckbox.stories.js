@@ -122,14 +122,15 @@ const TemplateGroup = (groupItems) => ({
 export const DefaultCheckbox = Template.bind({});
 DefaultCheckbox.args = {};
 
-export const TrueFalseValuesCheckbox = Template.bind({});
-TrueFalseValuesCheckbox.args = {
+// eslint-disable-next-line camelcase
+export const Checkbox_with_TrueFalseValues = Template.bind({});
+Checkbox_with_TrueFalseValues.args = {
   trueValue: 'checked',
   falseValue: 'not-checked',
   model: null,
 };
 
-export const ArrayValueCheckboxes = () => TemplateGroup([
+export const StateOverview = () => TemplateGroup([
   {
     args: {
       value: 'unselected',
