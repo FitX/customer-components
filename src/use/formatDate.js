@@ -19,12 +19,10 @@ export function formatDateToIso(dottedDate = '') {
  * @return {string|null}
  */
 export function formatDateFromIso(isoDate = '') {
-  console.log('iso', isoDate);
   if (isoDate?.toString().length === 10) {
     const y = isoDate.substring(0, 4);
     const m = isoDate.substring(5, 7);
     const d = isoDate.substring(8, 10);
-    console.log('iso', `${d}.${m}.${y}`);
     return `${d}.${m}.${y}`;
   }
   return null;

@@ -10,4 +10,9 @@ describe('validateValueWithList', () => {
     const input = ['frank', 'foo', 'baz'];
     expect(validateValueWithList(input, list)).toBeTruthy();
   });
+
+  it('checks if value is in list', () => {
+    expect(validateValueWithList('frank', ['frank', 'micha'])).toBe(true);
+    expect(validateValueWithList('frank')).toBe(false);
+  });
 });
