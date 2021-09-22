@@ -3,8 +3,9 @@
     class="checkbox"
     :class="[
       getModifierClasses('checkbox', [
-        // checked ? 'checked' : null,
+        isChecked ? 'checked' : null,
         $attrs.disabled ? 'disabled' : null,
+        isDarkMode ? 'dark' : null,
       ]),
       getModifierClasses('checkbox', modifier),
     ]">
@@ -17,13 +18,12 @@
         :true-value="trueValue"
         :false-value="falseValue"
         :value="value"
-        :checked="checked"
       />
-      <icon-checkmark class="checkbox__icon" />
+      <icon-checkmark
+        class="checkbox__icon" />
     </span>
     <span class="checkbox__text">
       <slot>{{ label }}</slot>
-      {{ isChecked }}
     </span>
   </label>
 </template>
@@ -153,6 +153,7 @@ export default {
 <style lang="scss" scoped>
 .checkbox {
   $self: &;
+  --checkbox-color: var(--brand-color-anthracite);
   --checkbox-color-border: var(--brand-color-gray-stone);
   --checkbox-color-bg: transparent;
   --checkbox-icon-size: 2.3rem;
@@ -166,6 +167,15 @@ export default {
   --checkbox-color-border-inner-2: transparent;
   user-select: none;
   cursor: pointer;
+  color: var(--checkbox-color);
+
+  &--dark {
+    --checkbox-color: #fff;
+    --checkbox-color-border: var(--brand-color-gray-graphite);
+    &#{$self}--error {
+      --checkbox-icon-fill: #fff;
+    }
+  }
 
   &__input-wrapper {
     display: block;
@@ -206,16 +216,30 @@ export default {
         0 0 0 1px #fff inset,
         0 0 0 2px var(--brand-color-gray-graphite) inset; */
     }
+    // Overwrite for dark mode
+    #{$self}--dark#{$self}--fake-focus &,
+    #{$self}--dark #{$self}:focus & {
+      --checkbox-color-border: transparent;
+      --checkbox-color-border-inner-1: var(--brand-color-gray-graphite);
+      --checkbox-color-border-inner-2: #fff;
+    }
 
     #{$self}--disabled &,
     &[disabled] {
       --checkbox-color-bg: var(--brand-color-gray-chalk);
       --checkbox-color-border: var(--brand-color-gray-plumb);
+      #{$self}--dark & {
+        --checkbox-color-border: var(--brand-color-gray-carbon);
+        --checkbox-color-bg: var(--brand-color-gray-graphite);
+      }
     }
 
     #{$self}--error & {
       --checkbox-color-bg: var(--functional-color-error);
       --checkbox-color-border: var(--functional-color-error);
+    }
+    #{$self}--error#{$self}--dark & {
+      --checkbox-color-bg: var(--functional-color-error-1-dark);
     }
 
     // Checked Styles on different modifiers
@@ -235,10 +259,27 @@ export default {
       --checkbox-color-border: var(--functional-color-error);
     }
     #{$self}--checked#{$self}--fake-focus &,
-    #{$self}--focus &:checked {
+    #{$self}--fake-focus &:checked {
       // --checkbox-color-border: var(--brand-color-gray-coal);
       --checkbox-color-border-inner-1: #fff;
       --checkbox-color-border-inner-2: var(--brand-color-anthracite);
+    }
+    // Overwrite for Dark Mode
+    #{$self}--dark:not(#{$self}--error) &:checked {
+      --checkbox-color-bg: #fff;
+      --checkbox-color-border: #fff;
+      & + #{$self}__icon {
+        --checkbox-icon-fill: var(--brand-color-anthracite);
+      }
+    }
+    #{$self}--dark#{$self}--fake-focus &:checked {
+      // --checkbox-color-border: var(--brand-color-gray-coal);
+      --checkbox-color-bg: #fff;
+      --checkbox-color-border-inner-1: var(--brand-color-anthracite);
+      --checkbox-color-border-inner-2: #fff;
+      & + #{$self}__icon {
+        --checkbox-icon-fill: var(--brand-color-anthracite);
+      }
     }
   }
 
@@ -258,6 +299,13 @@ export default {
     #{$self}--fake-focus:not(#{$self}--checked) #{$self}__input:not(:checked) + &,
     #{$self}__input:focus:not(:checked) + & {
       --checkbox-icon-fill: var(--brand-color-gray-graphite);
+    }
+    /* #{$self}--dark & {
+      --checkbox-icon-fill: var(--brand-color-gray-graphite);
+    } */
+    #{$self}--dark#{$self}--disabled:not(#{$self}--error) &,
+    #{$self}--dark:not(#{$self}--error) #{$self}__input[disabled] + & {
+      --checkbox-icon-fill: var(--brand-color-gray-cement);
     }
   }
 
