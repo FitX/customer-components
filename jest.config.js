@@ -6,14 +6,16 @@ module.exports = {
   },
   testMatch: [
     '**/src/components/**/*.unit.spec.js',
+    '**/src/use/**/*.unit.spec.js',
     '**/test/**/*.unit.spec.js',
   ],
   collectCoverage: true,
   collectCoverageFrom: [
     './src/components/**/*.{js,vue}',
+    './src/use/**/*.js',
     '!./src/components/HelloWorld.vue',
+    '!./src/components/index.js',
     '!./src/components/**/*.stories.js',
     '!./src/components/**/*.{e2e,spec}.js',
-    './src/use/**/*.js',
   ],
 };
