@@ -27,7 +27,7 @@
 /* eslint-disable */
 // import { ErrorIcon } from 'dist/customer-components.es.js';
 import '../dist/customer-components.css';
-import {
+/* import {
   ErrorMessage,
   ErrorIcon,
   BaseButton,
@@ -39,11 +39,11 @@ import {
   BaseTextarea,
   BaseCheckbox,
   BaseRadio,
-} from '../dist/customer-components.es';
+} from '../dist/customer-components.es'; */
 
 export default {
   name: 'App',
-  components: {
+  /* components: {
     ErrorMessage,
     ErrorIcon,
     BaseButton,
@@ -55,7 +55,7 @@ export default {
     BaseTextarea,
     BaseCheckbox,
     BaseRadio,
-  },
+  }, */
 };
 </script>
 
