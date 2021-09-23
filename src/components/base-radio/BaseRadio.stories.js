@@ -10,7 +10,7 @@ const storyDescription = `
 `;
 
 export default {
-  title: 'Components/BaseRadio',
+  title: 'Components/Form/Radio',
   component: BaseRadio,
   argTypes: {
     modifier: {

@@ -20,6 +20,7 @@
   <hr>
   <base-checkbox label="checkbox" />
   <hr>
+  <base-radio label="radio" />
 </template>
 
 <script>
@@ -37,6 +38,7 @@ import {
   DateInput,
   BaseTextarea,
   BaseCheckbox,
+  BaseRadio,
 } from '../dist/customer-components.es';
 
 export default {
@@ -52,6 +54,7 @@ export default {
     DateInput,
     BaseTextarea,
     BaseCheckbox,
+    BaseRadio,
   },
 };
 </script>

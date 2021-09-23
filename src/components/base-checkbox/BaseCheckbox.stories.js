@@ -10,7 +10,7 @@ const storyDescription = `
 `;
 
 export default {
-  title: 'Components/BaseCheckbox',
+  title: 'Components/Form/Checkbox',
   component: BaseCheckbox,
   argTypes: {
     modifier: {

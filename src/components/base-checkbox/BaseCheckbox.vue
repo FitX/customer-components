@@ -157,7 +157,7 @@ export default {
   --checkbox-color: var(--brand-color-anthracite);
   --checkbox-color-border: var(--brand-color-gray-stone);
   --checkbox-color-bg: transparent;
-  --checkbox-icon-size: 2.3rem;
+  --checkbox-icon-size: 2.4rem;
   --checkbox-font-size: var(--form-input-font-size, 1.8rem);
   // --checkbox-size: calc((2 * 0.1rem) + var(--checkbox-icon-size));
   --checkbox-size: var(--checkbox-icon-size);

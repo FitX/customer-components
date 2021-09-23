@@ -129,7 +129,7 @@ export default {
   --radio-color-bg: transparent;
   // --radio-color-button-bg: var(--radio-color-bg);
   --radio-color-button-bg: transparent;
-  --radio-icon-size: 2.2rem;
+  --radio-icon-size: 2.4rem;
   --radio-font-size: var(--form-input-font-size, 1.8rem);
   // --radio-size: calc((2 * 0.1rem) + var(--radio-icon-size));
   --radio-size: var(--radio-icon-size);
