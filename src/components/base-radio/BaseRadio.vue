@@ -127,6 +127,8 @@ export default {
   --radio-color-border: var(--brand-color-gray-stone);
   --radio-color-button-border: var(--radio-color-border);
   --radio-color-bg: transparent;
+  // --radio-color-button-bg: var(--radio-color-bg);
+  --radio-color-button-bg: transparent;
   --radio-icon-size: 2.2rem;
   --radio-font-size: var(--form-input-font-size, 1.8rem);
   // --radio-size: calc((2 * 0.1rem) + var(--radio-icon-size));
@@ -150,6 +152,11 @@ export default {
     border: var(--form-input-border-size, 1px) solid var(--radio-color-button-border);
     // border: var(--form-input-border-size, 1px) solid var(--radio-color-border);
     border-radius: var(--form-input-border-radius, 0.8rem);
+    background: var(--radio-color-button-bg);
+  }
+
+  &--disabled {
+    pointer-events: none;
   }
 
   &--dark {
@@ -194,9 +201,14 @@ export default {
 
     #{$self}--fake-focus &,
     #{$self}:focus & {
-      --radio-color-border: var(--brand-color-gray-coal);
-      --radio-color-border-inner-1: #fff;
-      --radio-color-border-inner-2: var(--brand-color-gray-graphite);
+      @at-root {
+        &,
+        #{$self}--button#{$self}--fake-focus {
+          --radio-color-border: var(--brand-color-gray-coal);
+          --radio-color-border-inner-1: #fff;
+          --radio-color-border-inner-2: var(--brand-color-gray-graphite);
+        }
+      }
     }
     // Overwrite for dark mode
     #{$self}--dark#{$self}--fake-focus &,
@@ -208,8 +220,14 @@ export default {
 
     #{$self}--disabled &,
     &[disabled] {
-      --radio-color-bg: var(--brand-color-gray-chalk);
-      --radio-color-border: var(--brand-color-gray-plumb);
+      @at-root {
+        &,
+        #{$self}--button#{$self}--disabled {
+          --radio-color-bg: var(--brand-color-gray-chalk);
+          --radio-color: var(--brand-color-gray-cement);
+          --radio-color-border: var(--brand-color-gray-plumb);
+        }
+      }
       #{$self}--dark & {
         --radio-color-border: var(--brand-color-gray-carbon);
         --radio-color-bg: var(--brand-color-gray-graphite);
@@ -219,6 +237,11 @@ export default {
     #{$self}--error & {
       --radio-color-bg: var(--functional-color-error);
       --radio-color-border: var(--functional-color-error);
+      @at-root {
+        #{$self}--button#{$self}--error {
+          --radio-color-button-border: var(--functional-color-error);
+        }
+      }
     }
     #{$self}--error#{$self}--dark & {
       --radio-color-bg: var(--functional-color-error-1-dark);
@@ -283,14 +306,6 @@ export default {
     #{$self}--checked &,
     #{$self}__input:checked + & {
       opacity: 1;
-    }
-    #{$self}--fake-focus:not(#{$self}--checked) #{$self}__input:not(:checked) + &,
-    #{$self}__input:focus:not(:checked) + & {
-      --radio-icon-fill: var(--brand-color-gray-graphite);
-    }
-    #{$self}--dark#{$self}--disabled:not(#{$self}--error) &,
-    #{$self}--dark:not(#{$self}--error) #{$self}__input[disabled] + & {
-      --radio-icon-fill: var(--brand-color-gray-cement);
     }
   }
 }

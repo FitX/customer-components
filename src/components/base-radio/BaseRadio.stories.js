@@ -39,7 +39,6 @@ export default {
 const baseTemplate = `
 <base-radio v-bind="args" v-model="args.model" />
 <small :style="{ color: isDarkMode ? '#fff' : 'currentColor' }">
-<pre>{{ args.model }}</pre>
 </small>
 `;
 
@@ -119,7 +118,9 @@ const TemplateGroup = (groupItems) => ({
 /// Stories
 /* ******************************** */
 export const DefaultRadio = Template.bind({});
-DefaultRadio.args = {};
+DefaultRadio.args = {
+  value: 'selected',
+};
 
 const stateGroup = [
   {
@@ -199,7 +200,15 @@ const stateGroupButtonStyle = stateGroup.map((item) => {
   };
 });
 
-export const StateOverview = () => TemplateGroup([...stateGroup, ...stateGroupButtonStyle]);
+export const StateOverview = () => TemplateGroup(stateGroup);
+export const StateOverviewButtonStyle = () => TemplateGroup(stateGroupButtonStyle);
+StateOverviewButtonStyle.parameters = {
+  docs: {
+    description: {
+      story: 'Für GymX Projekte wird immer der "button"-Modifier benutzt.',
+    },
+  },
+};
 
 export const Radio_with_Form_Modifier = () => ({
   components: { BaseRadio },
@@ -209,6 +218,7 @@ export const Radio_with_Form_Modifier = () => ({
     return {
       genderItems,
       gender,
+      isDarkMode,
     };
   },
   template: `
@@ -216,6 +226,7 @@ export const Radio_with_Form_Modifier = () => ({
 <base-radio
   v-model="gender"
   v-for="item in genderItems"
+  :is-dark-mode="isDarkMode"
   :key="item"
   :label="item"
   :value="item"
