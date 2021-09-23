@@ -121,80 +121,91 @@ const TemplateGroup = (groupItems) => ({
 export const DefaultRadio = Template.bind({});
 DefaultRadio.args = {};
 
-export const StateOverview = () => TemplateGroup([
+const stateGroup = [
   {
     args: {
       value: 'unselected',
-      label: 'unselected',
+      label: 'Unselected',
     },
   },
   {
     args: {
       value: 'unselected-hover',
-      modifier: 'fake-hover',
-      label: 'unselected hover',
+      modifier: ['fake-hover'],
+      label: 'Unselected hover',
     },
   },
   {
     args: {
       value: 'unselected-disabled',
       disabled: 'disabled',
-      label: 'unselected disabled',
+      label: 'Unselected disabled',
     },
   },
   {
     args: {
       value: 'selected-disabled',
       disabled: 'disabled',
-      // checked: true,
-      label: 'selected disabled',
+      label: 'Selected disabled',
     },
   },
   {
     args: {
       value: 'unselected-error',
-      label: 'unselected error',
-      modifier: 'error',
+      label: 'Unselected error',
+      modifier: ['error'],
     },
   },
   {
     args: {
       value: 'selected-error',
-      modifier: 'error',
-      // checked: true,
-      label: 'selected error',
+      modifier: ['error'],
+      label: 'Selected error',
     },
   },
   {
     args: {
       value: 'unselected-focused',
-      modifier: 'fake-focus',
-      label: 'unselected focus',
+      modifier: ['fake-focus'],
+      label: 'Unselected focus',
     },
   },
   {
     args: {
       value: 'selected-focused',
-      // checked: true,
-      modifier: 'fake-focus',
-      label: 'selected focus',
+      modifier: ['fake-focus'],
+      label: 'Selected focus',
     },
   },
   {
     args: {
       value: 'selected',
-      // checked: true,
-      label: 'selected',
+      label: 'Selected',
       isDarkMode,
     },
   },
-]);
+];
+
+const stateGroupButtonStyle = stateGroup.map((item) => {
+  const { args } = item;
+  const { modifier: itemModifier = [] } = args;
+  const mappedModifier = [...itemModifier, 'button'];
+  return {
+    ...item,
+    args: {
+      ...args,
+      modifier: mappedModifier,
+    },
+  };
+});
+
+export const StateOverview = () => TemplateGroup([...stateGroup, ...stateGroupButtonStyle]);
 
 export const Radio_with_Form_Modifier = () => ({
   components: { BaseRadio },
   setup() {
     const gender = ref('divers');
-    const genderItems = ['divers', 'female', 'male'];
+    const genderItems = ['Divers', 'Female', 'Male'];
     return {
       genderItems,
       gender,
@@ -207,8 +218,8 @@ export const Radio_with_Form_Modifier = () => ({
   v-for="item in genderItems"
   :key="item"
   :label="item"
-  value="item"
-  modifier="form"
+  :value="item"
+  modifier="button"
 />
     </div>`,
 });
