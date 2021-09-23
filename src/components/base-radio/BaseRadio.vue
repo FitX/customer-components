@@ -40,6 +40,7 @@ export const modifier = [
   'fake-focus',
   'fake-hover',
   'error',
+  'button',
 ];
 
 export default {
@@ -119,16 +120,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/styles/form.scss';
 .radio {
   $self: &;
   --radio-color: var(--brand-color-anthracite);
   --radio-color-border: var(--brand-color-gray-stone);
+  --radio-color-button-border: var(--radio-color-border);
   --radio-color-bg: transparent;
   --radio-icon-size: 2.2rem;
+  --radio-font-size: var(--form-input-font-size, 1.8rem);
   // --radio-size: calc((2 * 0.1rem) + var(--radio-icon-size));
   --radio-size: var(--radio-icon-size);
   --radio-icon-fill: #fff;
   display: inline-grid;
+  align-items: center;
+  align-content: center;
   gap: 1rem;
   grid-template-columns: var(--radio-icon-size) 1fr;
   --radio-color-border-inner-1: transparent;
@@ -136,6 +142,15 @@ export default {
   user-select: none;
   cursor: pointer;
   color: var(--radio-color);
+  font-size: var(--radio-font-size, 1.8rem);
+
+  &--button {
+    height: var(--form-input-height, 6rem);
+    padding: var(--form-input-padding, 1.8rem);
+    border: var(--form-input-border-size, 1px) solid var(--radio-color-button-border);
+    // border: var(--form-input-border-size, 1px) solid var(--radio-color-border);
+    border-radius: var(--form-input-border-radius, 0.8rem);
+  }
 
   &--dark {
     --radio-color: #fff;
@@ -150,7 +165,6 @@ export default {
     width: var(--radio-size);
     height: var(--radio-size);
     position: relative;
-    line-height: 25px;
   }
 
   &__input {
@@ -169,7 +183,13 @@ export default {
 
     #{$self}--fake-hover &,
     #{$self}:hover & {
-      --radio-color-border: var(--brand-color-gray-graphite);
+      @at-root {
+        &,
+        #{$self}--button#{$self}--fake-hover,
+        #{$self}--button:hover {
+          --radio-color-border: var(--brand-color-gray-graphite);
+        }
+      }
     }
 
     #{$self}--fake-focus &,
@@ -272,10 +292,6 @@ export default {
     #{$self}--dark:not(#{$self}--error) #{$self}__input[disabled] + & {
       --radio-icon-fill: var(--brand-color-gray-cement);
     }
-  }
-
-  &__text {
-    font-size: 1.6rem;
   }
 }
 </style>
