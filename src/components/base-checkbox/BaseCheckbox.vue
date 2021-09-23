@@ -151,12 +151,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/styles/form.scss';
 .checkbox {
   $self: &;
   --checkbox-color: var(--brand-color-anthracite);
   --checkbox-color-border: var(--brand-color-gray-stone);
   --checkbox-color-bg: transparent;
   --checkbox-icon-size: 2.3rem;
+  --checkbox-font-size: var(--form-input-font-size, 1.8rem);
   // --checkbox-size: calc((2 * 0.1rem) + var(--checkbox-icon-size));
   --checkbox-size: var(--checkbox-icon-size);
   --checkbox-icon-fill: #fff;
@@ -168,6 +170,7 @@ export default {
   user-select: none;
   cursor: pointer;
   color: var(--checkbox-color);
+  font-size: var(--radio-font-size, 1.8rem);
 
   &--dark {
     --checkbox-color: #fff;
@@ -312,10 +315,6 @@ export default {
     #{$self}--dark:not(#{$self}--error) #{$self}__input[disabled] + & {
       --checkbox-icon-fill: var(--brand-color-gray-cement);
     }
-  }
-
-  &__text {
-    font-size: 1.6rem;
   }
 }
 </style>
