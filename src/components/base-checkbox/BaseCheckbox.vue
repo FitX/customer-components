@@ -299,18 +299,9 @@ export default {
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
     #{$self}--checked &,
-    #{$self}__input:checked + &,
-    #{$self}--fake-focus &,
-    #{$self}__input:focus + & {
+    #{$self}__input:checked + & {
       opacity: 1;
     }
-    #{$self}--fake-focus:not(#{$self}--checked) #{$self}__input:not(:checked) + &,
-    #{$self}__input:focus:not(:checked) + & {
-      --checkbox-icon-fill: var(--brand-color-gray-graphite);
-    }
-    /* #{$self}--dark & {
-      --checkbox-icon-fill: var(--brand-color-gray-graphite);
-    } */
     #{$self}--dark#{$self}--disabled:not(#{$self}--error) &,
     #{$self}--dark:not(#{$self}--error) #{$self}__input[disabled] + & {
       --checkbox-icon-fill: var(--brand-color-gray-cement);
