@@ -21,6 +21,8 @@
   <base-checkbox label="checkbox" />
   <hr>
   <base-radio label="radio" />
+  <hr>
+  <filter-chip label="Filter Chip" value="foo" />
 </template>
 
 <script>
