@@ -300,9 +300,9 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
-    width: 0.8rem;
-    height: 0.8rem;
-    border-radius: calc(0.8rem / 2);
+    width: 1rem;
+    height: 1rem;
+    border-radius: calc(1rem / 2);
     #{$self}--checked &,
     #{$self}__input:checked + & {
       opacity: 1;
