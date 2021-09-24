@@ -5,6 +5,7 @@
 // @import '~@/assets/styles/fonts.scss';
 @import '~@/assets/styles/colors.scss';
 @import '~@/assets/styles/fonts.scss';
+@import '~@/assets/styles/form.scss';
 
 *,
 *::before,
@@ -21,4 +22,5 @@
   font-size: 62.5%; /* 62.5% of 16px = 10px */
   @include brand-colors();
   @include functional-colors();
+  @include input-vars();
 }

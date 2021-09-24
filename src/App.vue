@@ -20,13 +20,14 @@
   <hr>
   <base-checkbox label="checkbox" />
   <hr>
+  <base-radio label="radio" />
 </template>
 
 <script>
 /* eslint-disable */
 // import { ErrorIcon } from 'dist/customer-components.es.js';
 import '../dist/customer-components.css';
-import {
+/* import {
   ErrorMessage,
   ErrorIcon,
   BaseButton,
@@ -37,11 +38,12 @@ import {
   DateInput,
   BaseTextarea,
   BaseCheckbox,
-} from '../dist/customer-components.es';
+  BaseRadio,
+} from '../dist/customer-components.es'; */
 
 export default {
   name: 'App',
-  components: {
+  /* components: {
     ErrorMessage,
     ErrorIcon,
     BaseButton,
@@ -52,7 +54,8 @@ export default {
     DateInput,
     BaseTextarea,
     BaseCheckbox,
-  },
+    BaseRadio,
+  }, */
 };
 </script>
 

@@ -24,3 +24,4 @@ export { default as BaseButton } from '@/components/base-button/BaseButton.vue';
 export { default as BaseOption } from '@/components/base-option/BaseOption.vue';
 export { default as BaseOptionForm } from '@/components/base-option-form/BaseOptionForm.vue';
 export { default as BaseCheckbox } from '@/components/base-checkbox/BaseCheckbox.vue';
+export { default as BaseRadio } from '@/components/base-radio/BaseRadio.vue';
