@@ -11,7 +11,7 @@ const storyDescription = `
 `;
 
 export default {
-  title: 'Components/BaseOption',
+  title: 'Components/Option',
   component: BaseOption,
   argTypes: {
     modifier: {

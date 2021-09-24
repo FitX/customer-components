@@ -116,11 +116,11 @@ const componentsDesc = Object.keys(componentsCollection).map((item) => {
  * Global install Function
  * @param app - Vue instance
  */
-const install = function (app) {
+function install(app) {
   // if (!app || install.installed) {
-  if (!install.installed) {
+  /* if (!install.installed) {
     return;
-  }
+  } */
 
   componentsDesc.forEach((item) => {
     const kebabCaseName = transformKebabCase(item.name);
@@ -130,8 +130,8 @@ const install = function (app) {
     app.component(camelCaseName, registerComponent); // camelCase
     // app.use(registerComponent);
   });
-  install.installed = true;
-};
+  // install.installed = true;
+}
 
 // Create module definition for Vue.use()
 /* const plugin = {
@@ -179,7 +179,7 @@ const installWebComponents = function () {
 
 export * from '@/components/index';
 export {
-  install,
+  // install,
   installWebComponent,
   installWebComponents,
 };

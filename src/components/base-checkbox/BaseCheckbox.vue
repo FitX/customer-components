@@ -151,12 +151,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/styles/form.scss';
 .checkbox {
   $self: &;
   --checkbox-color: var(--brand-color-anthracite);
   --checkbox-color-border: var(--brand-color-gray-stone);
   --checkbox-color-bg: transparent;
-  --checkbox-icon-size: 2.3rem;
+  --checkbox-icon-size: 2.4rem;
+  --checkbox-font-size: var(--form-input-font-size, 1.8rem);
   // --checkbox-size: calc((2 * 0.1rem) + var(--checkbox-icon-size));
   --checkbox-size: var(--checkbox-icon-size);
   --checkbox-icon-fill: #fff;
@@ -168,6 +170,7 @@ export default {
   user-select: none;
   cursor: pointer;
   color: var(--checkbox-color);
+  font-size: var(--radio-font-size, 1.8rem);
 
   &--dark {
     --checkbox-color: #fff;
@@ -272,6 +275,11 @@ export default {
         --checkbox-icon-fill: var(--brand-color-anthracite);
       }
     }
+    #{$self}--dark#{$self}--checked#{$self}--disabled &,
+    #{$self}--dark#{$self}--disabled &:checked {
+      --checkbox-color-border: var(--brand-color-gray-plumb);
+      --checkbox-color-bg: var(--brand-color-gray-plumb);
+    }
     #{$self}--dark#{$self}--fake-focus &:checked {
       // --checkbox-color-border: var(--brand-color-gray-coal);
       --checkbox-color-bg: #fff;
@@ -291,26 +299,13 @@ export default {
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
     #{$self}--checked &,
-    #{$self}__input:checked + &,
-    #{$self}--fake-focus &,
-    #{$self}__input:focus + & {
+    #{$self}__input:checked + & {
       opacity: 1;
     }
-    #{$self}--fake-focus:not(#{$self}--checked) #{$self}__input:not(:checked) + &,
-    #{$self}__input:focus:not(:checked) + & {
-      --checkbox-icon-fill: var(--brand-color-gray-graphite);
-    }
-    /* #{$self}--dark & {
-      --checkbox-icon-fill: var(--brand-color-gray-graphite);
-    } */
     #{$self}--dark#{$self}--disabled:not(#{$self}--error) &,
     #{$self}--dark:not(#{$self}--error) #{$self}__input[disabled] + & {
       --checkbox-icon-fill: var(--brand-color-gray-cement);
     }
-  }
-
-  &__text {
-    font-size: 1.6rem;
   }
 }
 </style>

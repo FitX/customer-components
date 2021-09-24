@@ -24,7 +24,7 @@ const eventListener = {
 };
 
 export default {
-  title: 'Components/DateInput',
+  title: 'Components/Form/DateInput',
   component: DateInput,
   argTypes: {
     ...eventListener,
