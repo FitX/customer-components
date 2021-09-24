@@ -35,19 +35,31 @@ via cdn.jsdelivr.net/npm/@fitx/customer-components or //unpkg.com/@fitx/customer
 </head>
 ```
 
-## Hello Fitness Online Demo
+## Hello Fitness Online Demos
 
-Test the Hello world page.
+### Library as Vue Plugin
 
-<iframe src="https://codesandbox.io/embed/cc-test-rf1me?autoresize=1&codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&moduleview=1&theme=light"
+<iframe src="https://codesandbox.io/embed/customer-components-use-as-plugin-qldlw?fontsize=14&hidenavigation=1&theme=light"
 style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-title="cc-test"
+title="customer-components-use-as-plugin"
 allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
 sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
-[![Edit cc-test](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/cc-test-rf1me?autoresize=1&codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&moduleview=1&theme=light)
+[![Edit customer-components-use-as-plugin](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/customer-components-use-as-plugin-qldlw?fontsize=14&hidenavigation=1&theme=light)
 
+### Library via Component Imports
+
+<iframe src="https://codesandbox.io/embed/customer-components-use-via-imports-jzkqf?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FHelloWorld.vue&theme=light"
+style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+title="customer-components-use-via-imports"
+allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+[![Edit customer-components-use-via-imports](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/customer-components-use-via-imports-jzkqf?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FHelloWorld.vue&theme=light)
+
+## What next?
 If you are installing via npm / yarn and want to use it with
 a packaging tool, please read the
 next section: [Quick Start](./quickstart).
