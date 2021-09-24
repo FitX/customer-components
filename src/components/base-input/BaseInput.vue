@@ -270,6 +270,7 @@ export default {
 // @use '~@/assets/styles/mixins.scss' as mixin;
 @import '~@/assets/styles/mixin-reset.scss';
 @import '~@/assets/styles/colors.scss';
+@import '~@/assets/styles/form.scss';
 label {
   display: block;
   font-size: 1.8rem;
@@ -282,17 +283,17 @@ label {
   --field-color-input: var(--brand-color-anthracite);
   --field-color-border: var(--brand-color-gray-stone);
 
-  --field-font-size: 1.8rem;
+  --field-font-size: var(--form-input-font-size, 1.8rem);
   --field-label-font-size: var(--field-font-size);
 
-  --field-padding-v: 1.8rem;
+  --field-padding-v: var(--form-input-padding, 1.8rem);
   --field-padding-h: 2rem;
 
-  --field-border-size: 1px;
+  --field-border-size: var(--form-input-border-size, 1px);
 
   position: relative;
   font-size: var(--field-font-size);
-  height: 6rem;
+  height: var(--form-input-height, 6rem);
 
   &--textarea {
     min-height: 10rem;
@@ -354,7 +355,7 @@ label {
       color: var(--field-color-input);
     }
     border: var(--field-border-size) solid var(--field-color-border);
-    border-radius: 0.8rem;
+    border-radius: var(--form-input-border-radius, 0.8rem);
     padding: var(--field-padding-v) var(--field-padding-h) 0.6rem;
     background: var(--field-color-bg);
     width: 100%;

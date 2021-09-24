@@ -24,7 +24,7 @@ const eventListener = {
 };
 
 export default {
-  title: 'Components/DateInput',
+  title: 'Components/Form/DateInput',
   component: DateInput,
   argTypes: {
     ...eventListener,
@@ -99,7 +99,7 @@ DateInputFocused.args = {
 
 export const DateInputValid = Template.bind({});
 DateInputValid.args = {
-  model: '1984-08.11',
+  model: '1984-08-11',
   isValid: true,
 };
 DateInputValid.parameters = {
@@ -135,6 +135,6 @@ DateInputDisabled.parameters = {
 
 export const DateInputDisabledPreFilled = Template.bind({});
 DateInputDisabledPreFilled.args = {
-  model: '1984-08.11',
+  model: '1984-08-11',
   disabled: true,
 };

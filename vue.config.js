@@ -7,6 +7,15 @@ module.exports = {
       libraryExport: 'default',
     },
   }, */
+  configureWebpack: {
+    module: {
+      rules: [{
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
+      }],
+    },
+  },
   chainWebpack: (config) => {
     config.plugin('define')
       .tap((args) => {

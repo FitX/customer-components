@@ -17,7 +17,7 @@ const eventListener = {
 };
 
 export default {
-  title: 'Components/BaseOptionForm',
+  title: 'Components/OptionForm',
   component: BaseOptionForm,
   argTypes: {
     modifier: {

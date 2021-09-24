@@ -19,7 +19,7 @@ const eventListener = {
 };
 
 export default {
-  title: 'Components/BaseTextarea',
+  title: 'Components/Form/Textarea',
   component: BaseTextarea,
   argTypes: {
     ...eventListener,
