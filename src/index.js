@@ -139,7 +139,7 @@ function install(app) {
 }; */
 
 // Auto-install when vue is found (eg. in browser via <script> tag)
-/* let GlobalVue = null;
+let GlobalVue = null;
 if (typeof window !== 'undefined') {
   window.CustomerComponents = (app) => install(app);
   GlobalVue = window.Vue;
@@ -147,13 +147,13 @@ if (typeof window !== 'undefined') {
   GlobalVue = global.Vue;
 }
 if (GlobalVue) {
-  // const { createApp } = GlobalVue;
+  const { createApp } = GlobalVue;
   const globalApp = createApp();
   globalApp.use(install);
   console.log('global App', globalApp);
   console.log('GlobalVue App', GlobalVue);
   console.log('window Vue', window.Vue);
-} */
+}
 
 /**
  * Install Component as Web Component
