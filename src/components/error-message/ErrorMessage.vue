@@ -36,7 +36,7 @@ export default {
   display: grid;
   width: 100%;
   grid-template-columns: 2rem 1fr;
-  grid-gap: 1rem;
+  grid-gap: 0.4rem;
   align-items: center;
 
   &__icon {
