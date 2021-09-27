@@ -1,12 +1,18 @@
 import { ref } from 'vue';
 import IconCheckmark from '@/assets/icons/icon-checkmark.svg';
+import IconAttention from '@/assets/icons/icon-attention.svg';
 
 const iconList = [
   {
     component: IconCheckmark,
-    name: 'IconCheckmark',
+    name: 'Checkmark',
     source: 'https://icons8.com/icon/3061/checkmark',
   },
+  {
+    component: IconAttention,
+    name: 'Attention',
+    source: 'https://icons8.com/icon/11691/box-important',
+  }
 ];
 
 export default {

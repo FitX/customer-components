@@ -15,7 +15,6 @@ export {
 */
 
 export { default as ErrorMessage } from '@/components/error-message/ErrorMessage.vue';
-export { default as ErrorIcon } from '@/components/error-icon/ErrorIcon.vue';
 export { default as TextButton } from '@/components/text-button/TextButton.vue';
 export { default as BaseInput } from '@/components/base-input/BaseInput.vue';
 export { default as DateInput } from '@/components/date-input/DateInput.vue';

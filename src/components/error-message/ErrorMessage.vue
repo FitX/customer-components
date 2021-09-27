@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ErrorIcon from '@/components/error-icon/ErrorIcon.vue';
+import ErrorIcon from '@/assets/icons/icon-attention.svg';
 
 export default {
   name: 'ErrorMessage',
@@ -38,5 +38,12 @@ export default {
   grid-template-columns: 2rem 1fr;
   grid-gap: 1rem;
   align-items: center;
+
+  &__icon {
+    --icon-size: 2.1rem;
+    --icon-width: var(--icon-size);
+    --icon-height: var(--icon-size);
+    --icon-fill: var(--functional-color-error);
+  }
 }
 </style>
