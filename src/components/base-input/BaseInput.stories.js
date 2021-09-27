@@ -14,7 +14,7 @@ const storyDescription = `
 `;
 
 export default {
-  title: 'Components/BaseInput',
+  title: 'Components/Form/Input',
   component: BaseInput,
   argTypes: {
     ...mapPropToArgTypes(baseInputProps),

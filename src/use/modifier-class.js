@@ -25,6 +25,7 @@ export default function useModifier() {
       if (mod) {
         return `${defaultClass}--${mod}`;
       }
+      return null;
     });
   };
   return {
