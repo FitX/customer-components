@@ -90,21 +90,4 @@ describe('Base Input', () => {
     await wrapper.find('button').trigger('click');
     expect(wrapper.emitted('cleared')).toHaveLength(1);
   });
-
-  it ('emits value on autofill', async () => {
-    const wrapper = mount(BaseInput, {
-      props: {
-        modelValue: '',
-      },
-    });
-    /*
-    console.log('wrapper.vm.autofilled', wrapper.vm.autofilled);
-    const input = wrapper.find('input');
-    await input.setValue('Fra');
-    const emit = wrapper.emitted('auto-filled');
-    // expect(wrapper.emitted()).toHaveProperty('auto-filled');
-    expect(emit).toHaveLength(1);
-    // expect(wrapper.emitted().greet[0]).toEqual([true]);
-    */
-  });
 });
