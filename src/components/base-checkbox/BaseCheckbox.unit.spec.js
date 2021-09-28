@@ -29,20 +29,24 @@ describe('Base checbox', () => {
     expect(label.element).toHaveClass('checkbox--error');
   });
 
-  /*
   it('updates isChecked value', async () => {
-    const wrapper = shallowMount(BaseCheckbox, {
-      props: {
-        // value: 'selected-disabled',
-        // modifier: 'disabled',
-      },
-    });
-    await wrapper.setProps({ value: ['selected']});
-    await wrapper.setProps({ computedValue: true });
-    console.log('modelValue', wrapper.vm.modelValue);
-    console.log(wrapper.html());
+    const wrapper = shallowMount(BaseCheckbox);
+    const input = wrapper.find('input');
+    await input.setValue('some value');
     expect(wrapper.emitted('update:modelValue')).toBeTruthy();
     expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
   });
-   */
+
+  it('updates isChecked value', async() => {
+    const wrapper = shallowMount(BaseCheckbox, {
+      props: {
+        modelValue: [
+          'one',
+          'two',
+        ],
+        value: 'one',
+      },
+    });
+    expect(wrapper.vm.isChecked).toBe(true);
+  });
 });
