@@ -10,7 +10,6 @@ describe('BaseRadio', () => {
         value: 'selected',
       },
     });
-    console.log(wrapper.html());
     expect(wrapper.find('.radio__text').text()).toContain('Foobar');
     const input = wrapper.find('input');
     expect(input.attributes('type')).toBe('radio');
