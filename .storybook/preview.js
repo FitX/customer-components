@@ -2,6 +2,7 @@
 // import { withThemes } from 'storybook-addon-themes/vue';
 import '@/assets/styles/lib.scss';
 import './base.scss';
+// import '@spectrum-web-components/color-slider/sp-color-slider.js';
 // import '!style-loader!css-loader!sass-loader!../src/assets/styles/lib.scss';
 // import '!style-loader!css-loader!sass-loader!./base.scss';
 
