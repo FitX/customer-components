@@ -4,8 +4,6 @@
   <hr>
   <error-message errorMessage="Test" />
   <hr>
-  <error-icon />
-  <hr>
   <base-input label="base input" />
   <hr>
   <text-button text="text button" />

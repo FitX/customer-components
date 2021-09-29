@@ -17,6 +17,16 @@ module.exports = {
     },
   },
   chainWebpack: (config) => {
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap((options) => ({
+        ...options,
+        compilerOptions: {
+          // treat any tag that starts with ion- as custom elements
+          isCustomElement: (tag) => tag.startsWith('color-slider'),
+        },
+      }));
     config.plugin('define')
       .tap((args) => {
         // eslint-disable-next-line no-param-reassign
