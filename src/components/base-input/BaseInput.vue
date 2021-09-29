@@ -47,7 +47,9 @@
       <button
         class="field__icon clearable-icon"
         @click.prevent="clearInput()"
-        v-if="clearable">x</button>
+        v-if="clearable">
+        <icon-clear />
+      </button>
       <valid-icon
         class="field__icon valid-icon"
         v-if="isValid && modelValue" />
@@ -88,6 +90,7 @@ import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
 import ErrorText from '@/components/error-message/ErrorMessage.vue';
 import ValidIcon from '@/components/valid-icon/ValidIcon.vue';
+import IconClear from '@/assets/icons/icon-clear.svg';
 
 /**
  * @typedef {string|number|null} BaseInputModelValue
@@ -154,6 +157,7 @@ export default {
   components: {
     ErrorText,
     ValidIcon,
+    IconClear,
   },
   inheritAttrs: false,
   emits: [
@@ -444,12 +448,14 @@ label {
  */
 .clearable-icon {
   @include btn-reset();
-  // Temp
-  background: #fff;
-  border-radius: 10rem;
+  background: none;
+  line-height: 0;
+  --icon-width: 1.8rem;
+  --icon-height: 1.8rem;
+  --icon-fill: var(--brand-color-anthracite);
 
   .field--dark & {
-    background: var(--brand-color-gray-carbon);
+    --icon-fill: var(--brand-color-gray-carbon);
   }
 }
 .additional {
