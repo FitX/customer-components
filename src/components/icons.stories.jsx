@@ -103,3 +103,18 @@ export const Icons = () => ({
   template: `
     <icon-list :icons="iconList"/>`,
 });
+
+export const InfoForDevs = () => ({
+  template: `
+  Die Icons können per <i>vue-svg-loader</i> bzw. <i>vite-svg-loader</i> als Komponenten genutzt werden.
+  Momentan werden die Icons nicht als Componenten mit ausgeliefert.
+  `,
+});
+
+InfoForDevs.parameters = {
+  docs: {
+    description: {
+      story: 'Alle Icons sind in `./src/assets/icons/` abgelegt und werden raw mit ausgeliefert.',
+    },
+  },
+};
