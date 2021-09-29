@@ -117,6 +117,9 @@ const componentsDesc = Object.keys(componentsCollection).map((item) => {
  * @param app - Vue instance
  */
 function install(app) {
+  const apps = [];
+  if (apps.includes(app)) return;
+  apps.push(app);
   // if (!app || install.installed) {
   /* if (!install.installed) {
     return;

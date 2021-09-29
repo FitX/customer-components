@@ -204,11 +204,13 @@ export default {
      * Detect autofilled for correct Rendering
      * @param e
      */
+    /* istanbul ignore next */
     function handleAutofilled(e) {
       const isAutoFilled = /^onAutoFillStart/.test(e.animationName);
       autofilled.value = isAutoFilled;
       emit('auto-filled', true);
     }
+    /* istanbul ignore next */
     onMounted(() => {
       if (input.value) {
         /**
@@ -217,6 +219,7 @@ export default {
         input.value.addEventListener('animationstart', handleAutofilled);
       }
     });
+    /* istanbul ignore next */
     onBeforeUnmount(() => {
       if (input.value) {
         input.value.removeEventListener('animationstart', handleAutofilled);

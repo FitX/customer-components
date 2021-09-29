@@ -31,8 +31,8 @@ describe('DateInput', () => {
       },
     });
     expect(wrapper.vm.dottedDate).toBe(null);
-    const input = wrapper.find('input');
-    await input.setValue('2013-03-10T02:00:00Z');
-    expect(wrapper.vm.dottedDate).toBe('20.13.0310');
+    // const input = wrapper.find('input');
+    await wrapper.setProps({ modelValue: '2013-03-10' });
+    expect(wrapper.vm.dottedDate).toBe('10.03.2013');
   });
 });
