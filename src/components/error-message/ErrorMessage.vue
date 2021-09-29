@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ErrorIcon from '@/assets/icons/icon-attention.svg';
+import ErrorIcon from '@/assets/icons/icon-error.svg';
 
 export default {
   name: 'ErrorMessage',
@@ -40,7 +40,7 @@ export default {
   align-items: center;
 
   &__icon {
-    --icon-size: 2.1rem;
+    --icon-size: 1.8rem;
     --icon-width: var(--icon-size);
     --icon-height: var(--icon-size);
     --icon-fill: var(--functional-color-error);
