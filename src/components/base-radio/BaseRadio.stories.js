@@ -21,6 +21,7 @@ export default {
     },
   },
   parameters: {
+    jest: ['BaseRadio.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,

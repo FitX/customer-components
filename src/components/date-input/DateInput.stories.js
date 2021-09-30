@@ -37,6 +37,7 @@ export default {
     },
   },
   parameters: {
+    jest: ['DateInput.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,

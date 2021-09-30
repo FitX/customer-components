@@ -8,7 +8,7 @@ import BaseButton, {
 const storyDescription = `
   **Verwendung:**
   Base Button Component wird verwendet um **@TODO**
-`
+`;
 
 export default {
   title: 'Components/Buttons/BaseButton',
@@ -29,6 +29,7 @@ export default {
     onClick: {},
   },
   parameters: {
+    jest: ['BaseButton.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,

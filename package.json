@@ -1,6 +1,6 @@
 {
   "name": "@fitx/customer-components",
-  "version": "0.1.74",
+  "version": "0.1.76",
   "files": [
     "dist/*",
     "src/*"
@@ -13,13 +13,13 @@
     "build:lib": "vue-cli-service build --target lib ./src/index.js",
     "build:vite": "vite build --config vite.config.js",
     "build:pkg": "rollup -c",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "vue-cli-service test:unit --json --outputFile=./coverage/.jest-test-results.json",
     "test:unit-update-snapshot": "vue-cli-service test:unit -u",
     "test:e2e": "nightwatch -e ios-tunnel tests/local-tunnel-test.js",
     "test:e2e-local": "nightwatch -c nightwatch.local.json",
     "lint": "vue-cli-service lint",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -c .storybook"
+    "storybook": "start-storybook -s ./ -p 6006",
+    "build-storybook": "build-storybook -s ./ -c .storybook"
   },
   "dependencies": {
     "@lambdatest/node-rest-client": "^1.0.0",
@@ -39,6 +39,7 @@
     "@babel/core": "^7.15.0",
     "@storybook/addon-actions": "^6.3.7",
     "@storybook/addon-essentials": "^6.3.7",
+    "@storybook/addon-jest": "^6.3.8",
     "@storybook/addon-links": "^6.3.7",
     "@storybook/addon-storyshots": "^6.3.7",
     "@storybook/vue3": "^6.3.7",

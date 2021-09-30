@@ -26,6 +26,7 @@ export default {
     },
   },
   parameters: {
+    jest: ['BaseInput.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,
