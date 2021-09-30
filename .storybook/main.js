@@ -19,6 +19,7 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     'storybook-addon-themes',
+    '@storybook/addon-jest',
     '@storybook/addon-essentials',
   ],
   webpackFinal: (config, { configType }) => {

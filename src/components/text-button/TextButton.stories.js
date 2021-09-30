@@ -18,6 +18,9 @@ export default {
     },
     onClick: {},
   },
+  parameters: {
+    jest: ['TextButton.unit.spec.js'],
+  },
 };
 
 const Template = (args) => {

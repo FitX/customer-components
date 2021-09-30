@@ -29,6 +29,7 @@ export default {
     // ...eventListener,
   },
   parameters: {
+    jest: ['BaseOptionForm.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,

@@ -32,6 +32,7 @@ export default {
     },
   },
   parameters: {
+    jest: ['BaseTextarea.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,

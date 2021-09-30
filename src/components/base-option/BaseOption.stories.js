@@ -23,6 +23,7 @@ export default {
     onClick: {},
   },
   parameters: {
+    jest: ['BaseOption.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,
