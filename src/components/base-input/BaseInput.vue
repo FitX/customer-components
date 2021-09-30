@@ -13,8 +13,22 @@
         }
       ]"
       class="field">
-      <textarea
+      <p>{{ autoHeight }} {{ inputHeight }}</p>
+      <div
         v-if="$attrs.type === 'textarea'"
+        contenteditable="true"
+        v-bind="removeByKey($attrs, 'class')"
+        :value="modelValue"
+        @input="updateValue($event.target.value)"
+        @focus="handleFocus()"
+        @blur="handleBlur()"
+        class="field__input field__input--textarea"
+        :class="[
+          { 'field__input--not-empty' : isFilled },
+          { 'field__input--auto-filled' : !!autofilled }
+        ]">{{ modelValue }}</div>
+      <!--<textarea
+        v-if="$attrs.type === 'textarea-backup'"
         ref="input"
         v-bind="removeByKey($attrs, 'class')"
         :value="modelValue"
@@ -26,8 +40,9 @@
           { 'field__input--not-empty' : isFilled },
           { 'field__input--auto-filled' : !!autofilled }
         ]"
-        cols="30"
-        rows="10"></textarea>
+        :style="`height: ${autoHeight}`"
+        bu-cols="30"
+        bu-rows="10"></textarea>-->
       <input
         v-else
         ref="input"
@@ -87,6 +102,7 @@ import {
   useDebounceFn,
 } from '@vueuse/core';
 import useModifier from '@/use/modifier-class';
+import inputResize from '@/use/input-resize';
 import validateValueWithList from '@/use/validate-value-with-list';
 import ErrorText from '@/components/error-message/ErrorMessage.vue';
 import ValidIcon from '@/components/valid-icon/ValidIcon.vue';
@@ -204,6 +220,11 @@ export default {
     const autofilled = ref(false);
     const isFilled = computed(() => !!props.modelValue);
 
+    const {
+      autoHeight,
+      inputHeight,
+      delayedResize,
+    } = inputResize(input);
     /**
      * Detect autofilled for correct Rendering
      * @param e
@@ -233,7 +254,10 @@ export default {
      * Emit Model Value
      * @param {BaseInputModelValue} val
      */
-    const emitValue = (val) => emit('update:modelValue', val);
+    const emitValue = (val) => {
+      emit('update:modelValue', val);
+      delayedResize();
+    };
     /**
      * Update with optional debounce
      * @type {(function(*=): void)|*}
@@ -267,6 +291,8 @@ export default {
       handleFocus,
       handleBlur,
       hasFocus,
+      autoHeight,
+      inputHeight,
     };
   },
 };
