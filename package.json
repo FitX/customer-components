@@ -18,8 +18,8 @@
     "test:e2e": "nightwatch -e ios-tunnel tests/local-tunnel-test.js",
     "test:e2e-local": "nightwatch -c nightwatch.local.json",
     "lint": "vue-cli-service lint",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -c .storybook"
+    "storybook": "start-storybook -s ./ -p 6006",
+    "build-storybook": "build-storybook -s ./ -c .storybook"
   },
   "dependencies": {
     "@lambdatest/node-rest-client": "^1.0.0",
