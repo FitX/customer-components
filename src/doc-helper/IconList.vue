@@ -14,13 +14,6 @@
         v-if="color.value === selectedIconFill"
         class="indicator indicator--icon">I</span>
     </li>
-    <li
-      class="color-list__item color-list__item--custom">
-      <span>Custom:</span>
-      <sp-theme scale="large" color="dark">
-        <sp-color-slider></sp-color-slider>
-      </sp-theme>
-    </li>
   </ul>
   <section>
     <sp-theme scale="large" color="light">
@@ -87,6 +80,7 @@ export default {
   setup(props) {
     const {
       colors,
+      funcColors,
     } = useColor();
     const colorTarget = ref(COLOR_TARGET_ENUMS.ICON);
     const selectedIconFill = ref('#181D1E');
@@ -116,7 +110,9 @@ export default {
       colorTarget.value = colorTarget.value === COLOR_TARGET_ENUMS.ICON
         ? COLOR_TARGET_ENUMS.BG : COLOR_TARGET_ENUMS.ICON;
     }
-    const uniqueColors = computed(() => getUniqueListBy(colors.value, 'value'));
+    const uniqueColors = computed(() => (
+      getUniqueListBy([...colors.value, ...funcColors.value], 'value')
+    ));
     return {
       detail,
       uniqueColors,
@@ -172,15 +168,7 @@ export default {
       transform: scale(1.5);
       border-radius: 2rem;
       transition: 0.2s ease all;
-    }
-
-    &--custom {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: 2rem;
-      width: auto;
-      padding-left: 1rem;
+      z-index: 2;
     }
   }
 }

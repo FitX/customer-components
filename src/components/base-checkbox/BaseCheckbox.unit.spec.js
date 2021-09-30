@@ -1,4 +1,4 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import BaseCheckbox from '@/components/base-checkbox/BaseCheckbox.vue';
 
@@ -29,7 +29,7 @@ describe('Base checbox', () => {
     expect(label.element).toHaveClass('checkbox--error');
   });
 
-  it('updates isChecked value', async () => {
+  it('updates will be emitted', async () => {
     const wrapper = shallowMount(BaseCheckbox);
     const input = wrapper.find('input');
     await input.setValue('some value');

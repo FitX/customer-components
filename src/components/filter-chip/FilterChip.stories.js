@@ -23,6 +23,7 @@ export default {
     },
   },
   parameters: {
+    jest: ['FilterChip.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,
