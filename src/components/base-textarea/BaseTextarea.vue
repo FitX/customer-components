@@ -3,9 +3,11 @@
     v-bind="{ ...$props, ...$attrs, }"
     type="textarea"
     :maxLength="maxCount"
-    @input="update($event.target.value)"
-    @blur="update($event.target.value)"
-    @change="update($event.target.value)">
+    :error-message="errorMessage"
+    :is-valid="!errorMessage"
+    @input="update($event.target.innerText)"
+    @blur="update($event.target.innerText)"
+    @change="update($event.target.innerText)">
     <template #count>
       <span v-if="maxCount">
         {{ currentLength }} / {{ maxCount }} Zeichen
@@ -57,6 +59,12 @@ export default {
   },
   setup(props, { emit }) {
     const currentLength = computed(() => props.modelValue?.length || 0);
+    const errorMessage = computed(() => {
+      if (props.maxCount && (props.maxCount < currentLength.value)) {
+        return 'Die maximale Anzahl an Zeichen ist erreicht.';
+      }
+      return props.errorMessage;
+    });
     /**
      * Set dotted value but emit iso Date
      * @param {String} value - Format 'dd.MM.yyyy'
@@ -67,6 +75,7 @@ export default {
     return {
       update,
       currentLength,
+      errorMessage,
     };
   },
 };

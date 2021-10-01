@@ -13,20 +13,28 @@
         }
       ]"
       class="field">
-      <p>{{ autoHeight }} {{ inputHeight }}</p>
-      <div
+      <content-editable
+        v-if="$attrs.type === 'textarea'"
+        :model-value="modelValue"
+        class="field__input field__input--textarea"
+        v-bind="removeByKey($attrs, 'class')"
+        :class="[
+          { 'field__input--not-empty' : isFilled },
+          { 'field__input--auto-filled' : !!autofilled }
+        ]"
+      />
+      <!--<div
         v-if="$attrs.type === 'textarea'"
         contenteditable="true"
         v-bind="removeByKey($attrs, 'class')"
-        :value="modelValue"
-        @input="updateValue($event.target.value)"
+        @input="updateValue($event.target.innerText)"
         @focus="handleFocus()"
         @blur="handleBlur()"
         class="field__input field__input--textarea"
         :class="[
           { 'field__input--not-empty' : isFilled },
           { 'field__input--auto-filled' : !!autofilled }
-        ]">{{ modelValue }}</div>
+        ]">{{ modelValue }}</div>-->
       <!--<textarea
         v-if="$attrs.type === 'textarea-backup'"
         ref="input"
@@ -102,11 +110,11 @@ import {
   useDebounceFn,
 } from '@vueuse/core';
 import useModifier from '@/use/modifier-class';
-import inputResize from '@/use/input-resize';
 import validateValueWithList from '@/use/validate-value-with-list';
 import ErrorText from '@/components/error-message/ErrorMessage.vue';
 import ValidIcon from '@/components/valid-icon/ValidIcon.vue';
 import IconClear from '@/assets/icons/icon-clear.svg';
+import contentEditable from '@/components/content-editable/ContentEditable.vue';
 
 /**
  * @typedef {string|number|null} BaseInputModelValue
@@ -174,6 +182,7 @@ export default {
     ErrorText,
     ValidIcon,
     IconClear,
+    contentEditable,
   },
   inheritAttrs: false,
   emits: [
@@ -220,11 +229,6 @@ export default {
     const autofilled = ref(false);
     const isFilled = computed(() => !!props.modelValue);
 
-    const {
-      autoHeight,
-      inputHeight,
-      delayedResize,
-    } = inputResize(input);
     /**
      * Detect autofilled for correct Rendering
      * @param e
@@ -256,7 +260,6 @@ export default {
      */
     const emitValue = (val) => {
       emit('update:modelValue', val);
-      delayedResize();
     };
     /**
      * Update with optional debounce
@@ -291,8 +294,6 @@ export default {
       handleFocus,
       handleBlur,
       hasFocus,
-      autoHeight,
-      inputHeight,
     };
   },
 };
@@ -320,16 +321,21 @@ label {
   --field-label-font-size: var(--field-font-size);
 
   --field-padding-v: var(--form-input-padding, 1.8rem);
-  --field-padding-h: 2rem;
+  --field-padding-h: var(--form-input-padding, 1.8rem);
 
   --field-border-size: var(--form-input-border-size, 1px);
 
   position: relative;
   font-size: var(--field-font-size);
   height: var(--form-input-height, 6rem);
+  line-height: 2.1rem;
 
   &--textarea {
-    min-height: 10rem;
+    // min-height: 10rem;
+    height: auto;
+    // height: auto;
+    width: 100%;
+    display: inline-block;
   }
 
   &--dark {
@@ -393,6 +399,11 @@ label {
     background: var(--field-color-bg);
     width: 100%;
     height: 100%;
+
+    &--textarea {
+      border: 1px solid red;
+      padding-bottom: var(--field-padding-v);
+    }
     // hack placeholder like default input 1/2
     &[type="date"] {
       color: transparent;
@@ -418,14 +429,14 @@ label {
         }
         #{$self}--textarea & {
           // if textarea dont show label on focus
-         display: none;
+         // display: none;
         }
       }
     }
     #{$self}--fake-focus#{$self}--textarea & {
       & + .field__text {
         // if textarea dont show label on focus
-        display: none;
+        // display: none;
       }
     }
     &:focus,
@@ -457,8 +468,10 @@ label {
     line-height: 1;
     color: var(--field-color-label);
     #{$self}--textarea & {
-      top: var(--field-padding-h);
-      transform: translate3d(var(--field-padding-h), 0, 0);
+      top: var(--field-padding-v);
+      transform: translate3d(var(--field-padding-h), -50%, 0);
+      // top: var(--field-padding-h);
+      // transform: translate3d(var(--field-padding-h), 0, 0);
     }
   }
   &__btn-wrapper {
