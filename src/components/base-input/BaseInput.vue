@@ -333,6 +333,9 @@ label {
   position: relative;
   font-size: var(--field-font-size);
   height: var(--field-min-height);
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
 
   &--textarea {
     // min-height: 10rem;
