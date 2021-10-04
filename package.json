@@ -19,7 +19,8 @@
     "test:e2e-local": "nightwatch -c nightwatch.local.json",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -s ./ -p 6006",
-    "build-storybook": "build-storybook -s ./ -c .storybook"
+    "prepare-storybbok-build": "rsync -av --progress ./ ./storybook-static --exclude /storybook-static --exclude /node_modules",
+    "build-storybook": "build-storybook -s ./src:/src,./README.md:.README.md,./reports:/reports,./docs:/docs,./coverage:/coverage -c .storybook"
   },
   "dependencies": {
     "@lambdatest/node-rest-client": "^1.0.0",
