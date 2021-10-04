@@ -16,6 +16,9 @@
       <content-editable
         v-if="$attrs.type === 'textarea'"
         :model-value="modelValue"
+        @input="updateValue($event.target.value)"
+        @focus="handleFocus()"
+        @blur="handleBlur()"
         class="field__input field__input--textarea"
         v-bind="removeByKey($attrs, 'class')"
         :class="[
@@ -66,7 +69,7 @@
         ]">
       <span
         class="field__text"
-        v-if="label">{{ label }}</span>
+        v-if="label">{{ label }} {{ modelValue }}</span>
       <button
         class="field__icon clearable-icon"
         @click.prevent="clearInput()"
@@ -266,6 +269,7 @@ export default {
      * @type {(function(*=): void)|*}
      */
     const updateValue = useDebounceFn((val) => {
+      console.log('emit via base input', val);
       emitValue(val);
     }, props.debounce);
     /**

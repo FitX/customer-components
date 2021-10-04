@@ -1,103 +1,94 @@
 <template>
-  <component
-    :is="tag"
-    ref="refComponent"
-    class="content-editable"
-    :contenteditable="true"
-    @input="update"
-    @blur="update"
-    @keypress="onKeypress"
-    @paste="onPaste"
-  />
+  <div
+    :data-value="localModel"
+    class="content-editable">
+    <span>bla {{ localModel }}</span>
+    <textarea
+      v-bind="{ ...$props, ...$attrs, }"
+      class="content-editable__input"
+      v-model="localModel"></textarea>
+  </div>
 </template>
 
 <script>
-import { ref, onMounted, watch } from 'vue';
-
-/**
- * String Replace Method
- * @param {string} source - original
- * @param {string} search - search term
- * @param {string} replacement - replace with term
- * @return {*}
- */
-function replaceAll(source, search, replacement) {
-  return source.split(search).join(replacement);
-}
+import { computed } from 'vue';
 
 export default {
   name: 'ContentEditable',
   props: {
     tag: {
       type: String,
-      default: 'div',
+      default: 'textarea',
     },
     modelValue: {
       type: String,
       default: null,
     },
-    allowNewLine: {
-      type: Boolean,
-      default: true,
-    },
   },
   emits: {
     'update:modelValue': String,
   },
-  setup(props, { emit, attrs }) {
-    const refComponent = ref(null);
-    function trimContent(value) {
-      const trimNeeded = (attrs.maxLength && (attrs.maxLength <= value.length));
-      return trimNeeded ? value.substring(0, attrs.maxLength) : value;
-    }
-    function getContent() {
-      return trimContent(refComponent.value.innerText);
-    }
-    function updateContent(value) {
-      refComponent.value.innerText = trimContent(value);
-    }
-    function update() {
-      const content = getContent();
-      if (!(attrs.maxLength && (attrs.maxLength <= content.length))) {
-        emit('update:modelValue', content);
-      }
-    }
-    function onPaste(event) {
-      event.preventDefault();
-      let text = (event.originalEvent || event).clipboardData.getData('text/plain');
-      if (!props.allowNewLine) {
-        text = replaceAll(text, '\r\n', ' ');
-        text = replaceAll(text, '\n', ' ');
-        text = replaceAll(text, '\r', ' ');
-      }
-      window.document.execCommand('insertText', false, text);
-    }
-    function onKeypress(event) {
-      if (event.key === 'Enter' && !props.allowNewLine) {
-        event.preventDefault();
-        // emit('returned', getContent());
-      }
-    }
-    onMounted(() => {
-      updateContent(props.modelValue ?? '');
-    });
-    watch(() => props.modelValue, (newVal) => {
-      if (trimContent(newVal) !== getContent()) {
-        updateContent(newVal ?? '');
-      }
+  setup(props, { emit }) {
+    const localModel = computed({
+      get: () => props.modelValue,
+      set: (value) => {
+        console.log('set', value);
+        emit('update:modelValue', value);
+      },
     });
     return {
-      update,
-      onPaste,
-      onKeypress,
-      refComponent,
+      localModel,
     };
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .content-editable {
-  height: 100%;
+  display: inline-grid;
+  vertical-align: top;
+  align-items: center;
+  position: relative;
+
+  // stacked
+  align-items: stretch;
+  border: 1px solid green;
+
+  &::after,
+  &__input {
+    grid-area: 2 / 1;
+  }
+
+  &::after,
+  &__input {
+    width: auto;
+    min-width: 1em;
+    grid-area: 1 / 2;
+    font: inherit;
+    padding: 0.25em;
+    margin: 0;
+    resize: none;
+    background: none;
+    appearance: none;
+    border: none;
+  }
+
+  &::after {
+    content: attr(data-value) ' ';
+    visibility: hidden;
+    white-space: pre-wrap;
+  }
+
+  &:focus-within {
+    outline: solid 1px blue;
+    box-shadow: 4px 4px 0px blue;
+
+    > span { color: blue; }
+
+    textarea:focus,
+    input:focus {
+      outline: none;
+    }
+  }
 }
 </style>

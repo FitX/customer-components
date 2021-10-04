@@ -3,9 +3,7 @@
     v-bind="{ ...$props, ...$attrs, }"
     type="textarea"
     :maxLength="maxCount"
-    :error-message="errorMessage"
-    :is-valid="!errorMessage"
-    @input="update($event.target.innerText)"
+    @update:modelValue="update"
     @blur="update($event.target.innerText)"
     @change="update($event.target.innerText)">
     <template #count>
@@ -70,6 +68,7 @@ export default {
      * @param {String} value - Format 'dd.MM.yyyy'
      */
     function update(value) {
+      console.log('emit wrapper', value);
       emit('update:modelValue', value);
     }
     return {
