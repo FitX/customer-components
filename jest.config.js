@@ -1,4 +1,6 @@
 module.exports = {
+  verbose: true,
+  setupFilesAfterEnv: ['<rootDir>/tests/unit/setup.js'],
   preset: '@vue/cli-plugin-unit-jest',
   transformIgnorePatterns: ['/node_modules/(?!(@storybook/.*\\.vue$))'],
   transform: {

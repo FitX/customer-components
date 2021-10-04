@@ -28,4 +28,19 @@ describe('TextArea', () => {
     });
     expect(wrapper.vm.currentLength).toBe(19);
   });
+
+  it('warns when max length is reached', async () => {
+    const wrapper = mount(BaseTextarea, {
+      attrs: {
+        maxLength: 5,
+      },
+      props: {
+        modelValue: '',
+      },
+    });
+    expect(wrapper.vm.currentLength).toBe(0);
+    await wrapper.setProps({ modelValue: 'Hey ho lets go' });
+    expect(wrapper.vm.currentLength).toBe(14);
+    expect(wrapper.vm.errorMessage).toBe('Die maximale Anzahl an Zeichen ist erreicht.');
+  });
 });
