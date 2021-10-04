@@ -21,12 +21,18 @@
   <base-radio label="radio" />
   <hr>
   <filter-chip label="Filter Chip" value="foo" />
+  <hr>
+  <div style="display: grid; grid-template-columns: 1fr 1fr">
+    <base-input v-model="model" label="base input"></base-input>
+    <base-textarea v-model="model" label="base input" />
+  </div>
 </template>
 
 <script>
 /* eslint-disable */
 // import { ErrorIcon } from 'dist/customer-components.es.js';
 import '../dist/customer-components.css';
+import BaseTextarea from '@/components/base-textarea/BaseTextarea';
 /* import {
   ErrorMessage,
   ErrorIcon,
@@ -43,6 +49,12 @@ import '../dist/customer-components.css';
 
 export default {
   name: 'App',
+  components: {BaseTextarea},
+  data() {
+    return {
+      model: null,
+    };
+  },
   /* components: {
     ErrorMessage,
     ErrorIcon,
