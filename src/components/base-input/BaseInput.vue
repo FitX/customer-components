@@ -15,6 +15,7 @@
       class="field">
       <div
         v-if="$attrs.type === 'textarea'"
+        ref="input"
         :data-replicated-value="modelValue"
         class="field__input field__input--textarea content-editable"
         :class="[
@@ -243,7 +244,6 @@ export default {
      * @type {(function(*=): void)|*}
      */
     const updateValue = useDebounceFn((val) => {
-      console.log('emit via base input', val);
       emitValue(val);
     }, props.debounce);
     /**
@@ -255,11 +255,9 @@ export default {
     };
     const handleFocus = () => {
       hasFocus.value = true;
-      console.log('focus');
     };
     const handleBlur = () => {
       hasFocus.value = false;
-      console.log('kein focus');
     };
     return {
       getModifierClasses,

@@ -12,9 +12,9 @@ const storyDescription = `
 `;
 
 const eventListener = {
-  onInput: { action: 'onInput' },
-  onUpdate: { action: 'onModelUpdate' },
-  onBlur: { action: 'onBlur' },
+  // onInput: { action: 'onInput' },
+  'onUpdate:modelValue': { action: 'onModelUpdate' },
+  // onBlur: { action: 'onBlur' },
   // onBlur: action('action'),
 };
 
@@ -127,4 +127,22 @@ export const BaseTextareaDisabledPreFilled = Template.bind({});
 BaseTextareaDisabledPreFilled.args = {
   model: 'Blubb',
   disabled: true,
+};
+
+export const InfoForDevs = () => ({
+  template: `
+      Die Textarea besteht aus der
+      <a
+      href="/?path=/docs/components-form-input--default-base-input"><i>BaseInput</i></a> Komponente.
+      zusätzlich kann eine Zeichenbegrenzung angezeigt werden.
+      Die Komponente kann mit beliebigen Attributen wie z.B. <i>row=2</i> ergänzt werden.
+      `,
+});
+
+InfoForDevs.parameters = {
+  docs: {
+    description: {
+      // story: 'Siehe Beschreibung.',
+    },
+  },
 };

@@ -20,13 +20,8 @@ import BaseInput, {
   modifier,
   baseInputProps,
 } from '@/components/base-input/BaseInput.vue';
-
 /**
- * Date Format for Model: 'yyyy-MM-dd'
- * @typedef {string} DateInputStringFormat - 'yyyy-MM-dd'
- */
-/**
- * @typedef {DateInputStringFormat|null} DateInputModelValue
+ * @typedef {string|null} BaseTextareaModelValue
  */
 
 /**
@@ -43,7 +38,7 @@ export default {
   emits: [
     /**
      * Fires on Model Update
-     * @property {DateInputModelValue} val - Input Value
+     * @property {BaseTextareaModelValue} val - Input Value
      */
     'update:modelValue',
   ],
@@ -62,12 +57,7 @@ export default {
       }
       return props.errorMessage;
     });
-    /**
-     * Set dotted value but emit iso Date
-     * @param {String} value - Format 'dd.MM.yyyy'
-     */
     function update(value) {
-      console.log('emit wrapper', value);
       emit('update:modelValue', value);
     }
     return {
