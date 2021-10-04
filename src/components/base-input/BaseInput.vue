@@ -17,13 +17,16 @@
         v-if="$attrs.type === 'textarea'"
         ref="input"
         :data-replicated-value="modelValue"
-        class="field__input field__input--textarea content-editable"
+        class="field__input field__input--textarea"
         :class="[
           { 'field__input--not-empty' : isFilled },
-          { 'field__input--auto-filled' : !!autofilled }
+          { 'field__input--auto-filled' : !!autofilled },
+          { 'content-editable' : !disableAutoHeight }
         ]">
         <textarea
-          class="content-editable__input"
+          :class="[
+            { 'content-editable__input' : !disableAutoHeight }
+          ]"
           :value="modelValue"
           :rows="$attrs.rows || 1"
           @input="updateValue($event.target.value)"
@@ -46,7 +49,7 @@
         ]">
       <span
         class="field__text"
-        v-if="label">{{ label }} {{ isFilled }}</span>
+        v-if="label">{{ label }}</span>
       <button
         class="field__icon clearable-icon"
         @click.prevent="clearInput()"
@@ -148,6 +151,13 @@ export const baseInputProps = {
   debounce: {
     type: Number,
     default: 0,
+  },
+  /**
+   * Disable Auto Height (For Textarea only)
+   */
+  disableAutoHeight: {
+    type: Boolean,
+    default: false,
   },
   modifier: {
     type: [String, Array],
@@ -380,8 +390,19 @@ label {
 
     &--textarea {
       textarea {
-        padding-top: 0.3rem; // fake real input spacing
+        --textarea-extra-spacing: 0.3rem;
+        padding-top: var(--textarea-extra-spacing); // fake real input spacing
         color: currentColor;
+        min-height: calc(100% + var(--textarea-extra-spacing));
+        border: none;
+        width: 100%;
+        font: inherit;
+        resize: none;
+
+        &:focus,
+        :focus-within &:focus {
+          outline: none;
+        }
       }
     }
     // hack placeholder like default input 1/2

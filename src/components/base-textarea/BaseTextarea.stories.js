@@ -49,7 +49,7 @@ export default {
  * @type {string}
  */
 const baseTemplate = `
-<base-textarea v-bind="args" v-model="args.model" :label="args.label || 'Kommentar'" :max-count="200">
+<base-textarea v-bind="args" v-model="args.model" :label="args.label || 'Kommentar'" maxLength="200">
   <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
 </base-textarea>`;
 
@@ -95,7 +95,7 @@ BaseTextareaFocused.args = {
 
 export const BaseTextareaValid = Template.bind({});
 BaseTextareaValid.args = {
-  model: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores.',
+  model: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores. Überlänge',
   isValid: true,
 };
 BaseTextareaValid.parameters = {
@@ -130,12 +130,18 @@ BaseTextareaDisabledPreFilled.args = {
 };
 
 export const InfoForDevs = () => ({
+  components: {
+    BaseTextarea,
+  },
   template: `
+      <p>
       Die Textarea besteht aus der
       <a
-      href="/?path=/docs/components-form-input--default-base-input"><i>BaseInput</i></a> Komponente.
+        href="/?path=/docs/components-form-input--default-base-input"><i>BaseInput</i></a> Komponente.
       zusätzlich kann eine Zeichenbegrenzung angezeigt werden.
       Die Komponente kann mit beliebigen Attributen wie z.B. <i>row=2</i> ergänzt werden.
+      </p>
+      <base-textarea label="Beispiel mit Spalten und ohne Auto Height" :disable-auto-height="true" rows="2" />
       `,
 });
 

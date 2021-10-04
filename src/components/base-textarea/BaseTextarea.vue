@@ -2,13 +2,13 @@
   <base-input
     v-bind="{ ...$props, ...$attrs, }"
     type="textarea"
-    :maxLength="maxCount"
+    :error-message="errorMessage"
     @input="update($event.target.value)"
     @blur="update($event.target.value)"
     @change="update($event.target.value)">
     <template #count>
-      <span v-if="maxCount">
-        {{ currentLength }} / {{ maxCount }} Zeichen
+      <span v-if="$attrs.maxLength">
+        {{ currentLength }} / {{ $attrs.maxLength }} Zeichen
       </span>
     </template>
   </base-input>
@@ -44,15 +44,11 @@ export default {
   ],
   props: {
     ...baseInputProps,
-    maxCount: {
-      type: Number,
-      default: null,
-    },
   },
-  setup(props, { emit }) {
+  setup(props, { attrs, emit }) {
     const currentLength = computed(() => props.modelValue?.length || 0);
     const errorMessage = computed(() => {
-      if (props.maxCount && (props.maxCount < currentLength.value)) {
+      if (attrs.maxLength && (attrs.maxLength < currentLength.value)) {
         return 'Die maximale Anzahl an Zeichen ist erreicht.';
       }
       return props.errorMessage;
