@@ -474,11 +474,7 @@ label {
   line-height: 0;
   --icon-width: 1.8rem;
   --icon-height: 1.8rem;
-  --icon-fill: var(--brand-color-anthracite);
-
-  .field--dark & {
-    --icon-fill: var(--brand-color-gray-carbon);
-  }
+  --icon-fill: var(--brand-color-gray-carbon);
 }
 .additional {
   display: grid;
