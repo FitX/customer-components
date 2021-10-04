@@ -1,25 +1,21 @@
 <template>
   <div
-    :data-value="localModel"
+    :data-replicated-value="modelValue"
     class="content-editable">
-    <span>bla {{ localModel }}</span>
     <textarea
-      v-bind="{ ...$props, ...$attrs, }"
       class="content-editable__input"
-      v-model="localModel"></textarea>
+      :model-value="modelValue"
+      rows="1"
+      v-bind="{ ...$props, ...$attrs, }"
+      @focus="$emit('focus')"
+      @input="updateValue($event.target.value)"></textarea>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue';
-
 export default {
   name: 'ContentEditable',
   props: {
-    tag: {
-      type: String,
-      default: 'textarea',
-    },
     modelValue: {
       type: String,
       default: null,
@@ -29,29 +25,81 @@ export default {
     'update:modelValue': String,
   },
   setup(props, { emit }) {
-    const localModel = computed({
-      get: () => props.modelValue,
-      set: (value) => {
-        console.log('set', value);
-        emit('update:modelValue', value);
-      },
-    });
+    const updateValue = (val) => {
+      emit('update:modelValue', val);
+    };
     return {
-      localModel,
+      updateValue,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+/**
+  Inspired by
+  @link https://css-tricks.com/auto-growing-inputs-textareas/
+  @link https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
+ */
 .content-editable {
+  $self: &;
+  /* easy way to plop the elements on top of each other and have them both
+  sized based on the tallest one's height */
+  display: grid;
+
+  &::after {
+    /* Note the weird space! Needed to prevent jumpy behavior */
+    content: attr(data-replicated-value) " ";
+
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+  }
+
+  &__input {
+    appearance: none;
+    /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+    resize: none;
+
+    /* Firefox shows scrollbar on growth, you can hide like this. */
+    overflow: hidden;
+  }
+
+  &::after,
+  &__input {
+    /* Identical styling required!! */
+    border: none;
+    padding: 0;
+    background: transparent;
+    font: inherit;
+
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+
+  &:focus-within {
+    #{$self}__input:focus {
+      outline: none;
+    }
+  }
+}
+
+.content-editable-bu {
   display: inline-grid;
   vertical-align: top;
   align-items: center;
   position: relative;
+  text-align: left;
+  // width: 100%;
 
   // stacked
-  align-items: stretch;
+  // align-items: stretch;
   border: 1px solid green;
 
   &::after,
@@ -71,12 +119,14 @@ export default {
     background: none;
     appearance: none;
     border: none;
+    border: 1px solid red;
   }
 
   &::after {
     content: attr(data-value) ' ';
     visibility: hidden;
     white-space: pre-wrap;
+    border: 1px solid orange;
   }
 
   &:focus-within {

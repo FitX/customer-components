@@ -3,9 +3,9 @@
     v-bind="{ ...$props, ...$attrs, }"
     type="textarea"
     :maxLength="maxCount"
-    @update:modelValue="update"
-    @blur="update($event.target.innerText)"
-    @change="update($event.target.innerText)">
+    @input="update($event.target.value)"
+    @blur="update($event.target.value)"
+    @change="update($event.target.value)">
     <template #count>
       <span v-if="maxCount">
         {{ currentLength }} / {{ maxCount }} Zeichen

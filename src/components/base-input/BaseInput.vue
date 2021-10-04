@@ -69,7 +69,7 @@
         ]">
       <span
         class="field__text"
-        v-if="label">{{ label }} {{ modelValue }}</span>
+        v-if="label">{{ label }} {{ isFilled }}</span>
       <button
         class="field__icon clearable-icon"
         @click.prevent="clearInput()"
@@ -328,18 +328,19 @@ label {
   --field-padding-h: var(--form-input-padding, 1.8rem);
 
   --field-border-size: var(--form-input-border-size, 1px);
+  --field-min-height: var(--form-input-height, 6rem);
 
   position: relative;
   font-size: var(--field-font-size);
-  height: var(--form-input-height, 6rem);
-  line-height: 2.1rem;
+  height: var(--field-min-height);
 
   &--textarea {
     // min-height: 10rem;
+    min-height: var(--field-min-height);
     height: auto;
     // height: auto;
-    width: 100%;
-    display: inline-block;
+    // width: 100%;
+    // display: inline-block;
   }
 
   &--dark {
@@ -387,6 +388,7 @@ label {
   }
   &__input {
     -webkit-appearance: none;
+    line-height: 2.1rem;
     /**
     -webkit-autofill::first-line hack for overwrite webkit autofill styles
     **/
@@ -399,14 +401,14 @@ label {
     }
     border: var(--field-border-size) solid var(--field-color-border);
     border-radius: var(--form-input-border-radius, 0.8rem);
-    padding: var(--field-padding-v) var(--field-padding-h) 0.6rem;
+    padding: var(--field-padding-v) var(--field-padding-h) 1.1rem;
+    // padding: var(--field-padding-v) var(--field-padding-h);
     background: var(--field-color-bg);
     width: 100%;
     height: 100%;
 
     &--textarea {
-      border: 1px solid red;
-      padding-bottom: var(--field-padding-v);
+      // padding-bottom: var(--field-padding-v);
     }
     // hack placeholder like default input 1/2
     &[type="date"] {
@@ -426,7 +428,7 @@ label {
       }
       & + .field__text {
         --field-label-font-size: 1.4rem;
-        top: 1rem;
+        top: 1.4rem;
         transform: translate3d(var(--field-padding-h), 0, 0);
         #{$self}--dark:not(#{$self}--error) & {
           --field-color-label: var(--brand-color-gray-cement);
@@ -458,22 +460,24 @@ label {
     right: var(--field-padding-h);
     transform: translate3d(0, -50%, 0);
     #{$self}--textarea & {
-      top: initial;
+      /* top: initial;
       bottom: var(--field-padding-v);
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0); */
     }
   }
   &__text {
     font-size: var(--field-label-font-size);
     position: absolute;
-    top: 50%;
-    transform: translate3d(var(--field-padding-h), -50%, 0);
+    // top: 50%;
+    top: calc(var(--field-min-height) / 2);
+    transform: translate3d(var(--field-padding-h), 0, 0);
     display: block;
-    line-height: 1;
+    line-height: 0;
     color: var(--field-color-label);
     #{$self}--textarea & {
-      top: var(--field-padding-v);
-      transform: translate3d(var(--field-padding-h), -50%, 0);
+      /* top: var(--field-padding-v);
+      transform: translate3d(var(--field-padding-h), 0, 0); */
+      // transform: translate3d(var(--field-padding-h), -50%, 0);
       // top: var(--field-padding-h);
       // transform: translate3d(var(--field-padding-h), 0, 0);
     }
