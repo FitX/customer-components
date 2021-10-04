@@ -2,32 +2,26 @@
   <base-input
     v-bind="{ ...$props, ...$attrs, }"
     type="textarea"
-    :maxLength="maxCount"
+    :error-message="errorMessage"
     @input="update($event.target.value)"
     @blur="update($event.target.value)"
     @change="update($event.target.value)">
     <template #count>
-      <span v-if="maxCount">
-        {{ currentLength }} / {{ maxCount }} Zeichen
+      <span v-if="$attrs.maxLength">
+        {{ currentLength }} / {{ $attrs.maxLength }} Zeichen
       </span>
     </template>
   </base-input>
 </template>
 
 <script>
-// import { computed, ref, watchEffect } from 'vue';
 import { computed } from 'vue';
 import BaseInput, {
   modifier,
   baseInputProps,
 } from '@/components/base-input/BaseInput.vue';
-
 /**
- * Date Format for Model: 'yyyy-MM-dd'
- * @typedef {string} DateInputStringFormat - 'yyyy-MM-dd'
- */
-/**
- * @typedef {DateInputStringFormat|null} DateInputModelValue
+ * @typedef {string|null} BaseTextareaModelValue
  */
 
 /**
@@ -44,29 +38,28 @@ export default {
   emits: [
     /**
      * Fires on Model Update
-     * @property {DateInputModelValue} val - Input Value
+     * @property {BaseTextareaModelValue} val - Input Value
      */
     'update:modelValue',
   ],
   props: {
     ...baseInputProps,
-    maxCount: {
-      type: Number,
-      default: null,
-    },
   },
-  setup(props, { emit }) {
+  setup(props, { attrs, emit }) {
     const currentLength = computed(() => props.modelValue?.length || 0);
-    /**
-     * Set dotted value but emit iso Date
-     * @param {String} value - Format 'dd.MM.yyyy'
-     */
+    const errorMessage = computed(() => {
+      if (attrs.maxLength && (attrs.maxLength < currentLength.value)) {
+        return 'Die maximale Anzahl an Zeichen ist erreicht.';
+      }
+      return props.errorMessage;
+    });
     function update(value) {
       emit('update:modelValue', value);
     }
     return {
       update,
       currentLength,
+      errorMessage,
     };
   },
 };

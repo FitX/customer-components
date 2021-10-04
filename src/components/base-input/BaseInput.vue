@@ -13,21 +13,27 @@
         }
       ]"
       class="field">
-      <textarea
+      <div
         v-if="$attrs.type === 'textarea'"
         ref="input"
-        v-bind="removeByKey($attrs, 'class')"
-        :value="modelValue"
-        @input="updateValue($event.target.value)"
-        @focus="handleFocus()"
-        @blur="handleBlur()"
+        :data-replicated-value="modelValue"
         class="field__input field__input--textarea"
         :class="[
           { 'field__input--not-empty' : isFilled },
-          { 'field__input--auto-filled' : !!autofilled }
-        ]"
-        cols="30"
-        rows="10"></textarea>
+          { 'field__input--auto-filled' : !!autofilled },
+          { 'content-editable' : !disableAutoHeight }
+        ]">
+        <textarea
+          :class="[
+            { 'content-editable__input' : !disableAutoHeight }
+          ]"
+          :value="modelValue"
+          :rows="$attrs.rows || 1"
+          @input="updateValue($event.target.value)"
+          @focus="handleFocus()"
+          @blur="handleBlur()"
+          v-bind="removeByKey($attrs, 'class')"></textarea>
+      </div>
       <input
         v-else
         ref="input"
@@ -146,6 +152,13 @@ export const baseInputProps = {
     type: Number,
     default: 0,
   },
+  /**
+   * Disable Auto Height (For Textarea only)
+   */
+  disableAutoHeight: {
+    type: Boolean,
+    default: false,
+  },
   modifier: {
     type: [String, Array],
     default: null,
@@ -233,7 +246,9 @@ export default {
      * Emit Model Value
      * @param {BaseInputModelValue} val
      */
-    const emitValue = (val) => emit('update:modelValue', val);
+    const emitValue = (val) => {
+      emit('update:modelValue', val);
+    };
     /**
      * Update with optional debounce
      * @type {(function(*=): void)|*}
@@ -250,11 +265,9 @@ export default {
     };
     const handleFocus = () => {
       hasFocus.value = true;
-      console.log('focus');
     };
     const handleBlur = () => {
       hasFocus.value = false;
-      console.log('kein focus');
     };
     return {
       getModifierClasses,
@@ -294,16 +307,21 @@ label {
   --field-label-font-size: var(--field-font-size);
 
   --field-padding-v: var(--form-input-padding, 1.8rem);
-  --field-padding-h: 2rem;
+  --field-padding-h: var(--form-input-padding, 1.8rem);
 
   --field-border-size: var(--form-input-border-size, 1px);
+  --field-min-height: var(--form-input-height, 6rem);
 
   position: relative;
   font-size: var(--field-font-size);
-  height: var(--form-input-height, 6rem);
+  height: var(--field-min-height);
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
 
   &--textarea {
-    min-height: 10rem;
+    min-height: var(--field-min-height);
+    height: auto;
   }
 
   &--dark {
@@ -351,6 +369,7 @@ label {
   }
   &__input {
     -webkit-appearance: none;
+    line-height: 2.1rem;
     /**
     -webkit-autofill::first-line hack for overwrite webkit autofill styles
     **/
@@ -363,14 +382,32 @@ label {
     }
     border: var(--field-border-size) solid var(--field-color-border);
     border-radius: var(--form-input-border-radius, 0.8rem);
-    padding: var(--field-padding-v) var(--field-padding-h) 0.6rem;
+    padding: var(--field-padding-v) var(--field-padding-h) 1.1rem;
+    // padding: var(--field-padding-v) var(--field-padding-h);
     background: var(--field-color-bg);
     width: 100%;
     height: 100%;
+
+    &--textarea {
+      textarea {
+        --textarea-extra-spacing: 0.3rem;
+        padding-top: var(--textarea-extra-spacing); // fake real input spacing
+        color: currentColor;
+        min-height: calc(100% + var(--textarea-extra-spacing));
+        border: none;
+        width: 100%;
+        font: inherit;
+        resize: none;
+
+        &:focus,
+        :focus-within &:focus {
+          outline: none;
+        }
+      }
+    }
     // hack placeholder like default input 1/2
     &[type="date"] {
       color: transparent;
-      // appearance: none;
       &::-webkit-calendar-picker-indicator {
         opacity: 0;
       }
@@ -385,21 +422,11 @@ label {
       }
       & + .field__text {
         --field-label-font-size: 1.4rem;
-        top: 1rem;
+        top: 1.4rem;
         transform: translate3d(var(--field-padding-h), 0, 0);
         #{$self}--dark:not(#{$self}--error) & {
           --field-color-label: var(--brand-color-gray-cement);
         }
-        #{$self}--textarea & {
-          // if textarea dont show label on focus
-         display: none;
-        }
-      }
-    }
-    #{$self}--fake-focus#{$self}--textarea & {
-      & + .field__text {
-        // if textarea dont show label on focus
-        display: none;
       }
     }
     &:focus,
@@ -417,23 +444,18 @@ label {
     right: var(--field-padding-h);
     transform: translate3d(0, -50%, 0);
     #{$self}--textarea & {
-      top: initial;
-      bottom: var(--field-padding-v);
-      transform: translate3d(0, 0, 0);
+      display: none;
     }
   }
   &__text {
     font-size: var(--field-label-font-size);
     position: absolute;
-    top: 50%;
-    transform: translate3d(var(--field-padding-h), -50%, 0);
+    // top: 50%;
+    top: calc(var(--field-min-height) / 2);
+    transform: translate3d(var(--field-padding-h), 0, 0);
     display: block;
-    line-height: 1;
+    line-height: 0;
     color: var(--field-color-label);
-    #{$self}--textarea & {
-      top: var(--field-padding-h);
-      transform: translate3d(var(--field-padding-h), 0, 0);
-    }
   }
   &__btn-wrapper {
     position: absolute;
@@ -470,6 +492,63 @@ label {
   &__count {
     justify-self: flex-end;
     align-self: center;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+/**
+  Extra Styles for Textarea
+*/
+/**
+  Inspired by
+  @link https://css-tricks.com/auto-growing-inputs-textareas/
+  @link https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
+ */
+.content-editable {
+  $self: &;
+  /* easy way to plop the elements on top of each other and have them both
+  sized based on the tallest one's height */
+  display: grid;
+
+  &::after {
+    /* Note the weird space! Needed to prevent jumpy behavior */
+    content: attr(data-replicated-value) " ";
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+  }
+
+  &__input {
+    appearance: none;
+    /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+    resize: none;
+    /* Firefox shows scrollbar on growth, you can hide like this. */
+    overflow: hidden;
+  }
+
+  &::after,
+  &__input {
+    /* Identical styling required!! */
+    border: none;
+    padding: 0;
+    background: transparent;
+    font: inherit;
+    align-self: stretch;
+
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+
+  &:focus-within {
+    #{$self}__input:focus {
+      outline: none;
+    }
   }
 }
 </style>
