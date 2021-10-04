@@ -13,47 +13,23 @@
         }
       ]"
       class="field">
-      <content-editable
+      <div
         v-if="$attrs.type === 'textarea'"
-        :model-value="modelValue"
-        @input="updateValue($event.target.value)"
-        @focus="handleFocus()"
-        @blur="handleBlur()"
-        class="field__input field__input--textarea"
-        v-bind="removeByKey($attrs, 'class')"
+        :data-replicated-value="modelValue"
+        class="field__input field__input--textarea content-editable"
         :class="[
           { 'field__input--not-empty' : isFilled },
           { 'field__input--auto-filled' : !!autofilled }
-        ]"
-      />
-      <!--<div
-        v-if="$attrs.type === 'textarea'"
-        contenteditable="true"
-        v-bind="removeByKey($attrs, 'class')"
-        @input="updateValue($event.target.innerText)"
-        @focus="handleFocus()"
-        @blur="handleBlur()"
-        class="field__input field__input--textarea"
-        :class="[
-          { 'field__input--not-empty' : isFilled },
-          { 'field__input--auto-filled' : !!autofilled }
-        ]">{{ modelValue }}</div>-->
-      <!--<textarea
-        v-if="$attrs.type === 'textarea-backup'"
-        ref="input"
-        v-bind="removeByKey($attrs, 'class')"
-        :value="modelValue"
-        @input="updateValue($event.target.value)"
-        @focus="handleFocus()"
-        @blur="handleBlur()"
-        class="field__input field__input--textarea"
-        :class="[
-          { 'field__input--not-empty' : isFilled },
-          { 'field__input--auto-filled' : !!autofilled }
-        ]"
-        :style="`height: ${autoHeight}`"
-        bu-cols="30"
-        bu-rows="10"></textarea>-->
+        ]">
+        <textarea
+          class="content-editable__input"
+          :value="modelValue"
+          :rows="$attrs.rows || 1"
+          @input="updateValue($event.target.value)"
+          @focus="handleFocus()"
+          @blur="handleBlur()"
+          v-bind="removeByKey($attrs, 'class')"></textarea>
+      </div>
       <input
         v-else
         ref="input"
@@ -117,7 +93,6 @@ import validateValueWithList from '@/use/validate-value-with-list';
 import ErrorText from '@/components/error-message/ErrorMessage.vue';
 import ValidIcon from '@/components/valid-icon/ValidIcon.vue';
 import IconClear from '@/assets/icons/icon-clear.svg';
-import contentEditable from '@/components/content-editable/ContentEditable.vue';
 
 /**
  * @typedef {string|number|null} BaseInputModelValue
@@ -185,7 +160,6 @@ export default {
     ErrorText,
     ValidIcon,
     IconClear,
-    contentEditable,
   },
   inheritAttrs: false,
   emits: [
@@ -338,12 +312,8 @@ label {
   grid-template-columns: 1fr;
 
   &--textarea {
-    // min-height: 10rem;
     min-height: var(--field-min-height);
     height: auto;
-    // height: auto;
-    // width: 100%;
-    // display: inline-block;
   }
 
   &--dark {
@@ -411,12 +381,14 @@ label {
     height: 100%;
 
     &--textarea {
-      // padding-bottom: var(--field-padding-v);
+      textarea {
+        padding-top: 0.3rem; // fake real input spacing
+        color: currentColor;
+      }
     }
     // hack placeholder like default input 1/2
     &[type="date"] {
       color: transparent;
-      // appearance: none;
       &::-webkit-calendar-picker-indicator {
         opacity: 0;
       }
@@ -436,16 +408,6 @@ label {
         #{$self}--dark:not(#{$self}--error) & {
           --field-color-label: var(--brand-color-gray-cement);
         }
-        #{$self}--textarea & {
-          // if textarea dont show label on focus
-         // display: none;
-        }
-      }
-    }
-    #{$self}--fake-focus#{$self}--textarea & {
-      & + .field__text {
-        // if textarea dont show label on focus
-        // display: none;
       }
     }
     &:focus,
@@ -463,9 +425,7 @@ label {
     right: var(--field-padding-h);
     transform: translate3d(0, -50%, 0);
     #{$self}--textarea & {
-      /* top: initial;
-      bottom: var(--field-padding-v);
-      transform: translate3d(0, 0, 0); */
+      display: none;
     }
   }
   &__text {
@@ -477,13 +437,6 @@ label {
     display: block;
     line-height: 0;
     color: var(--field-color-label);
-    #{$self}--textarea & {
-      /* top: var(--field-padding-v);
-      transform: translate3d(var(--field-padding-h), 0, 0); */
-      // transform: translate3d(var(--field-padding-h), -50%, 0);
-      // top: var(--field-padding-h);
-      // transform: translate3d(var(--field-padding-h), 0, 0);
-    }
   }
   &__btn-wrapper {
     position: absolute;
@@ -520,6 +473,63 @@ label {
   &__count {
     justify-self: flex-end;
     align-self: center;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+/**
+  Extra Styles for Textarea
+*/
+/**
+  Inspired by
+  @link https://css-tricks.com/auto-growing-inputs-textareas/
+  @link https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
+ */
+.content-editable {
+  $self: &;
+  /* easy way to plop the elements on top of each other and have them both
+  sized based on the tallest one's height */
+  display: grid;
+
+  &::after {
+    /* Note the weird space! Needed to prevent jumpy behavior */
+    content: attr(data-replicated-value) " ";
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+  }
+
+  &__input {
+    appearance: none;
+    /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+    resize: none;
+    /* Firefox shows scrollbar on growth, you can hide like this. */
+    overflow: hidden;
+  }
+
+  &::after,
+  &__input {
+    /* Identical styling required!! */
+    border: none;
+    padding: 0;
+    background: transparent;
+    font: inherit;
+    align-self: stretch;
+
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+
+  &:focus-within {
+    #{$self}__input:focus {
+      outline: none;
+    }
   }
 }
 </style>
