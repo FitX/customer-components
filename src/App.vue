@@ -26,13 +26,14 @@
     <base-input v-model="model" label="base input"></base-input>
     <base-textarea v-model="model" label="base input" />
   </div>
+  <hr>
+  <info-box content="Blubb Lorem Ipsum" />
 </template>
 
 <script>
 /* eslint-disable */
 // import { ErrorIcon } from 'dist/customer-components.es.js';
 import '../dist/customer-components.css';
-import BaseTextarea from '@/components/base-textarea/BaseTextarea';
 /* import {
   ErrorMessage,
   ErrorIcon,
@@ -49,7 +50,6 @@ import BaseTextarea from '@/components/base-textarea/BaseTextarea';
 
 export default {
   name: 'App',
-  components: {BaseTextarea},
   data() {
     return {
       model: null,

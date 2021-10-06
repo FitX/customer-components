@@ -25,3 +25,4 @@ export { default as BaseOptionForm } from '@/components/base-option-form/BaseOpt
 export { default as BaseCheckbox } from '@/components/base-checkbox/BaseCheckbox.vue';
 export { default as BaseRadio } from '@/components/base-radio/BaseRadio.vue';
 export { default as FilterChip } from '@/components/filter-chip/FilterChip.vue';
+export { default as InfoBox } from '@/components/info-box/InfoBox.vue';
