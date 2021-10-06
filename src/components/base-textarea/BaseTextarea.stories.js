@@ -133,15 +133,24 @@ export const InfoForDevs = () => ({
   components: {
     BaseTextarea,
   },
+  data() {
+    return {
+      model: null,
+    };
+  },
   template: `
       <p>
       Die Textarea besteht aus der
       <a
-        href="/?path=/docs/components-form-input--default-base-input"><i>BaseInput</i></a> Komponente.
+        href="/?path=/docs/components-form-input--default-base-input">BaseInput</a> Komponente.
       zusätzlich kann eine Zeichenbegrenzung angezeigt werden.
-      Die Komponente kann mit beliebigen Attributen wie z.B. <i>row=2</i> ergänzt werden.
+      Die Komponente kann mit beliebigen Attributen wie z.B. <code>row=2</code> ergänzt werden.
       </p>
-      <base-textarea label="Beispiel mit Spalten und ohne Auto Height" :disable-auto-height="true" rows="2" />
+      <base-textarea
+        label="Beispiel mit Spalten und ohne Auto Height"
+        v-model="model"
+        :disable-auto-height="true"
+        rows="2" />
       `,
 });
 
