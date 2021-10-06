@@ -16,23 +16,27 @@
       <div
         v-if="$attrs.type === 'textarea'"
         ref="input"
-        :data-replicated-value="modelValue"
         class="field__input field__input--textarea"
         :class="[
           { 'field__input--not-empty' : isFilled },
-          { 'field__input--auto-filled' : !!autofilled },
+          { 'field__input--auto-filled' : !!autofilled }
+        ]">
+        <div
+          :data-replicated-value="modelValue"
+          :class="[
           { 'content-editable' : !disableAutoHeight }
         ]">
-        <textarea
-          :class="[
+          <textarea
+            :class="[
             { 'content-editable__input' : !disableAutoHeight }
           ]"
-          :value="modelValue"
-          :rows="$attrs.rows || 1"
-          @input="updateValue($event.target.value)"
-          @focus="handleFocus()"
-          @blur="handleBlur()"
-          v-bind="removeByKey($attrs, 'class')"></textarea>
+            :value="modelValue"
+            :rows="$attrs.rows || 1"
+            @input="updateValue($event.target.value)"
+            @focus="handleFocus()"
+            @blur="handleBlur()"
+            v-bind="removeByKey($attrs, 'class')"></textarea>
+        </div>
       </div>
       <input
         v-else
@@ -389,11 +393,14 @@ label {
     height: 100%;
 
     &--textarea {
-      textarea {
+      .content-editable {
         --textarea-extra-spacing: 0.3rem;
-        padding-top: var(--textarea-extra-spacing); // fake real input spacing
-        color: currentColor;
+        margin-top: var(--textarea-extra-spacing); // fake real input spacing
         min-height: calc(100% + var(--textarea-extra-spacing));
+      }
+      textarea,
+      .content-editable {
+        color: currentColor;
         border: none;
         width: 100%;
         font: inherit;
@@ -531,7 +538,7 @@ label {
     padding: 0;
     background: transparent;
     font: inherit;
-    align-self: stretch;
+    // align-self: stretch;
 
     /* Place on top of each other */
     grid-area: 1 / 1 / 2 / 2;
