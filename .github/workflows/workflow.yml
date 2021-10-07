@@ -24,13 +24,13 @@ jobs:
           npm run build:vite
           npm run test:unit
       # merge after successful build and test
-      - name: Merge branch to main
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: release
-          target_branch: main
-          github_token: ${{ github.token }}
+      # - name: Merge branch to main
+      #  uses: devmasx/merge-branch@master
+      #  with:
+      #    type: now
+      #    from_branch: release
+      #    target_branch: main
+      #    github_token: ${{ github.token }}
 
   publish:
     runs-on: ubuntu-latest
