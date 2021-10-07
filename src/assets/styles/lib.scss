@@ -6,6 +6,7 @@
 @import '~@/assets/styles/colors.scss';
 @import '~@/assets/styles/fonts.scss';
 @import '~@/assets/styles/form.scss';
+@import '~@/assets/styles/links.scss';
 
 *,
 *::before,
@@ -23,4 +24,16 @@
   @include brand-colors();
   @include functional-colors();
   @include input-vars();
+}
+
+.link {
+  @include text-links();
+}
+
+.link-decent {
+  @include text-links-decent();
+
+  &--dark {
+    @include text-links-decent(dark);
+  }
 }

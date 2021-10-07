@@ -1,3 +1,4 @@
+@import '~@/assets/styles/links.scss';
 body {
   box-sizing: border-box;
   font-family: var(--font-stack-normal);
@@ -16,4 +17,8 @@ body {
 table.sbdocs {
   // width: 100%;
   text-align: left;
+}
+
+a:any-link {
+  @include text-links();
 }
