@@ -2,9 +2,9 @@ name: Release CI
 
 on:
   push:
-    branches: [ release ]
+    branches: [ release/* ]
   pull_request:
-    branches: [ release ]
+    branches: [ release/* ]
 
   workflow_dispatch:
 
@@ -23,7 +23,7 @@ jobs:
           npm ci
           npm run build:vite
           npm run test:unit
-      # merge after successfull build and test
+      # merge after successful build and test
       - name: Merge branch to main
         uses: devmasx/merge-branch@master
         with:
@@ -43,8 +43,11 @@ jobs:
           node-version: '14'
 
       # Runs a single command using the runners shell
-      - name: Init
-        run: echo Publish to NPM
+      - name: Install, Build, Publish
+        run: |
+          npm ci
+          npm run build:vite
+          echo Publish to NPM
 
       # Publish to npm
       - uses: JS-DevTools/npm-publish@v1
