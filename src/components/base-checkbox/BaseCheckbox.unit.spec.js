@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import BaseCheckbox from '@/components/base-checkbox/BaseCheckbox.vue';
 
-describe('Base checbox', () => {
+describe('Base Checkbox', () => {
   it('renders basic checkbox', () => {
     const wrapper = shallowMount(BaseCheckbox, {
       props: {

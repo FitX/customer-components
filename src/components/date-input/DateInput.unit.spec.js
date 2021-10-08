@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import DateInput from '@/components/date-input/DateInput.vue';
 
-describe('DateInput', () => {
+describe('Date Input', () => {
   it('renders date input', () => {
     const wrapper = mount(DateInput, {
       props: {

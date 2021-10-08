@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import BaseRadio from '@/components/base-radio/BaseRadio.vue';
 
-describe('BaseRadio', () => {
+describe('Base Radio', () => {
   it('renders default base radio', () => {
     const wrapper = shallowMount(BaseRadio, {
       props: {
