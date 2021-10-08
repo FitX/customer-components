@@ -28,7 +28,6 @@ describe('Info Box', () => {
         default: '<p>foo bar</p>',
       },
     });
-    console.log(wrapper.html());
     expect(wrapper.html()).toContain('<p>foo bar</p>');
   });
 });
