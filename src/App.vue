@@ -28,6 +28,7 @@
   </div>
   <hr>
   <info-box content="Blubb Lorem Ipsum" />
+  <base-banner content="Blubb Lorem Ipsum" modifier="attention" />
 </template>
 
 <script>
