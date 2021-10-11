@@ -1,5 +1,4 @@
 describe('BaseOption', () => {
-
   before((client) => client.url('http://localhost:6006/iframe.html?id=components-baseoption--default-base-option&args=&viewMode=story'));
 
   it('default is clickable', (client) => {

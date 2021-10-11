@@ -37,7 +37,7 @@ describe('Filter Chip', () => {
     expect(label.element).toHaveClass('chip--fake-hover');
   });
 
-  it('updates isChecked value', async() => {
+  it('updates isChecked value', async () => {
     const wrapper = shallowMount(FilterChip, {
       props: {
         modelValue: [

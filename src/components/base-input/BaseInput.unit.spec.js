@@ -58,14 +58,14 @@ describe('Base Input', () => {
     expect(el).toHaveClass('field--disabled');
   });
 
-  it ('updates model', () => {
+  it('updates model', () => {
     const wrapper = shallowMount(BaseInput);
     const input = wrapper.find('input');
     input.setValue('Frank');
     expect(wrapper.emitted()).toBeTruthy();
   });
 
-  it ('set focus class', async () => {
+  it('set focus class', async () => {
     const wrapper = shallowMount(BaseInput);
     const label = wrapper.find('label').element;
     expect(label).not.toHaveClass('field--fake-focus field');
@@ -78,7 +78,7 @@ describe('Base Input', () => {
     expect(label).toHaveClass('field');
   });
 
-  it ('clears input', async () => {
+  it('clears input', async () => {
     const wrapper = shallowMount(BaseInput);
     const input = wrapper.find('input');
     expect(input.text()).toBe('');

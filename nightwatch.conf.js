@@ -1,12 +1,12 @@
-module.exports = (function(settings) {
-  console.log(settings["test_settings"]["default"]["username"]);
+module.exports = (function (settings) {
+  console.log(settings.test_settings.default.username);
 
   if (process.env.LT_USERNAME) {
-    settings["test_settings"]["default"]["username"] = process.env.LT_USERNAME;
+    settings.test_settings.default.username = process.env.LT_USERNAME;
   }
 
   if (process.env.LT_ACCESS_KEY) {
-    settings["test_settings"]["default"]["access_key"] = process.env.LT_ACCESS_KEY;
+    settings.test_settings.default.access_key = process.env.LT_ACCESS_KEY;
   }
 
   if (process.env.SELENIUM_HOST) {
@@ -17,4 +17,4 @@ module.exports = (function(settings) {
   }
   console.log(settings);
   return settings;
-})(require('./nightwatch.json'));
+}(require('./nightwatch.json')));

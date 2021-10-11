@@ -94,11 +94,10 @@ const transformCamelCase = (string = '') => string
  */
 const transformKebabCase = (string) => string
   .split('')
-  .map((letter, idx) => {
-    return letter.toUpperCase() === letter
-      ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
-      : letter;
-  }).join('');
+  .map((letter, idx) => (letter
+    .toUpperCase() === letter
+    ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
+    : letter)).join('');
 
 // components collection
 const componentsCollection = { ...components };

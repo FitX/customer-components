@@ -37,7 +37,7 @@ describe('Base Checkbox', () => {
     expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
   });
 
-  it('updates isChecked value', async() => {
+  it('updates isChecked value', async () => {
     const wrapper = shallowMount(BaseCheckbox, {
       props: {
         modelValue: [

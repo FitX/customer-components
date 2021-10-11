@@ -5,7 +5,7 @@ import TextButton from '@/components/text-button/TextButton.vue';
 describe('TextButton', () => {
   it('renders as button as link', () => {
     const wrapper = shallowMount(TextButton);
-    const element = `<a class="btn"><span class="btn__icon"></span><span class="btn__text"></span></a>`;
+    const element = '<a class="btn"><span class="btn__icon"></span><span class="btn__text"></span></a>';
     expect(wrapper.html()).toMatch(element);
   });
 

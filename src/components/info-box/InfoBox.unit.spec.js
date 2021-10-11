@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import InfoBox from '@/components/info-box/InfoBox.vue';
 
 describe('Info Box', () => {
-  test('renders default',() => {
+  test('renders default', () => {
     const wrapper = shallowMount(InfoBox, {
       props: {
         content: 'Hello world',
