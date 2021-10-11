@@ -45,7 +45,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install, Build, Publish
         run: |
-          npm ci
+          npm install
           npm run build:vite
           echo Publish to NPM
 
