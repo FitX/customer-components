@@ -67,7 +67,7 @@ export default {
      * Check if no-icon modifier is selected
      * @type {boolean|*}
      */
-    const hideIcon = validateValueWithList(props.modifier, 'no-icon');
+    const hideIcon = validateValueWithList(props.modifier, ['no-icon']);
     return {
       getModifierClasses,
       hideIcon,

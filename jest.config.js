@@ -10,6 +10,7 @@ module.exports = {
     '**/src/components/**/*.unit.spec.js',
     '**/src/use/**/*.unit.spec.js',
     '**/test/**/*.unit.spec.js',
+    '!**/storybook-static/**/*',
   ],
   collectCoverage: true,
   collectCoverageFrom: [

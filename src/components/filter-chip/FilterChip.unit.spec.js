@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import FilterChip from '@/components/filter-chip/FilterChip.vue';
 
-describe('FilterChip', () => {
+describe('Filter Chip', () => {
   it('renders default filter chip state', () => {
     const wrapper = shallowMount(FilterChip, {
       props: {

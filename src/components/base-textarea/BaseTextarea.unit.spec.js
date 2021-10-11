@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import BaseTextarea from '@/components/base-textarea/BaseTextarea.vue';
 
-describe('TextArea', () => {
+describe('Base Text Area', () => {
   it('renders textarea', () => {
     const wrapper = mount(BaseTextarea);
     const textarea = wrapper.find('textarea');
