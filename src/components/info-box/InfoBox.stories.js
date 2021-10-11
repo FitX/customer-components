@@ -95,7 +95,7 @@ const alternateIcon = `<svg viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/sv
   </g>
 </svg>`;
 
-const htmlDemoContent = `Lorem Ipsum dolor sit amet diam et. <br><a href="#">Mehr erfahren</a>`;
+const htmlDemoContent = `Lorem Ipsum dolor sit amet diam et. <br><a href="javascript:;">Mehr erfahren</a>`;
 export const HTMLContent = Template.bind({});
 HTMLContent.args = {
   style: {
