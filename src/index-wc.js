@@ -18,12 +18,13 @@ const transformKebabCase = (string) => string
 export const componentsCollection = { ...components };
 
 // components desc array
-export const componentsDesc = Object.keys(componentsCollection).map((item) => {
+export const webComponents = Object.keys(componentsCollection).map((item) => {
   const component = componentsCollection[item];
-  return {
+  /* return {
     name: component.name || 'c-comp', // kebab-case
     component: defineCustomElement(component),
-  };
+  }; */
+  return defineCustomElement(component);
 });
 
 /**
@@ -31,7 +32,7 @@ export const componentsDesc = Object.keys(componentsCollection).map((item) => {
  * @param app - Vue instance
  */
 export function register() {
-  componentsDesc.forEach((item) => {
+  webComponents.forEach((item) => {
     const kebabCaseName = transformKebabCase(item.name);
     const registerComponent = item.component;
     window.customElements.define(kebabCaseName, registerComponent); // kebab-case
@@ -46,12 +47,4 @@ export default {
 };
 */
 
-/**
- * Replace Component Structure with Webcomponents
- * @type {unknown[]}
- */
-const webComponents = Object.keys(componentsCollection).forEach((item) => {
-  componentsCollection[item] = defineCustomElement(componentsCollection[item].component);
-});
-
-export default { ...webComponents };
+export default webComponents;
