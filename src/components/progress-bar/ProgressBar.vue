@@ -6,7 +6,6 @@
       { '--progress-steps-length': stepsWithLimits.length },
     ]"
     :class="[
-      getModifierClasses('progress', modifier),
       getModifierClasses('progress', [
         isDarkMode ? 'dark' : null,
       ]),
@@ -40,11 +39,7 @@ import {
   computed,
 } from 'vue';
 import useModifier from '@/use/modifier-class';
-import validateValueWithList from '@/use/validate-value-with-list';
 import IconCheckmark from '@/assets/icons/icon-checkmark.svg';
-
-export const modifier = [
-];
 
 /**
  * Folds a String by Limit
@@ -95,14 +90,6 @@ export default {
     isDarkMode: {
       type: Boolean,
       default: false,
-    },
-    /**
-     * Component Modifier
-     */
-    modifier: {
-      type: [String, Array],
-      default: null,
-      validator: (value) => validateValueWithList(value, modifier),
     },
   },
   components: {

@@ -1,28 +1,20 @@
 import { reactive, ref } from 'vue';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
-import ProgressBar, {
-  modifier,
-} from './ProgressBar.vue';
+import ProgressBar from './ProgressBar.vue';
 
 const storyDescription = `
-- Werden so hoch wie möglich platziert
-- Breite wie Seite
-- Links und Icons sind optional
-- Variante je nach Funktion frei wählbar (${modifier.join(', ')})
+** Verhalten **
+
+- Füllende Animation
+
+** Benutzung in Anwendungen **
+
+- Nur der Aktive und die Abgeschlossenen Steps sollen klickbar sein
 `;
 
 export default {
   title: 'Components/ProgressBar',
   component: ProgressBar,
-  argTypes: {
-    modifier: {
-      options: modifier,
-      control: {
-        type: 'multi-select',
-      },
-    },
-    // ...eventListener,
-  },
   parameters: {
     jest: ['ProgressBar.unit.spec.js'],
     docs: {
@@ -41,8 +33,10 @@ export default {
  * @type {string}
  */
 const baseTemplate = `
-{{ currentIndex }}
-<progress-bar v-bind="args" @StepSelected="handleClick" :current-step-index="currentIndex" />`;
+<div>
+<progress-bar v-bind="args" @StepSelected="handleClick" :current-step-index="currentIndex" />
+</div>
+`;
 
 /* ******************************** */
 /// Story Wrapper
