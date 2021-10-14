@@ -49,7 +49,8 @@ export const getCSSCustomPropIndex = (filterString = '--brand-color') =>
     ([prop, val]) => ({
       name: prop,
       value: val,
-    }));
+    }),
+  );
 
 export function useColor() {
   const colors = ref([]);

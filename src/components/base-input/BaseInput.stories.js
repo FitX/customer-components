@@ -150,4 +150,4 @@ BaseInputClearable.parameters = {
       story: 'Über das clearable Attribute bekommt die Componente eine Löschfunktion. Eine Validierung soll nicht statt finden.',
     },
   },
-}
+};

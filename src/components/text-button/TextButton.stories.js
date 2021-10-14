@@ -23,21 +23,19 @@ export default {
   },
 };
 
-const Template = (args) => {
-  return {
-    // Components used in your story `template` are defined in the `components` object
-    components: { TextButton },
-    // The story's `args` need to be mapped into the template through the `setup()` method
-    setup() {
-      return { args };
-    },
-    // And then the `args` are bound to your component with `v-bind="args"`
-    template: `<text-button v-bind="args">
+const Template = (args) => ({
+  // Components used in your story `template` are defined in the `components` object
+  components: { TextButton },
+  // The story's `args` need to be mapped into the template through the `setup()` method
+  setup() {
+    return { args };
+  },
+  // And then the `args` are bound to your component with `v-bind="args"`
+  template: `<text-button v-bind="args">
     <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
     <template v-if="args?.slotProps?.icon" #icon>{{ args.slotProps.icon }}</template>
     </text-button>`,
-  };
-};
+});
 
 export const DefaultButton = Template.bind({});
 DefaultButton.args = {

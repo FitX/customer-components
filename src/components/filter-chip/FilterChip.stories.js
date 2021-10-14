@@ -62,7 +62,6 @@ const groupTemplate = `
 </small>
 `;
 
-
 /**
  * Group Checkbox Template
  * @type {string}

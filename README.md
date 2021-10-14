@@ -7,7 +7,7 @@ Vue 3 Brand-Evo Components and Widget Library for Customer Apps. [Overview](http
 ![npm (scoped)](https://img.shields.io/npm/v/@fitx/customer-components?style=flat-square)
 ![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@fitx/customer-components)
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@fitx/customer-components)
-
+[![Release CI](https://github.com/FitX/customer-components/actions/workflows/workflow.yml/badge.svg)](https://github.com/FitX/customer-components/actions/workflows/workflow.yml)
 
 ## Use Package 🐨
 ### Install

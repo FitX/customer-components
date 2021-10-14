@@ -102,7 +102,7 @@ const alternateIcon = `<svg width="18" height="18" viewBox="0 0 18 13" xmlns="ht
   </g>
 </svg>`;
 
-const htmlDemoContent = `<b>Endlich wieder FitX!</b> Alle Infos und was du beachten musst, findest du hier: <a href="javascript:;">fitx.de/corona</a>.`;
+const htmlDemoContent = '<b>Endlich wieder FitX!</b> Alle Infos und was du beachten musst, findest du hier: <a href="javascript:;">fitx.de/corona</a>.';
 export const HTMLContent = Template.bind({});
 HTMLContent.args = {
   style: {

@@ -59,7 +59,6 @@ const groupTemplate = `
   <base-button v-for="(button, index) in group" :key="index" v-bind="button.args" />
 </div>`;
 
-
 /**
  * Base Buttons Group Template with Background
  * @type {string}
