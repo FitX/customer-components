@@ -5,7 +5,12 @@
       { '--progress-current-step-index': currentStepIndex },
       { '--progress-steps-length': stepsWithLimits.length },
     ]"
-    :class="$attrs.class">
+    :class="[
+      getModifierClasses('progress', modifier),
+      getModifierClasses('progress', [
+        isDarkMode ? 'dark' : null,
+      ]),
+    ]">
     <li
       v-for="(step, index) in stepsWithLimits"
       :key="index"
@@ -162,6 +167,11 @@ export default {
     (100% / var(--progress-steps-length)) / 2); // e.g. 100% / 4 steps = 25% / 2 first item
   --progress-helper-overlay-end-start: calc(
     100% - (100% / var(--progress-steps-length)) / 2); // 100% - 1 step / half step width
+  &--dark {
+    --progress-color-active: #fff;
+    --progress-color-container-bg: var(--brand-color-anthracite);
+    --progress-color-bg: var(--brand-color-anthracite);
+  }
   /**
   Progress Bar, half/half Background of 200% Width of the progress bar
   To animate inactive color to done color
@@ -252,6 +262,9 @@ export default {
       --progress-color-bg: var(--progress-color-active);
       --progress-color-title: var(--progress-color-active);
       --progress-color-count: #fff;
+      #{$self}--dark & {
+        --progress-color-count: var(--brand-color-anthracite);
+      }
     }
   }
 
@@ -264,10 +277,14 @@ export default {
   }
 
   &__title {
-    font-weight: 400;
+    font-weight: 300;
     margin-top: var(--progress-step-space);
     font-size: var(--progress-font-size);
     word-break: break-word;
+
+    #{$self}__item--done & {
+      font-weight: 400;
+    }
   }
 }
 </style>
