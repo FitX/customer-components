@@ -18,7 +18,7 @@ const transformKebabCase = (string) => string
 export const componentsCollection = { ...components };
 
 // components desc array
-export const webComponents = Object.entries(componentsCollection).map(([key, value]) => ({
+export const webComponents = [...Object.entries(componentsCollection)].map(([key, value]) => ({
   [key]: defineCustomElement(value),
 }));
 
