@@ -39,5 +39,7 @@ export function register() {
 }
 
 export default {
-  ...componentsDesc.map((comp) => comp.component),
+  ...componentsDesc.map((comp) => ({
+    [comp.name]: comp.component,
+  })),
 };
