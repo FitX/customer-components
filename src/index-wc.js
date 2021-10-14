@@ -3,14 +3,6 @@ import { defineCustomElement } from 'vue';
 import * as components from './components/index';
 
 /**
- * Convert kebab-case to camelCase
- * @param {string} str
- * @return {string}
- */
-const transformCamelCase = (string = '') => string
-  .replace(/-(\w)/g, ($0, $1) => $1.toUpperCase());
-
-/**
  * Convert camelCase to kebab-case
  * @param {string} string
  * @return {string}
