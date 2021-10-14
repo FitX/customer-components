@@ -110,7 +110,7 @@ export default {
   },
   emits: {
     /**
-     * Get Target Index of Progress Step
+     * Get Target Index of Progress Step Array
      */
     'step-selected': Number,
   },

@@ -82,12 +82,10 @@ export const DefaultProgressBar = Template.bind({});
 DefaultProgressBar.args = {
   currentStepIndex: 0,
   steps: [
-    'oooooooooooooooooom oooooooooo',
-    'zwei',
-    'zwei',
-    'zwei',
-    'zwei',
-    'zwei',
-    'vier',
+    'Studio auswählen',
+    'Termin auswählen',
+    'Trainingsziel',
+    'Bemerkungen',
+    'Fertig',
   ],
 };
