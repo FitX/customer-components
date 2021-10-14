@@ -45,4 +45,13 @@ export default {
   })),
 };*/
 
-export default componentsDesc;
+/**
+ * Replace Component Structure with Webcomponents
+ * @type {unknown[]}
+ */
+const webComponents = Object.keys(componentsCollection).map((item) => {
+  const component = componentsCollection[item];
+  componentsCollection[item] = defineCustomElement(component);
+});
+
+export default { ...webComponents };
