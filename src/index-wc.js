@@ -18,16 +18,9 @@ const transformKebabCase = (string) => string
 export const componentsCollection = { ...components };
 
 // components desc array
-export const webComponents = Object.keys(componentsCollection).map((item) => {
-  const component = componentsCollection[item];
-  /* return {
-    name: component.name || 'c-comp', // kebab-case
-    component: defineCustomElement(component),
-  }; */
-  return {
-    [component.name]: defineCustomElement(component),
-  };
-});
+export const webComponents = Object.entries(componentsCollection).map(([key, value]) => ({
+  [key]: defineCustomElement(value),
+}));
 
 /**
  * Global install Function
