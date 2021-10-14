@@ -43,15 +43,15 @@ export default {
   ...componentsDesc.map((comp) => ({
     [comp.name]: comp.component,
   })),
-};*/
+};
+*/
 
 /**
  * Replace Component Structure with Webcomponents
  * @type {unknown[]}
  */
-const webComponents = Object.keys(componentsCollection).map((item) => {
-  const component = componentsCollection[item];
-  componentsCollection[item] = defineCustomElement(component);
+const webComponents = Object.keys(componentsCollection).forEach((item) => {
+  componentsCollection[item] = defineCustomElement(componentsCollection[item].component);
 });
 
 export default { ...webComponents };
