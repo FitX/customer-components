@@ -17,8 +17,8 @@
         ]"
     >
       <icon-checkmark
-        class="progress__icon"
-        v-if="true || isDone(index)" />
+        aria-hidden="true"
+        class="progress__icon" />
       <span class="progress__title">
         <template
           v-for="(textParts, index) in step"
@@ -145,7 +145,8 @@ export default {
   --progress-font-size: 1.4rem;
   --progress-step-font-size: 1.6rem;
   --progress-step-indicator: 0.2rem;
-  --progress-current-step-width: calc(((var(--progress-current-step-index) + 0.5) / var(--progress-steps-length)) * 100%);
+  --progress-current-step-width: calc(
+    ((var(--progress-current-step-index) + 0.5) / var(--progress-steps-length)) * 100%);
   --progress-item-width: calc(100% / var(--progress-steps-length));
 
   --progress-color-inactive: var(--brand-color-gray-cement);
@@ -157,8 +158,10 @@ export default {
   --progress-color-count: var(--progress-color-inactive);
   --progress-color-border: var(--progress-color-inactive);
   --progress-step-space: 0.4rem;
-  --progress-helper-overlay-start-end: calc((100% / var(--progress-steps-length)) / 2); // e.g. 100% / 4 steps = 25% / 2 first item
-  --progress-helper-overlay-end-start: calc(100% - (100% / var(--progress-steps-length)) / 2); // 100% - 1 step / half step width
+  --progress-helper-overlay-start-end: calc(
+    (100% / var(--progress-steps-length)) / 2); // e.g. 100% / 4 steps = 25% / 2 first item
+  --progress-helper-overlay-end-start: calc(
+    100% - (100% / var(--progress-steps-length)) / 2); // 100% - 1 step / half step width
   /**
   Progress Bar, half/half Background of 200% Width of the progress bar
   To animate inactive color to done color
@@ -169,16 +172,17 @@ export default {
       var(--progress-color-inactive) 50%
   );
   background-position-x: calc(100% - var(--progress-current-step-width));
-  background-position-y: calc((var(--progress-item-size) / 2) - (var(--progress-step-indicator) / 2));
+  background-position-y: calc(
+    (var(--progress-item-size) / 2) - (var(--progress-step-indicator) / 2));
   background-size: 200% var(--progress-step-indicator);
   background-repeat: no-repeat;
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--progress-item-width));
   justify-content: space-between;
-  border: 1px solid red;
   counter-reset: progress-item;
   position: relative;
   transition: background var(--progress-animation-time) ease-in;
+  user-select: none;
   &::before {
     content: '';
     position: absolute;
@@ -209,7 +213,6 @@ export default {
     justify-items: center;
     align-content: start;
     width: 100%;
-    border: 1px solid blue;
     cursor: pointer;
     transition: color var(--progress-step-animation-time) ease-in var(--progress-animation-time);
     &::before {
