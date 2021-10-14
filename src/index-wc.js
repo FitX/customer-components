@@ -15,7 +15,7 @@ const transformKebabCase = (string) => string
     : letter)).join('');
 
 // components collection
-const componentsCollection = { ...components };
+export const componentsCollection = { ...components };
 
 // components desc array
 export const componentsDesc = Object.keys(componentsCollection).map((item) => {
