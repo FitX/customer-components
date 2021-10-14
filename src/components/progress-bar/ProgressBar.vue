@@ -2,8 +2,8 @@
   <ol
     class="progress"
     :style="[
-      { '--current-step': currentStepIndex },
-      { '--steps-length': stepsWithLimits.length },
+      { '--progress-current-step-index': currentStepIndex },
+      { '--progress-steps-length': stepsWithLimits.length },
     ]"
     :class="$attrs.class">
     <li
@@ -14,16 +14,11 @@
       :class="[
           { 'progress__item--active' : isActive(index) },
           { 'progress__item--done' : isDone(index) },
-          { 'progress__item--backward' : stepBackAnimation(index) },
-          { 'progress__item--active-backward' : (isActive(index) && direction === 'BACKWARD') },
         ]"
     >
       <icon-checkmark
         class="progress__icon"
         v-if="true || isDone(index)" />
-      <!--<span
-        class="progress__count"
-        v-else>{{ index }}</span>-->
       <span class="progress__title">
         <template
           v-for="(textParts, index) in step"
@@ -37,8 +32,7 @@
 
 <script>
 import {
-  watch,
-  ref, computed,
+  computed,
 } from 'vue';
 import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
@@ -51,11 +45,11 @@ export const modifier = [
  * Folds a String by Limit
  * @param {string} input - String to limit
  * @param {number} limit - Line after split
- * @param {array} arrayOfLimitedSplits - optional Array
+ * @param {array} arrayOfSplits - optional Array
  * @return {*[]|*}
  */
-function fold(input, limit, arrayOfLimitedSplits) {
-  arrayOfLimitedSplits = arrayOfLimitedSplits || [];
+function fold(input, limit, arrayOfSplits = []) {
+  const arrayOfLimitedSplits = arrayOfSplits;
   if (input.length <= limit) {
     arrayOfLimitedSplits.push(input);
     return arrayOfLimitedSplits;
@@ -117,24 +111,8 @@ export default {
   },
   setup(props, { emit }) {
     const { getModifierClasses } = useModifier();
-    /**
-     * Step Direction
-     * @type {Ref<UnwrapRef<'FORWARD'|'BACKWARD'>>}
-     */
-    const direction = ref('FORWARD');
-    watch(() => props.currentStepIndex, (newVal, oldVal) => {
-      direction.value = (newVal > oldVal) ? 'FORWARD' : 'BACKWARD';
-    });
     const isActive = (stepIndex) => (props.currentStepIndex === stepIndex);
-    const stepBackAnimation = (stepIndex) => (
-      props.currentStepIndex + 1 === stepIndex && direction.value === 'BACKWARD'
-    );
     const isDone = (stepIndex) => (stepIndex < props.currentStepIndex);
-    /* const stepsWithLimits = computed(() => props.steps.map((step) => {
-      const arrayOfLines = fold(step, props.characterLimit);
-      console.log('arrayOfLines', arrayOfLines);
-      return arrayOfLines.join('<br />')
-    })); */
     /**
      * Limit max Length of Step Names and split them to Array
      * @type {ComputedRef<(*[]|*)[]>}
@@ -145,8 +123,6 @@ export default {
     return {
       isActive,
       isDone,
-      direction,
-      stepBackAnimation,
       getModifierClasses,
       stepsWithLimits,
       selectStep,
@@ -169,12 +145,8 @@ export default {
   --progress-font-size: 1.4rem;
   --progress-step-font-size: 1.6rem;
   --progress-step-indicator: 0.2rem;
-  // --current-step-width: calc((var(--current-step) / (var(--steps-length) - 1)) * 100%);
-  --current-step-width: calc(((var(--current-step) + 0.5) / var(--steps-length)) * 100%);
-  /* --progress-color-outline: var(--brand-color-gray-cement);
-  --progress-color-bg: transparent;
-  --progress-color-step: var(--brand-color-gray-cement);
-  --progress-color-stepname: var(--brand-color-gray-cement); */
+  --progress-current-step-width: calc(((var(--progress-current-step-index) + 0.5) / var(--progress-steps-length)) * 100%);
+  --progress-item-width: calc(100% / var(--progress-steps-length));
 
   --progress-color-inactive: var(--brand-color-gray-cement);
   --progress-color-active: var(--brand-color-anthracite);
@@ -185,18 +157,23 @@ export default {
   --progress-color-count: var(--progress-color-inactive);
   --progress-color-border: var(--progress-color-inactive);
   --progress-step-space: 0.4rem;
+  --progress-helper-overlay-start-end: calc((100% / var(--progress-steps-length)) / 2); // e.g. 100% / 4 steps = 25% / 2 first item
+  --progress-helper-overlay-end-start: calc(100% - (100% / var(--progress-steps-length)) / 2); // 100% - 1 step / half step width
+  /**
+  Progress Bar, half/half Background of 200% Width of the progress bar
+  To animate inactive color to done color
+   */
   background-image: linear-gradient(
       to right,
       var(--progress-color-done) 50%,
       var(--progress-color-inactive) 50%
   );
-  background-position-x: calc(100% - var(--current-step-width));
+  background-position-x: calc(100% - var(--progress-current-step-width));
   background-position-y: calc((var(--progress-item-size) / 2) - (var(--progress-step-indicator) / 2));
   background-size: 200% var(--progress-step-indicator);
   background-repeat: no-repeat;
   display: grid;
-  // grid-template-columns: repeat(var(--steps-length), 1fr);
-  grid-template-columns: repeat(auto-fill, calc(100% / var(--steps-length)));
+  grid-template-columns: repeat(auto-fill, var(--progress-item-width));
   justify-content: space-between;
   border: 1px solid red;
   counter-reset: progress-item;
@@ -207,23 +184,15 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    /* width: calc(25% / 2);
-    padding: 0;
-    margin: 0;
-    height: var(--progress-item-size);
-    background: var(--progress-color-container-bg); */
     width: 100%;
     height: var(--progress-item-size);
     // add gradient over first and last item line, center is transparent
     background-image: linear-gradient(
         to right,
-        // var(--progress-color-container-bg) 12.5%, // 25% / 2 first item
-        var(--progress-color-container-bg) calc((100% / var(--steps-length)) / 2), // e.g. 100% / 4 steps = 25% / 2 first item
-        transparent calc((100% / var(--steps-length)) / 2),
-        transparent calc(100% - (100% / var(--steps-length)) / 2),
-        var(--progress-color-container-bg) calc(100% - (100% / var(--steps-length)) / 2) // 100% - 1 step / half step width
-      // transparent 87.5%,
-        // var(--progress-color-container-bg) 87.5% // 75% + 25 / 2 last item
+        var(--progress-color-container-bg) var(--progress-helper-overlay-start-end),
+        transparent var(--progress-helper-overlay-start-end),
+        transparent var(--progress-helper-overlay-end-start),
+        var(--progress-color-container-bg) var(--progress-helper-overlay-end-start)
     );
   }
 
@@ -243,7 +212,6 @@ export default {
     border: 1px solid blue;
     cursor: pointer;
     transition: color var(--progress-step-animation-time) ease-in var(--progress-animation-time);
-    // align-items: center;
     &::before {
       counter-increment: progress-item;
       content: counter(progress-item);
@@ -297,72 +265,6 @@ export default {
     margin-top: var(--progress-step-space);
     font-size: var(--progress-font-size);
     word-break: break-word;
-  }
-}
-
-.progressi {
-  @include list-unstyled();
-  $self: &;
-  --progress-item-size: 3.6rem;
-  --progress-font-size: 1.4rem;
-  --progress-step-font-size: 1.6rem;
-  /* --progress-color-outline: var(--brand-color-gray-cement);
-  --progress-color-bg: transparent;
-  --progress-color-step: var(--brand-color-gray-cement);
-  --progress-color-stepname: var(--brand-color-gray-cement); */
-
-  --progress-color-inactive: var(--brand-color-gray-cement);
-  --progress-color-active: var(--brand-color-anthracite);
-  --progress-color-done: var(--functional-color-success);
-  --color: #fff;
-  user-select: none;
-  display: flex;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  &__item {
-    flex: 1 0 0;
-    padding: .1em;
-    position: relative;
-    color: var(--color);
-    border: 1px solid red;
-    background-image: linear-gradient(
-        to right,
-        var(--progress-color-done) 50%,
-        var(--progress-color-inactive) 50%
-    );
-    background-position-x: 100%;
-    background-position-y: calc(50% - (2px / 2));
-    background-size: 200% 2px;
-    background-repeat: no-repeat;
-    list-style-position: inside;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-out;
-    &--done {
-      background-position-x: 0;
-
-      &::after {
-        display: inline-block;
-        content: '';
-        width: .375rem;
-        height: .6875rem;
-        border: solid currentColor;
-        border-width: 0 .0625rem .0625rem 0;
-        position: absolute;
-        transform: translate(.6em, .2em) rotate(45deg);
-      }
-    }
-    &--active {
-      animation-name: slide-in-from-left;
-    }
-    &--active-backward {
-      background-position-x: 0;
-    }
-    &--backward {
-      animation-name: slide-out-from-right;
-    }
   }
 }
 </style>
