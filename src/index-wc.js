@@ -49,4 +49,6 @@ export default {
 };
 */
 
-export default webComponents;
+export default {
+  ...webComponents,
+};
