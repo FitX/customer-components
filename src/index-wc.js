@@ -17,6 +17,36 @@ const transformKebabCase = (string) => string
 // components collection
 export const componentsCollection = { ...components };
 
+const componentsDesc = Object.keys(componentsCollection).map((item) => {
+  const component = componentsCollection[item];
+  const name = component.name || 'c-comp';
+  return {
+    [name]: defineCustomElement(component),
+  };
+});
+
+/**
+ * Install Component as Web Component
+ * @param {string} tagName - web component name in kebab-case
+ * @param component - Vue Component
+ */
+const installWebComponent = function (tagName, component) {
+  if (!tagName || !component) {
+    return;
+  }
+  const validName = transformKebabCase(tagName);
+  window.customElements.define(validName, component);
+};
+
+/**
+ * Register all Components as Web Component, prefix with 'web-'
+ */
+export const installWebComponents = function () {
+  componentsDesc.forEach((item) => {
+    installWebComponent(`web-${item.name}`, item.component);
+  });
+};
+
 // components desc array
 export const webComponents = [...Object.entries(componentsCollection)].map(([key, value]) => ({
   [key]: defineCustomElement(value),
