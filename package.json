@@ -1,6 +1,6 @@
 {
   "name": "@fitx/customer-components",
-  "version": "0.1.89",
+  "version": "0.1.90",
   "files": [
     "dist/*",
     "src/*"
