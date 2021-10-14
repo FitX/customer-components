@@ -18,7 +18,7 @@ const transformKebabCase = (string) => string
 const componentsCollection = { ...components };
 
 // components desc array
-const componentsDesc = Object.keys(componentsCollection).map((item) => {
+export const componentsDesc = Object.keys(componentsCollection).map((item) => {
   const component = componentsCollection[item];
   return {
     name: component.name || 'c-comp', // kebab-case
@@ -38,8 +38,11 @@ export function register() {
   });
 }
 
+/*
 export default {
   ...componentsDesc.map((comp) => ({
     [comp.name]: comp.component,
   })),
-};
+};*/
+
+export default componentsDesc;
