@@ -24,7 +24,9 @@ export const webComponents = Object.keys(componentsCollection).map((item) => {
     name: component.name || 'c-comp', // kebab-case
     component: defineCustomElement(component),
   }; */
-  return defineCustomElement(component);
+  return {
+    [component.name]: defineCustomElement(component),
+  };
 });
 
 /**
