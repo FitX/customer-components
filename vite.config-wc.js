@@ -6,7 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [
     vue({
-      customElement: true,
+      // customElement: true,
     }), // for vue plugin
     svgLoader(),
   ],
