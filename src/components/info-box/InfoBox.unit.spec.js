@@ -30,4 +30,12 @@ describe('Info Box', () => {
     });
     expect(wrapper.html()).toContain('<p>foo bar</p>');
   });
+
+  it('has dark mode option', async () => {
+    const wrapper = shallowMount(InfoBox);
+    const div = wrapper.find('.info-box');
+    expect(div.element).not.toHaveClass('info-box btn--dark');
+    await wrapper.setProps({ isDarkMode: true });
+    expect(div.element).toHaveClass('info-box btn--dark');
+  });
 });
