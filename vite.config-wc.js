@@ -6,7 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [
     vue({
-      // customElement: true,
+      customElement: true,
     }), // for vue plugin
     svgLoader(),
   ],
@@ -24,12 +24,12 @@ export default defineConfig({
     ],
   },
   build: {
-    cssCodeSplit: true,
-    target: 'esnext', // esnext | es2015
+    cssCodeSplit: false,
+    target: 'es2015', // esnext | es2015
     lib: {
       entry: resolve(__dirname, 'src/components/index-wc.js'),
-      formats: ['cjs', 'es', 'umd', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
-      name: 'customerComponents',
+      formats: ['cjs', 'es', 'umd'], // 'es' | 'cjs' | 'umd' | 'iife'
+      name: 'customer-components',
     },
     outDir: 'dist/wc/',
     rollupOptions: {
