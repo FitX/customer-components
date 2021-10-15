@@ -45,6 +45,8 @@ export default {
   props: {
     ...baseInputProps,
   },
+  // For Web Components Build
+  styles: BaseInput.styles,
   setup(props, { attrs, emit }) {
     const currentLength = computed(() => props.modelValue?.length || 0);
     const errorMessage = computed(() => {

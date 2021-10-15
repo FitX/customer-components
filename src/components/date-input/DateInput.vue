@@ -50,6 +50,7 @@ export default {
     maska,
   },
   props: baseInputProps,
+  // For Web Components Build
   styles: BaseInput.styles,
   setup(props, { emit }) {
     // Dotted Date from Iso Model Value
