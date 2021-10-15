@@ -34,4 +34,15 @@ export { styles };
 export function register() {
   customElements.define('error-message', ErrorMessage);
   customElements.define('base-button', BaseButton);
+  customElements.define('base-input', BaseInput);
+  customElements.define('date-input', DateInput);
+  customElements.define('base-textarea', BaseTextarea);
+  customElements.define('base-option', BaseOption);
+  customElements.define('base-option-form', BaseOptionForm);
+  customElements.define('base-checkbox', BaseCheckbox);
+  customElements.define('base-radio', BaseRadio);
+  customElements.define('filter-chip', FilterChip);
+  customElements.define('info-box', InfoBox);
+  customElements.define('base-banner', BaseBanner);
+  customElements.define('progress-bar', ProgressBar);
 }
