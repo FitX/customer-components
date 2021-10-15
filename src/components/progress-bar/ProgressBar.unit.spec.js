@@ -1,16 +1,16 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import ProgressBar from '@/components/progress-bar/ProgressBar.vue';
 
 describe('Base Banner', () => {
   it('renders with default values', () => {
-    const wrapper = mount(ProgressBar);
+    const wrapper = shallowMount(ProgressBar);
     const emptyList = wrapper.find('.progress');
     expect(emptyList.element).toHaveStyle('--progress-current-step-index: 1; --progress-steps-length: 0;')
   });
 
   it('has dynamic steps option', async () => {
-    const wrapper = mount(ProgressBar);
+    const wrapper = shallowMount(ProgressBar);
     const steps = wrapper.find('.progress');
     expect(steps.element).toHaveStyle('--progress-current-step-index: 1; --progress-steps-length: 0;')
     await wrapper.setProps({ steps: ['eins', 'zwei', 'drei', 'vier'] });
@@ -20,7 +20,7 @@ describe('Base Banner', () => {
   });
 
   it('has option to set active current step', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = shallowMount(ProgressBar, {
       props: {
         steps: ['eins', 'zwei', 'drei', 'vier'],
         currentStepIndex: 2,
@@ -55,7 +55,7 @@ describe('Base Banner', () => {
 
   it('sets steps names to a given length'
     , async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = shallowMount(ProgressBar, {
       props: {
         steps: ['eins', 'zwei', 'drei', 'vier'],
       },
@@ -67,7 +67,7 @@ describe('Base Banner', () => {
   });
 
   it('emits value when step is selected', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = shallowMount(ProgressBar, {
       props: {
         steps: ['eins', 'zwei', 'drei', 'vier'],
       },
