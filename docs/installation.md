@@ -59,6 +59,24 @@ sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-ori
 
 [![Edit customer-components-use-via-imports](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/customer-components-use-via-imports-jzkqf?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FHelloWorld.vue&theme=light)
 
+### Library via Web Components
+
+**Note:** Some Components currently not supported.
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="Untitled" src="https://codepen.io/webdesignberlin/embed/GRvpjrj?default-tab=html%2Cresult&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/webdesignberlin/pen/GRvpjrj">
+  Untitled</a> by webdesignberlin (<a href="https://codepen.io/webdesignberlin">@webdesignberlin</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+### Library via Global vue
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="Customer Components Vue Web Demo" src="https://codepen.io/webdesignberlin/embed/gOxbgLP?default-tab=html%2Cresult&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/webdesignberlin/pen/gOxbgLP">
+  Customer Components Vue Web Demo</a> by webdesignberlin (<a href="https://codepen.io/webdesignberlin">@webdesignberlin</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
 ## What next?
 If you are installing via npm / yarn and want to use it with
 a packaging tool, please read the

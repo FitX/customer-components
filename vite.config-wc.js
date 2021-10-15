@@ -25,11 +25,11 @@ export default defineConfig({
   },
   build: {
     cssCodeSplit: true,
-    target: 'esnext', // esnext | es2015
+    target: 'es2015', // esnext | es2015
     lib: {
       entry: resolve(__dirname, 'src/index-wc.js'),
-      formats: ['cjs', 'es', 'umd', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
-      name: 'customerComponents',
+      formats: ['cjs', 'es', 'umd'], // 'es' | 'cjs' | 'umd' | 'iife'
+      name: 'customer-components',
     },
     outDir: 'dist/wc/',
     rollupOptions: {

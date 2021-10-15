@@ -21,7 +21,6 @@ jobs:
       - name: Run unit tests
         run: |
           npm ci
-          npm run build:vite
           npm run test:unit
       # merge after successful build and test
       # - name: Merge branch to main
@@ -46,7 +45,7 @@ jobs:
       - name: Install, Build, Publish
         run: |
           npm install
-          npm run build:vite
+          npm run build
           echo Publish to NPM
 
       # Publish to npm
