@@ -31,7 +31,7 @@ export default defineConfig({
     },
   },
   build: {
-    cssCodeSplit: false,
+    cssCodeSplit: true,
     target: 'es2015', // esnext | es2015
     lib: {
       entry: resolve(__dirname, 'src/components/index-wc.js'),
