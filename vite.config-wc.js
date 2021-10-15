@@ -23,13 +23,6 @@ export default defineConfig({
       },
     ],
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@import "@/assets/styles/lib.scss";',
-      },
-    },
-  },
   build: {
     cssCodeSplit: true,
     target: 'es2015', // esnext | es2015
