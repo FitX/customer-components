@@ -69,7 +69,6 @@ export default {
     steps: {
       type: Array,
       default: () => [],
-      required: true,
     },
     /**
      * Index in Steps
