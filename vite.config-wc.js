@@ -27,7 +27,7 @@ export default defineConfig({
     cssCodeSplit: true,
     target: 'esnext', // esnext | es2015
     lib: {
-      entry: resolve(__dirname, 'src/index-wc.js'),
+      entry: resolve(__dirname, 'src/components/index-wc.js'),
       formats: ['cjs', 'es', 'umd', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
       name: 'customerComponents',
     },

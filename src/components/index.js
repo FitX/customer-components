@@ -27,3 +27,4 @@ export { default as BaseRadio } from '@/components/base-radio/BaseRadio.vue';
 export { default as FilterChip } from '@/components/filter-chip/FilterChip.vue';
 export { default as InfoBox } from '@/components/info-box/InfoBox.vue';
 export { default as BaseBanner } from '@/components/base-banner/BaseBanner.vue';
+export { default as ProgressBar } from '@/components/progress-bar/ProgressBar.vue';
