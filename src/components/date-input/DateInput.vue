@@ -7,8 +7,7 @@
     :error-message="errorMessage"
     @input="update($event.target.value)"
     @blur="update($event.target.value)"
-    @change="update($event.target.value)"
-  />
+    @change="update($event.target.value)"></base-input>
 </template>
 
 <script>
@@ -51,6 +50,7 @@ export default {
     maska,
   },
   props: baseInputProps,
+  styles: BaseInput.styles,
   setup(props, { emit }) {
     // Dotted Date from Iso Model Value
     const dottedDate = ref(formatDateFromIso(props.modelValue));
