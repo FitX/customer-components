@@ -22,6 +22,7 @@
     >
       <icon-checkmark
         aria-hidden="true"
+        v-show="isDone(index)"
         class="progress__icon" />
       <span class="progress__title">
         <template
@@ -132,7 +133,7 @@ export default {
   @include list-unstyled();
   $self: &;
   --progress-animation-time: 0.3s;
-  --progress-step-animation-time: 0.1s;
+  --progress-step-animation-time: 0.3s;
   --progress-item-size: 3.6rem;
   --progress-font-size: 1.4rem;
   --progress-step-font-size: 1.6rem;
@@ -178,7 +179,7 @@ export default {
   justify-content: space-between;
   counter-reset: progress-item;
   position: relative;
-  transition: background var(--progress-animation-time) ease-in;
+  transition: background var(--progress-animation-time) ease;
   user-select: none;
   &::before {
     content: '';
@@ -198,8 +199,8 @@ export default {
   }
 
   &__icon {
-    opacity: 0;
-    transition: opacity var(--progress-step-animation-time) ease-in var(--progress-animation-time);
+    // opacity: 0;
+    // transition: opacity var(--progress-step-animation-time) ease;
   }
 
   &__item {
@@ -211,7 +212,7 @@ export default {
     align-content: start;
     width: 100%;
     cursor: pointer;
-    transition: color var(--progress-step-animation-time) ease-in var(--progress-animation-time);
+    transition: color var(--progress-step-animation-time) ease-in;
     &::before {
       counter-increment: progress-item;
       content: counter(progress-item);
@@ -227,7 +228,7 @@ export default {
       background: var(--progress-color-bg);
       border: 1px solid var(--progress-color-border);
       color: var(--progress-color-count);
-      transition: all var(--progress-step-animation-time) ease-in var(--progress-animation-time);
+      transition: all var(--progress-step-animation-time) ease-in;
     }
     &:first-child {
       justify-self: start;

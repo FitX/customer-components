@@ -28,7 +28,10 @@
   </div>
   <hr>
   <info-box content="Blubb Lorem Ipsum" />
+  <hr>
   <base-banner content="Blubb Lorem Ipsum" modifier="attention" />
+  <hr>
+  <progress-bar :steps="['eins', 'zwei']" />
 </template>
 
 <script>

@@ -2,6 +2,7 @@ import '@/assets/styles/lib.scss';
 import { defineCustomElement } from 'vue';
 import * as components from './components/index';
 
+
 /**
  * Convert camelCase to kebab-case
  * @param {string} string
@@ -14,30 +15,23 @@ const transformKebabCase = (string) => string
     ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
     : letter)).join('');
 
-// components collection
-const componentsCollection = { ...components };
+const objectMap = (obj, fn) => Object.fromEntries(
+  Object.entries(obj).map(
+    ([k, v], i) => [k, fn(v, k, i)],
+  ),
+);
 
-// components desc array
-const componentsDesc = Object.keys(componentsCollection).map((item) => {
-  const component = componentsCollection[item];
-  return {
-    name: component.name || 'c-comp', // kebab-case
-    component: defineCustomElement(component),
-  };
-});
+export const webComponents = objectMap(components, (v) => defineCustomElement(v));
 
-/**
- * Global install Function
- * @param app - Vue instance
- */
 export function register() {
-  componentsDesc.forEach((item) => {
-    const kebabCaseName = transformKebabCase(item.name);
-    const registerComponent = item.component;
-    window.customElements.define(kebabCaseName, registerComponent); // kebab-case
-  });
+  Object
+    .fromEntries(
+      Object
+        .entries(webComponents)
+        .map(([k, v]) => [k, customElements.define(transformKebabCase(k), v)]),
+    );
 }
 
 export default {
-  ...componentsDesc.map((comp) => comp.component),
+  ...webComponents,
 };
