@@ -7,8 +7,14 @@ import BaseTextarea, {
 } from './BaseTextarea.vue';
 
 const storyDescription = `
-  Modifizierte Version der BaseInput Component zur Darstellung für längere Texte.
-  **@TODO 2** Icons nicht final.
+## (Freitextfelder)
+
+- Verhalten je nach Anwendung frei wähltbar
+- z.b. Feste Höhe scrollbar oder mitwachsend
+
+### Dev Info
+
+Modifizierte Version der BaseInput Component zur Darstellung für längere Texte.
 `;
 
 const eventListener = {
@@ -82,16 +88,19 @@ const Template = (argsObject) => ({
 export const DefaultBaseTextarea = Template.bind({});
 DefaultBaseTextarea.args = {
 };
+DefaultBaseTextarea.storyName = 'Textarea';
 
 export const BaseTextareaHover = Template.bind({});
 BaseTextareaHover.args = {
   modifier: 'fake-hover',
 };
+BaseTextareaHover.storyName = 'Hover';
 
 export const BaseTextareaFocused = Template.bind({});
 BaseTextareaFocused.args = {
   modifier: 'fake-focus',
 };
+BaseTextareaFocused.storyName = 'Focused';
 
 export const BaseTextareaValid = Template.bind({});
 BaseTextareaValid.args = {
@@ -105,11 +114,13 @@ BaseTextareaValid.parameters = {
     },
   },
 };
+BaseTextareaValid.storyName = 'Validierung';
 
 export const BaseTextareaError = Template.bind({});
 BaseTextareaError.args = {
   errorMessage: 'Das ist ein Pflichtfeld.',
 };
+BaseTextareaError.storyName = 'Error';
 
 export const BaseTextareaDisabled = Template.bind({});
 BaseTextareaDisabled.args = {
@@ -122,12 +133,14 @@ BaseTextareaDisabled.parameters = {
     },
   },
 };
+BaseTextareaDisabled.storyName = 'Disabled';
 
 export const BaseTextareaDisabledPreFilled = Template.bind({});
 BaseTextareaDisabledPreFilled.args = {
   model: 'Blubb',
   disabled: true,
 };
+BaseTextareaDisabledPreFilled.storyName = 'Disabled Prefilled';
 
 export const InfoForDevs = () => ({
   components: {
@@ -161,3 +174,5 @@ InfoForDevs.parameters = {
     },
   },
 };
+
+InfoForDevs.storyName = 'Dev Info';
