@@ -5,8 +5,8 @@ import BaseCheckbox, {
 } from './BaseCheckbox.vue';
 
 const storyDescription = `
-  **Verwendung:**
-  Base Button Component wird verwendet um **@TODO**
+- siehe Zustände
+- Immer in Verbindung mit Label / Text
 `;
 
 export default {
@@ -130,6 +130,14 @@ Checkbox_with_TrueFalseValues.args = {
   falseValue: 'not-checked',
   model: null,
 };
+Checkbox_with_TrueFalseValues.storyName = 'True / False Werte';
+Checkbox_with_TrueFalseValues.parameters = {
+  docs: {
+    description: {
+      story: 'Siehe [vue docs](https://v3.vuejs.org/guide/forms.html#checkbox-2)',
+    },
+  },
+};
 
 export const StateOverview = () => TemplateGroup([
   {
@@ -199,3 +207,4 @@ export const StateOverview = () => TemplateGroup([
     },
   },
 ]);
+StateOverview.storyName = 'Zustände';

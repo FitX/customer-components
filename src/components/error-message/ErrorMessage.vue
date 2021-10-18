@@ -33,6 +33,7 @@ export default {
 .error-message {
   color: var(--functional-color-error);
   font-size: 1.4rem;
+  font-weight: 300;
   display: grid;
   width: 100%;
   grid-template-columns: 2rem 1fr;

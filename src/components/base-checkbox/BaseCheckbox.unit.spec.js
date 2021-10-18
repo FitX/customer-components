@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import BaseCheckbox from '@/components/base-checkbox/BaseCheckbox.vue';
 
-describe('Base checbox', () => {
+describe('Base Checkbox', () => {
   it('renders basic checkbox', () => {
     const wrapper = shallowMount(BaseCheckbox, {
       props: {
@@ -37,7 +37,7 @@ describe('Base checbox', () => {
     expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
   });
 
-  it('updates isChecked value', async() => {
+  it('updates isChecked value', async () => {
     const wrapper = shallowMount(BaseCheckbox, {
       props: {
         modelValue: [

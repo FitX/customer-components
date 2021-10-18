@@ -6,12 +6,14 @@ import BaseButton, {
 } from './BaseButton.vue';
 
 const storyDescription = `
-  **Verwendung:**
-  Base Button Component wird verwendet um **@TODO**
+  - Breite des Buttons flexibel
+  - Deaktivierte Buttons sind nicht klickbar
+  - Größe der Buttons je nach Device anpassbar
+  - Keine Versalien
 `;
 
 export default {
-  title: 'Components/Buttons/BaseButton',
+  title: 'Components/Buttons/Base Button',
   component: BaseButton,
   argTypes: {
     tag: {
@@ -58,7 +60,6 @@ const groupTemplate = `
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1rem">
   <base-button v-for="(button, index) in group" :key="index" v-bind="button.args" />
 </div>`;
-
 
 /**
  * Base Buttons Group Template with Background
@@ -165,6 +166,7 @@ export const PrimaryButtons = () => TemplateGroup([
     },
   },
 ]);
+PrimaryButtons.storyName = 'Primär Button';
 
 export const PrimaryButtonsSmall = () => TemplateGroup([
   {
@@ -187,6 +189,7 @@ export const PrimaryButtonsSmall = () => TemplateGroup([
     },
   },
 ]);
+PrimaryButtonsSmall.storyName = 'Primär Button klein';
 
 export const SecondaryButtons = () => TemplateGroup([
   {
@@ -209,6 +212,7 @@ export const SecondaryButtons = () => TemplateGroup([
     },
   },
 ]);
+SecondaryButtons.storyName = 'Sekundär Button';
 
 export const SecondaryButtonsSmall = () => TemplateGroup([
   {
@@ -231,6 +235,7 @@ export const SecondaryButtonsSmall = () => TemplateGroup([
     },
   },
 ]);
+SecondaryButtonsSmall.storyName = 'Sekundär Button klein';
 
 export const TertiaryButtons = () => TemplateGroup([
   {
@@ -253,6 +258,7 @@ export const TertiaryButtons = () => TemplateGroup([
     },
   },
 ]);
+TertiaryButtons.storyName = 'Tertiärer Button';
 
 TertiaryButtons.parameters = {
   docs: {
@@ -291,7 +297,7 @@ export const QuaternaryButtons = () => TemplateGroupBackground([
 QuaternaryButtons.parameters = {
   docs: {
     description: {
-      story: 'Auf Hintergrund kommt primär der Primäry Button zum Einsatz. Sollte dieser nicht passen kann auch der Quaternary Button benutzt werden. Ein Einsatz von disable Styles ist nicht vorgesehen. **Hinweis:** Der Quaternary Button darf nicht Aseits eines Hintergrundes benutzt werden.',
+      story: 'Auf Hintergrund kommt primär der Primäry Button zum Einsatz. Sollte dieser nicht passen kann auch der Quaternary Button benutzt werden. Ein Einsatz von disable Styles ist nicht vorgesehen. **Hinweis:** Der Quaternary Button darf nicht Abseits eines Hintergrundes benutzt werden.',
     },
   },
 };
@@ -324,8 +330,9 @@ QuaternaryButtonsSmall.parameters = {
  */
 
 export const InfoForDevs = () => ({
-  template: 'Some Special Cases',
+  template: 'Einige Spezialfälle und Infos.',
 });
+InfoForDevs.storyName = 'Dev Info';
 
 export const DisabledOptions = () => TemplateGroup([
   {
@@ -364,6 +371,7 @@ PrimaryAsLink.parameters = {
     },
   },
 };
+PrimaryAsLink.storyName = 'dynamischer Tag';
 
 export const WithSlot = Template.bind({});
 WithSlot.args = {
@@ -378,3 +386,4 @@ WithSlot.parameters = {
     },
   },
 };
+WithSlot.storyName = 'Slots';

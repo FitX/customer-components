@@ -1,6 +1,6 @@
 {
   "name": "@fitx/customer-components",
-  "version": "0.1.83",
+  "version": "0.1.118",
   "files": [
     "dist/*",
     "src/*"
@@ -9,10 +9,12 @@
   "style": "./dist/customer-components.css",
   "scripts": {
     "serve": "vue-cli-service serve ./src/main.js",
-    "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib ./src/index.js",
+    "build:lib-web": "vue-cli-service build --formats umd,umd-min --dest ./dist/web --target lib ./src/index.js",
+    "build:lib-wc": "vue-cli-service build --dest ./dist/wc --target lib ./src/index-wc.js",
     "build:vite": "vite build --config vite.config.js",
+    "build:vite-wc": "vite build --config vite.config-wc.js",
     "build:pkg": "rollup -c",
+    "build": "npm run build:vite && npm run build:lib-web && npm run build:vite-wc",
     "test:unit": "vue-cli-service test:unit --json --outputFile=./coverage/.jest-test-results.json",
     "test:unit-update-snapshot": "vue-cli-service test:unit -u",
     "test:e2e": "nightwatch -e ios-tunnel tests/local-tunnel-test.js",

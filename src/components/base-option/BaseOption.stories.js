@@ -5,9 +5,10 @@ import BaseOption, {
 } from './BaseOption.vue';
 
 const storyDescription = `
-  **Verwendung:**
-  Base Option Component wird verwendet um **@TODO**
-  Aber auf gar keinen Fall in Forms, Dafür gibt es dann wieder eine eigene Komponente die genauso ist nur in klein, dafür mit Error State.
+- werden untereinander angeordnet
+- Einfachauswahl
+- Stepform
+- Nicht in Kombination mit Formelement
 `;
 
 export default {
@@ -132,6 +133,7 @@ export const BaseOptions = () => TemplateGroup([
     },
   },
 ]);
+BaseOptions.storyName = 'Zustände';
 
 export const BaseOptionsExtra = () => TemplateGroup([
   {
@@ -164,6 +166,7 @@ export const BaseOptionsExtra = () => TemplateGroup([
     },
   },
 ]);
+BaseOptionsExtra.storyName = 'Modus: Extra';
 
 export const BaseOptionsSmall = () => TemplateGroup([
   {
@@ -192,3 +195,4 @@ export const BaseOptionsSmall = () => TemplateGroup([
     },
   },
 ]);
+BaseOptionsSmall.storyName = 'Modus: Small';

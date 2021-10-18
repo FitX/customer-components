@@ -110,6 +110,7 @@ export const InfoForDevs = () => ({
   Momentan werden die Icons nicht als Componenten mit ausgeliefert.
   `,
 });
+InfoForDevs.storyName = 'Dev Info';
 
 InfoForDevs.parameters = {
   docs: {

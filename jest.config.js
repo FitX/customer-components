@@ -10,6 +10,7 @@ module.exports = {
     '**/src/components/**/*.unit.spec.js',
     '**/src/use/**/*.unit.spec.js',
     '**/test/**/*.unit.spec.js',
+    '!**/storybook-static/**/*',
   ],
   collectCoverage: true,
   collectCoverageFrom: [
@@ -19,5 +20,6 @@ module.exports = {
     '!./src/components/index.js',
     '!./src/components/**/*.stories.js',
     '!./src/components/**/*.{e2e,spec}.js',
+    '!./src/components/index-wc.js',
   ],
 };

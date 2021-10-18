@@ -7,13 +7,20 @@ import DateInput, {
 } from './DateInput.vue';
 
 const storyDescription = `
-  Modifizierte Version der BaseInput Component zur Darstellung für Datum z.B. Geburtsdatum.
-  - Datum Model Format: **'yyyy-MM-dd'**
-  - Masken Format: **'dd.MM.yyyy'**
-  **Verwendung:**
-  Date Input Component wird verwendet um **@TODO**
+## (Geburtstagsfelder)
 
-  **@TODO 2** Icons nicht final.
+- Breite variabel
+- In erster Linie immer Pflichtfeld
+- Wenn kein Pflichtfeld dann in Klammern (optional)
+- Textfeld
+- Punkte werden automatisch gesetzt, werden überschrieben, wenn sie selbst eingegeben werden
+
+### Dev Info
+
+Modifizierte Version der BaseInput Component zur Darstellung für Datum z.B. Geburtsdatum.
+
+- Datum Model Format: **'yyyy-MM-dd'**
+- Masken Format: **'dd.MM.yyyy'**
 `;
 
 const eventListener = {
@@ -24,7 +31,7 @@ const eventListener = {
 };
 
 export default {
-  title: 'Components/Form/DateInput',
+  title: 'Components/Form/Date Input',
   component: DateInput,
   argTypes: {
     ...eventListener,
@@ -87,16 +94,19 @@ const Template = (argsObject) => ({
 export const DefaultDateInput = Template.bind({});
 DefaultDateInput.args = {
 };
+DefaultDateInput.storyName = 'Date Input';
 
 export const DateInputHover = Template.bind({});
 DateInputHover.args = {
   modifier: 'fake-hover',
 };
+DateInputHover.storyName = 'Hover';
 
 export const DateInputFocused = Template.bind({});
 DateInputFocused.args = {
   modifier: 'fake-focus',
 };
+DateInputFocused.storyName = 'focused';
 
 export const DateInputValid = Template.bind({});
 DateInputValid.args = {
@@ -110,17 +120,20 @@ DateInputValid.parameters = {
     },
   },
 };
+DateInputValid.storyName = 'valid';
 
 export const DateInputError = Template.bind({});
 DateInputError.args = {
   errorMessage: 'Das ist ein Pflichtfeld.',
 };
+DateInputError.storyName = 'Error';
 
 export const DateInputErrorFilled = Template.bind({});
 DateInputErrorFilled.args = {
   model: '11.08.1984',
   errorMessage: 'Das Datum ist ungültig.',
 };
+DateInputErrorFilled.storyName = 'Error Filled';
 
 export const DateInputDisabled = Template.bind({});
 DateInputDisabled.args = {
@@ -133,9 +146,11 @@ DateInputDisabled.parameters = {
     },
   },
 };
+DateInputDisabled.storyName = 'Disabled';
 
 export const DateInputDisabledPreFilled = Template.bind({});
 DateInputDisabledPreFilled.args = {
   model: '1984-08-11',
   disabled: true,
 };
+DateInputDisabledPreFilled.storyName = 'Disabled Prefilled';
