@@ -5,10 +5,10 @@ import FilterChip, {
 } from './FilterChip.vue';
 
 const storyDescription = `
-  Filterchips verwenden Tags oder beschreibende Wörter, um Inhalte zu filtern.
-
-  Filterchips grenzen die Optionen klar ab und zeigen sie in einem kompakten Bereich an.
-  Sie sind eine gute Alternative zu Umschalttasten oder Kontrollkästchen.
+- Auswahl zeigt Ergebnisse
+- Mehrfachauswahl möglich
+- Zahl (Verfügbare Ergebnisse) optional
+- werden nebeneinander und dann mehrzeilig angezeigt
 `;
 
 export default {
@@ -164,6 +164,7 @@ export const States = () => TemplateGroup([
     },
   },
 ]);
+States.storyName = 'Zustände';
 
 export const Usage = () => TemplateGroup([
   {
@@ -213,3 +214,5 @@ Usage.parameters = {
     },
   },
 };
+
+Usage.storyName = 'Benutzung';
