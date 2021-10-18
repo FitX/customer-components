@@ -139,6 +139,7 @@ export default {
   border-radius: var(--chip-border-radius);
   height: var(--chip-height);
   font-size: var(--chip-font-size);
+  font-weight: 400;
   display: inline-grid;
   align-items: center;
   align-content: center;

@@ -13,7 +13,7 @@ const storyDescription = `
 `;
 
 export default {
-  title: 'Components/ProgressBar',
+  title: 'Components/Progress Bar',
   component: ProgressBar,
   parameters: {
     jest: ['ProgressBar.unit.spec.js'],
@@ -83,3 +83,4 @@ DefaultProgressBar.args = {
     'Fertig',
   ],
 };
+DefaultProgressBar.storyName = 'Progress Bar';

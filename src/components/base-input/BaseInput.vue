@@ -318,6 +318,7 @@ label {
 
   position: relative;
   font-size: var(--field-font-size);
+  font-weight: 300;
   height: var(--field-min-height);
   display: grid;
   width: 100%;
@@ -391,6 +392,7 @@ label {
     background: var(--field-color-bg);
     width: 100%;
     height: 100%;
+    font-weight: 300;
 
     &--textarea {
       .content-editable {
