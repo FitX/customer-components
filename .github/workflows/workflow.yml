@@ -41,9 +41,15 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
       # Runs a single command using the runners shell
       - name: Install, Build, Publish
         run: |
+          echo branch name: ${{ steps.extract_branch.outputs.branch }}
           npm install
           npm run build
           echo Publish to NPM
