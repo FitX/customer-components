@@ -5,8 +5,8 @@ import BaseRadio, {
 } from './BaseRadio.vue';
 
 const storyDescription = `
-  **Verwendung:**
-  Base Radio Component wird verwendet um **@TODO**
+- siehe Zustände
+- Immer in Verbindung mit Label / Text
 `;
 
 export default {
@@ -202,6 +202,7 @@ const stateGroupButtonStyle = stateGroup.map((item) => {
 });
 
 export const StateOverview = () => TemplateGroup(stateGroup);
+StateOverview.storyName = 'Zustände';
 export const StateOverviewButtonStyle = () => TemplateGroup(stateGroupButtonStyle);
 StateOverviewButtonStyle.parameters = {
   docs: {
@@ -210,6 +211,7 @@ StateOverviewButtonStyle.parameters = {
     },
   },
 };
+StateOverviewButtonStyle.storyName = 'Zustände Button Style';
 
 export const Radio_with_Form_Modifier = () => ({
   components: { BaseRadio },
@@ -235,3 +237,4 @@ export const Radio_with_Form_Modifier = () => ({
 />
     </div>`,
 });
+Radio_with_Form_Modifier.storyName = 'Beispiel';

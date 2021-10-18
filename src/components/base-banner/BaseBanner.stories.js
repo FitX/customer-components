@@ -94,6 +94,7 @@ WithoutIcon.args = {
   modifier: 'no-icon',
   content: 'Lorem Ipsum dolor sit amet diam et.',
 };
+WithoutIcon.storyName = 'Ohne Icon';
 
 const alternateIcon = `<svg width="18" height="18" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg">
   <g fill="none" fill-rule="evenodd">

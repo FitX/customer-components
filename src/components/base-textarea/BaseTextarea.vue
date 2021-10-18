@@ -7,7 +7,9 @@
     @blur="update($event.target.value)"
     @change="update($event.target.value)">
     <template #count>
-      <span v-if="$attrs.maxLength">
+      <span
+        class="count"
+        v-if="$attrs.maxLength">
         {{ currentLength }} / {{ $attrs.maxLength }} Zeichen
       </span>
     </template>
@@ -66,3 +68,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.count {
+  font-weight: 300;
+  font-size: 1.4rem;
+}
+</style>

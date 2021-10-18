@@ -98,8 +98,8 @@ export default {
   background: var(--base-banner-background);
   color: var(--base-banner-color);
   font-size: 1.6rem;
-  line-height: 2.1rem;
   font-weight: 300;
+  line-height: 2.1rem;
   padding: var(--base-banner-spacing-v) var(--base-banner-spacing-h);
   display: grid;
   grid-template-columns: 1fr;

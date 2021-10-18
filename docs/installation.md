@@ -4,7 +4,7 @@
 
 | ![iOS](https://cdn.jsdelivr.net/npm/@browser-logos/safari/safari_32x32.png) | ![Chrome](https://cdn.jsdelivr.net/npm/@browser-logos/chrome/chrome_32x32.png) |
 | ------------------------------- |
-| @TODO version | latest |
+| 14.8 | latest |
 
 This Library is currently in a rapid development iteration:
 

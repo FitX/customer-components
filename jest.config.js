@@ -20,5 +20,6 @@ module.exports = {
     '!./src/components/index.js',
     '!./src/components/**/*.stories.js',
     '!./src/components/**/*.{e2e,spec}.js',
+    '!./src/components/index-wc.js',
   ],
 };

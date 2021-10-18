@@ -1,52 +1,48 @@
 <template>
   <section class="demo">
-    <h1>Primäre Markenfarben</h1>
-    <p>Unsere primären Markenfarben sind Weiß und Schwarz.
-      Sie werden verwendet, um Zugänglichkeit, Einfachheit und Konsistenz in der gesamten
-      Markenkommunikation zu gewährleisten.</p>
-    <p>
-      <small>
-        <b>Hinweis:</b>
-        Da es scheinbar Unstimmigkeiten zwischen Social Media und Design gab,
-        wurde das Blau (#35484f, rgb(53,72,79)) durch das "SOME Blau" ersetzt.
-      </small>
-    </p>
+    <h2>Primäre Farben</h2>
+    <p>Unsere primären Markenfarben sind Anthracite, Blue und Orange.</p>
+    <ul>
+      <li>Anthracite und Blue eher im Hintergrund</li>
+      <li>Orange als Akzent (z.B. Buttons, Links, Infos)</li>
+      <li>Weiß als Hintergrund für textlastige Seiten und Formulare</li>
+    </ul>
     <color-list :colors="primaryColors" />
   </section>
 
   <section class="demo">
-    <h1>Sekundäre Markenfarben</h1>
-    <p>Da gibt es wohl nichts zu sagen.</p>
-    <color-list :colors="secondaryColors" />
-  </section>
-
-  <section class="demo">
-    <h1>Anthrazitabstufungen</h1>
-    <p>Da gibt es wohl nichts zu sagen.</p>
+    <h2>Sekundäre Farben</h2>
+    <p>Um Ebenen zu schaffen und Bereiche Abzugrenzen gibt es Abstufungen der Primären Farben.</p>
+    <h3>Anthrazitabstufungen</h3>
     <color-list :colors="anthraciteColors" />
-  </section>
-
-  <section class="demo">
-    <h1>Orangeabstufungen</h1>
-    <p>Da gibt es wohl nichts zu sagen.</p>
+    <h3>Orangeabstufungen</h3>
     <color-list :colors="orangeColors" />
-  </section>
-
-  <section class="demo">
-    <h1>Weißabstufungen</h1>
-    <p>Da gibt es wohl nichts zu sagen.</p>
+    <h3>Weißabstufungen</h3>
     <color-list :colors="whiteColors" />
   </section>
 
   <section class="demo">
     <h1>Grauabstufungen</h1>
-    <p>Das sind quasi die Farben der Formulare.</p>
+    <p>Für Inhalte z.B.</p>
+    <ul>
+      <li>Textebenen</li>
+      <li>Linien</li>
+      <li>Buttons</li>
+      <li>Zustände</li>
+    </ul>
     <color-list :colors="grayColors" />
   </section>
 
   <section class="demo">
     <h1>Funktionale Farben</h1>
-    <p>Da gibt es wohl nichts zu sagen.</p>
+    <ul>
+      <li>Funktionalfarben nach Ampelsystem</li>
+      <li>Für Benachrichtigungen, Warnungen und Statusmeldungen</li>
+      <li>Für Typografie wird der leuchtende Farbcode verwendet. Für Hintergründe jeweils angepasste Varianten</li>
+      <li>Grün = Erfolgreich / Positiv</li>
+      <li>Gelb = (Neutrale)  Aufmerksamkeit</li>
+      <li>Rot = Fehler / Negativ</li>
+    </ul>
     <color-list :colors="funcColors" />
   </section>
 

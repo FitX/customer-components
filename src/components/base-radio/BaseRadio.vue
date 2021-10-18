@@ -145,6 +145,7 @@ export default {
   cursor: pointer;
   color: var(--radio-color);
   font-size: var(--radio-font-size, 1.8rem);
+  font-weight: 300;
 
   &--button {
     height: var(--form-input-height, 6rem);

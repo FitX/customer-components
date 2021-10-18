@@ -7,10 +7,10 @@ import BaseInput, {
 } from './BaseInput.vue';
 
 const storyDescription = `
-  **Verwendung:**
-  Base Input Component wird verwendet um **@TODO**
-
-  **@TODO 2** Icons nicht final.
+- Breite variabel
+- Label ist die Beschreibung
+- In erster Linie immer Pflichtfeld
+- Wenn kein Pflichtfeld dann in Klammern (optional)
 `;
 
 export default {
@@ -84,12 +84,14 @@ BaseInputHover.args = {
   model: 'Demo Hover',
   modifier: 'fake-hover',
 };
+BaseInputHover.storyName = 'Hover';
 
 export const BaseInputFocused = Template.bind({});
 BaseInputFocused.args = {
   label: 'Label',
   modifier: 'fake-focus',
 };
+BaseInputFocused.storyName = 'Focused';
 
 export const BaseInputValid = Template.bind({});
 BaseInputValid.args = {
@@ -104,12 +106,14 @@ BaseInputValid.parameters = {
     },
   },
 };
+BaseInputValid.storyName = 'Valid';
 
 export const BaseInputError = Template.bind({});
 BaseInputError.args = {
   label: 'Label',
   errorMessage: 'Das ist ein Pflichtfeld.',
 };
+BaseInputError.storyName = 'Error';
 
 export const BaseInputErrorFilled = Template.bind({});
 BaseInputErrorFilled.args = {
@@ -117,6 +121,7 @@ BaseInputErrorFilled.args = {
   model: 'Error?',
   errorMessage: 'Dein Vorname ist ungültig.',
 };
+BaseInputErrorFilled.storyName = 'Error Filled';
 
 export const BaseInputDisabled = Template.bind({});
 BaseInputDisabled.args = {
@@ -130,6 +135,7 @@ BaseInputDisabled.parameters = {
     },
   },
 };
+BaseInputDisabled.storyName = 'Disabled';
 
 export const BaseInputDisabledPreFilled = Template.bind({});
 BaseInputDisabledPreFilled.args = {
@@ -137,6 +143,7 @@ BaseInputDisabledPreFilled.args = {
   model: 'Demo Disabled',
   disabled: true,
 };
+BaseInputDisabledPreFilled.storyName = 'Disabled Prefilled';
 
 export const BaseInputClearable = Template.bind({});
 BaseInputClearable.args = {
@@ -151,3 +158,4 @@ BaseInputClearable.parameters = {
     },
   },
 };
+BaseInputClearable.storyName = 'Clearable';

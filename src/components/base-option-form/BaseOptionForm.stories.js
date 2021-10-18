@@ -6,9 +6,9 @@ import BaseOptionForm, {
 } from './BaseOptionForm.vue';
 
 const storyDescription = `
-  **Verwendung:**
-  Base Option Form Component wird verwendet um **@TODO**
-  Nur in Formularen und irgendwie unterscheiden die sich von Radios?!
+- werden nebeneinander angeordnet
+- Einfach- und Mehrfach auswahl möglich
+- werden in Forms verwendet
 `;
 
 const eventListener = {
@@ -17,7 +17,7 @@ const eventListener = {
 };
 
 export default {
-  title: 'Components/OptionForm',
+  title: 'Components/Option Form',
   component: BaseOptionForm,
   argTypes: {
     modifier: {
@@ -115,6 +115,7 @@ export const DefaultBaseOption = Template.bind({});
 DefaultBaseOption.args = {
   title: 'Base Option Form',
 };
+DefaultBaseOption.storyName = 'Option Form';
 
 export const BaseOptionsForms = () => TemplateGroup([
   {
@@ -148,3 +149,4 @@ export const BaseOptionsForms = () => TemplateGroup([
     },
   },
 ]);
+BaseOptionsForms.storyName = 'Zustände';
