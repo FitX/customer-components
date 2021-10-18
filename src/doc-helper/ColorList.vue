@@ -5,6 +5,7 @@
     <li
       v-for="color in colors"
       class="color"
+      :class="{ 'color--dark' : color.name.endsWith('-dark')}"
       :key="color.value">
       <span class="color__figure" :style="`--color: ${color.value}`"></span>
       <span class="color__details">
@@ -77,6 +78,10 @@ export default {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   padding: 0.5rem;
   transition: box-shadow 0.15s;
+  &--dark {
+    background: var(--brand-color-anthracite);
+    color: #fff;
+  }
   &__figure {
     background-color: var(--color);
     border-radius: 2px 2px 0 0;
@@ -100,6 +105,8 @@ export default {
     margin: 0;
     padding: 0.5rem;
     width: 100%;
+    background: transparent;
+    color: inherit;
 
     &--name {
       font-weight: 600;
