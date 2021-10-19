@@ -268,6 +268,11 @@ TertiaryButtons.parameters = {
   },
 };
 
+export const ButtonsOnImages = () => ({
+  template: 'Haben keine Wertigkeit. Siehe: QuaternaryButtons ⇩',
+});
+ButtonsOnImages.storyName = 'Buttons auf Bildern';
+
 export const QuaternaryButtons = () => TemplateGroupBackground([
   {
     args: {

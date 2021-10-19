@@ -20,8 +20,9 @@ so that you can utilize bundlers like [vite](https://vitejs.dev) and
 $ npm install @fitx/customer-components --save
 ```
 
-**Currently not @TODO web exports** Alternatively, u can use the Library directly in tn Browser
-via cdn.jsdelivr.net/npm/@fitx/customer-components or //unpkg.com/@fitx/customer-components/
+Alternatively, u can use the Library directly in tn Browser
+via cdn.jsdelivr.net/npm/@fitx/customer-components or //unpkg.com/@fitx/customer-components
+
 **Example:**
 
 ```html
