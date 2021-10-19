@@ -1,8 +1,6 @@
 name: Release CI
 
 on:
-  push:
-    branches: [ 'release/**' ]
   pull_request:
     branches: [ 'release/**' ]
 
@@ -44,8 +42,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install, Build, Publish
         run: |
-          echo head_ref name ${{ github.head_ref }}
-          echo GITHUB_REF name ${GITHUB_REF##*/}
           npm ci
           npm run build
           echo Publish to NPM

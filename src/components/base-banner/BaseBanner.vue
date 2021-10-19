@@ -120,7 +120,7 @@ export default {
 
   &__content {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--base-banner-spacing-h);
   }
 
