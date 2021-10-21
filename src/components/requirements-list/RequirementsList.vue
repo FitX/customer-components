@@ -18,7 +18,7 @@
           ]),
         ]">
         <icon-checkmark class="requirement__icon" />
-        <span class="requirement__text">{{ item.title }} {{ item.done }} dark: {{ isDarkMode }}</span>
+        <span class="requirement__text">{{ item.title }}</span>
       </li>
     </ul>
   </div>
@@ -71,7 +71,6 @@ export default {
       const allItemsDone = list
         .every((item) => item.done);
       emit('all-done', allItemsDone);
-      console.log(list, allItemsDone);
     });
     const { getModifierClasses } = useModifier();
     return {
