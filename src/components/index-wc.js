@@ -13,6 +13,7 @@ import VueFilterChip from '@/components/filter-chip/FilterChip.vue';
 import VueInfoBox from '@/components/info-box/InfoBox.vue';
 import VueBaseBanner from '@/components/base-banner/BaseBanner.vue';
 import VueProgressBar from '@/components/progress-bar/ProgressBar.vue';
+import VueRequirementsList from '@/components/requirements-list/RequirementsList.vue';
 import styles from '@/assets/styles/lib.scss';
 
 export const ErrorMessage = defineCustomElement(VueErrorMessage);
@@ -29,6 +30,7 @@ export const FilterChip = defineCustomElement(VueFilterChip);
 export const InfoBox = defineCustomElement(VueInfoBox);
 export const BaseBanner = defineCustomElement(VueBaseBanner);
 export const ProgressBar = defineCustomElement(VueProgressBar);
+export const RequirementsList = defineCustomElement(VueRequirementsList);
 export { styles };
 
 export function register() {
@@ -45,4 +47,5 @@ export function register() {
   customElements.define('info-box', InfoBox);
   customElements.define('base-banner', BaseBanner);
   customElements.define('progress-bar', ProgressBar);
+  customElements.define('requirements-list', RequirementsList);
 }

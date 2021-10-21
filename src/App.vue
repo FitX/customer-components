@@ -32,25 +32,13 @@
   <base-banner content="Blubb Lorem Ipsum" modifier="attention" />
   <hr>
   <progress-bar :steps="['eins', 'zwei']" />
+  <hr>
+  <requirements-list :items="[{ title: 'eins', done: false }, { title: 'zwei', done: true }]" />
 </template>
 
 <script>
 /* eslint-disable */
-// import { ErrorIcon } from 'dist/customer-components.es.js';
 import '../dist/customer-components.css';
-/* import {
-  ErrorMessage,
-  ErrorIcon,
-  BaseButton,
-  BaseInput,
-  TextButton,
-  BaseOption,
-  BaseOptionForm,
-  DateInput,
-  BaseTextarea,
-  BaseCheckbox,
-  BaseRadio,
-} from '../dist/customer-components.es'; */
 
 export default {
   name: 'App',
@@ -59,19 +47,6 @@ export default {
       model: null,
     };
   },
-  /* components: {
-    ErrorMessage,
-    ErrorIcon,
-    BaseButton,
-    BaseInput,
-    TextButton,
-    BaseOption,
-    BaseOptionForm,
-    DateInput,
-    BaseTextarea,
-    BaseCheckbox,
-    BaseRadio,
-  }, */
 };
 </script>
 
