@@ -111,8 +111,13 @@ export default {
     margin: 0;
   }
   &__item {
-    &:not(:first-child):not(:last-child) {
-      margin: 1.3rem 0;
+    margin: 1.3rem 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }
