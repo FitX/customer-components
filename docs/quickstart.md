@@ -28,7 +28,17 @@ functionalities based on ES Module.
 </script>
 ```
 
-### Full import via app.use() currently not supported.
+### Full import via app.use()
+
+```js
+import { createApp } from 'vue';
+import App from './App.vue';
+import customerComponents from '../dist/customer-components.es';
+
+const app = createApp(App);
+app.use(customerComponents);
+app.mount('#app');
+```
 
 ### Import stylesheets
 
@@ -36,7 +46,7 @@ It is **strongly recommended** that you import the **bundled stylesheet file**, 
 though this could increase the final output bundle size, but it requires no
 packaging plugins for bundling, you can use
 [CDN](https://www.cloudflare.com/learning/cdn/what-is-a-cdn/) to load your stylesheet
-which would be much more faster than hosting the file on your own server.
+which would be much faster than hosting the file on your own server.
 
 Import via JavaScript
 
