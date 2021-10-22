@@ -40,6 +40,9 @@ export default {
   name: 'RequirementsList',
   inheritAttrs: false,
   props: {
+    /**
+     * Option to render in Dark Mode
+     */
     isDarkMode: {
       type: Boolean,
       default: false,
@@ -49,7 +52,7 @@ export default {
      */
     items: {
       type: Array,
-      default: () => {},
+      default: () => [],
     },
   },
   emits: [
