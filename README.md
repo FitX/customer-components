@@ -7,9 +7,14 @@ Vue 3 Brand-Evo Components and Widget Library for Customer Apps. [Overview](http
 ![npm (scoped)](https://img.shields.io/npm/v/@fitx/customer-components?style=flat-square)
 ![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@fitx/customer-components)
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@fitx/customer-components)
-[![Release CI](https://github.com/FitX/customer-components/actions/workflows/workflow.yml/badge.svg)](https://github.com/FitX/customer-components/actions/workflows/workflow.yml)
+![Release CI](https://github.com/FitX/customer-components/actions/workflows/workflow.yml/badge.svg)
 
 ## Use Package 🐨
+### Requirements
+- [![Node Version](https://img.shields.io/badge/Node-lts%20_v.14_-blue)](.nvmrc)
+- [![Vue ^3.2.11](https://img.shields.io/badge/Vue-^3.2.11-blue)](.package.json)
+
+
 ### Install
 
 ```
@@ -17,32 +22,40 @@ npm i @fitx/customer-components
 ```
 ### Use in App
 ```
-import { TextButton } from '@fitx/customer-components';
+import { BaseButton } from '@fitx/customer-components';
 ```
 
 ## Development 🤖
 
 All Designs located as sketch files in [sketch cloud ✍](https://www.sketch.com/s/afae2a3c-0eaf-4735-9bd3-d0269c5c5bb3)
 
-![Node Version](https://img.shields.io/badge/Node-lts%20_v.14_-blue)
-
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads for development Demo
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
 ### Compiles and minifies Lib for production
 ```
-npm run build:lib
+npm run build:vite
+```
+
+### Compiles and minifies Lib as web imports
+```
+npm run build:lib-web
+```
+
+### Compiles and minifies Lib as web components for production
+```
+npm run build:vite-wc
+```
+
+### Compiles and minifies Lib as all above
+```
+npm run build
 ```
 
 ### Run your unit tests
@@ -101,9 +114,11 @@ npm publish --access public
 ## Release to NPM and publish to netlify
 As soon as you merge or push into branch 'release' GitHub Actions starts a workflow:
 - run unit tests
-- merge into branch 'main'
+- after success:
 - publish to NPM
-- netlify will update
+- netlify will trigger build for manually deployment
+
+- On update Master, Netlify will build and deploy automatically
 
 ❗ If version in package.json is not updated, NPM release will fail ❗
 
