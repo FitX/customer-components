@@ -7,13 +7,6 @@
   ],
   "main": "dist/customer-components.umd.js",
   "module": "dist/customer-components.es.js",
-  "exports": {
-    ".": {
-      "import": "./dist/customer-components.es.js",
-      "require": "./dist/customer-components.umd.js"
-    },
-    "./dist/style.css": "./dist/style.css"
-  },
   "style": "./dist/customer-components.css",
   "scripts": {
     "serve": "vue-cli-service serve ./src/main.js",
