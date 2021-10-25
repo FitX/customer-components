@@ -6,12 +6,10 @@
     "src/*"
   ],
   "main": "dist/customer-components.umd.js",
-  "module": "dist/customer-components.es.js",
   "style": "./dist/customer-components.css",
   "scripts": {
     "serve": "vue-cli-service serve ./src/main.js",
     "build:lib-web": "vue-cli-service build --formats umd,umd-min --dest ./dist/web --target lib ./src/index.js",
-    "build:lib-wc": "vue-cli-service build --dest ./dist/wc --target lib ./src/index-wc.js",
     "build:vite": "vite build --config vite.config.js",
     "build:vite-wc": "vite build --config vite.config-wc.js",
     "build": "npm run build:vite && npm run build:lib-web && npm run build:vite-wc",
