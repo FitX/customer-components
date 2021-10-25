@@ -1,4 +1,4 @@
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import SlotSelect from './SlotSelect.vue';
 
 const storyDescription = `
@@ -200,12 +200,16 @@ export const SlotSelectDemo = () => ({
         item: dates.value.find((day) => day.selected).slots[slotIndex],
       };
     };
+    const demoOutput = computed(() => {
+      return `Termin: ${selectedTitle.value?.item} um ${selectedSlot.value?.item}`;
+    });
     return {
       selectedTitle,
       selectedSlot,
       dates,
       selectTitle,
       selectSlot,
+      demoOutput,
     };
   },
   template: `
@@ -213,7 +217,8 @@ export const SlotSelectDemo = () => ({
       style="
         margin-bottom: 2rem;">
     <h3>Demo</h3>
-    <dl>
+    <p>{{ demoOutput }}</p>
+    <dl style="display: grid; grid-template-columns: auto 1fr">
       <dt>selectedTitle:</dt>
       <dd>{{ selectedTitle }}</dd>
       <dt>selectedSlot:</dt>

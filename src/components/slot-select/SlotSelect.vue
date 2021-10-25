@@ -31,9 +31,12 @@
       <li
         v-for="(slotItem, index) in visibleSlots"
         :key="index"
-        @click="selectSlot(index)"
         class="slots__item">
-        {{ slotItem }}
+        <base-option
+          @click="selectSlot(index)"
+          :modifier="selectedSlot === index ? 'active' : null"
+          class="slots__button"
+          :title="slotItem" />
       </li>
     </ul>
     <hr>
@@ -42,8 +45,9 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import useModifier from '@/use/modifier-class';
+import BaseOption from '@/components/base-option/BaseOption.vue';
 
 /**
  * @typedef {string} SlotModel
@@ -92,20 +96,46 @@ export default {
     'select-slot',
   ],
   components: {
+    BaseOption,
   },
   setup: (props, { emit }) => {
     const { getModifierClasses } = useModifier();
+    const selectedSlot = ref(null);
+    /**
+     * Get Slots by active Tab
+     * @type {ComputedRef<*>}
+     */
     const visibleSlots = computed(() => {
       const { slots } = props.items.find((tab) => tab.selected) || {};
       return slots;
     });
-    const selectTitle = (titleIndex) => emit('select-title', titleIndex);
-    const selectSlot = (slotIndex) => emit('select-slot', slotIndex);
+    const deselectSlot = () => {
+      selectedSlot.value = null;
+    };
+    /**
+     * Select Tab
+     * reset local selectedSlot
+     * @param titleIndex
+     */
+    const selectTitle = (titleIndex) => {
+      deselectSlot();
+      emit('select-title', titleIndex);
+    };
+    /**
+     * Select Slot
+     * store to local State and emit
+     * @param slotIndex
+     */
+    const selectSlot = (slotIndex) => {
+      selectedSlot.value = slotIndex;
+      emit('select-slot', slotIndex);
+    };
     return {
       getModifierClasses,
       selectTitle,
       visibleSlots,
       selectSlot,
+      selectedSlot,
     };
   },
 };
@@ -124,6 +154,7 @@ export default {
   --slot-selected-color-bg: var(--functional-color-success);
   --slot-selected-color-text: #fff;
   display: grid;
+  width: 100%;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
 }
@@ -137,14 +168,28 @@ export default {
   --tab-height: 8.5rem;
   --slot-active-triangle-size: 1.3rem;
 
+  margin: 0;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  // scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
+  scroll-padding: 50%;
   display: grid;
-  height: calc(var(--tab-height) + var(--slot-active-triangle-size));
+  // height: calc(var(--tab-height) + var(--slot-active-triangle-size));
   grid-gap: var(--tab-gap);
   grid-auto-flow: column;
   grid-auto-columns: var(--tabs-width);
   font-weight: 300;
+  padding-bottom:
+    calc(var(--slot-active-triangle-size) + 1rem); // Designer Spacing + Safe Space for scrollbar
+
+  /**
+    Hide Scrollbar
+   */
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &__item {
     display: flex;
@@ -155,6 +200,7 @@ export default {
     position: relative;
     height: var(--tab-height);
     user-select: none;
+    scroll-snap-align: center;
     &:not(&--disabled) {
       cursor: pointer;
     }
@@ -206,6 +252,15 @@ export default {
 }
 .slots {
   @include list-unstyled();
-  background: cornflowerblue;
+
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 8rem;
+  gap: 1rem;
+
+  &__button {
+    width: 100%;
+  }
 }
 </style>
