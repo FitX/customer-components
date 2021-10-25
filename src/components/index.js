@@ -13,3 +13,4 @@ export { default as InfoBox } from '@/components/info-box/InfoBox.vue';
 export { default as BaseBanner } from '@/components/base-banner/BaseBanner.vue';
 export { default as ProgressBar } from '@/components/progress-bar/ProgressBar.vue';
 export { default as RequirementsList } from '@/components/requirements-list/RequirementsList.vue';
+export { default as SlotSelect } from '@/components/slot-select/SlotSelect.vue';
