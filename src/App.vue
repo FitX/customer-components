@@ -34,6 +34,8 @@
   <progress-bar :steps="['eins', 'zwei']" />
   <hr>
   <requirements-list :items="[{ title: 'eins', done: false }, { title: 'zwei', done: true }]" />
+  <hr>
+  <slot-select :items="demoSlots3" />
 </template>
 
 <script>
@@ -45,6 +47,33 @@ export default {
   data() {
     return {
       model: null,
+      demoSlots3: [
+        {
+          title: 'title 1',
+          sub: 'sub 1',
+          slots: [
+            'slot 1',
+            'slot 2',
+          ]
+        },
+        {
+          title: 'title 2',
+          disabled: true,
+          sub: 'sub 2',
+          slots: [
+            'slot 1',
+            'slot 2',
+          ]
+        },
+        {
+          title: 'title 3',
+          sub: 'sub 3',
+          slots: [
+            'slot 1',
+            'slot 2',
+          ]
+        },
+      ],
     };
   },
 };
