@@ -34,13 +34,12 @@
         class="slots__item">
         <base-option
           @click="selectSlot(index)"
+          :is-dark-mode="isDarkMode"
           :modifier="selectedSlot === index ? 'active' : null"
           class="slots__button"
           :title="slotItem" />
       </li>
     </ul>
-    <hr>
-    <pre>{{ items }}</pre>
   </section>
 </template>
 
