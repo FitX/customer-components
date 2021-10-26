@@ -1,5 +1,11 @@
 # Install Fitx Customer Components
 
+We have some Demos for different usage types like
+Web Imports,
+Web Components,
+Lib Usage vie Install
+and Component Imports via ES Modules.
+
 ## Environment
 
 | ![iOS](https://cdn.jsdelivr.net/npm/@browser-logos/safari/safari_32x32.png) | ![Chrome](https://cdn.jsdelivr.net/npm/@browser-logos/chrome/chrome_32x32.png) |

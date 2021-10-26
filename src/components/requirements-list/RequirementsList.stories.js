@@ -75,14 +75,14 @@ export default {
 //* ******************************** */
 /// Stories
 /* ******************************** */
-export const RequirementsListDefault = () => ({
+export const RequirementsListDefault = (args) => ({
   components: {
     RequirementsList,
   },
   data() {
     return {
+      ...args,
       value: null,
-      items: demoRequirements,
       isDarkMode,
     }
   },
@@ -90,6 +90,9 @@ export const RequirementsListDefault = () => ({
 });
 
 RequirementsListDefault.storyName = 'Anforderungsliste';
+RequirementsListDefault.args = {
+  items: reactive(demoRequirements),
+};
 
 export const RequirementsListDemo = () => ({
   components: {
