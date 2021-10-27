@@ -35,6 +35,7 @@
         <base-option
           @click="selectSlot(index)"
           :is-dark-mode="isDarkMode"
+          :styles="wcBaseOptionStyles"
           :modifier="selectedSlot === index ? 'active' : null"
           class="slots__button"
           :title="slotItem" />
@@ -97,7 +98,6 @@ export default {
   components: {
     BaseOption,
   },
-  styles: BaseOption.styles,
   setup: (props, { emit }) => {
     const { getModifierClasses } = useModifier();
     const selectedSlot = ref(null);
@@ -136,6 +136,7 @@ export default {
       visibleSlots,
       selectSlot,
       selectedSlot,
+      wcBaseOptionStyles: BaseOption.styles,
     };
   },
 };
