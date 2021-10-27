@@ -1,8 +1,18 @@
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
+import Prism from 'prismjs';
+// import 'prismjs/themes/prism.css';
+import '../../../.storybook/code-highlight.scss';
+import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
 import SlotSelect from './SlotSelect.vue';
 
 const storyDescription = `
-# @TODO
+# (Termin buchen)
+## Verhalten:
+- Default: der erste freie Tag ist vorausgewählt, alle verfügbaren Zeiten werden angezeigt
+- Deaktivierte Slots sind nicht klickbar
+- Auf Mobil/Tablet werden so viele Tage wie möglich anzeigt und horizontal gescrollt
+- Im Web wird immer eine ganze Woche angezeigt mit Buttonklick die nächste/vorige (@TODO: momentan nur Touch UI)
+- Für die Slots wird die BaseOption Komponente benutzt
 `;
 
 /**
@@ -97,7 +107,7 @@ const demoSlots = days.map((day, index) => {
       return `${hour.toLocaleTimeString('de-DE', hourOptions)} - ${addHours(hour, 1).toLocaleTimeString('de-DE', hourOptions)}`;
     });
   return {
-    disabled: index === 3,
+    disabled: index === 0 || index === getRandomInt(7), // Random disable
     title: day.toLocaleDateString('de-DE', {
       day: 'numeric',
       month: 'numeric',
@@ -112,7 +122,7 @@ const demoSlots = days.map((day, index) => {
 /**
  * @type {import('./SlotSelect.vue').SlotSelectItemsModel} demoSlots
  */
-const demoSlots2 = [
+const demoSlots3 = [
   {
     title: 'title 1',
     sub: 'sub 1',
@@ -123,6 +133,7 @@ const demoSlots2 = [
   },
   {
     title: 'title 2',
+    disabled: true,
     sub: 'sub 2',
     slots: [
       'slot 1',
@@ -130,6 +141,20 @@ const demoSlots2 = [
     ]
   }
 ];
+
+const demoSlots2 = [...Array(14).keys()].map((index) => {
+  const disabled = index === getRandomInt(7) && index !== 1; // Random disable
+  const title = `Title ${index}`;
+  const sub = `Sub ${index}`;
+  const count = getRandomInt(7) || 1;
+  const slots = [...Array(count).keys()].map((index) => `slot ${index}`);
+  return {
+    title,
+    sub,
+    disabled,
+    slots,
+  }
+})
 
 export default {
   title: 'Components/Slot Select',
@@ -151,18 +176,34 @@ export const SlotSelectDefault = (args) => ({
   components: {
     SlotSelect,
   },
+  methods: {
+    select(selectedIndex) {
+      if (this.items[selectedIndex].disabled) {
+        console.log('Prevent disabled Day');
+      } else {
+        this.items.forEach((day, index) => {
+          if (index !== selectedIndex) {
+            day.selected = false;
+          } else {
+            day.selected = true;
+          }
+        });
+      }
+    }
+  },
   data() {
     return {
       ...args,
       selectedSlot: null,
+      isDarkMode,
     }
   },
-  template: `<slot-select :items="items" />`,
+  template: `<slot-select @select-title="select" :items="items" />`,
 });
 
 SlotSelectDefault.storyName = 'Slot Select';
 SlotSelectDefault.args = {
-  items: reactive(demoSlots),
+  items: reactive(demoSlots2),
 };
 
 export const SlotSelectDemo = () => ({
@@ -203,6 +244,23 @@ export const SlotSelectDemo = () => ({
     const demoOutput = computed(() => {
       return `Termin: ${selectedTitle.value?.item} um ${selectedSlot.value?.item}`;
     });
+
+    /**
+     * Get first Day contains slots and is not disabled
+     */
+    const selectDefaultDay = () => {
+      const indexOfDefaultDay = dates.value
+        .findIndex((day) => (!day.disabled && day.slots.length > 0));
+      selectTitle(indexOfDefaultDay);
+    };
+    /**
+     * Select first free Day
+     */
+    selectDefaultDay();
+
+    onMounted(() => {
+      Prism.highlightAll();
+    });
     return {
       selectedTitle,
       selectedSlot,
@@ -210,25 +268,37 @@ export const SlotSelectDemo = () => ({
       selectTitle,
       selectSlot,
       demoOutput,
+      isDarkMode,
     };
   },
   template: `
   <div
-      style="
+    :style="isDarkMode ? 'color: #fff;' : 'color: #000;'"
+    style="
         margin-bottom: 2rem;">
     <h3>Demo</h3>
     <p>{{ demoOutput }}</p>
-    <dl style="display: grid; grid-template-columns: auto 1fr">
+    <dl style="display: grid; grid-template-columns: auto 1fr; min-height: 5rem">
       <dt>selectedTitle:</dt>
       <dd>{{ selectedTitle }}</dd>
       <dt>selectedSlot:</dt>
       <dd>{{ selectedSlot }}</dd>
     </dl>
+    <details>
+      <summary>
+        Code Ouput Dates
+      </summary>
+      <pre class="prismjs">
+        <code class="language-js">
+{{ dates }}
+        </code>
+      </pre>
+    </details>
   </div>
-  <hr>
   <slot-select
     @select-title="selectTitle"
     @select-slot="selectSlot"
+    :is-dark-mode="isDarkMode"
     :items="dates" />
   `,
 });
