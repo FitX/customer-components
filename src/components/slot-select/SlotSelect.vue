@@ -97,6 +97,7 @@ export default {
   components: {
     BaseOption,
   },
+  styles: BaseOption.styles,
   setup: (props, { emit }) => {
     const { getModifierClasses } = useModifier();
     const selectedSlot = ref(null);
