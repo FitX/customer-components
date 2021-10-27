@@ -16,7 +16,6 @@ module.exports = {
   collectCoverageFrom: [
     './src/components/**/*.{js,vue}',
     './src/use/**/*.js',
-    '!./src/components/HelloWorld.vue',
     '!./src/components/index.js',
     '!./src/components/**/*.stories.js',
     '!./src/components/**/*.{e2e,spec}.js',
