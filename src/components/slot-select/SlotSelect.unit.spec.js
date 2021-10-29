@@ -1,64 +1,83 @@
 import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import { nextTick } from 'vue';
-import RequirementsList from '@/components/requirements-list/RequirementsList.vue';
+import SlotSelect from './SlotSelect.vue';
 
-const rules = [
+const demoSlots = [
   {
-    title: 'Mindestens 8 Zeichen',
-    done: false,
-    rule(value = '') {
-      const valid = value.length >= 8;
-      this.done = valid;
-      return valid;
-    },
+    title: 'title 1',
+    sub: 'sub 1',
+    slots: [
+      'slot 1',
+      'slot 2',
+    ]
   },
   {
-    title: 'Enthält eine Zahl',
-    done: false,
-    rule(value = '') {
-      const valid = /\d/.test(value);
-      this.done = valid;
-      return valid;
-    },
+    title: 'title 2',
+    disabled: true,
+    sub: 'sub 2',
+    slots: [
+      'slot 1',
+      'slot 2',
+    ]
   }
-];
+]
 
 describe('Requirements List', () => {
   it('renders with default values', () => {
-    const wrapper = shallowMount(RequirementsList);
-    const items = wrapper.find('ul').element;
-    expect(items.children).toHaveLength(0);
+    const wrapper = shallowMount(SlotSelect);
+    const tabsEl = wrapper.find('.tabs').element;
+    expect(tabsEl.children).toHaveLength(0);
   });
 
-  it('displays rules', () => {
-    const wrapper = shallowMount(RequirementsList, {
+  it('displays tabs', () => {
+    const wrapper = shallowMount(SlotSelect, {
       props: {
-        items: rules,
+        items: demoSlots,
       }
     });
-    const items = wrapper.find('ul').element;
-    expect(items.children).toHaveLength(2);
+    const tabsEl = wrapper.find('.tabs').element;
+    expect(tabsEl.children).toHaveLength(2);
   });
 
   it('has dark mode option', async () => {
-    const wrapper = shallowMount(RequirementsList);
-    const div = wrapper.find('.requirements');
-    expect(div.element).not.toHaveClass('requirements--dark');
+    const wrapper = shallowMount(SlotSelect);
+    const comp = wrapper.find('.slot-select');
+    expect(comp.element).not.toHaveClass('slot-select--dark');
     await wrapper.setProps({ isDarkMode: true });
-    expect(div.element).toHaveClass('requirements--dark');
+    expect(comp.element).toHaveClass('slot-select--dark');
   });
 
-  it('emits value when all items are valid', async () => {
-    const wrapper = shallowMount(RequirementsList, {
+  const selectTab = async (wrapper, tabIndex = 0) => {
+    const arrayIndexToCssChild = tabIndex + 1;
+    const tab = wrapper.find(`.tabs__item:nth-child(${arrayIndexToCssChild})`);
+    await tab.trigger('click');
+  };
+
+  it('emits tab select with tab index on click', async () => {
+    const wrapper = shallowMount(SlotSelect, {
       props: {
-        items: rules,
+        items: demoSlots,
       }
     });
-    wrapper.vm.$props.items[0].done = true;
-    wrapper.vm.$props.items[1].done = true;
+    await selectTab(wrapper);
+    expect(wrapper.emitted()).toHaveProperty('select-title');
+    expect(wrapper.emitted('select-title')[0]).toEqual([0]);
+  });
+
+  it('emits slot select with slot index on click', async () => {
+    const wrapper = shallowMount(SlotSelect, {
+      props: {
+        items: demoSlots,
+      }
+    });
+    const tabIndexToSelect = 1;
+    await selectTab(wrapper, tabIndexToSelect);
+    wrapper.vm.$props.items[tabIndexToSelect].selected = true;
     await nextTick();
-    expect(wrapper.emitted()).toHaveProperty('all-done');
-    expect(wrapper.emitted('all-done')[0]).toEqual([true]);
+    const slot = wrapper.find('.slots__button');
+    await slot.trigger('click');
+    expect(wrapper.emitted()).toHaveProperty('select-slot');
+    expect(wrapper.emitted('select-slot')[0]).toEqual([0]);
   });
 });

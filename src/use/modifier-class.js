@@ -1,7 +1,12 @@
 import { ref } from 'vue';
 
 /**
- *
+ * Get Modifier Class by BEM Syntax
+ * @return {
+ * {refComponent: ToRef<null>,
+ * componentModifier: ToRef<null>,
+ * getModifierClasses: ((function(string, (Array|string)): (Array|string))|*),
+ * getModifierClass: (function(*, *): string)}}
  */
 export default function useModifier() {
   const componentModifier = ref(null);
