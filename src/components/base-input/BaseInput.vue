@@ -313,7 +313,7 @@ label {
   --field-padding-v: var(--form-input-padding, 1.8rem);
   --field-padding-h: var(--form-input-padding, 1.8rem);
 
-  --field-border-size: var(--form-input-border-size, 1px);
+  --field-border-size: var(--form-input-border-size, 0.1rem);
   --field-min-height: var(--form-input-height, 6rem);
 
   position: relative;
@@ -333,7 +333,7 @@ label {
     --field-color-label: var(--brand-color-gray-stone);
     --field-color-bg: transparent;
     --field-color-input: var(--brand-color-white);
-    --field-color-border: var(--brand-color-gray-carbon);
+    --field-color-border: var(--brand-color-gray-graphite);
   }
 
   &--disabled,
@@ -362,14 +362,17 @@ label {
     }
   }
 
-  &:hover,
+  &:hover:not(&--fake-focus),
   &--fake-hover {
     --field-color-border: var(--brand-color-gray-graphite);
+    &#{$self}--dark {
+      --field-color-border: var(--brand-color-gray-cement);
+    }
   }
   &--fake-focus {
     --field-color-border: var(--brand-color-anthracite);
     &#{$self}--dark {
-      --field-color-border: var(--brand-color-gray-cement);
+      --field-color-border: var(--brand-color-gray-stone);
     }
   }
   &__input {
@@ -420,6 +423,10 @@ label {
       &::-webkit-calendar-picker-indicator {
         opacity: 0;
       }
+    }
+    #{$self}--fake-focus &,
+    &:focus {
+      border-width: calc(var(--field-border-size) + 0.05rem);
     }
     #{$self}--fake-focus &,
     &:focus,
