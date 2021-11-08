@@ -313,7 +313,7 @@ label {
   --field-padding-v: var(--form-input-padding, 1.8rem);
   --field-padding-h: var(--form-input-padding, 1.8rem);
 
-  --field-border-size: var(--form-input-border-size, 1px);
+  --field-border-size: var(--form-input-border-size, 0.1rem);
   --field-min-height: var(--form-input-height, 6rem);
 
   position: relative;
@@ -420,6 +420,10 @@ label {
       &::-webkit-calendar-picker-indicator {
         opacity: 0;
       }
+    }
+    #{$self}--fake-focus &,
+    &:focus {
+      border-width: calc(var(--field-border-size) + 0.05rem);
     }
     #{$self}--fake-focus &,
     &:focus,
