@@ -333,7 +333,7 @@ label {
     --field-color-label: var(--brand-color-gray-stone);
     --field-color-bg: transparent;
     --field-color-input: var(--brand-color-white);
-    --field-color-border: var(--brand-color-gray-carbon);
+    --field-color-border: var(--brand-color-gray-graphite);
   }
 
   &--disabled,
@@ -362,14 +362,17 @@ label {
     }
   }
 
-  &:hover,
+  &:hover:not(&--fake-focus),
   &--fake-hover {
     --field-color-border: var(--brand-color-gray-graphite);
+    &#{$self}--dark {
+      --field-color-border: var(--brand-color-gray-cement);
+    }
   }
   &--fake-focus {
     --field-color-border: var(--brand-color-anthracite);
     &#{$self}--dark {
-      --field-color-border: var(--brand-color-gray-cement);
+      --field-color-border: var(--brand-color-gray-stone);
     }
   }
   &__input {
