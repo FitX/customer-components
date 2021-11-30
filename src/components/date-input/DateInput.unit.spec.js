@@ -11,7 +11,7 @@ describe('Date Input', () => {
       },
     });
     const date = wrapper.find('input');
-    expect(date.attributes('data-mask')).toBe('##.##.####');
+    expect(date.attributes('data-mask')).toBe("[\"#T.MM.JJJJ\",\"##.MM.JJJJ\",\"##.#M.JJJJ\",\"##.##.JJJJ\",\"##.##.#JJJ\",\"##.##.##JJ\",\"##.##.###J\",\"##.##.####\"]");
     expect(date.attributes('model')).toBe('1984-08.11');
   });
 
