@@ -72,7 +72,9 @@
         <slot />
       </span>
     </label>
-    <div class="additional">
+    <div
+      v-if="errorMessage"
+      class="additional">
       <span>
         <error-text
           v-if="errorMessage"
