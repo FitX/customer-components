@@ -17,7 +17,7 @@ export default {
 @import '~@/assets/styles/form.scss';
 .valid-icon {
   // --valid-icon-size: 2.7rem;
-  --icon-size: 3.6rem;
+  --icon-size: 2.4rem;
   --icon-width: var(--icon-size);
   --icon-height: var(--icon-size);
   --icon-fill: var(--functional-color-success);

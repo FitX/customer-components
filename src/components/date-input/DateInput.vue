@@ -3,7 +3,7 @@
     :label="label"
     v-bind="{ ...$props, ...$attrs, }"
     :model-value="dottedDate"
-    v-maska="'##.##.####'"
+    v-maska="mask"
     :error-message="errorMessage"
     @input="update($event.target.value)"
     @blur="update($event.target.value)"
@@ -73,10 +73,20 @@ export default {
         dottedDate.value = formatDateFromIso(props.modelValue);
       }
     });
+    const mask = [
+      '#T.MM.JJJJ',
+      '##.MM.JJJJ',
+      '##.#M.JJJJ',
+      '##.##.JJJJ',
+      '##.##.#JJJ',
+      '##.##.##JJ',
+      '##.##.###J',
+      '##.##.####'];
     return {
       update,
       isoDate,
       dottedDate,
+      mask,
     };
   },
 };

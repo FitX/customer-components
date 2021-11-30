@@ -1,6 +1,6 @@
 {
   "name": "@fitx/customer-components",
-  "version": "0.1.135",
+  "version": "0.2.1",
   "files": [
     "dist/*",
     "src/*"
@@ -28,7 +28,7 @@
     "audit": "0.0.6",
     "core-js": "^3.6.5",
     "fix": "0.0.6",
-    "maska": "^1.4.5",
+    "maska": "^1.5.0",
     "path": "^0.12.7",
     "prismjs": "^1.25.0",
     "sass": "^1.39.2",
