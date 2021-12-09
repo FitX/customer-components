@@ -5,8 +5,7 @@
     :value="modelValue"
     @input="(event) => {
       // Overwrite for sync
-      event.target.value = handleInput(event.target.value);
-      update(event.target.value);
+      event.target.value = update(event.target.value);
     }"
     :error-message="errorMessage"
     type="text"
@@ -54,7 +53,9 @@ export default {
       handleInput,
     } = useDateInput({ lang: props.lang });
     const update = (newVal) => {
-      emit('update:modelValue', newVal);
+      const formatted = handleInput(newVal);
+      emit('update:modelValue', formatted);
+      return formatted;
     };
     return {
       handleInput,
