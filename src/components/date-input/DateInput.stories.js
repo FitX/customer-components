@@ -19,8 +19,7 @@ const storyDescription = `
 
 Modifizierte Version der BaseInput Component zur Darstellung für Datum z.B. Geburtsdatum.
 
-- Datum Model Format: **'yyyy-MM-dd'**
-- Masken Format: **'dd.MM.yyyy'**
+- Datum Model Format für prop.lang="de": **'dd.MM.yyyy'**
 `;
 
 const eventListener = {
@@ -110,7 +109,7 @@ DateInputFocused.storyName = 'focused';
 
 export const DateInputValid = Template.bind({});
 DateInputValid.args = {
-  model: '1984-08-11',
+  model: '11.08.1984',
   isValid: true,
 };
 DateInputValid.parameters = {
@@ -150,7 +149,7 @@ DateInputDisabled.storyName = 'Disabled';
 
 export const DateInputDisabledPreFilled = Template.bind({});
 DateInputDisabledPreFilled.args = {
-  model: '1984-08-11',
+  model: '11.08.1984',
   disabled: true,
 };
 DateInputDisabledPreFilled.storyName = 'Disabled Prefilled';

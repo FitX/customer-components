@@ -11,7 +11,6 @@ describe('Date Input', () => {
       },
     });
     const date = wrapper.find('input');
-    expect(date.attributes('data-mask')).toBe("[\"#T.MM.JJJJ\",\"##.MM.JJJJ\",\"##.#M.JJJJ\",\"##.##.JJJJ\",\"##.##.#JJJ\",\"##.##.##JJ\",\"##.##.###J\",\"##.##.####\"]");
     expect(date.attributes('model')).toBe('1984-08.11');
   });
 
@@ -30,9 +29,9 @@ describe('Date Input', () => {
         isValid: true,
       },
     });
-    expect(wrapper.vm.dottedDate).toBe(null);
+    expect(wrapper.vm.value).toBe(null);
     // const input = wrapper.find('input');
     await wrapper.setProps({ modelValue: '2013-03-10' });
-    expect(wrapper.vm.dottedDate).toBe('10.03.2013');
+    expect(wrapper.vm.value).toBe('10.03.2013');
   });
 });

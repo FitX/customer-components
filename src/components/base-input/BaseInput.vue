@@ -53,7 +53,7 @@
         ]">
       <span
         class="field__text"
-        v-if="label">{{ label }}</span>
+        v-if="label">{{ label }} intern: {{ modelValue }}</span>
       <button
         class="field__icon clearable-icon"
         @click.prevent="clearInput()"
@@ -434,6 +434,9 @@ label {
     &:focus,
     &--not-empty,
     &--auto-filled {
+      &::placeholder {
+        color: var(--field-color-input);
+      }
       // Overwrite Browser Date Color
       &[type="date"] {
         color: var(--field-color-input);
@@ -454,6 +457,9 @@ label {
     }
     &:focus-visible {
       border-color: var(--field-color-border)
+    }
+    &::placeholder {
+      color: transparent;
     }
   }
   &__icon {
