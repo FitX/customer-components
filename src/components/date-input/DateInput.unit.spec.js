@@ -1,3 +1,6 @@
+t('@TODO enable after babel src', () => {
+  expect(true).toBe(true);
+});
 /* 
 @TODO enable after babel src
 import { mount } from '@vue/test-utils';
