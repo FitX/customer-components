@@ -1,4 +1,4 @@
-t('@TODO enable after babel src', () => {
+it('@TODO enable after babel src', () => {
   expect(true).toBe(true);
 });
 /* 
