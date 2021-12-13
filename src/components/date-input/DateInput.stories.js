@@ -129,7 +129,7 @@ DateInputError.storyName = 'Error';
 
 export const DateInputErrorFilled = Template.bind({});
 DateInputErrorFilled.args = {
-  model: '11.08.1984',
+  model: '11.08.198',
   errorMessage: 'Das Datum ist ungültig.',
 };
 DateInputErrorFilled.storyName = 'Error Filled';
