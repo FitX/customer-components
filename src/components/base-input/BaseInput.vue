@@ -53,7 +53,7 @@
         ]">
       <span
         class="field__text"
-        v-if="label">{{ label }} intern: {{ modelValue }}</span>
+        v-if="label">{{ label }}</span>
       <button
         class="field__icon clearable-icon"
         @click.prevent="clearInput()"
