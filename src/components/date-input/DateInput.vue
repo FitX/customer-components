@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { useDateInput } from '@fitx/date-input';
+import { useDateInput } from '@fitx/date-input/dist/index.umd';
 import BaseInput, {
   modifier,
   baseInputProps,
