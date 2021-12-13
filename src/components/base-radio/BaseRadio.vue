@@ -236,7 +236,7 @@ export default {
     }
 
     #{$self}--error & {
-      --radio-color-bg: var(--functional-color-error);
+      --radio-color-bg: var(--functional-color-error-1-light);
       --radio-color-border: var(--functional-color-error);
       @at-root {
         #{$self}--button#{$self}--error {
