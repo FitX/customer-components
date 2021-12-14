@@ -16,12 +16,11 @@
 </template>
 
 <script>
+import { useDateInput } from '@fitx/date-input/dist/index.cjs';
 import BaseInput, {
   modifier,
   baseInputProps,
 } from '@/components/base-input/BaseInput.vue';
-
-const { useDateInput } = require('@fitx/date-input');
 /**
  * Modifier used from BaseInput
  * @description lorem
