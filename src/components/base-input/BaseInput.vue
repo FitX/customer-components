@@ -434,6 +434,9 @@ label {
     &:focus,
     &--not-empty,
     &--auto-filled {
+      &::placeholder {
+        color: var(--field-color-input);
+      }
       // Overwrite Browser Date Color
       &[type="date"] {
         color: var(--field-color-input);
@@ -454,6 +457,9 @@ label {
     }
     &:focus-visible {
       border-color: var(--field-color-border)
+    }
+    &::placeholder {
+      color: transparent;
     }
   }
   &__icon {

@@ -2,31 +2,27 @@
   <base-input
     :label="label"
     v-bind="{ ...$props, ...$attrs, }"
-    :model-value="dottedDate"
-    v-maska="mask"
+    :value="modelValue"
+    @input="(event) => {
+      // Overwrite for sync
+      event.target.value = update(event.target.value);
+    }"
     :error-message="errorMessage"
-    @input="update($event.target.value)"
-    @blur="update($event.target.value)"
-    @change="update($event.target.value)"></base-input>
+    type="text"
+    pattern="[0-9]*"
+    inputmode="numeric"
+    placeholder="TT.MM.JJJJ"
+  ></base-input>
 </template>
 
 <script>
-import { maska } from 'maska';
-import { computed, ref, watchEffect } from 'vue';
+import { useDateInput } from '@fitx/date-input';
 import BaseInput, {
   modifier,
   baseInputProps,
 } from '@/components/base-input/BaseInput.vue';
-import { formatDateToIso, formatDateFromIso } from '@/use/formatDate';
 
-/**
- * Date Format for Model: 'yyyy-MM-dd'
- * @typedef {string} DateInputStringFormat - 'yyyy-MM-dd'
- */
-/**
- * @typedef {DateInputStringFormat|null} DateInputModelValue
- */
-
+// const { useDateInput } = require('@fitx/date-input/dist/index.cjs');
 /**
  * Modifier used from BaseInput
  * @description lorem
@@ -42,51 +38,30 @@ export default {
   emits: [
     /**
      * Fires on Model Update
-     * @property {DateInputModelValue} val - Input Value
      */
     'update:modelValue',
   ],
-  directives: {
-    maska,
+  props: {
+    ...baseInputProps,
+    lang: {
+      type: String,
+      default: 'de',
+    },
   },
-  props: baseInputProps,
   // For Web Components Build
   styles: BaseInput.styles,
   setup(props, { emit }) {
-    // Dotted Date from Iso Model Value
-    const dottedDate = ref(formatDateFromIso(props.modelValue));
-    // Iso Date from dotted value
-    const isoDate = computed(() => (formatDateToIso(dottedDate.value)));
-    /**
-     * Set dotted value but emit iso Date
-     * @param {String} value - Format 'dd.MM.yyyy'
-     */
-    function update(value) {
-      dottedDate.value = value;
-      emit('update:modelValue', isoDate.value);
-    }
-    /**
-     * Overwrite async model-value changes
-     */
-    watchEffect(() => {
-      if (props.modelValue && !dottedDate.value) {
-        dottedDate.value = formatDateFromIso(props.modelValue);
-      }
-    });
-    const mask = [
-      '#T.MM.JJJJ',
-      '##.MM.JJJJ',
-      '##.#M.JJJJ',
-      '##.##.JJJJ',
-      '##.##.#JJJ',
-      '##.##.##JJ',
-      '##.##.###J',
-      '##.##.####'];
+    const {
+      handleInput,
+    } = useDateInput({ lang: props.lang });
+    const update = (newVal) => {
+      const formatted = handleInput(newVal);
+      emit('update:modelValue', formatted);
+      return formatted;
+    };
     return {
+      handleInput,
       update,
-      isoDate,
-      dottedDate,
-      mask,
     };
   },
 };

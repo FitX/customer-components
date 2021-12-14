@@ -239,7 +239,7 @@ export default {
     }
 
     #{$self}--error & {
-      --checkbox-color-bg: var(--functional-color-error);
+      --checkbox-color-bg: var(--functional-color-error-1-light);
       --checkbox-color-border: var(--functional-color-error);
     }
     #{$self}--error#{$self}--dark & {
