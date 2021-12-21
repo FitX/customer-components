@@ -36,7 +36,7 @@ import iconCheckmark from '@/assets/icons/icon-checkmark.svg';
 // import iconCheckmark from '!!vue-svg-loader!../../assets/icons/icon-checkmark.svg';
 
 /**
- * @typedef {string|number|null|Array<string | number>} BaseCheckboxModelValue
+ * @typedef {string|number|Date|null|Array<string | number>} BaseCheckboxModelValue
  */
 
 export const modifier = [
@@ -66,6 +66,7 @@ export default {
         String,
         Number,
         Array,
+        Date,
       ],
       default: null,
     },
