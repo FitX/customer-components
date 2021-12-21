@@ -73,21 +73,21 @@ export default {
      * Value {BaseCheckboxModelValue}
      */
     value: {
-      type: [String, Number, Array],
+      type: [String, Number, Array, Date],
       default: null,
     },
     /**
      * @see https://v3.vuejs.org/guide/forms.html#checkbox-2
      */
     trueValue: {
-      type: [Boolean, String, Number],
+      type: [Boolean, String, Number, Date],
       default: true,
     },
     /**
      * @see https://v3.vuejs.org/guide/forms.html#checkbox-2
      */
     falseValue: {
-      type: [Boolean, String, Number],
+      type: [Boolean, String, Number, Date],
       default: false,
     },
     /* checked: {
