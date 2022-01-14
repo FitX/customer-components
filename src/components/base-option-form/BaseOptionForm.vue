@@ -1,112 +1,128 @@
 <template>
-  <button
+  <label
     v-bind="$attrs"
+    class="btn"
     :class="[
+      getModifierClasses('btn', [
+        isChecked ? 'active' : null,
+        isDarkMode ? 'dark' : null,
+        $attrs.disabled ? 'disabled' : null,
+      ]),
       getModifierClasses('btn', modifier),
-      { 'btn--dark' : isDarkMode },
-      { 'btn--active' : localIsActive },
-    ]"
-    @click="handleClick"
-    class="btn">
+    ]">
+    <input
+      class="btn__input"
+      v-model="computedValue"
+      type="checkbox"
+      v-bind="$attrs"
+      :value="value"
+      :true-value="value"
+    />
     <!--
       @slot Default Content Slot
     -->
     <slot>
       {{ title }}
     </slot>
-  </button>
+  </label>
 </template>
 
 <script>
-import { ref } from 'vue';
-import useModifier from '@/use/modifier-class';
+import { computed } from 'vue';
 import validateValueWithList from '@/use/validate-value-with-list';
+import useModifier from '@/use/modifier-class';
+
+/**
+ * @typedef {null | boolean | string | number | Array<string | number>} BaseOptionFormModelValue
+ */
 
 export const modifier = [
+  // 'disabled',
+  'fake-focus',
+  'fake-hover',
   'disabled',
   'error',
-  'fake-hover',
 ];
 
 export default {
   name: 'BaseOptionForm',
-  emits: [
-    /**
-     * Fires when selected
-     * @type {event} Dom Event
-     */
-    'selected',
-    /**
-     * Fires when unselected
-     * @type {event} Dom Event
-     */
-    'unselected',
-  ],
+  inheritAttrs: false,
   props: {
-    /**
-     * optional Title, rendered in default slot
-     */
-    title: {
-      type: String,
-      default: null,
-    },
-    /**
-     * Option to render in Dark Mode
-     */
     isDarkMode: {
       type: Boolean,
       default: false,
     },
     /**
-     * If activated
+     * @model
      */
-    isActive: {
-      type: Boolean,
-      default: false,
+    modelValue: {
+      type: [
+        Array,
+        String,
+        Number,
+        Boolean,
+      ],
+      default: null,
     },
     /**
-     * Component Modifier
+     * Value {BaseOptionFormModelValue}
      */
+    value: {
+      type: [
+        String,
+        Number,
+        Boolean,
+      ],
+      default: null,
+    },
     modifier: {
       type: [String, Array],
       default: null,
       validator: (value) => validateValueWithList(value, modifier),
     },
+    title: {
+      type: [String, Number],
+      default: null,
+    },
   },
-  setup(props, { emit }) {
-    const { getModifierClasses } = useModifier();
-    const localIsActive = ref(props.isActive);
+  emits: [
     /**
-     * Toggle Button State and emit current state
-     *
-     * @public
-     * @param {object} Dom Event
+     * Fires on Model Update
+     * @property {BaseOptionFormModelValue} val - Checkbox Value
      */
-    function handleClick(e) {
-      if (localIsActive.value) {
-        /**
-         * Unselected event.
-         *
-         * @event unselected
-         * @type {object}
-         */
-        emit('unselected', e);
-      } else {
-        /**
-         * selected event.
-         *
-         * @event selected
-         * @type {object}
-         */
-        emit('selected', e);
+    'update:modelValue',
+  ],
+  setup: (props, { emit }) => {
+    /**
+     * Local Model
+     * @type {WritableComputedRef<boolean|string|number|(string|number)[]|undefined>}
+     */
+    const computedValue = computed({
+      /**
+       * Get Model Value
+       * @return {string|number|*}
+       */
+      get: () => props.modelValue,
+      /**
+       * Emit local Modal Value
+       * @param {BaseOptionFormModelValue} value
+       */
+      set(value) {
+        emit('update:modelValue', value);
+      },
+    });
+    const isChecked = computed(() => {
+      if (props.modelValue instanceof Array) {
+        return props.modelValue.includes(props.value);
       }
-
-      localIsActive.value = !localIsActive.value;
-    }
+      return props.modelValue === props.value;
+      // return false;
+    });
+    const { getModifierClasses } = useModifier();
     return {
+      computedValue,
       getModifierClasses,
-      handleClick,
-      localIsActive,
+      isChecked,
     };
   },
 };
@@ -199,6 +215,10 @@ export default {
     --btn-color-bg: transparent;
     --btn-color: #E83623;
     --btn-color-border: #E83623;
+  }
+
+  &__input {
+    display: none;
   }
 
 }
