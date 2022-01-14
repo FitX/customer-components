@@ -1,5 +1,5 @@
 describe('BaseButton', () => {
-  before((client) => client.url('http://localhost:6006/iframe.html?id=components-buttons-basebutton--default-button&args=&viewMode=story'));
+  before((client) => client.url('http://localhost:6006/iframe.html?id=components-buttons-base-button--default-button&args=&viewMode=story'));
 
   it('default is clickable', (client) => {
     client
@@ -28,7 +28,7 @@ describe('BaseButton', () => {
   });
 
   it('Primary buttons', (client) => {
-    const url = 'http://localhost:6006/iframe.html?id=components-buttons-basebutton--primary-buttons&args=&viewMode=story';
+    const url = 'http://localhost:6006/iframe.html?id=components-buttons-base-button--primary-buttons&args=&viewMode=story';
     client.url(url);
     client.expect.elements('button').count.to.equal(3);
 
