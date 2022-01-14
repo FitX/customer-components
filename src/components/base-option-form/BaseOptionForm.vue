@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
 
@@ -76,6 +76,9 @@ export default {
   setup(props, { emit }) {
     const { getModifierClasses } = useModifier();
     const localIsActive = ref(props.isActive);
+    watch(() => props.isActive, (newVal) => {
+      localIsActive.value = newVal;
+    });
     /**
      * Toggle Button State and emit current state
      *

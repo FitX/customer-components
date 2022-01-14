@@ -38,6 +38,19 @@ describe('Base Button', () => {
     expect(button.element).toHaveClass('btn');
   });
 
+  it('update states on props value change', async () => {
+    const wrapper = shallowMount(BaseOptionForm, {
+      props: {
+        isActive: false,
+      },
+    });
+    expect(wrapper.vm.localIsActive).toBe(false);
+    const button = wrapper.find('button');
+    await wrapper.setProps({ isActive: true });
+    expect(wrapper.vm.localIsActive).toBe(true);
+    expect(button.element).toHaveClass('btn--active');
+  });
+
   it('sets dark mode class', () => {
     const wrapper = shallowMount(BaseOptionForm, {
       props: {

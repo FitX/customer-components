@@ -1,4 +1,4 @@
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 // import { action } from '@storybook/addon-actions';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
 import BaseOptionForm, {
@@ -59,6 +59,34 @@ const groupTemplate = `
   <base-option-form v-for="(button, index) in group" :key="index" v-bind="button.args" />
 </div>`;
 
+const groupTemplateSingle = `
+<div>
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1rem">
+    <base-option-form
+      v-for="(button, index) in group"
+      :key="index"
+      v-bind="button.args"
+      :is-active="button.args.value === selectedOption"
+      @unselected="setOptionModel(null)"
+      @selected="setOptionModel(button.args.value)" />
+  </div>
+  <p v-if="selectedOption">selectedOption: {{ selectedOption }}</p>
+</div>`;
+
+const groupTemplateMultiple = `
+<div>
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1rem">
+    <base-option-form
+      v-for="(button, index) in group"
+      :key="index"
+      v-bind="button.args"
+      :is-active="isActive(button.args.value)"
+      @unselected="unSelect(button.args.value)"
+      @selected="select(button.args.value)" />
+  </div>
+  <p v-if="selectedOption">selectedOption: {{ selectedOption }}</p>
+</div>`;
+
 /* ******************************** */
 /// Story Wrapper
 /* ******************************** */
@@ -108,6 +136,61 @@ const TemplateGroup = (groupItems) => ({
   template: groupTemplate,
 });
 
+const TemplateGroupSingle = (groupItems) => ({
+  components: { BaseOptionForm },
+  setup() {
+    const group = groupItems.map((item) => {
+      const itemCopy = item;
+      if (typeof item.args.isDarkMode === 'undefined') {
+        itemCopy.args.isDarkMode = isDarkMode;
+      }
+      return itemCopy;
+    });
+    const selectedOption = ref(null);
+    const setOptionModel = (val) => {
+      selectedOption.value = val;
+    };
+    return {
+      group: reactive(group),
+      selectedOption,
+      setOptionModel,
+    };
+  },
+  template: groupTemplateSingle,
+});
+
+const TemplateGroupMultiple = (groupItems) => ({
+  components: { BaseOptionForm },
+  setup() {
+    const group = groupItems.map((item) => {
+      const itemCopy = item;
+      if (typeof item.args.isDarkMode === 'undefined') {
+        itemCopy.args.isDarkMode = isDarkMode;
+      }
+      return itemCopy;
+    });
+    const selectedOption = reactive([]);
+    const select = (val) => {
+      // selectedOption.value.indexOf()
+      selectedOption.push(val);
+    };
+    const unSelect = (val) => {
+      const index = selectedOption.indexOf(val);
+      console.log('index', index);
+      selectedOption.splice(index, 1);
+    };
+    const isActive = (val) => selectedOption.includes(val);
+    return {
+      group: reactive(group),
+      selectedOption,
+      isActive,
+      select,
+      unSelect,
+    };
+  },
+  template: groupTemplateMultiple,
+});
+
 //* ******************************** */
 /// Stories
 /* ******************************** */
@@ -150,3 +233,39 @@ export const BaseOptionsForms = () => TemplateGroup([
   },
 ]);
 BaseOptionsForms.storyName = 'Zustände';
+
+export const BaseOptionsFormsSingle = () => TemplateGroupSingle([
+  {
+    args: {
+      title: 'Option 1',
+      value: 'option-1',
+      ...eventListener,
+    },
+  },
+  {
+    args: {
+      title: 'Option 2',
+      value: 'option-2',
+      ...eventListener,
+    },
+  },
+]);
+BaseOptionsFormsSingle.storyName = 'Single';
+
+export const BaseOptionsFormsMultiple = () => TemplateGroupMultiple([
+  {
+    args: {
+      title: 'Option 1',
+      value: 'option-1',
+      ...eventListener,
+    },
+  },
+  {
+    args: {
+      title: 'Option 2',
+      value: 'option-2',
+      ...eventListener,
+    },
+  },
+]);
+BaseOptionsFormsMultiple.storyName = 'Multiple';
