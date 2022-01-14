@@ -73,7 +73,6 @@
       </span>
     </label>
     <div
-      v-if="errorMessage"
       class="additional">
       <span>
         <error-text
