@@ -2,78 +2,59 @@ import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import BaseOptionForm from '@/components/base-option-form/BaseOptionForm.vue';
 
-describe('Base Button', () => {
-  it('renders as button as default', () => {
+describe('Filter Chip', () => {
+  it('renders default filter chip state', () => {
+    const wrapper = shallowMount(BaseOptionForm, {
+      props: {
+        title: 'Foobar',
+      },
+    });
+    expect(wrapper.find('label').text()).toContain('Foobar');
+    const input = wrapper.find('input');
+    expect(input.attributes('type')).toBe('checkbox');
+  });
+
+  it('updates computed value and emits update', async () => {
     const wrapper = shallowMount(BaseOptionForm);
-    expect(wrapper.html()).toContain('<button class="btn">');
-    expect(wrapper.html()).toContain('</button>');
+    const input = wrapper.find('input');
+    await input.setValue('some value');
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+    expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
   });
 
-  it('shows title', () => {
-    const wrapper = shallowMount(BaseOptionForm, {
-      props: {
-        title: 'hello world',
-      },
-    });
-    expect(wrapper.text()).toContain('hello world');
-  });
-
-  it('has correct modifier class', async () => {
-    const wrapper = shallowMount(BaseOptionForm, {
-      props: { modifier: 'disabled' },
-    });
-    const button = wrapper.find('button');
-    expect(button.element).toHaveClass('btn--disabled');
-
-    await wrapper.setProps({ modifier: ['disabled', 'error'] });
-    expect(button.element).toHaveClass('btn--disabled');
-    expect(button.element).toHaveClass('btn--error');
-
-    await wrapper.setProps({ modifier: '' });
-    expect(button.element).not.toHaveClass('btn--disabled');
-    expect(button.element).toHaveClass('btn');
-
-    await wrapper.setProps({ modifier: '' });
-    expect(button.element).not.toHaveClass('btn--disabled');
-    expect(button.element).toHaveClass('btn');
-  });
-
-  it('update states on props value change', async () => {
-    const wrapper = shallowMount(BaseOptionForm, {
-      props: {
-        isActive: false,
-      },
-    });
-    expect(wrapper.vm.localIsActive).toBe(false);
-    const button = wrapper.find('button');
-    await wrapper.setProps({ isActive: true });
-    expect(wrapper.vm.localIsActive).toBe(true);
-    expect(button.element).toHaveClass('btn--active');
-  });
-
-  it('sets dark mode class', () => {
-    const wrapper = shallowMount(BaseOptionForm, {
-      props: {
-        isDarkMode: 'true',
-      },
-    });
-    const button = wrapper.find('button');
-    expect(button.element).toHaveClass('btn--dark');
-  });
-
-  it('emits correct value when is active', () => {
-    const wrapper = shallowMount(BaseOptionForm, {
-      props: {
-        isActive: 'true',
-      },
-    });
-    wrapper.find('button').trigger('click');
-    expect(wrapper.emitted()).toHaveProperty('unselected');
-  });
-
-  it('emits correct value when is not active', () => {
+  it('has all necessary states', async () => {
     const wrapper = shallowMount(BaseOptionForm);
-    wrapper.find('button').trigger('click');
-    expect(wrapper.emitted()).toHaveProperty('selected');
+    const label = wrapper.find('label');
+    expect(label.element).toHaveClass('btn');
+    expect(label.element).not.toHaveClass('btn--disabled');
+    await wrapper.setProps({ modifier: 'disabled' });
+    expect(label.element).toHaveClass('btn--disabled');
+    await wrapper.setProps({ modifier: 'fake-focus' });
+    expect(label.element).toHaveClass('btn--fake-focus');
+    await wrapper.setProps({ modifier: 'fake-hover' });
+    expect(label.element).toHaveClass('btn--fake-hover');
+  });
+
+  it('updates isChecked value', async () => {
+    const wrapper = shallowMount(BaseOptionForm, {
+      props: {
+        modelValue: [
+          'one',
+          'two',
+        ],
+        value: 'one',
+      },
+    });
+    expect(wrapper.vm.isChecked).toBe(true);
+  });
+
+  it('updates isChecked value single', async () => {
+    const wrapper = shallowMount(BaseOptionForm, {
+      props: {
+        modelValue: 'jojo',
+        value: 'jojo',
+      },
+    });
+    expect(wrapper.vm.isChecked).toBe(true);
   });
 });
