@@ -73,6 +73,7 @@
       </span>
     </label>
     <div
+      v-if="errorMessage || $slots.count"
       class="additional">
       <span>
         <error-text

@@ -42,6 +42,32 @@ describe('Base Input', () => {
     expect(wrapper.find('.error-message').attributes('errormessage')).toBe('This is an error');
   });
 
+  it('additional only render on correct error message condition', async () => {
+    const wrapper = shallowMount(BaseInput);
+
+    expect(wrapper.find('.additional').exists()).toBeFalsy();
+    await wrapper.setProps({
+      errorMessage: 'This is an error',
+    });
+    expect(wrapper.find('.additional').exists()).toBeTruthy();
+  });
+
+  it('additional dont render without count slot', async () => {
+    const wrapper = shallowMount(BaseInput);
+
+    expect(wrapper.find('.additional').exists()).toBeFalsy();
+  });
+
+  it('additional only render on correct slot condition', async () => {
+    const wrapper = shallowMount(BaseInput, {
+      slots: {
+        count: '3',
+      },
+    });
+
+    expect(wrapper.find('.additional').exists()).toBeTruthy();
+  });
+
   it('sets not empty and autofilled classes ', async () => {
     const wrapper = shallowMount(BaseInput);
     await wrapper.setProps({
