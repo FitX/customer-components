@@ -133,7 +133,7 @@ export default {
 // @use '~@/assets/styles/mixins.scss' as mixin;
 @import '~@/assets/styles/mixin-reset.scss';
 .btn {
-  @include btn-reset();
+  // @include btn-reset();
 
   $self: &;
   --btn-color-bg: #fff;
