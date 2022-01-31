@@ -126,9 +126,9 @@ export default {
   --radio-color: var(--brand-color-anthracite);
   --radio-color-border: var(--brand-color-gray-stone);
   --radio-color-button-border: var(--radio-color-border);
-  --radio-color-bg: transparent;
+  --radio-color-bg: #fff;
   // --radio-color-button-bg: var(--radio-color-bg);
-  --radio-color-button-bg: transparent;
+  --radio-color-button-bg: #fff;
   --radio-icon-size: 2.4rem;
   --radio-font-size: var(--form-input-font-size, 1.8rem);
   // --radio-size: calc((2 * 0.1rem) + var(--radio-icon-size));
@@ -163,6 +163,8 @@ export default {
   &--dark {
     --radio-color: #fff;
     --radio-color-border: var(--brand-color-gray-graphite);
+    --radio-color-button-bg: var(--brand-color-anthracite);
+    --radio-color-bg: var(--brand-color-anthracite);
     &#{$self}--error {
       --radio-icon-fill: #fff;
     }
