@@ -6,10 +6,10 @@
     "src/*"
   ],
   "main": "dist/customer-components.umd.js",
-  "module": "dist/customer-components.es.js",
+  "module": "dist/customer-components.esm.js",
   "exports": {
     ".": {
-      "import": "./dist/customer-components.es.js",
+      "import": "./dist/customer-components.esm.js",
       "require": "./dist/customer-components.umd.js"
     }
   },

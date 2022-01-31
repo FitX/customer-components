@@ -34,7 +34,7 @@ export default defineConfig({
     minify: false,
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
-      formats: ['cjs', 'es', 'umd', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
+      formats: ['cjs', 'esm', 'es', 'umd', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
       name: 'customerComponents',
     },
     /* rollupOptions: {
