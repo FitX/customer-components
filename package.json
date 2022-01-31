@@ -6,7 +6,6 @@
     "src/*"
   ],
   "main": "dist/customer-components.umd.js",
-  "module": "dist/customer-components.es.js",
   "style": "./dist/customer-components.css",
   "scripts": {
     "serve": "vue-cli-service serve ./src/main.js",
