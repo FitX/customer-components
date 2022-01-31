@@ -1,12 +1,11 @@
 {
   "name": "@fitx/customer-components",
-  "version": "1.0.0",
+  "version": "1.1.4",
   "files": [
     "dist/*",
     "src/*"
   ],
   "main": "dist/customer-components.umd.js",
-  "module": "dist/customer-components.es.js",
   "style": "./dist/customer-components.css",
   "scripts": {
     "serve": "vue-cli-service serve ./src/main.js",
