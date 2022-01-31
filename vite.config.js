@@ -30,6 +30,7 @@ export default defineConfig({
   build: {
     cssCodeSplit: true,
     target: 'esnext', // esnext | es2015
+    minify: 'esbuild',
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
       formats: ['cjs', 'es', 'umd', 'iife'], // 'es' | 'cjs' | 'umd' | 'iife'
@@ -51,6 +52,7 @@ export default defineConfig({
       external: ['vue'],
       output: {
         exports: 'named',
+        esModule: true,
         assetFileNames: 'customer-components.[ext]',
         globals: {
           vue: 'Vue',

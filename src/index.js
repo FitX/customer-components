@@ -77,7 +77,7 @@ export default install;
 export * from '@/components/index'; */
 import '@/assets/styles/lib.scss';
 import { defineCustomElement } from 'vue';
-import * as components from './components/index';
+export * as components from '@/components/index';
 
 /**
  * Convert kebab-case to camelCase
@@ -181,7 +181,6 @@ const installWebComponents = function () {
 
 export * from '@/components/index';
 export {
-  // install,
   installWebComponent,
   installWebComponents,
 };
