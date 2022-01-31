@@ -77,7 +77,7 @@ export default install;
 export * from '@/components/index'; */
 import '@/assets/styles/lib.scss';
 import { defineCustomElement } from 'vue';
-export * as components from '@/components/index';
+import * as components from '@/components/index';
 
 /**
  * Convert kebab-case to camelCase
