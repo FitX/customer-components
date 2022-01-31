@@ -157,7 +157,7 @@ export default {
   $self: &;
   --checkbox-color: var(--brand-color-anthracite);
   --checkbox-color-border: var(--brand-color-gray-stone);
-  --checkbox-color-bg: transparent;
+  --checkbox-color-bg: #fff;
   --checkbox-icon-size: 2.4rem;
   --checkbox-font-size: var(--form-input-font-size, 1.8rem);
   // --checkbox-size: calc((2 * 0.1rem) + var(--checkbox-icon-size));
@@ -177,6 +177,7 @@ export default {
   &--dark {
     --checkbox-color: #fff;
     --checkbox-color-border: var(--brand-color-gray-graphite);
+    --checkbox-color-bg: var(--brand-color-anthracite);
     &#{$self}--error {
       --checkbox-icon-fill: #fff;
     }
