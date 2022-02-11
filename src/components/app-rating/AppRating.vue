@@ -1,4 +1,5 @@
 <script>
+import { computed, ref } from 'vue';
 import AnimationSatellite from './animation-satellite.vue';
 import IconVote1 from '@/assets/icons/icon-vote-1.svg';
 import IconVote2 from '@/assets/icons/icon-vote-2.svg';
@@ -11,6 +12,13 @@ import IconVote5 from '@/assets/icons/icon-vote-5.svg';
  * JavaScript is, however, zero-based, so want those elements with a modulo of 1:
  */
 const filterEvenElement = (array = []) => array.filter((item, index) => index % 2 === 0);
+const titles = [
+  'nicht so gut',
+  'naja',
+  'ok',
+  'gut',
+  'sehr gut',
+];
 export default {
   name: 'AppRating',
   components: {
@@ -22,7 +30,7 @@ export default {
     IconVote5,
   },
   props: {
-    name: {
+    title: {
       type: String,
       default: null,
     },
@@ -30,105 +38,74 @@ export default {
       type: Boolean,
       default: false,
     },
-    description: {
-      type: String,
-      default: null,
-    },
-    numberOfVotings: {
+    numberOfVotes: {
       type: Number,
       default: 5,
       validator: (value) => {
-        const acceptedValues = [2, 3, 5];
+        const acceptedValues = [3, 5];
         return acceptedValues.includes(value);
       },
-    },
-    modifier: {
-      type: String,
-      default: null,
-      validator: (value) => {
-        const acceptedValues = ['block'];
-        return acceptedValues.includes(value);
-      },
-    },
-    additionalStyles: {
-      type: Object,
-      default: () => ({}),
     },
   },
-  data() {
-    return {
-      vote: null,
-      components: [],
-      defaultStyles: {
-        '--voting-icon-count': this.numberOfVotings,
-        '--icon-size': '3.625rem', // 58px
-      },
+  setup(props, { emit }) {
+    const vote = ref(null);
+    const components = ref([]);
+
+    /**
+     * set vote
+     * @param {number} count
+     */
+    const saveVote = (count) => {
+      vote.value = count;
+      emit('success', count);
     };
-  },
-  computed: {
-    cssVars() {
-      return {
-        ...this.defaultStyles,
-        ...this.additionalStyles,
-      };
-    },
-  },
-  created() {
-    const components = [];
-    for (let count = 0; count < 5; count += 1) {
-      const countNumber = (count + 1);
-      // Runs 5 times, with values of step 0 through 4.
-      components[count] = {
-        index: countNumber,
-        title: this.getVoteTitles(count),
-        // component: () => import(`@/img/icon-vote-${countNumber}.svg`),
-        component: `IconVote${countNumber}`,
-      };
-    }
-    if (this.numberOfVotings === 5) {
-      this.components = components;
-    } else if (this.numberOfVotings === 3) {
-      this.components = filterEvenElement(components);
-    } else {
-      const filtered = filterEvenElement(components);
-      // For only 2 votings, filter and remove middle
-      filtered.splice(1, 1);
-      this.components = filtered;
-    }
-  },
-  methods: {
-    saveVote(count) {
-      this.vote = count;
-      this.$emit('success', this.vote);
-    },
-    getVoteTitles(vote) {
-      const titles = [
-        'nicht so gut',
-        'naja',
-        'ok',
-        'gut',
-        'sehr gut',
-      ];
-      return titles[vote];
-    },
+    /**
+     * Initi Components by numberOfVotes
+     */
+    const initComponents = () => {
+      for (let count = 0; count < 5; count += 1) {
+        const countNumber = (count + 1);
+        // Runs 5 times, with values of step 0 through 4.
+        components.value[count] = {
+          index: countNumber,
+          title: titles[count],
+          component: `IconVote${countNumber}`,
+        };
+      }
+    };
+
+    const componentsByVoteCount = computed(() => {
+      if (props.numberOfVotes === 3) {
+        return filterEvenElement(components.value);
+      }
+
+      return components.value;
+    });
+
+    initComponents();
+
+    return {
+      vote,
+      saveVote,
+      componentsByVoteCount,
+    };
   },
 };
 </script>
 <template>
   <div
     class="rating"
-    :class="modifier ? `rating--${modifier}` : null"
-    :style="cssVars">
+    :style="{ '--voting-icon-count': numberOfVotes }">
     <p
-      v-if="description"
-      class="rating__description">{{ description }}</p>
+      v-if="title"
+      class="rating__title">{{ title }}</p>
     <div
-      v-if="components"
-      :style="{ '--voting-icon-count' : numberOfVotings }"
+      v-if="componentsByVoteCount"
+      :style="{ '--voting-icon-count' : numberOfVotes }"
       class="rating__buttons">
 
       <button
-        v-for="icon in components"
+        v-for="icon in componentsByVoteCount"
         :key="icon.index"
         :class="[{ 'animation' : vote === icon.index }, `vote--${icon.index}`]"
         :disabled="isVoted"
@@ -155,28 +132,24 @@ export default {
 
 .rating {
   --vote-color: var(--brand-color-anthracite);
+  --icon-size: 3.6rem;
+
   display: grid;
   grid-gap: 1em;
   align-items: center;
   font-size: var(--voting-font-size);
-  @media (min-width: 600px) {
-    grid-template-columns: auto 1fr;
-  }
-  &--block {
-    grid-template-columns: 1fr;
-    grid-row-gap: 0;
-  }
   &__buttons {
     display: grid;
-    grid-template-columns: repeat(var(--voting-icon-count), 3.625rem);
-    grid-gap: 1em;
+    grid-template-columns: repeat(var(--voting-icon-count), var(--icon-size));
+    grid-gap: 2.8rem;
   }
   &__icon {
-    // width: 3.625rem; // 50px
+    width: var(--icon-size);
   }
 }
 .vote {
   @include btn-reset();
+  padding: 0;
   position: relative;
   background: none;
   display: inline-block;

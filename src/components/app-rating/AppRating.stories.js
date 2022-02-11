@@ -10,6 +10,12 @@ export default {
   title: 'Components/AppRating',
   component: AppRating,
   argTypes: {
+    numberOfVotes: {
+      options: [3,5],
+      control: {
+        type: 'select',
+      },
+    },
     // ...eventListener,
   },
   parameters: {
