@@ -29,15 +29,25 @@ export default {
     IconVote4,
     IconVote5,
   },
+  emits: [
+    /**
+     * Fires on vote
+     * @property {number} val - VoteCount
+     */
+    'success',
+  ],
   props: {
     title: {
       type: String,
       default: null,
     },
-    isVoted: {
-      type: Boolean,
-      default: false,
+    voted: {
+      type: Number,
+      default: null,
     },
+    /**
+     * Number of Voted. Possible values: 3 or 5
+     */
     numberOfVotes: {
       type: Number,
       default: 5,
@@ -48,9 +58,8 @@ export default {
     },
   },
   setup(props, { emit }) {
-    const vote = ref(null);
+    const vote = ref(props.voted);
     const components = ref([]);
-    const isVotedLocal = ref(props.isVoted);
 
     /**
      * set vote
@@ -58,7 +67,6 @@ export default {
      */
     const saveVote = (count) => {
       vote.value = count;
-      isVotedLocal.value = true;
       emit('success', count);
     };
     /**
@@ -87,7 +95,6 @@ export default {
     initComponents();
 
     return {
-      isVotedLocal,
       vote,
       saveVote,
       componentsByVoteCount,
@@ -112,10 +119,10 @@ export default {
         :key="icon.index"
         :class="[
           { 'animation' : vote === icon.index },
-          { 'vote--bye-bye' : isVotedLocal && vote !== icon.index },
+          { 'vote--bye-bye' : vote && vote !== icon.index },
           `vote--${icon.index}`
         ]"
-        :disabled="isVotedLocal"
+        :disabled="vote"
         class="vote"
         :aria-label="`Bewerte mit ${icon.title}`"
         @click="saveVote(icon.index)">

@@ -1,9 +1,9 @@
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
 import AppRating from './AppRating.vue';
 
 const storyDescription = `
-- Bla
+- Zur Messung der Kundenzufriedenheit.
 `;
 
 export default {
@@ -38,6 +38,7 @@ export default {
 const baseTemplate = `
 <app-rating
     style="text-align:center; display: grid; place-items: center; margin: 0 auto;"
+    @success="handleSuccess"
     v-bind="args"></app-rating>`;
 
 /* ******************************** */
@@ -52,11 +53,15 @@ const baseTemplate = `
 const Template = (argsObject) => ({
   setup() {
     const args = argsObject;
+    const handleSuccess = (count) => {
+      console.log('count', count);
+    };
     if (typeof args.isDarkMode === 'undefined') {
       args.isDarkMode = isDarkMode;
     }
     return {
       args: reactive(args),
+      handleSuccess,
     };
   },
   components: {
@@ -74,4 +79,5 @@ DefaultRating.args = {};
 export const RatingWithTitle = Template.bind({});
 RatingWithTitle.args = {
   title: 'Wie zufrieden bist du mit dem Anmeldeprozess?',
+  voted: 4,
 };
