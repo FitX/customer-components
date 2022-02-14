@@ -1,5 +1,6 @@
 <script>
 import { computed, ref } from 'vue';
+import { debouncedWatch } from '@vueuse/core';
 import AnimationSatellite from './animation-satellite.vue';
 import IconVote1 from '@/assets/icons/icon-vote-1.svg';
 import IconVote2 from '@/assets/icons/icon-vote-2.svg';
@@ -60,6 +61,8 @@ export default {
   setup(props, { emit }) {
     const vote = ref(props.voted);
     const components = ref([]);
+    const startAnimation = ref(false);
+    const animationDelay = ref(800);
 
     /**
      * set vote
@@ -93,11 +96,18 @@ export default {
     });
 
     initComponents();
+    debouncedWatch(vote, () => {
+      startAnimation.value = true;
+    }, {
+      debounce: animationDelay.value,
+    });
 
     return {
       vote,
       saveVote,
       componentsByVoteCount,
+      startAnimation,
+      animationDelay,
     };
   },
 };
@@ -109,6 +119,7 @@ export default {
     <p
       v-if="title"
       class="rating__title">{{ title }}</p>
+    <p>startAnimation: {{ startAnimation }}</p>
     <div
       v-if="componentsByVoteCount"
       :style="{ '--voting-icon-count' : numberOfVotes }"
@@ -132,8 +143,9 @@ export default {
         ></component>
 
         <animation-satellite
-          :delay="1000"
-          :animation="vote === icon.index"></animation-satellite>
+          :delay="animationDelay"
+          v-if="vote === icon.index && startAnimation"
+          :animation="true"></animation-satellite>
       </button>
 
     </div>
@@ -155,6 +167,7 @@ export default {
   font-size: var(--voting-font-size);
   &__buttons {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
   }
   &__icon {
@@ -163,20 +176,21 @@ export default {
   &__title {
     font-size: 1.8rem;
     font-weight: 600;
-    margin-bottom: 3.2rem;
+    margin-bottom: 1.8rem;
   }
 }
 .vote {
   @include btn-reset();
   padding: 0;
-  margin: 0 1.4rem;
+  margin: 1.4rem;
   position: relative;
   background: none;
   display: inline-block;
   outline: none;
   width: var(--icon-size);
-  transition-property: margin, width;
+  transition-property: margin-left, margin-right, width;
   transition-duration: 800ms;
+  cursor: pointer;
   &.animation {
     animation: icon-animation cubic-bezier(0.165, 0.840, 0.440, 1.000) 1.2s;
     animation-delay: 1s;
