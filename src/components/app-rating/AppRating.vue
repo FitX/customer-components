@@ -12,7 +12,7 @@ import IconVote5 from '@/assets/icons/icon-vote-5.svg';
  * normally even numbers have the feature that number % 2 === 0;
  * JavaScript is, however, zero-based, so want those elements with a modulo of 1:
  */
-const filterEvenElement = (array = []) => array.filter((item, index) => index % 2 === 0);
+export const filterEvenElement = (array = []) => array.filter((item, index) => index % 2 === 0);
 const titles = [
   'nicht so gut',
   'naja',
@@ -137,6 +137,7 @@ export default {
         ]"
         :disabled="vote"
         class="vote"
+        :data-test="`vote-${icon.index}`"
         :aria-label="`Bewerte mit ${icon.title}`"
         @click="saveVote(icon.index)">
         <component
@@ -145,6 +146,7 @@ export default {
         ></component>
 
         <animation-satellite
+          data-test="animation-wrapper"
           v-if="vote === icon.index && startAnimation"
           :animation="true"></animation-satellite>
       </button>
@@ -195,7 +197,8 @@ export default {
     cursor: pointer;
   }
   &.animation {
-    animation: icon-animation cubic-bezier(0.165, 0.840, 0.440, 1.000) calc(1s + var(--animation-delay));
+    animation:
+      icon-animation cubic-bezier(0.165, 0.840, 0.440, 1.000) calc(1s + var(--animation-delay));
     // animation-delay: 800ms;
   }
   &.animation,

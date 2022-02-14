@@ -37,6 +37,8 @@
     <requirements-list :items="[{ title: 'eins', done: false }, { title: 'zwei', done: true }]" />
     <hr>
     <slot-select :items="demoSlots3" />
+    <hr>
+    <app-rating title="optional App Rating Title" />
   </div>
 </template>
 
