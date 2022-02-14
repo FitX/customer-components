@@ -36,7 +36,9 @@ export default {
  * @type {string}
  */
 const baseTemplate = `
-<app-rating v-bind="args"></app-rating>`;
+<app-rating
+    style="text-align:center; display: grid; place-items: center; margin: 0 auto;"
+    v-bind="args"></app-rating>`;
 
 /* ******************************** */
 /// Story Wrapper

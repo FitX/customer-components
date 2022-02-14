@@ -50,6 +50,7 @@ export default {
   setup(props, { emit }) {
     const vote = ref(null);
     const components = ref([]);
+    const isVotedLocal = ref(props.isVoted);
 
     /**
      * set vote
@@ -57,6 +58,7 @@ export default {
      */
     const saveVote = (count) => {
       vote.value = count;
+      isVotedLocal.value = true;
       emit('success', count);
     };
     /**
@@ -85,6 +87,7 @@ export default {
     initComponents();
 
     return {
+      isVotedLocal,
       vote,
       saveVote,
       componentsByVoteCount,
@@ -107,9 +110,13 @@ export default {
       <button
         v-for="icon in componentsByVoteCount"
         :key="icon.index"
-        :class="[{ 'animation' : vote === icon.index }, `vote--${icon.index}`]"
-        :disabled="isVoted"
-        class="vote vote--up"
+        :class="[
+          { 'animation' : vote === icon.index },
+          { 'vote--bye-bye' : isVotedLocal && vote !== icon.index },
+          `vote--${icon.index}`
+        ]"
+        :disabled="isVotedLocal"
+        class="vote"
         :aria-label="`Bewerte mit ${icon.title}`"
         @click="saveVote(icon.index)">
         <component
@@ -160,6 +167,10 @@ export default {
   &.animation,
   &:focus {
     --vote-color: var(--brand-color-orange);
+  }
+
+  &--bye-bye {
+    display: none;
   }
 }
 @keyframes icon-animation {
