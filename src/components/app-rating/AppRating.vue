@@ -62,7 +62,7 @@ export default {
     const vote = ref(props.voted);
     const components = ref([]);
     const startAnimation = ref(false);
-    const animationDelay = ref(800);
+    const animationDelay = ref(600);
 
     /**
      * set vote
@@ -115,11 +115,13 @@ export default {
 <template>
   <div
     class="rating"
-    :style="{ '--voting-icon-count': numberOfVotes }">
+    :style="{
+      '--voting-icon-count': numberOfVotes,
+      '--animation-delay': `${animationDelay}ms`,
+    }">
     <p
       v-if="title"
       class="rating__title">{{ title }}</p>
-    <p>startAnimation: {{ startAnimation }}</p>
     <div
       v-if="componentsByVoteCount"
       :style="{ '--voting-icon-count' : numberOfVotes }"
@@ -143,7 +145,6 @@ export default {
         ></component>
 
         <animation-satellite
-          :delay="animationDelay"
           v-if="vote === icon.index && startAnimation"
           :animation="true"></animation-satellite>
       </button>
@@ -189,11 +190,13 @@ export default {
   outline: none;
   width: var(--icon-size);
   transition-property: margin-left, margin-right, width;
-  transition-duration: 800ms;
-  cursor: pointer;
+  transition-duration: var(--animation-delay);
+  &:not([disabled]) {
+    cursor: pointer;
+  }
   &.animation {
-    animation: icon-animation cubic-bezier(0.165, 0.840, 0.440, 1.000) 1.2s;
-    animation-delay: 1s;
+    animation: icon-animation cubic-bezier(0.165, 0.840, 0.440, 1.000) calc(1s + var(--animation-delay));
+    // animation-delay: 800ms;
   }
   &.animation,
   &:focus {
@@ -209,7 +212,7 @@ export default {
 }
 @keyframes icon-animation {
   0% {
-    transform: scale(0);
+    transform: scale(0.5);
   }
   100% {
     transform: scale(1);

@@ -6,20 +6,12 @@ export default {
       type: Boolean,
       default: false,
     },
-    /**
-     * CSS Delay Number in ms
-     */
-    delay: {
-      type: Number,
-      default: 0,
-    },
   },
 };
 </script>
 
 <template>
   <div
-    :style="{ '--delay': `${delay}ms` }"
     :class="{ 'animation' : animation }"
     class="satellite">
     <span></span>
@@ -42,12 +34,6 @@ $satellite-move: $satellite-size*7;
   margin-left: -($satellite-size * 2);
   margin-top: -($satellite-size * 2);
   pointer-events: none;
-  opacity: 0;
-  animation-name: show-component;
-  animation-duration: 0.1s;
-  animation-fill-mode: forwards;
-  animation-delay: var(--delay);
-  border: 1px solid red;
   span {
     position: absolute;
     width: $satellite-size;
@@ -145,14 +131,6 @@ $satellite-move: $satellite-size*7;
   }
   100% {
     transform: scale(0) translate(-2*$satellite-move/2.236, $satellite-move/2.236);
-  }
-}
-@keyframes show-component {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 </style>
