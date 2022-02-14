@@ -73,5 +73,5 @@ DefaultRating.args = {};
 
 export const RatingWithTitle = Template.bind({});
 RatingWithTitle.args = {
-  title: 'Hallo Umfrage',
+  title: 'Wie zufrieden bist du mit dem Anmeldeprozess?',
 };

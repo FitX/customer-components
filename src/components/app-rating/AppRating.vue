@@ -125,6 +125,7 @@ export default {
         ></component>
 
         <animation-satellite
+          :delay="1000"
           :animation="vote === icon.index"></animation-satellite>
       </button>
 
@@ -142,27 +143,36 @@ export default {
   --icon-size: 3.6rem;
 
   display: grid;
-  grid-gap: 1em;
-  align-items: center;
+  width: 100%;
+  place-items: center;
   font-size: var(--voting-font-size);
   &__buttons {
-    display: grid;
-    grid-template-columns: repeat(var(--voting-icon-count), var(--icon-size));
-    grid-gap: 2.8rem;
+    display: flex;
+    flex-direction: row;
   }
   &__icon {
-    width: var(--icon-size);
+    width: 100%;
+  }
+  &__title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 3.2rem;
   }
 }
 .vote {
   @include btn-reset();
   padding: 0;
+  margin: 0 1.4rem;
   position: relative;
   background: none;
   display: inline-block;
   outline: none;
+  width: var(--icon-size);
+  transition-property: margin, width;
+  transition-duration: 800ms;
   &.animation {
     animation: icon-animation cubic-bezier(0.165, 0.840, 0.440, 1.000) 1.2s;
+    animation-delay: 1s;
   }
   &.animation,
   &:focus {
@@ -170,7 +180,10 @@ export default {
   }
 
   &--bye-bye {
-    display: none;
+    /* Setting this to zero breaks the transition */
+    width: 0.00001px;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 @keyframes icon-animation {
