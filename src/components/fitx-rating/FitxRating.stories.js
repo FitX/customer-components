@@ -1,18 +1,23 @@
 import { reactive, ref } from 'vue';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
-import AppRating from './AppRating.vue';
+import FitxRating, { directions } from './FitxRating.vue';
 
 const storyDescription = `
 - Zur Messung der Kundenzufriedenheit.
-- Deprecated weil einfache Implementierung gewünscht ist -> siehe Rating Component
 `;
 
 export default {
-  title: 'Components/Deprecated/AppRating',
-  component: AppRating,
+  title: 'Components/Rating',
+  component: FitxRating,
   argTypes: {
     numberOfVotes: {
       options: [3,5],
+      control: {
+        type: 'select',
+      },
+    },
+    direction: {
+      options: directions,
       control: {
         type: 'select',
       },
@@ -37,10 +42,9 @@ export default {
  * @type {string}
  */
 const baseTemplate = `
-<app-rating
-    style="text-align:center; display: grid; place-items: center; margin: 0 auto;"
+<fitx-rating
     @success="handleSuccess"
-    v-bind="args"></app-rating>`;
+    v-bind="args"></fitx-rating>`;
 
 /* ******************************** */
 /// Story Wrapper
@@ -66,7 +70,7 @@ const Template = (argsObject) => ({
     };
   },
   components: {
-    AppRating,
+    FitxRating,
   },
   template: baseTemplate,
 });
@@ -77,8 +81,12 @@ const Template = (argsObject) => ({
 export const DefaultRating = Template.bind({});
 DefaultRating.args = {};
 
-export const RatingWithTitle = Template.bind({});
-RatingWithTitle.args = {
-  title: 'Wie zufrieden bist du mit dem Anmeldeprozess?',
+export const RatingDone = Template.bind({});
+RatingDone.args = {
   voted: 4,
+};
+
+export const RatingVertical = Template.bind({});
+RatingVertical.args = {
+  direction: 'column',
 };

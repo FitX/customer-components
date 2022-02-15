@@ -16,6 +16,7 @@ import VueProgressBar from '@/components/progress-bar/ProgressBar.vue';
 import VueRequirementsList from '@/components/requirements-list/RequirementsList.vue';
 import VueSlotSelect from '@/components/slot-select/SlotSelect.vue';
 import VueAppRating from '@/components/app-rating/AppRating.vue';
+import VueFitxRating from '@/components/fitx-rating/FitxRating.vue';
 import styles from '@/assets/styles/lib.scss';
 
 export const ErrorMessage = defineCustomElement(VueErrorMessage);
@@ -35,6 +36,7 @@ export const ProgressBar = defineCustomElement(VueProgressBar);
 export const RequirementsList = defineCustomElement(VueRequirementsList);
 export const SlotSelect = defineCustomElement(VueSlotSelect);
 export const AppRating = defineCustomElement(VueAppRating);
+export const FitxRating = defineCustomElement(VueFitxRating);
 export { styles };
 
 export function register() {
@@ -54,4 +56,5 @@ export function register() {
   customElements.define('requirements-list', RequirementsList);
   customElements.define('slot-select', SlotSelect);
   customElements.define('app-rating', AppRating);
+  customElements.define('fitx-rating', FitxRating);
 }
