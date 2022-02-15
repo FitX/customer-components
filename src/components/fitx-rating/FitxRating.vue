@@ -1,6 +1,5 @@
 <script>
 import { computed, ref } from 'vue';
-import { debouncedWatch } from '@vueuse/core';
 import AnimationSatellite from './animation-satellite.vue';
 import IconVote1 from '@/assets/icons/icon-vote-1.svg';
 import IconVote2 from '@/assets/icons/icon-vote-2.svg';
@@ -13,6 +12,10 @@ import IconVote5 from '@/assets/icons/icon-vote-5.svg';
  * JavaScript is, however, zero-based, so want those elements with a modulo of 1:
  */
 export const filterEvenElement = (array = []) => array.filter((item, index) => index % 2 === 0);
+export const directions = [
+  'row',
+  'column',
+];
 const titles = [
   'nicht so gut',
   'naja',
@@ -21,7 +24,7 @@ const titles = [
   'sehr gut',
 ];
 export default {
-  name: 'AppRating',
+  name: 'FitxRating',
   components: {
     AnimationSatellite,
     IconVote1,
@@ -38,10 +41,13 @@ export default {
     'success',
   ],
   props: {
-    title: {
-      type: String,
-      default: null,
+    isDarkMode: {
+      type: Boolean,
+      default: false,
     },
+    /**
+     * VoteCount of default Vote
+     */
     voted: {
       type: Number,
       default: null,
@@ -57,12 +63,25 @@ export default {
         return acceptedValues.includes(value);
       },
     },
+    /**
+     * Visual Direction horizontal: row, vertical: column
+     */
+    direction: {
+      type: String,
+      default: 'row',
+      validator: (value) => directions.includes(value),
+    },
+    /**
+     * reconsidering possible via preventMultipleVotes: false
+     */
+    preventMultipleVotes: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { emit }) {
     const vote = ref(props.voted);
     const components = ref([]);
-    const startAnimation = ref(false);
-    const animationDelay = ref(600);
 
     /**
      * set vote
@@ -96,18 +115,11 @@ export default {
     });
 
     initComponents();
-    debouncedWatch(vote, () => {
-      startAnimation.value = true;
-    }, {
-      debounce: animationDelay.value,
-    });
 
     return {
       vote,
       saveVote,
       componentsByVoteCount,
-      startAnimation,
-      animationDelay,
     };
   },
 };
@@ -115,46 +127,37 @@ export default {
 <template>
   <div
     class="rating"
+    :class="{ 'rating--dark' : isDarkMode }"
     :style="{
       '--voting-icon-count': numberOfVotes,
-      '--animation-delay': `${animationDelay}ms`,
+      '--voting-icon-count' : numberOfVotes,
+      '--voting-direction' : direction,
     }">
-    <p
-      v-if="title"
-      class="rating__title">{{ title }}</p>
-    <div
-      v-if="componentsByVoteCount"
-      :style="{ '--voting-icon-count' : numberOfVotes }"
-      class="rating__buttons">
+    <button
+      v-for="icon in componentsByVoteCount"
+      :key="icon.index"
+      :class="[
+        { 'animation' : vote === icon.index },
+        { 'vote--inactive' : vote && vote !== icon.index },
+        `vote--${icon.index}`
+      ]"
+      :disabled="preventMultipleVotes && vote"
+      class="vote"
+      :data-test="`vote-${icon.index}`"
+      :aria-label="`Bewerte mit ${icon.title}`"
+      @click="saveVote(icon.index)">
+      <component
+        :is="icon.component"
+        class="rating__icon"
+      ></component>
 
-      <button
-        v-for="icon in componentsByVoteCount"
-        :key="icon.index"
-        :class="[
-          { 'animation' : vote === icon.index },
-          { 'vote--bye-bye' : vote && vote !== icon.index },
-          `vote--${icon.index}`
-        ]"
-        :disabled="vote"
-        class="vote"
-        :data-test="`vote-${icon.index}`"
-        :aria-label="`Bewerte mit ${icon.title}`"
-        @click="saveVote(icon.index)">
-        <component
-          :is="icon.component"
-          class="rating__icon"
-        ></component>
-
-        <animation-satellite
-          data-test="animation-wrapper"
-          v-if="vote === icon.index && startAnimation"
-          :animation="true"></animation-satellite>
-      </button>
-
-    </div>
+      <animation-satellite
+        data-test="animation-wrapper"
+        v-if="vote === icon.index"
+        :animation="true"></animation-satellite>
+    </button>
   </div>
 </template>
-
 <style lang="scss" scoped>
 // @use currently only with dart-sass
 // @use '~@/assets/styles/mixins.scss' as mixin;
@@ -165,22 +168,17 @@ export default {
   --icon-size: 3.6rem;
   --icon-width: var(--icon-size);
 
-  display: grid;
-  width: 100%;
-  place-items: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  place-content: center;
+  flex-direction: var(--voting-direction);
   font-size: var(--voting-font-size);
-  &__buttons {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+
+  &--dark {
+    --icon-fill: #fff;
   }
   &__icon {
-    width: 100%;
-  }
-  &__title {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 1.8rem;
+    width: var(--icon-size);
   }
 }
 .vote {
@@ -189,29 +187,21 @@ export default {
   margin: 1.4rem;
   position: relative;
   background: none;
-  display: inline-block;
+  display: flex;
   outline: none;
-  width: var(--icon-size);
-  transition-property: margin-left, margin-right, width;
-  transition-duration: var(--animation-delay);
   &:not([disabled]) {
     cursor: pointer;
+    &:not(.animation):hover {
+      --icon-fill: var(--brand-color-gray-graphite);
+    }
   }
   &.animation {
     animation:
-      icon-animation cubic-bezier(0.165, 0.840, 0.440, 1.000) calc(1s + var(--animation-delay));
-    // animation-delay: 800ms;
+      icon-animation cubic-bezier(0.165, 0.840, 0.440, 1.000) 800ms;
   }
   &.animation,
   &:focus {
     --icon-fill: var(--brand-color-orange);
-  }
-
-  &--bye-bye {
-    /* Setting this to zero breaks the transition */
-    width: 0.00001px;
-    margin-left: 0;
-    margin-right: 0;
   }
 }
 @keyframes icon-animation {

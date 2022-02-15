@@ -15,3 +15,4 @@ export { default as ProgressBar } from '@/components/progress-bar/ProgressBar.vu
 export { default as RequirementsList } from '@/components/requirements-list/RequirementsList.vue';
 export { default as SlotSelect } from '@/components/slot-select/SlotSelect.vue';
 export { default as AppRating } from '@/components/app-rating/AppRating.vue';
+export { default as FitxRating } from '@/components/fitx-rating/FitxRating.vue';
