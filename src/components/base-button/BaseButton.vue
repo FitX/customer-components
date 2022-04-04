@@ -2,12 +2,19 @@
   <component
     :is="tag"
     v-bind="$attrs"
-    :class="[ getModifierClasses('btn', modifier), { 'btn--dark' : isDarkMode } ]"
+    :class="[
+      getModifierClasses('btn', modifier),
+      { 'btn--dark' : isDarkMode },
+      { 'btn--active' : isActive }
+    ]"
     class="btn">
+    <span />
     <slot>
       {{ text }}
     </slot>
-    <span class="btn__loading" />
+    <span
+      v-if="isActive"
+      class="btn__loading" />
   </component>
 </template>
 
@@ -39,6 +46,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
     modifier: {
       type: [String, Array],
       default: null,
@@ -68,7 +79,12 @@ export default {
   --btn-font-size: 1.8rem;
   --btn-padding: 1.5rem;
   --btn-border-width: 2px;
-  --loader-size: 1.5rem;
+  --loader-size: 0;
+  --loader-gap: 0;
+  display: grid;
+  grid-template-columns: var(--loader-size) 1fr var(--loader-size);
+  gap: var(--loader-gap);
+  align-items: center;
   position: relative;
   width: 28rem;
   max-width: 100%;
@@ -108,7 +124,7 @@ export default {
     --btn-padding: 0.7rem;
     --btn-border-width: 1px;
     padding: var(--btn-padding) calc(3 * var(--btn-padding));
-    display: inline-block;
+    display: inline-grid;
     width: auto;
   }
 
@@ -187,30 +203,35 @@ export default {
     }
   }
 
-  &:active #{&}__loading {
-    display: inline-block;
-    width: var(--loader-size);
-    height: var(--loader-size);
-    position: absolute;
-    right: 1.8rem;
-    top: 50%;
-    transform: translate3d(0, -50%, 0);
-    &:after {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 0.2rem solid #fff;
-      border-color: #fff transparent #fff transparent;
-      animation: ring 1s linear infinite;
-    }
-    @keyframes ring {
-      0% {
-        transform: rotate(0deg);
+  &--active {
+    transition: 0.4s ease grid-template-columns;
+    --loader-size: 1.5rem;
+    --loader-gap: 1rem;
+    #{$self}__loading {
+      display: inline-block;
+      width: var(--loader-size);
+      height: var(--loader-size);
+      // position: absolute;
+      right: 1.8rem;
+      // top: 50%;
+      // transform: translate3d(0, -50%, 0);
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 0.2rem solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: ring 1s linear infinite;
       }
-      100% {
-        transform: rotate(360deg);
+      @keyframes ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
     }
   }
