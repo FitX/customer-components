@@ -48,7 +48,7 @@ export default {
     },
     isActive: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     modifier: {
       type: [String, Array],
