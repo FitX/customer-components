@@ -47,6 +47,7 @@
         @focus="handleFocus()"
         @blur="handleBlur()"
         class="field__input"
+        :type="localType"
         :class="[
           { 'field__input--not-empty' : isFilled },
           { 'field__input--auto-filled' : !!autofilled }
@@ -63,6 +64,12 @@
       <valid-icon
         class="field__icon valid-icon"
         v-if="isValid && modelValue" />
+      <button
+        class="field__password-text"
+        @click.prevent="toggleShowPassword()"
+        v-if="$attrs.type === 'password'">
+        {{ passwordToggleText }}
+      </button>
       <span
         class="field__btn-wrapper"
       >
@@ -170,6 +177,20 @@ export const baseInputProps = {
     default: null,
     validator: (value) => validateValueWithList(value, modifier),
   },
+  /**
+   * Text if Password is hidden (For type[password] only)
+   */
+  textPasswordShow: {
+    type: String,
+    default: 'Anzeigen',
+  },
+  /**
+   * Text if Password is shown (For type[password] only)
+   */
+  textPasswordHide: {
+    type: String,
+    default: 'Verbergen',
+  },
 };
 export default {
   name: 'BaseInput',
@@ -197,7 +218,7 @@ export default {
     'cleared',
   ],
   props: baseInputProps,
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const hasFocus = ref(false);
     const { getModifierClasses } = useModifier();
     /**
@@ -222,6 +243,10 @@ export default {
     const input = ref(null);
     const autofilled = ref(false);
     const isFilled = computed(() => !!props.modelValue);
+    const showPassword = ref(false);
+    const passwordToggleText = computed(() => (
+      showPassword.value ? props.textPasswordHide : props.textPasswordShow));
+    const localType = computed(() => showPassword.value ? 'text' : attrs.type);
 
     /**
      * Detect autofilled for correct Rendering
@@ -275,6 +300,9 @@ export default {
     const handleBlur = () => {
       hasFocus.value = false;
     };
+    const toggleShowPassword = () => {
+      showPassword.value = !showPassword.value;
+    };
     return {
       getModifierClasses,
       removeByKey,
@@ -286,6 +314,9 @@ export default {
       handleFocus,
       handleBlur,
       hasFocus,
+      toggleShowPassword,
+      passwordToggleText,
+      localType,
     };
   },
 };
@@ -317,6 +348,7 @@ label {
 
   --field-border-size: var(--form-input-border-size, 0.1rem);
   --field-min-height: var(--form-input-height, 6rem);
+  --icon-size: var(--field-icon-size, 2.4rem);
 
   position: relative;
   font-size: var(--field-font-size);
@@ -480,6 +512,24 @@ label {
     display: block;
     line-height: 0;
     color: var(--field-color-label);
+  }
+  &__password-text {
+    @include btn-reset();
+    background: var(--field-color-bg);
+    font-size: 1.4rem;
+    font-weight: 100;
+    color: var(--field-color-label);
+    position: absolute;
+    right: var(--field-padding-h);
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    transition: right 150ms ease;
+    /**
+    Extra Spacing if Valid Icon is shown
+     */
+    .valid-icon + & {
+      right: calc(( 2 * var(--field-padding-h)) + var(--icon-size));
+    }
   }
   &__btn-wrapper {
     position: absolute;
