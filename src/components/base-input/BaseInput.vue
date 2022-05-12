@@ -246,7 +246,7 @@ export default {
     const showPassword = ref(false);
     const passwordToggleText = computed(() => (
       showPassword.value ? props.textPasswordHide : props.textPasswordShow));
-    const localType = computed(() => showPassword.value ? 'text' : attrs.type);
+    const localType = computed(() => (showPassword.value ? 'text' : attrs.type));
 
     /**
      * Detect autofilled for correct Rendering
