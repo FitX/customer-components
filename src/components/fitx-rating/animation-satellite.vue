@@ -24,23 +24,24 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "sass:math";
 $satellite-size: 1em;
-$satellite-move: $satellite-size*7;
+$satellite-move: $satellite-size * 7;
 .satellite {
   position: absolute;
   left: 50%; top: 50%;
   width: ($satellite-size * 4);
   height: ($satellite-size * 4);
-  margin-left: -($satellite-size * 2);
-  margin-top: -($satellite-size * 2);
+  margin-left: (($satellite-size * 2) * -1);
+  margin-top: (($satellite-size * 2) * -1);
   pointer-events: none;
   span {
     position: absolute;
     width: $satellite-size;
     height: $satellite-size;
     border-radius: 50%;
-    margin-top: -$satellite-size/2;
-    margin-left: -$satellite-size/2;
+    margin-top: math.div(($satellite-size * -1), 2);
+    margin-left: math.div(($satellite-size * -1), 2);
     transition: all ease .5s;
     transition-delay: var(--delay);
     transform-origin: center 0;
@@ -85,7 +86,9 @@ $satellite-move: $satellite-size*7;
     transform: scale(1) translate(0,0);
   }
   100% {
-    transform: scale(0) translate(-2*$satellite-move/2.236,- $satellite-move/2.236);
+    transform:
+      scale(0)
+      translate(math.div(-2*$satellite-move, 2.236), math.div($satellite-move * -1, 2.236));
   }
 }
 @keyframes satellite-top {
@@ -101,7 +104,9 @@ $satellite-move: $satellite-size*7;
     transform: scale(1) translate(0,0);
   }
   100% {
-    transform: scale(0) translate(2*$satellite-move/2.236,- $satellite-move/2.236);
+    transform:
+      scale(0)
+      translate(math.div(2*$satellite-move, 2.236), math.div(-$satellite-move, 2.236));
   }
 }
 @keyframes satellite-bottom-right {
@@ -109,7 +114,9 @@ $satellite-move: $satellite-size*7;
     transform: scale(1) translate(0,0);
   }
   100% {
-    transform: scale(0) translate(2*$satellite-move/2.236, $satellite-move/2.236);
+    transform:
+      scale(0)
+      translate(math.div(2*$satellite-move, 2.236), math.div($satellite-move, 2.236));
   }
 }
 @keyframes satellite-bottom {
@@ -125,7 +132,9 @@ $satellite-move: $satellite-size*7;
     transform: scale(1) translate(0,0);
   }
   100% {
-    transform: scale(0) translate(-2*$satellite-move/2.236, $satellite-move/2.236);
+    transform:
+      scale(0)
+      translate(math.div(-2*$satellite-move, 2.236), math.div($satellite-move, 2.236));
   }
 }
 </style>

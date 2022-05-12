@@ -116,4 +116,42 @@ describe('Base Input', () => {
     await wrapper.find('button').trigger('click');
     expect(wrapper.emitted('cleared')).toHaveLength(1);
   });
+
+  it('render password toggle button on type password', async () => {
+    const wrapper = shallowMount(BaseInput, {
+      attrs: { type: 'password' },
+    });
+    const toggleButton = await wrapper.find('button');
+    expect(toggleButton.text()).toContain('Anzeigen');
+  });
+
+  it('password toggle button works correctly', async () => {
+    const wrapper = shallowMount(BaseInput, {
+      attrs: { type: 'password' },
+      props: {
+        modelValue: 'sicher',
+      },
+    });
+    const toggleButton = await wrapper.find('button');
+    const input = await wrapper.find('input').element;
+    expect(input).toHaveAttribute('type', 'password');
+    await toggleButton.trigger('click');
+    expect(toggleButton.text()).toContain('Verbergen');
+    expect(input).toHaveAttribute('type', 'text');
+  });
+
+  it('password toggle text can be changed', async () => {
+    const wrapper = shallowMount(BaseInput, {
+      attrs: { type: 'password' },
+      props: {
+        textPasswordShow: 'zeig es mir',
+        textPasswordHide: 'mach das weg',
+      },
+    });
+
+    const toggleButton = await wrapper.find('button');
+    expect(toggleButton.text()).toContain('zeig es mir');
+    await toggleButton.trigger('click');
+    expect(toggleButton.text()).toContain('mach das weg');
+  })
 });

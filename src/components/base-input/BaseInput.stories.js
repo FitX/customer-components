@@ -1,4 +1,4 @@
-import { reactive } from 'vue';
+import { reactive, computed, ref } from 'vue';
 import { mapPropToArgTypes } from '../../../.storybook/helpers/manual-mapping-props-to-argtypes';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
 import BaseInput, {
@@ -68,6 +68,37 @@ const Template = (argsObject) => ({
   },
   components: { BaseInput },
   template: baseTemplate,
+});
+
+/**
+ * Password Template
+ * @param {object} argsObject - vue props e.g. {tag: 'button', text: 'Button', isDarkMode: false }
+ * @return {{template: string, components: {BaseButton: {setup(): {getModifierClasses: *}, props: {modifier: {default: null, validator: function(*=): (boolean|boolean), type: [StringConstructor, ArrayConstructor]}, isDarkMode: {default: boolean, type: Boolean | BooleanConstructor}, tag: {default: string, type: String | StringConstructor}, text: {default: null, type: String | StringConstructor}}}}, setup(): {args: *}}}
+ * @constructor
+ */
+const PasswordTemplate = (argsObject) => ({
+  setup() {
+    const args = argsObject;
+    if (typeof args.isDarkMode === 'undefined') {
+      args.isDarkMode = isDarkMode;
+    }
+    const model = ref('Hier gibt es nichts zu sehen!!11');
+    return {
+      args: reactive(args),
+      model,
+      isValid: computed(() => {
+        return model.value.length > 3;
+      }),
+      errorMessage: computed(() => {
+        return model.value.length <= 3 ? 'n bissle kurz' : undefined;
+      })
+    };
+  },
+  components: { BaseInput },
+  template: `
+    <base-input v-bind="args" v-model="model" :is-valid="isValid" :error-message="errorMessage">
+  <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
+  </base-input>`,
 });
 
 //* ******************************** */
@@ -159,3 +190,17 @@ BaseInputClearable.parameters = {
   },
 };
 BaseInputClearable.storyName = 'Clearable';
+
+export const BaseInputPassword = PasswordTemplate.bind({});
+BaseInputPassword.args = {
+  label: 'Passwort',
+  type: 'password',
+};
+BaseInputPassword.parameters = {
+  docs: {
+    description: {
+      story: 'Passwort Toggle Text kann über Parameter angepasst werden. Eine Validierung ist möglich.',
+    },
+  },
+};
+BaseInputPassword.storyName = 'Password';
