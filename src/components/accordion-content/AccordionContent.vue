@@ -169,6 +169,9 @@ export default {
     font-weight: 400;
     margin: 0;
     padding: 0;
+    &-content {
+      width: 100%;
+    }
   }
 
   &__panel {
@@ -188,6 +191,7 @@ export default {
     width: 100%;
     gap: 1.6rem;
     grid-template-columns: 2.4rem 1fr;
+    text-align: left;
     border-bottom: 1px solid var(--accordion-border-color);
     #{$self}__title:last-of-type &:not([aria-expanded=true]) {
       border-bottom: none;
