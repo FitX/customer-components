@@ -14,8 +14,20 @@
           class="accordion__trigger"
           :aria-controls="`section${index}`"
           :id="`content${index}`">
-          {{ item.title }}
-          <span class="accordion__icon"></span>
+          <span class="accordion__title-content">
+            <!--
+              @slot title[index] dynamic Content Slot
+            -->
+            <slot :name="`title${index}`">
+              {{ item.title }}
+            </slot>
+          </span>
+          <base-radio
+            :model-value="modelValue"
+            aria-role="none"
+            :value="index"
+            class="radio"
+            aria-hidden="true" />
         </button>
       </h1>
       <div
@@ -25,15 +37,13 @@
         :hidden="!checkShow(index)"
         :aria-labelledby="`content${index}`"
         class="accordion__panel">
-        <div>
-          <!--
+        <!--
             @TODO dynamic slot declaration
             @slot content[index] dynamic Content Slot
           -->
-          <slot :name="`content${index}`">
-            {{ item.content }}
-          </slot>
-        </div>
+        <slot :name="`content${index}`">
+          {{ item.content }}
+        </slot>
       </div>
     </template>
   </section>
@@ -43,6 +53,7 @@
 import { watch } from 'vue';
 import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
+import BaseRadio from '@/components/base-radio/BaseRadio.vue';
 
 /**
  * @typedef {number|Array<number>} AccordionModel
@@ -54,6 +65,7 @@ export const modifier = [
 
 export default {
   name: 'AccordionContent',
+  components: { BaseRadio },
   props: {
     /**
      * Option to render in Dark Mode (Currently no explicit Styles)
@@ -143,47 +155,56 @@ export default {
 <style scoped lang="scss">
 // @use currently only with dart-sass
 // @use '~@/assets/styles/mixins.scss' as mixin;
-@import '~@/assets/styles/mixin-reset.scss';
+@use '~@/assets/styles/mixin-reset.scss' as reset;
+
 .accordion {
   $self: &;
-  --accordion-spacing-h: 1rem;
-
-  margin: 0;
-  padding: 0;
-  border: 2px solid hsl(0deg 0% 52%);
-  border-radius: 7px;
-  width: 20em;
-
-  &:focus-within {
-    border-color: hsl(216deg 94% 43%);
-
-    &__title {
-      background-color: hsl(0deg 0% 97%);
-    }
-  }
+  --accordion-spacing: 24px;
+  --accordion-border-color: var(--brand-color-gray-plumb);
+  border: 1px solid var(--accordion-border-color);
+  border-radius: 10px;
 
   &__title {
-    position: relative;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
   }
 
-  &__icon {
-    border: solid currentColor;
-    border-width: 0 2px 2px 0;
-    height: 0.5rem;
-    pointer-events: none;
-    position: absolute;
-    right: 2em;
-    top: 50%;
-    transform: translateY(-60%) rotate(45deg);
-    width: 0.5rem;
-
-    [aria-expanded="true"] & {
-      transform: translateY(-50%) rotate(-135deg);
+  &__panel {
+    padding: var(--accordion-spacing);
+    font-weight: 300;
+    &:not(:last-of-type) {
+      border-bottom: 1px solid var(--accordion-border-color);
     }
+  }
+
+  &__trigger {
+    @include reset.btn-reset();
+    padding: var(--accordion-spacing);
+    background: none;
+    display: grid;
+    justify-items: start;
+    width: 100%;
+    gap: 1.6rem;
+    grid-template-columns: 2.4rem 1fr;
+    border-bottom: 1px solid var(--accordion-border-color);
+    #{$self}__title:last-of-type &:not([aria-expanded=true]) {
+      border-bottom: none;
+    }
+  }
+
+  &:focus-within {
+    // --accordion-border-color: var(--brand-color-anthracite)
   }
 }
 
 [hidden] {
   display: none;
+}
+
+.radio {
+  pointer-events: none;
+  order: -1;
 }
 </style>

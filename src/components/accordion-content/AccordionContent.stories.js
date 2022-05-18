@@ -38,9 +38,23 @@ export default {
  * @type {string}
  */
 const baseTemplate = `
+<div style="font-size: 16px">
+<accordion-content v-bind="args" v-model="args.model"></accordion-content>
+</div>`;
+
+const customTemplate = `
 <accordion-content v-bind="args" v-model="args.model">
+  <template #title0>
+     title 0
+  </template>
+  <template #content0>
+    <p>content 0</p>
+  </template>
+  <template #title1>
+     title 1
+  </template>
   <template #content1>
-    <h1>Content as Slot</h1>
+    <p>content 1</p>
   </template>
 </accordion-content>`;
 
@@ -76,12 +90,18 @@ export const DefaultAccordionContent = Template.bind({});
 DefaultAccordionContent.args = {
   model: 1,
   id: 'demo',
-  items: [{
+  items: [
+    {
     title: 'Title 1',
-    // open: true,
-    content: 'Open Description',
-  },
+    content: 'Description',
+    },
     {
       title: 'Title 2',
-    }],
+      content: 'Description 2',
+    },
+    {
+      title: 'Title 3',
+      content: 'Description 3',
+    }
+    ],
 };
