@@ -1,70 +1,59 @@
 <template>
-  <section
-    :id="id"
-    :class="[ getModifierClasses('accordion', modifier), { 'accordion--dark' : isDarkMode } ]"
-    class="accordion">
-    <template
-      v-for="(item, index) in items"
-      :key="index">
-      <h1 class="accordion__title">
-        <button
-          type="button"
-          @click="update(index)"
-          :aria-expanded="checkShow(index)"
-          class="accordion__trigger"
-          :aria-controls="`section${index}`"
-          :id="`content${index}`">
-          <span class="accordion__title-content">
+  <div
+    :class="[
+      { 'accordion-item--dark' : isDarkMode } ]"
+    class="accordion-item">
+    <h1
+      class="accordion-item__title">
+      <button
+        type="button"
+        @click="update(index)"
+        :aria-expanded="checkShow(index)"
+        class="accordion-item__trigger"
+        :aria-controls="`section${index}`"
+        :id="`content${index}`">
+          <span class="accordion-item__title-content">
             <!--
               @slot title[index] dynamic Content Slot
             -->
             <slot :name="`title${index}`">
-              {{ item.title }}
+              {{ item.title }} {{ isDarkMode }}
             </slot>
           </span>
-          <base-radio
-            :model-value="modelValue"
-            aria-role="none"
-            :value="index"
-            class="radio"
-            aria-hidden="true" />
-        </button>
-      </h1>
-      <div
-        :id="`section${index}`"
-        role="region"
-        :data-hidden="!item.open"
-        :hidden="!checkShow(index)"
-        :aria-labelledby="`content${index}`"
-        class="accordion__panel">
-        <!--
-            @TODO dynamic slot declaration
-            @slot content[index] dynamic Content Slot
-          -->
-        <slot :name="`content${index}`">
-          {{ item.content }}
-        </slot>
-      </div>
-    </template>
-  </section>
+        <base-radio
+          :model-value="modelValue"
+          aria-role="none"
+          :value="index"
+          class="radio"
+          :is-dark-mode="isDarkMode"
+          aria-hidden="true" />
+      </button>
+    </h1>
+    <div
+      :id="`section${index}`"
+      role="region"
+      :hidden="!checkShow(index)"
+      :aria-labelledby="`content${index}`"
+      class="accordion-item__panel">
+      <!--
+          @TODO dynamic slot declaration
+          @slot content[index] dynamic Content Slot
+        -->
+      <slot :name="`content${index}`">
+        {{ item.content }}
+      </slot>
+    </div>
+  </div>
 </template>
 
 <script>
-import { watch } from 'vue';
-import useModifier from '@/use/modifier-class';
-import validateValueWithList from '@/use/validate-value-with-list';
 import BaseRadio from '@/components/base-radio/BaseRadio.vue';
 
 /**
  * @typedef {number|Array<number>} AccordionModel
  */
-
-export const modifier = [
-  'todo',
-];
-
 export default {
-  name: 'AccordionContent',
+  name: 'AccordionItem',
   components: { BaseRadio },
   props: {
     /**
@@ -74,17 +63,8 @@ export default {
       type: Boolean,
       default: false,
     },
-    /**
-     * Component Modifier
-     */
-    modifier: {
-      type: [String, Array],
-      default: null,
-      validator: (value) => validateValueWithList(value, modifier),
-    },
-    items: {
-      type: Array,
-      required: true,
+    item: {
+      type: Object,
     },
     /**
      * @model
@@ -95,8 +75,11 @@ export default {
       default: -1,
       required: true,
     },
-    id: {
-      type: String,
+    /**
+     * Required Index to identify open/closed items
+     */
+    index: {
+      type: Number,
       require: true,
     },
   },
@@ -108,17 +91,12 @@ export default {
     'update:modelValue',
   ],
   setup(props, { emit }) {
-    const { getModifierClasses } = useModifier();
     const checkShow = (index) => {
       if (typeof props.modelValue === 'object') {
         return props.modelValue.includes(index);
       }
-      console.log(props.modelValue, index);
       return props.modelValue === index;
     };
-    watch(() => props.modelValue, (val) => {
-      console.log('val', val);
-    });
     /**
      * Update
      * @param {AccordionModel} index
@@ -144,7 +122,6 @@ export default {
       }
     };
     return {
-      getModifierClasses,
       checkShow,
       update,
     };
@@ -153,16 +130,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// @use currently only with dart-sass
-// @use '~@/assets/styles/mixins.scss' as mixin;
 @use '~@/assets/styles/mixin-reset.scss' as reset;
 
-.accordion {
+.accordion-item {
   $self: &;
-  --accordion-spacing: 24px;
-  --accordion-border-color: var(--brand-color-gray-plumb);
-  border: 1px solid var(--accordion-border-color);
-  border-radius: 10px;
+
+  --accordion-color: var(--brand-color-anthracite);
+
+  &--dark{
+    --accordion-color: #fff;
+  }
+
+  color: var(--accordion-color);
 
   &__title {
     font-size: 1.8rem;
@@ -177,8 +156,9 @@ export default {
   &__panel {
     padding: var(--accordion-spacing);
     font-weight: 300;
-    &:not(:last-of-type) {
-      border-bottom: 1px solid var(--accordion-border-color);
+    border-bottom: 1px solid var(--accordion-border-color);
+    #{$self}:last-of-type & {
+      border-bottom: none;
     }
   }
 
@@ -187,13 +167,14 @@ export default {
     padding: var(--accordion-spacing);
     background: none;
     display: grid;
+    color: inherit;
     justify-items: start;
     width: 100%;
     gap: 1.6rem;
     grid-template-columns: 2.4rem 1fr;
     text-align: left;
     border-bottom: 1px solid var(--accordion-border-color);
-    #{$self}__title:last-of-type &:not([aria-expanded=true]) {
+    #{$self}:last-of-type &[aria-expanded="false"] {
       border-bottom: none;
     }
   }

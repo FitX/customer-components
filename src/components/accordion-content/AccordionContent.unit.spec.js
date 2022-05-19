@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
-import AccordionContent from '@/components/accordion-content/AccordionContent.vue';
+import AccordionWrapper from '@/components/accordion-content/AccordionWrapper.vue';
 
 describe('Accordion', () => {
   test('renders default', () => {
-    const wrapper = shallowMount(AccordionContent, {
+    const wrapper = shallowMount(AccordionWrapper, {
       props: {
         content: 'Hello world',
       },
