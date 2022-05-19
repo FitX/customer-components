@@ -60,7 +60,7 @@ const customTemplate = `
   v-model="selectedAccordion"
   :index="0"
 >
-<template #title0>
+<template #title>
      <span class="header" style="display: grid; grid-template-columns: 1fr 90px; text-align: left; align-items: center; gap: 1rem; justify-content: space-between; width: 100%">
        <span
        style="font-size: 18px; display: block"
@@ -73,7 +73,7 @@ const customTemplate = `
        <img :src="sepaImg" alt="logo SEPA" width="90">
      </span>
   </template>
-  <template #content0>
+  <template #content>
     <base-input label="Vor- und Nachname Kontoinhaber" />
     <p><base-input label="IBAN" /></p>
   </template>
@@ -82,7 +82,7 @@ const customTemplate = `
   v-model="selectedAccordion"
   :index="1"
 >
-  <template #title1>
+  <template #title>
      <span class="header" style="display: grid; grid-template-columns: 1fr 90px; text-align: left; align-items: center; gap: 1rem; justify-content: space-between; width: 100%">
        <span
        style="font-size: 18px; display: block"
@@ -96,7 +96,7 @@ const customTemplate = `
        </span>
      </span>
   </template>
-  <template #content1>
+  <template #content>
     <base-input label="Vor- und Nachname Kontoinhaber 2" />
     <p><base-input label="IBAN 2" /></p>
   </template>

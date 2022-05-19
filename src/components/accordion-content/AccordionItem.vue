@@ -14,10 +14,10 @@
         :id="`content${index}`">
           <span class="accordion-item__title-content">
             <!--
-              @slot title[index] dynamic Content Slot
+              @slot title
             -->
-            <slot :name="`title${index}`">
-              {{ item.title }} {{ isDarkMode }}
+            <slot name="title">
+              {{ item.title }}
             </slot>
           </span>
         <base-radio
@@ -33,13 +33,13 @@
       :id="`section${index}`"
       role="region"
       :hidden="!checkShow(index)"
+      v-show="checkShow(index)"
       :aria-labelledby="`content${index}`"
       class="accordion-item__panel">
       <!--
-          @TODO dynamic slot declaration
-          @slot content[index] dynamic Content Slot
+          @slot content Content Slot
         -->
-      <slot :name="`content${index}`">
+      <slot name="content">
         {{ item.content }}
       </slot>
     </div>
@@ -65,6 +65,10 @@ export default {
     },
     item: {
       type: Object,
+      default: () => ({
+        title: '',
+        content: '',
+      }),
     },
     /**
      * @model
