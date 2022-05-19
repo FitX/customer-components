@@ -16,3 +16,5 @@ export { default as RequirementsList } from '@/components/requirements-list/Requ
 export { default as SlotSelect } from '@/components/slot-select/SlotSelect.vue';
 export { default as AppRating } from '@/components/app-rating/AppRating.vue';
 export { default as FitxRating } from '@/components/fitx-rating/FitxRating.vue';
+export { default as AccordionWrapper } from '@/components/accordion-content/AccordionWrapper.vue';
+export { default as AccordionItem } from '@/components/accordion-content/AccordionItem.vue';

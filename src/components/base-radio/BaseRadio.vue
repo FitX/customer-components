@@ -1,6 +1,7 @@
 <template>
   <label
     class="radio"
+    :aria-role="ariaRole"
     :class="[
       getModifierClasses('radio', [
         isChecked ? 'checked' : null,
@@ -79,6 +80,10 @@ export default {
      */
     label: {
       type: [String, Number],
+      default: null,
+    },
+    ariaRole: {
+      type: String,
       default: null,
     },
   },
@@ -312,4 +317,5 @@ export default {
     }
   }
 }
+
 </style>

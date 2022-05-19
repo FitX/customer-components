@@ -34,13 +34,20 @@
     <hr>
     <progress-bar :steps="['eins', 'zwei']" />
     <hr>
-    <requirements-list :items="[{ title: 'eins', done: false }, { title: 'zwei', done: true }]" />
+    <requirements-list :items="demoRequirements" />
     <hr>
     <slot-select :items="demoSlots3" />
     <hr>
     <app-rating title="optional App Rating Title" />
     <hr>
     <fitx-rating />
+    <hr>
+    <accordion-wrapper>
+      <accordion-item
+        :index="0" :item="demoAccordionItems[0]" v-model="accordionModel" />
+      <accordion-item
+        :index="1" :item="demoAccordionItems[1]" v-model="accordionModel" />
+    </accordion-wrapper>
   </div>
 </template>
 
@@ -53,6 +60,18 @@ export default {
   data() {
     return {
       model: null,
+      accordionModel: -1,
+      demoAccordionItems: [
+        {
+          title: 'title 1',
+          content: 'description 1',
+        },
+        {
+          title: 'title 2',
+          content: 'description 2',
+        }
+      ],
+      demoRequirements: [{ title: 'eins', done: false }, { title: 'zwei', done: true }],
       demoSlots3: [
         {
           title: 'title 1',
