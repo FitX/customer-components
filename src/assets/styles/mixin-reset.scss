@@ -30,7 +30,12 @@
   text-transform: none;
 
   /**
-   * Correct the inability to style clickable types in iOS and Safari.
-   */
-  -webkit-appearance: button;
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+  &:is(button),
+  &[type="button"],
+  &[type="reset"],
+  &[type="submit"] {
+    -webkit-appearance: button;
+  }
 }
