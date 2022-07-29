@@ -35,7 +35,7 @@ $fitx-color-chalk: rgb(245, 245, 245); // #f5f5f5
 
 $fitx-color-func-success: rgb(39, 174, 96); // #27ae60
 $fitx-color-func-success-1-light: rgb(212, 239, 223); // #d4efdf
-$fitx-color-func-success-1-dark: rgb(27, 59, 43); // #183b2b
+$fitx-color-func-success-1-dark: rgb(27, 59, 43); // #1b3b2b
 
 $fitx-color-func-attention: rgb(245, 163, 35); // #F5A323
 $fitx-color-func-attention-1-light: rgb(253, 237, 221); // #FDEDD4
@@ -43,7 +43,7 @@ $fitx-color-func-attention-1-dark: rgb(46, 42, 30); // #2E2A1E
 
 $fitx-color-func-error: rgb(232, 54, 35); // #E83623
 $fitx-color-func-error-1-light: rgb(254, 245, 244); // #FEF5F4
-$fitx-color-func-error-1-dark: rgb(44, 31, 30); // #2C1F1E
+$fitx-color-func-error-1-dark: rgb(64, 34, 31); // #40221f
 
 @mixin brand-colors() {
   --brand-color-anthracite: #{$fitx-color-anthracite};
