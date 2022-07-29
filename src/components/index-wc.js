@@ -17,6 +17,8 @@ import VueRequirementsList from '@/components/requirements-list/RequirementsList
 import VueSlotSelect from '@/components/slot-select/SlotSelect.vue';
 import VueAppRating from '@/components/app-rating/AppRating.vue';
 import VueFitxRating from '@/components/fitx-rating/FitxRating.vue';
+import VueFitxAccordionWrapper from '@/components/accordion-content/AccordionWrapper.vue';
+import VueFitxAccordionItem from '@/components/accordion-content/AccordionItem.vue';
 import styles from '@/assets/styles/lib.scss';
 
 export const ErrorMessage = defineCustomElement(VueErrorMessage);
@@ -37,6 +39,8 @@ export const RequirementsList = defineCustomElement(VueRequirementsList);
 export const SlotSelect = defineCustomElement(VueSlotSelect);
 export const AppRating = defineCustomElement(VueAppRating);
 export const FitxRating = defineCustomElement(VueFitxRating);
+export const FitxAccordionWrapper = defineCustomElement(VueFitxAccordionWrapper);
+export const FitxAccordionItem = defineCustomElement(VueFitxAccordionItem);
 export { styles };
 
 export function register() {
@@ -57,4 +61,6 @@ export function register() {
   customElements.define('slot-select', SlotSelect);
   customElements.define('app-rating', AppRating);
   customElements.define('fitx-rating', FitxRating);
+  customElements.define('fitx-accordion-wrapper', FitxAccordionWrapper);
+  customElements.define('fitx-accordion-item', FitxAccordionItem);
 }
