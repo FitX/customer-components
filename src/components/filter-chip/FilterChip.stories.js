@@ -129,6 +129,26 @@ const TemplateGroup = (groupItems, template = groupTemplate) => ({
   template,
 });
 
+const TemplateSingle = (groupItems, template = groupTemplate) => ({
+  components: { FilterChip },
+  setup() {
+    const model = ref('one');
+    const group = groupItems.map((item) => {
+      const itemCopy = item;
+      if (typeof item.args.isDarkMode === 'undefined') {
+        itemCopy.args.isDarkMode = isDarkMode;
+      }
+      return itemCopy;
+    });
+    return {
+      group: reactive(group),
+      model,
+      isDarkMode,
+    };
+  },
+  template,
+});
+
 //* ******************************** */
 /// Stories
 /* ******************************** */
@@ -206,6 +226,30 @@ export const Usage = () => TemplateGroup([
     },
   },
 ], groupTemplateUsage);
+
+export const UsageSingle = () => TemplateSingle([
+  {
+    args: {
+      value: 'one',
+      label: 'single 1',
+    },
+  },
+  {
+    args: {
+      value: 'two',
+      count: 2,
+      label: 'single 2',
+    },
+  },
+  {
+    args: {
+      value: 3,
+      label: 'single 3 number',
+    },
+  },
+], groupTemplateUsage);
+
+UsageSingle.storyName = 'Benutzung Single';
 
 Usage.parameters = {
   docs: {

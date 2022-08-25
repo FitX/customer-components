@@ -11,6 +11,7 @@
     <input
       class="chip__input"
       v-model="computedValue"
+      :true-value="value"
       type="checkbox"
       v-bind="$attrs"
       :value="value"
@@ -51,6 +52,8 @@ export default {
     modelValue: {
       type: [
         Array,
+        String,
+        Number,
       ],
       default: null,
     },
@@ -108,7 +111,7 @@ export default {
       if (props.modelValue instanceof Array) {
         return props.modelValue.includes(props.value);
       }
-      return false;
+      return props.modelValue === props.value;
     });
     const { getModifierClasses } = useModifier();
     return {
@@ -162,10 +165,14 @@ export default {
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 1.4rem;
+    &:has(#{$self}__count:empty) {
+      grid-template-columns: auto;
+    }
   }
 
   &__count {
     color: var(--chip-color-count);
+    &:empty { display: none };
   }
 
   &:hover,

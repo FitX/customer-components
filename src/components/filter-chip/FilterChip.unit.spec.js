@@ -49,4 +49,14 @@ describe('Filter Chip', () => {
     });
     expect(wrapper.vm.isChecked).toBe(true);
   });
+
+  it('single chip should be works', async () => {
+    const wrapper = shallowMount(FilterChip, {
+      props: {
+        modelValue: 'one',
+        value: 'one',
+      },
+    });
+    expect(wrapper.vm.isChecked).toBe(true);
+  });
 });
