@@ -9,10 +9,9 @@
 @import '~@/assets/styles/links.scss';
 
 *,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
+::before,
+::after { box-sizing: border-box; }
+
 /**
   Font Size 10px is Required for correct displaying components.
   We use rem in all components
