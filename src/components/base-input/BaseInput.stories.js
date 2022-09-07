@@ -96,9 +96,11 @@ const PasswordTemplate = (argsObject) => ({
   },
   components: { BaseInput },
   template: `
-    <base-input v-bind="args" v-model="model" :is-valid="isValid" :error-message="errorMessage">
-  <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
-  </base-input>`,
+    <form @submit.prevent>
+      <base-input v-bind="args" v-model="model" :is-valid="isValid" :error-message="errorMessage">
+      <template v-if="args?.slotProps?.default" #default>{{ args.slotProps.default }}</template>
+    </base-input>
+    </form>`,
 });
 
 //* ******************************** */
