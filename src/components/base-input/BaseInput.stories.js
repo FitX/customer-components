@@ -182,6 +182,7 @@ export const BaseInputClearable = Template.bind({});
 BaseInputClearable.args = {
   label: 'Mitgliedsnummer',
   model: '123456',
+  type: 'number',
   clearable: true,
 };
 BaseInputClearable.parameters = {

@@ -432,6 +432,11 @@ label {
     height: 100%;
     font-weight: 300;
 
+    &::-webkit-inner-spin-button,
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+
     &--textarea {
       .content-editable {
         --textarea-extra-spacing: 0.3rem;
