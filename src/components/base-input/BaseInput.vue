@@ -66,6 +66,7 @@
         v-if="isValid && modelValue" />
       <button
         class="field__password-text"
+        type="button"
         @click.prevent="toggleShowPassword()"
         v-if="$attrs.type === 'password'">
         {{ passwordToggleText }}
