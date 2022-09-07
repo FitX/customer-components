@@ -58,7 +58,7 @@
       <button
         class="field__icon clearable-icon"
         @click.prevent="clearInput()"
-        v-if="clearable">
+        v-if="clearable && isFilled">
         <icon-clear />
       </button>
       <valid-icon
@@ -432,6 +432,11 @@ label {
     height: 100%;
     font-weight: 300;
 
+    &::-webkit-inner-spin-button,
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+
     &--textarea {
       .content-editable {
         --textarea-extra-spacing: 0.3rem;
@@ -551,6 +556,7 @@ label {
   --icon-height: 1.8rem;
   --icon-fill: var(--brand-color-gray-carbon);
 }
+
 .additional {
   display: grid;
   width: 100%;
