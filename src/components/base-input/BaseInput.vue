@@ -58,7 +58,7 @@
       <button
         class="field__icon clearable-icon"
         @click.prevent="clearInput()"
-        v-if="clearable">
+        v-if="clearable && isFilled">
         <icon-clear />
       </button>
       <valid-icon
@@ -551,6 +551,7 @@ label {
   --icon-height: 1.8rem;
   --icon-fill: var(--brand-color-gray-carbon);
 }
+
 .additional {
   display: grid;
   width: 100%;
