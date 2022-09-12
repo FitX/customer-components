@@ -18,3 +18,4 @@ export { default as AppRating } from '@/components/app-rating/AppRating.vue';
 export { default as FitxRating } from '@/components/fitx-rating/FitxRating.vue';
 export { default as AccordionWrapper } from '@/components/accordion-content/AccordionWrapper.vue';
 export { default as AccordionItem } from '@/components/accordion-content/AccordionItem.vue';
+export { default as BannerNotification } from '@/components/banner-notification/BannerNotification.vue';
