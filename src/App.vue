@@ -48,15 +48,21 @@
       <accordion-item
         :index="1" :item="demoAccordionItems[1]" v-model="accordionModel" />
     </accordion-wrapper>
+    <hr>
+    <banner-notification modifier="success">Banner Notification success</banner-notification>
+    <br>
+    <banner-notification modifier="error">Banner Notification error</banner-notification>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import '../dist/customer-components.css';
+// import BannerNotification from '@/components/banner-notification/BannerNotification';
 
 export default {
   name: 'App',
+  // components: {BannerNotification},
   data() {
     return {
       model: null,
