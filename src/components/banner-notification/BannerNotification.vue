@@ -26,10 +26,12 @@
 </template>
 
 <script>
+import { useTimeoutFn } from '@vueuse/core';
 import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
 import IconSuccess from '@/assets/icons/icon-checkmark.svg';
 import IconError from '@/assets/icons/icon-error.svg';
+import { watch } from 'vue';
 
 export const modifier = [
   'error',
@@ -38,7 +40,20 @@ export const modifier = [
 
 export default {
   name: 'BannerNotification',
+  emits: [
+    /**
+     * Fires on timeout
+     */
+    'duration-ends',
+  ],
   props: {
+    /**
+     * Duration in ms
+     */
+    duration: {
+      type: Number,
+      default: 0,
+    },
     /**
      * Default Slot Content Alternative
      */
@@ -66,8 +81,14 @@ export default {
     IconSuccess,
     IconError,
   },
-  setup(props) {
+  setup(props, { emit }) {
     const { getModifierClasses } = useModifier();
+    useTimeoutFn(() => {
+      emit('duration-ends');
+      console.log('fire in the hole');
+    }, props.duration, {
+      immediate: props.duration > 0,
+    });
     const showErrorIcon = validateValueWithList(props.modifier, ['error']);
     const showSuccessIcon = validateValueWithList(props.modifier, ['success']);
     return {
