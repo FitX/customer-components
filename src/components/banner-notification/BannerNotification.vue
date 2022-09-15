@@ -31,7 +31,6 @@ import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
 import IconSuccess from '@/assets/icons/icon-checkmark.svg';
 import IconError from '@/assets/icons/icon-error.svg';
-import { watch } from 'vue';
 
 export const modifier = [
   'error',
@@ -83,10 +82,7 @@ export default {
   },
   setup(props, { emit }) {
     const { getModifierClasses } = useModifier();
-    useTimeoutFn(() => {
-      emit('duration-ends');
-      console.log('fire in the hole');
-    }, props.duration, {
+    useTimeoutFn(() => emit('duration-ends'), props.duration, {
       immediate: props.duration > 0,
     });
     const showErrorIcon = validateValueWithList(props.modifier, ['error']);
