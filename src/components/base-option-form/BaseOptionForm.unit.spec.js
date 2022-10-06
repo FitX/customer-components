@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import BaseOptionForm from '@/components/base-option-form/BaseOptionForm.vue';
 
-describe('Filter Chip', () => {
+describe('Option Form', () => {
   it('renders default filter chip state', () => {
     const wrapper = shallowMount(BaseOptionForm, {
       props: {
@@ -10,6 +10,16 @@ describe('Filter Chip', () => {
       },
     });
     expect(wrapper.find('label').text()).toContain('Foobar');
+    const input = wrapper.find('input');
+    expect(input.attributes('type')).toBe('radio');
+  });
+
+  it('multiple select checkbox instead radio', () => {
+    const wrapper = shallowMount(BaseOptionForm, {
+      props: {
+        modelValue: [1],
+      },
+    });
     const input = wrapper.find('input');
     expect(input.attributes('type')).toBe('checkbox');
   });

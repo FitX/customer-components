@@ -20,6 +20,7 @@ import VueFitxRating from '@/components/fitx-rating/FitxRating.vue';
 import VueFitxAccordionWrapper from '@/components/accordion-content/AccordionWrapper.vue';
 import VueFitxAccordionItem from '@/components/accordion-content/AccordionItem.vue';
 import VueFitxBannerNotification from '@/components/banner-notification/BannerNotification.vue';
+import VueFitxDoubleOption from '@/components/double-option/DoubleOption.vue';
 import styles from '@/assets/styles/lib.scss';
 
 export const ErrorMessage = defineCustomElement(VueErrorMessage);
@@ -43,6 +44,7 @@ export const FitxRating = defineCustomElement(VueFitxRating);
 export const FitxAccordionWrapper = defineCustomElement(VueFitxAccordionWrapper);
 export const FitxAccordionItem = defineCustomElement(VueFitxAccordionItem);
 export const FitxBannerNotification = defineCustomElement(VueFitxBannerNotification);
+export const FitxDoubleOption = defineCustomElement(VueFitxDoubleOption);
 export { styles };
 
 export function register() {
@@ -66,4 +68,5 @@ export function register() {
   customElements.define('fitx-accordion-wrapper', FitxAccordionWrapper);
   customElements.define('fitx-accordion-item', FitxAccordionItem);
   customElements.define('fitx-banner-notification', FitxBannerNotification);
+  customElements.define('fitx-double-option', FitxDoubleOption);
 }
