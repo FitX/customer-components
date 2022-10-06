@@ -52,20 +52,31 @@
     <banner-notification modifier="success">Banner Notification success</banner-notification>
     <br>
     <banner-notification modifier="error">Banner Notification error</banner-notification>
+    <hr>
+    <double-option :options="demoDoubleOption" v-model="1" />
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import '../dist/customer-components.css';
+import DoubleOption from '@/components/double-option/DoubleOption';
 // import BannerNotification from '@/components/banner-notification/BannerNotification';
 
 export default {
   name: 'App',
+  components: {DoubleOption},
   // components: {BannerNotification},
   data() {
     return {
       model: null,
+      demoDoubleOption: [{
+        title: 'Option 1',
+        value: 1,
+      }, {
+        title: 'Option 2',
+        value: 2,
+      }],
       accordionModel: -1,
       demoAccordionItems: [
         {

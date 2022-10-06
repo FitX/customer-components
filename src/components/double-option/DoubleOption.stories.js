@@ -1,24 +1,26 @@
-import FilterChip from '@/components/filter-chip/FilterChip';
 import { reactive, ref } from 'vue';
 // import { action } from '@storybook/addon-actions';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
-import BaseOptionForm, {
+import DoubleOption, {
   modifier,
-} from './BaseOptionForm.vue';
+} from './DoubleOption.vue';
 
 const storyDescription = `
-- werden nebeneinander angeordnet
-- Einfach- und Mehrfach auswahl möglich
-- werden in Forms verwendet
+- Eine Option muss immer vorausgewählt sein
+- Optionbreite im gleichen Verhältnis
+- Gesamte Breite variabel, manchmal so lang die übergreifender Content
 `;
 
 
 export default {
-  title: 'Components/Option Form',
-  component: BaseOptionForm,
+  title: 'Components/Double Option',
+  component: DoubleOption,
   argTypes: {
     modifier: {
-      options: modifier,
+      options: [
+        null,
+        ...modifier,
+      ],
       control: {
         type: 'multi-select',
       },
@@ -26,7 +28,7 @@ export default {
     // ...eventListener,
   },
   parameters: {
-    jest: ['BaseOptionForm.unit.spec.js'],
+    jest: ['DoubleOption.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,
@@ -38,49 +40,14 @@ export default {
 /* ******************************** */
 /// Templates
 /* ******************************** */
-/* ******************************** */
-/// Templates
-/* ******************************** */
 /**
  * Base Checkbox Template
  * @type {string}
  */
 const baseTemplate = `
-<base-option-form v-bind="args" v-model="args.model" />
+<double-option v-bind="args" v-model="args.model" />
 <small :style="{ color: isDarkMode ? '#fff' : 'currentColor' }">
 </small>
-`;
-
-/**
- * Group Checkbox Template
- * @type {string}
- */
-const groupTemplate = `
-<div style="display: grid; max-width: calc(3 * (20rem + 2rem)); grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 1rem;">
-<base-option-form
-    v-for="(item, index) in group"
-    :key="index"
-    name="group"
-    v-bind="item.args"
-    v-model="model" />
-</div>
-<small :style="{ color: isDarkMode ? '#fff' : 'currentColor' }">
-<pre>Auswahl: {{ model }}</pre>
-</small>
-`;
-
-/**
- * Group Checkbox Template
- * @type {string}
- */
-const groupTemplateUsage = `
-<div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-  <base-option-form
-    v-for="(item, index) in group"
-    :key="index"
-    v-bind="item.args"
-    v-model="model" />
-</div>
 `;
 
 /* ******************************** */
@@ -104,7 +71,7 @@ const Template = (argsObject) => ({
       isDarkMode,
     };
   },
-  components: { BaseOptionForm },
+  components: { DoubleOption },
   template: baseTemplate,
 });
 
@@ -142,8 +109,8 @@ const TemplateGroup = (groupItems, template = groupTemplate) => ({
  * @return {{template: string, components: {BaseOptionForm: {setup(): {getModifierClasses: *}, props: {modifier: {default: null, validator: function(*=): (boolean|boolean), type: [StringConstructor, ArrayConstructor]}, isDarkMode: {default: boolean, type: Boolean | BooleanConstructor}, tag: {default: string, type: String | StringConstructor}, text: {default: null, type: String | StringConstructor}}}}, setup(): {args: *}}}
  * @constructor
  */
-const TemplateGroupSingle = (groupItems, template = groupTemplate) => ({
-  components: { BaseOptionForm },
+const TemplateGroupSingle = (groupItems, template = template) => ({
+  components: { DoubleOption },
   setup() {
     const model = ref(null);
     const group = groupItems.map((item) => {
@@ -162,136 +129,20 @@ const TemplateGroupSingle = (groupItems, template = groupTemplate) => ({
   template,
 });
 
+const demoOptions = [{
+  title: 'Option 1',
+  value: 1,
+}, {
+  title: 'Option 2',
+  value: 2,
+}]
+
 //* ******************************** */
 /// Stories
 /* ******************************** */
-export const DefaultBaseOptionForm = Template.bind({});
-DefaultBaseOptionForm.args = {
-  title: 'Base Option Form',
-  value: 'blubb',
-  model: [],
+export const Default = Template.bind({});
+Default.args = {
+  model: 2,
+  options: demoOptions,
 };
-
-export const States = () => TemplateGroup([
-  {
-    args: {
-      value: 'normal',
-      title: 'Option',
-    },
-  },
-  {
-    args: {
-      value: 'hover',
-      modifier: 'fake-hover',
-      title: 'Option Hover',
-    },
-  },
-  {
-    args: {
-      value: 'active',
-      title: 'Option Active',
-    },
-  },
-  {
-    args: {
-      value: 'disabled',
-      disabled: true,
-      title: 'Option Disabled',
-    },
-  },
-  {
-    args: {
-      value: 'error',
-      modifier: 'error',
-      title: 'Option Error',
-    },
-  },
-]);
-States.storyName = 'Zustände';
-
-export const Usage = () => TemplateGroup([
-  {
-    args: {
-      value: 'active',
-      title: 'Eins',
-    },
-  },
-  {
-    args: {
-      value: 'active 2',
-      title: 'Zwei',
-    },
-  },
-  {
-    args: {
-      value: 'active 3',
-      title: 'Drei',
-    },
-  },
-  {
-    args: {
-      value: 'active 4',
-      title: 'Vier',
-    },
-  },
-  {
-    args: {
-      value: 'active 5',
-      title: 'Fünf',
-    },
-  },
-], groupTemplate);
-
-Usage.parameters = {
-  docs: {
-    description: {
-      story: 'Mehrfachauswahl ist Standard.',
-    },
-  },
-};
-
-Usage.storyName = 'Benutzung';
-
-export const UsageSingle = () => TemplateGroupSingle([
-  {
-    args: {
-      value: 1,
-      title: 'Eins',
-    },
-  },
-  {
-    args: {
-      value: 2,
-      title: 'Zwei',
-    },
-  },
-  {
-    args: {
-      value: 3,
-      title: 'Drei',
-    },
-  },
-  {
-    args: {
-      value: 4,
-      title: 'Vier',
-    },
-  },
-  {
-    args: {
-      value: 5,
-      title: 'Fünf',
-    },
-  },
-], groupTemplate);
-
-UsageSingle.parameters = {
-  docs: {
-    description: {
-      story: 'Alternative Single Auswahl.',
-    },
-  },
-};
-
-UsageSingle.storyName = 'Benutzung Single';
 
