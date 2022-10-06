@@ -13,7 +13,7 @@
     <input
       class="btn__input"
       v-model="computedValue"
-      type="checkbox"
+      :type="isSingle ? 'radio' : 'checkbox'"
       v-bind="$attrs"
       :value="value"
       :true-value="value"
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, unref } from 'vue';
 import validateValueWithList from '@/use/validate-value-with-list';
 import useModifier from '@/use/modifier-class';
 
@@ -111,8 +111,9 @@ export default {
         emit('update:modelValue', value);
       },
     });
+    const isSingle = computed(() => !(props.modelValue instanceof Array));
     const isChecked = computed(() => {
-      if (props.modelValue instanceof Array) {
+      if (!unref(isSingle)) {
         return props.modelValue.includes(props.value);
       }
       return props.modelValue === props.value;
@@ -123,6 +124,7 @@ export default {
       computedValue,
       getModifierClasses,
       isChecked,
+      isSingle,
     };
   },
 };

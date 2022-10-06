@@ -60,6 +60,7 @@ const groupTemplate = `
 <base-option-form
     v-for="(item, index) in group"
     :key="index"
+    name="group"
     v-bind="item.args"
     v-model="model" />
 </div>
