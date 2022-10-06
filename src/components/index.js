@@ -19,3 +19,4 @@ export { default as FitxRating } from '@/components/fitx-rating/FitxRating.vue';
 export { default as AccordionWrapper } from '@/components/accordion-content/AccordionWrapper.vue';
 export { default as AccordionItem } from '@/components/accordion-content/AccordionItem.vue';
 export { default as BannerNotification } from '@/components/banner-notification/BannerNotification.vue';
+export { default as DoubleOption } from '@/components/double-option/DoubleOption.vue';
