@@ -12,14 +12,9 @@
 ::before,
 ::after { box-sizing: border-box; }
 
-/**
-  Font Size 10px is Required for correct displaying components.
-  We use rem in all components
- */
-:root {
+:where(html) {
   --font-stack-normal: 'Niveau Grotesk',
   'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  // font-size: 62.5%; /* 62.5% of 16px = 10px */
   @include brand-colors();
   @include functional-colors();
   @include input-vars();
