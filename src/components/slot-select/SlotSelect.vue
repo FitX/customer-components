@@ -162,10 +162,10 @@ export default {
   @include list-unstyled();
   --slot-color-bg: var(--slot-default-color-bg);
   --slot-color-text: var(--slot-default-color-text);
-  --tabs-width: 11.4rem;
-  --tab-gap: 0.4rem;
-  --tab-height: 8.5rem;
-  --slot-active-triangle-size: 1.3rem;
+  --tabs-width: 7.125rem;
+  --tab-gap: 0.25rem;
+  --tab-height: 5.313rem;
+  --slot-active-triangle-size: 0.813rem;
 
   margin: 0;
   overflow-x: auto;
@@ -180,7 +180,7 @@ export default {
   grid-auto-columns: var(--tabs-width);
   font-weight: 300;
   padding-bottom:
-    calc(var(--slot-active-triangle-size) + 1rem); // Designer Spacing + Safe Space for scrollbar
+    calc(var(--slot-active-triangle-size) + 0.625rem); // Designer Spacing + Safe Space for scrollbar
 
   /**
     Hide Scrollbar
@@ -193,7 +193,7 @@ export default {
   &__item {
     display: flex;
     place-items: center;
-    border-radius: var(--form-input-border-radius, 0.8rem);
+    border-radius: var(--form-input-border-radius, 0.5rem);
     color: var(--slot-color-text);
     background: var(--slot-color-bg);
     position: relative;
@@ -243,10 +243,10 @@ export default {
   display: grid;
   width: 100%;
   place-items: center;
-  font-size: 1.4rem;
+  font-size: 0.875rem;
   &__title {
     font-weight: 400;
-    font-size: 1.8rem;
+    font-size: 1.125rem;
   }
 }
 .slots {
@@ -255,8 +255,8 @@ export default {
   margin: 0;
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-rows: 8rem;
-  gap: 1rem;
+  grid-auto-rows: 5rem;
+  gap: 0.625rem;
 
   &__button {
     width: 100%;

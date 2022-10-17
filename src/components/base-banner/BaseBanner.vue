@@ -89,17 +89,17 @@ export default {
 @import '~@/assets/styles/mixin-reset.scss';
 .base-banner {
   $self: &;
-  --base-banner-spacing-h: 1.7rem;
-  --base-banner-spacing-v: 1.4rem;
-  --base-banner-icon-size: 1.8rem;
+  --base-banner-spacing-h: 1.063rem;
+  --base-banner-spacing-v: 0.875rem;
+  --base-banner-icon-size: 1.125rem;
   --base-banner-icon-fill: var(--brand-color-anthracite);
   --base-banner-background: var(--brand-color-white-1);
   --base-banner-color: var(--brand-color-anthracite);
   background: var(--base-banner-background);
   color: var(--base-banner-color);
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 300;
-  line-height: 2.1rem;
+  line-height: 1.313rem;
   padding: var(--base-banner-spacing-v) var(--base-banner-spacing-h);
   display: grid;
   grid-template-columns: 1fr;

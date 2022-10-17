@@ -141,18 +141,18 @@ export default {
   --btn-color-bg: #fff;
   --btn-color-border: var(--brand-color-gray-stone);
   --btn-color: var(--brand-color-anthracite);
-  --btn-font-size: 1.8rem;
-  --btn-padding: 1.8rem;
+  --btn-font-size: 1.125rem;
+  --btn-padding: 1.125rem;
   --btn-border-width: 1px;
 
-  height: 6rem;
+  height: 3.75rem;
   font-size: var(--btn-font-size);
   font-weight: 400;
   background: var(--btn-color-bg);
   color: var(--btn-color);
   padding: var(--btn-padding);
   border: var(--btn-border-width) solid var(--btn-color-border);
-  border-radius: 0.8rem;
+  border-radius: 8px;
   cursor: pointer;
   text-align: center;
 

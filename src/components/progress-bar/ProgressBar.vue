@@ -133,10 +133,10 @@ export default {
   $self: &;
   --progress-animation-time: 0.3s;
   --progress-step-animation-time: 0.3s;
-  --progress-item-size: 3.6rem;
-  --progress-font-size: 1.4rem;
-  --progress-step-font-size: 1.6rem;
-  --progress-step-indicator: 0.2rem;
+  --progress-item-size: 2.25rem;
+  --progress-font-size: 0.875rem;
+  --progress-step-font-size: 1rem;
+  --progress-step-indicator: 0.125rem;
   --progress-current-step-width: calc(
     ((var(--progress-current-step-index) + 0.5) / var(--progress-steps-length)) * 100%);
   --progress-item-width: calc(100% / var(--progress-steps-length));
@@ -149,7 +149,7 @@ export default {
   --progress-color-title: var(--progress-color-inactive);
   --progress-color-count: var(--progress-color-inactive);
   --progress-color-border: var(--progress-color-inactive);
-  --progress-step-space: 0.4rem;
+  --progress-step-space: 0.25rem;
   --progress-helper-overlay-start-end: calc(
     (100% / var(--progress-steps-length)) / 2); // e.g. 100% / 4 steps = 25% / 2 first item
   --progress-helper-overlay-end-start: calc(
@@ -256,10 +256,10 @@ export default {
   }
 
   &__icon {
-    --icon-width: 2.2rem;
-    --icon-height: 2.2rem;
+    --icon-width: 1.375rem;
+    --icon-height: 1.375rem;
     --icon-fill: #fff;
-    top: 0.7rem;
+    top: 0.438rem;
     position: absolute;
   }
 

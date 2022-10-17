@@ -32,16 +32,16 @@ export default {
 @import '~@/assets/styles/colors.scss';
 .error-message {
   color: var(--functional-color-error);
-  font-size: 1.4rem;
+  font-size: 0.875rem;
   font-weight: 300;
   display: grid;
   width: 100%;
-  grid-template-columns: 2rem 1fr;
-  grid-gap: 0.4rem;
+  grid-template-columns: 1.25rem 1fr;
+  grid-gap: 0.25rem;
   align-items: center;
 
   &__icon {
-    --icon-size: 1.8rem;
+    --icon-size: 1.125rem;
     --icon-width: var(--icon-size);
     --icon-height: var(--icon-size);
     --icon-fill: var(--functional-color-error);

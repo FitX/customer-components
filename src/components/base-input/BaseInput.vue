@@ -341,15 +341,15 @@ label {
   --field-color-input: var(--brand-color-anthracite);
   --field-color-border: var(--brand-color-gray-stone);
 
-  --field-font-size: var(--form-input-font-size, 1.8rem);
+  --field-font-size: var(--form-input-font-size, 1.125rem);
   --field-label-font-size: var(--field-font-size);
 
-  --field-padding-v: var(--form-input-padding, 1.8rem);
-  --field-padding-h: var(--form-input-padding, 1.8rem);
+  --field-padding-v: var(--form-input-padding, 1.125rem);
+  --field-padding-h: var(--form-input-padding, 1.125rem);
 
-  --field-border-size: var(--form-input-border-size, 0.1rem);
-  --field-min-height: var(--form-input-height, 6rem);
-  --icon-size: var(--field-icon-size, 2.4rem);
+  --field-border-size: var(--form-input-border-size, 1px);
+  --field-min-height: var(--form-input-height, 3.75rem);
+  --icon-size: var(--field-icon-size, 1.5rem);
 
   position: relative;
   font-size: var(--field-font-size);
@@ -412,7 +412,7 @@ label {
   }
   &__input {
     -webkit-appearance: none;
-    line-height: 2.1rem;
+    line-height: 1.313rem;
     /**
     -webkit-autofill::first-line hack for overwrite webkit autofill styles
     **/
@@ -424,8 +424,8 @@ label {
       color: var(--field-color-input);
     }
     border: var(--field-border-size) solid var(--field-color-border);
-    border-radius: var(--form-input-border-radius, 0.8rem);
-    padding: var(--field-padding-v) var(--field-padding-h) 1.1rem;
+    border-radius: var(--form-input-border-radius, 0.5rem);
+    padding: var(--field-padding-v) var(--field-padding-h) 0.688rem;
     // padding: var(--field-padding-v) var(--field-padding-h);
     background: var(--field-color-bg);
     width: 100%;
@@ -439,7 +439,7 @@ label {
 
     &--textarea {
       .content-editable {
-        --textarea-extra-spacing: 0.3rem;
+        --textarea-extra-spacing: 0.188rem;
         margin-top: var(--textarea-extra-spacing); // fake real input spacing
         min-height: calc(100% + var(--textarea-extra-spacing));
       }
@@ -466,7 +466,7 @@ label {
     }
     #{$self}--fake-focus &,
     &:focus {
-      border-width: calc(var(--field-border-size) + 0.05rem);
+      border-width: calc(var(--field-border-size) + 0.031rem);
     }
     #{$self}--fake-focus &,
     &:focus,
@@ -480,8 +480,8 @@ label {
         color: var(--field-color-input);
       }
       & + .field__text {
-        --field-label-font-size: 1.4rem;
-        top: 1.4rem;
+        --field-label-font-size: 0.875rem;
+        top: 0.875rem;
         transform: translate3d(var(--field-padding-h), 0, 0);
         #{$self}--dark:not(#{$self}--error) & {
           --field-color-label: var(--brand-color-gray-cement);
@@ -522,7 +522,7 @@ label {
   &__password-text {
     @include btn-reset();
     background: var(--field-color-bg);
-    font-size: 1.4rem;
+    font-size: 0.875rem;
     font-weight: 100;
     color: var(--field-color-label);
     position: absolute;
@@ -552,19 +552,19 @@ label {
   @include btn-reset();
   background: none;
   line-height: 0;
-  --icon-width: 1.8rem;
-  --icon-height: 1.8rem;
+  --icon-width: 1.125rem;
+  --icon-height: 1.125rem;
   --icon-fill: var(--brand-color-gray-carbon);
 }
 
 .additional {
   display: grid;
   width: 100%;
-  grid-gap: 1rem;
+  grid-gap: 0.625rem;
   grid-template-columns: auto auto;
   justify-content: space-between;
-  font-size: 1.4rem;
-  padding-top: 0.6rem;
+  font-size: 0.875rem;
+  padding-top: 6px;
 
   &__count {
     justify-self: flex-end;
@@ -639,7 +639,6 @@ input:-webkit-autofill {
   animation-duration: 5000s;
   // Make the background color become yellow really slow
   transition: background-color 50000s ease-in-out 0s;
-  background: red !important;
 }
 input:not(:-webkit-autofill) {
   // Expose a hook for JS onAutoFillCancel

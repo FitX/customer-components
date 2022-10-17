@@ -148,7 +148,7 @@ export default {
   color: var(--accordion-color);
 
   &__title {
-    font-size: 1.8rem;
+    font-size: 1.125rem;
     font-weight: 400;
     margin: 0;
     padding: 0;
@@ -174,8 +174,8 @@ export default {
     color: inherit;
     justify-items: start;
     width: 100%;
-    gap: 1.6rem;
-    grid-template-columns: 2.4rem 1fr;
+    gap: 1rem;
+    grid-template-columns: 1.5rem 1fr;
     text-align: left;
     border-bottom: 1px solid var(--accordion-border-color);
     #{$self}:last-of-type &[aria-expanded="false"] {

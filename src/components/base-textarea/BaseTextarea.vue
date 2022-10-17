@@ -72,6 +72,6 @@ export default {
 <style lang="scss" scoped>
 .count {
   font-weight: 300;
-  font-size: 1.4rem;
+  font-size: 0.875rem;
 }
 </style>

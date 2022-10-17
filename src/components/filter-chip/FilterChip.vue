@@ -130,11 +130,11 @@ export default {
   --chip-color-bg: var(--brand-color-gray-smoke);
   --chip-color: var(--brand-color-anthracite);
   --chip-color-count: var(--brand-color-gray-cement);
-  --chip-height: 3.6rem;
-  --chip-border-radius: 2.6rem;
-  --chip-spacing-v: 0.7rem;
-  --chip-spacing-h: 2rem;
-  --chip-font-size: 1.6rem;
+  --chip-height: 2.25rem;
+  --chip-border-radius: 1.625rem;
+  --chip-spacing-v: 0.438rem;
+  --chip-spacing-h: 1.25rem;
+  --chip-font-size: 1rem;
 
   background: var(--chip-color-bg);
   color: var(--chip-color);
@@ -164,7 +164,7 @@ export default {
   &__content {
     display: grid;
     grid-template-columns: auto auto;
-    grid-gap: 1.4rem;
+    grid-gap: 0.875rem;
     &:has(#{$self}__count:empty) {
       grid-template-columns: auto;
     }

@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 @use "sass:math";
-$satellite-size: 1em;
+$satellite-size: 0.625rem;
 $satellite-move: $satellite-size * 7;
 .satellite {
   position: absolute;

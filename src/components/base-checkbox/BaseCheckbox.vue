@@ -158,20 +158,20 @@ export default {
   --checkbox-color: var(--brand-color-anthracite);
   --checkbox-color-border: var(--brand-color-gray-stone);
   --checkbox-color-bg: #fff;
-  --checkbox-icon-size: 2.4rem;
-  --checkbox-font-size: var(--form-input-font-size, 1.8rem);
+  --checkbox-icon-size: 1.5rem;
+  --checkbox-font-size: var(--form-input-font-size, 1.125rem);
   // --checkbox-size: calc((2 * 0.1rem) + var(--checkbox-icon-size));
   --checkbox-size: var(--checkbox-icon-size);
   --checkbox-icon-fill: #fff;
   display: inline-grid;
-  gap: 1rem;
+  gap: 0.625rem;
   grid-template-columns: var(--checkbox-icon-size) 1fr;
   --checkbox-color-border-inner-1: transparent;
   --checkbox-color-border-inner-2: transparent;
   user-select: none;
   cursor: pointer;
   color: var(--checkbox-color);
-  font-size: var(--radio-font-size, 1.8rem);
+  font-size: var(--radio-font-size, 1.125rem);
   font-weight: 300;
 
   &--dark {
@@ -199,7 +199,7 @@ export default {
     padding: 0;
     margin: 0;
     outline: none;
-    border-radius: 0.4rem;
+    border-radius: 4px;
     background: var(--checkbox-color-bg);
     /* box-shadow:
       0 0 0 1px var(--checkbox-color-border-inner-1) inset,

@@ -102,19 +102,19 @@ export default {
 @import '~@/assets/styles/mixin-reset.scss';
 .notification {
   $self: &;
-  --notification-border-radius: 0.6rem;
-  --notification-spacing-h: 1.7rem;
-  --notification-spacing-v: 1.4rem;
-  --notification-icon-size: 1.8rem;
+  --notification-border-radius: 6px;
+  --notification-spacing-h: 1.063rem;
+  --notification-spacing-v: 0.875rem;
+  --notification-icon-size: 1.125rem;
   --notification-icon-fill: var(--brand-color-orange);
   --notification-background: var(--brand-color-white);
   --notification-color: var(--brand-color-anthracite);
   background: var(--notification-background);
   color: var(--notification-color);
   border-radius: var(--notification-border-radius);
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 300;
-  line-height: 2.1rem;
+  line-height: 1.313rem;
   padding: var(--notification-spacing-v) var(--notification-spacing-h);
   display: inline-grid;
   grid-template-columns: 1fr;

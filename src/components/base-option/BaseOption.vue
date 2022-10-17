@@ -69,11 +69,11 @@ export default {
   --btn-color-bg: #fff;
   --btn-color-border: var(--brand-color-gray-stone);
   --btn-color: var(--brand-color-anthracite);
-  --btn-font-size: 1.8rem;
-  --btn-padding: 3rem;
+  --btn-font-size: 1.125rem;
+  --btn-padding: 1.875rem;
   --btn-padding-h: var(--btn-padding);
   --btn-padding-v: 0;
-  --btn-height: 8rem;
+  --btn-height: 5rem;
   --btn-border-width: 1px;
 
   height: var(--btn-height);
@@ -83,7 +83,7 @@ export default {
   color: var(--btn-color);
   padding: var(--btn-padding-v) var(--btn-padding-h);
   border: var(--btn-border-width) solid var(--btn-color-border);
-  border-radius: 0.8rem;
+  border-radius: 8px;
   cursor: pointer;
   text-align: center;
 
@@ -97,7 +97,7 @@ export default {
   }
 
   &--extra {
-    --btn-padding-h: 1.8rem;
+    --btn-padding-h: 1.125rem;
     #{$self}__content {
       display: grid;
       text-align: left;
@@ -158,7 +158,7 @@ export default {
   }
 
   &__additional {
-    font-size: 1.4rem;
+    font-size: 0.875rem;
     font-weight: 300;
     color: var(--brand-color-gray-steel);
     #{$self}--dark & {

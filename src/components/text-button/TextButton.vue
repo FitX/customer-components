@@ -56,18 +56,18 @@ export default {
 .btn {
   @include btn-reset();
   --btn-color: #ED6A12;
-  --icon-width: var(--icon-size, 2.6rem);
+  --icon-width: var(--icon-size, 1.625rem);
   cursor: pointer;
   display: inline-flex;
   width: auto;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   background: none;
   color: var(--btn-color);
   padding: 0;
   border: none;
-  gap: 1rem;
+  gap: 0.625rem;
   text-decoration: none;
   &__icon {
     line-height: 0;

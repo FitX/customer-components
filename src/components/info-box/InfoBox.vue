@@ -82,21 +82,21 @@ export default {
 @import '~@/assets/styles/mixin-reset.scss';
 .info-box {
   $self: &;
-  --info-box-spacing-h: 1.7rem;
-  --info-box-spacing-v: 1.4rem;
-  --info-box-icon-size: 1.8rem;
+  --info-box-spacing-h: 1.063rem;
+  --info-box-spacing-v: 0.875rem;
+  --info-box-icon-size: 1.125rem;
   --info-box-icon-fill: var(--brand-color-orange);
   background: var(--brand-color-orange-3);
   color: var(--carbon-color);
-  font-size: 1.6rem;
-  line-height: 2.1rem;
-  border-radius: 0.6rem;
+  font-size: 1rem;
+  line-height: 1.313rem;
+  border-radius: 6px;
   font-weight: 300;
   padding: var(--info-box-spacing-v) var(--info-box-spacing-h);
   display: inline-grid;
   grid-template-columns: var(--info-box-icon-size) 1fr;
   gap: var(--info-box-spacing-v);
-  border-top: 0.5rem solid var(--brand-color-orange);
+  border-top: 5px solid var(--brand-color-orange);
 
   &--no-icon {
     grid-template-columns: 1fr;

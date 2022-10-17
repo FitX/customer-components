@@ -165,7 +165,7 @@ export default {
 
 .rating {
   --icon-fill: var(--brand-color-anthracite);
-  --icon-size: 3.6rem;
+  --icon-size: 2.25rem;
   --icon-width: var(--icon-size);
 
   display: inline-flex;
@@ -184,7 +184,7 @@ export default {
 .vote {
   @include btn-reset();
   padding: 0;
-  margin: 1.4rem;
+  margin: 0.875rem;
   position: relative;
   background: none;
   display: flex;

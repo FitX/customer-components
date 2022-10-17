@@ -134,30 +134,30 @@ export default {
   --radio-color-bg: #fff;
   // --radio-color-button-bg: var(--radio-color-bg);
   --radio-color-button-bg: #fff;
-  --radio-icon-size: 2.4rem;
-  --radio-font-size: var(--form-input-font-size, 1.8rem);
+  --radio-icon-size: 1.5rem;
+  --radio-font-size: var(--form-input-font-size, 1.125rem);
   // --radio-size: calc((2 * 0.1rem) + var(--radio-icon-size));
   --radio-size: var(--radio-icon-size);
   --radio-icon-fill: #fff;
   display: inline-grid;
   align-items: center;
   align-content: center;
-  gap: 1rem;
+  gap: 0.625rem;
   grid-template-columns: var(--radio-icon-size) 1fr;
   --radio-color-border-inner-1: transparent;
   --radio-color-border-inner-2: transparent;
   user-select: none;
   cursor: pointer;
   color: var(--radio-color);
-  font-size: var(--radio-font-size, 1.8rem);
+  font-size: var(--radio-font-size, 1.125rem);
   font-weight: 300;
 
   &--button {
-    height: var(--form-input-height, 6rem);
-    padding: var(--form-input-padding, 1.8rem);
+    height: var(--form-input-height, 3.75rem);
+    padding: var(--form-input-padding, 1.125rem);
     border: var(--form-input-border-size, 1px) solid var(--radio-color-button-border);
     // border: var(--form-input-border-size, 1px) solid var(--radio-color-border);
-    border-radius: var(--form-input-border-radius, 0.8rem);
+    border-radius: var(--form-input-border-radius, 8px);
     background: var(--radio-color-button-bg);
   }
 
@@ -308,9 +308,9 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
-    width: 1rem;
-    height: 1rem;
-    border-radius: calc(1rem / 2);
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: calc(0.625rem / 2);
     #{$self}--checked &,
     #{$self}__input:checked + & {
       opacity: 1;

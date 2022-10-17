@@ -17,12 +17,12 @@ export default {
 @import '~@/assets/styles/form.scss';
 .valid-icon {
   // --valid-icon-size: 2.7rem;
-  --icon-size: 2.4rem;
+  --icon-size: 1.5rem;
   --icon-width: var(--icon-size);
   --icon-height: var(--icon-size);
   --icon-fill: var(--functional-color-success);
   color: #00AE96;
-  font-size: 1.4rem;
+  font-size: 0.875rem;
   display: flex;
   align-content: center;
   justify-content: center;

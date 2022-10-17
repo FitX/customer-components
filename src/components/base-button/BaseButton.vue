@@ -76,8 +76,8 @@ export default {
   --btn-color-bg: var(--primary-brand-color-orange, #ED6A12);
   --btn-color-border: var(--btn-color-bg);
   --btn-color: #fff;
-  --btn-font-size: 1.8rem;
-  --btn-padding: 1.5rem;
+  --btn-font-size: 1.125rem;
+  --btn-padding: 0.938rem;
   --btn-border-width: 2px;
   --loader-size: 0;
   --loader-gap: 0;
@@ -86,7 +86,7 @@ export default {
   gap: var(--loader-gap);
   align-items: center;
   position: relative;
-  width: 28rem;
+  width: 17.5rem;
   max-width: 100%;
   font-size: var(--btn-font-size);
   font-weight: 400;
@@ -94,7 +94,7 @@ export default {
   color: var(--btn-color);
   padding: var(--btn-padding);
   border: var(--btn-border-width) solid var(--btn-color-border);
-  border-radius: 2.6rem;
+  border-radius: 1.625rem;
   cursor: pointer;
   text-align: center;
   &:hover,
@@ -120,8 +120,8 @@ export default {
   }
 
   &--small {
-    --btn-font-size: 1.6rem;
-    --btn-padding: 0.7rem;
+    --btn-font-size: 1rem;
+    --btn-padding: 7px;
     --btn-border-width: 1px;
     padding: var(--btn-padding) calc(3 * var(--btn-padding));
     display: inline-grid;
@@ -205,14 +205,14 @@ export default {
 
   &--active {
     transition: 0.4s ease grid-template-columns;
-    --loader-size: 1.5rem;
-    --loader-gap: 1rem;
+    --loader-size: 0.938rem;
+    --loader-gap: 0.625rem;
     #{$self}__loading {
       display: inline-block;
       width: var(--loader-size);
       height: var(--loader-size);
       // position: absolute;
-      right: 1.8rem;
+      right: 1.125rem;
       // top: 50%;
       // transform: translate3d(0, -50%, 0);
       &:after {

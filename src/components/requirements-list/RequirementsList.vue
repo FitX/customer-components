@@ -90,9 +90,9 @@ export default {
 .requirements {
   $self: &;
   --requirements-color-bg: var(--brand-color-gray-chalk);
-  --requirements-space: 2.4rem;
-  --requirements-border-radius: var(--form-input-border-radius, 0.8rem);
-  --requirements-font-size: 1.4rem;
+  --requirements-space: 1.5rem;
+  --requirements-border-radius: var(--form-input-border-radius, 8px);
+  --requirements-font-size: 0.875rem;
   --requirements-color-text: var(--brand-color-gray-graphite);
   --requirements-color-icon: #fff;
   --requirements-color-icon-bg: var(--brand-color-gray-ash);
@@ -114,7 +114,7 @@ export default {
     margin: 0;
   }
   &__item {
-    margin: 1.3rem 0;
+    margin: 0.813rem 0;
 
     &:first-child {
       margin-top: 0;
@@ -126,7 +126,7 @@ export default {
 }
 
 .requirement {
-  --requirement-icon-size: 2rem;
+  --requirement-icon-size: 1.25rem;
   --requirement-color-text: var(--requirements-color-text);
   --requirement-color-icon: var(--requirements-color-icon);
   --requirement-color-icon-bg: var(--requirements-color-icon-bg);
@@ -134,7 +134,7 @@ export default {
   width: 100%;
   font-weight: 300;
   grid-template-columns: var(--requirement-icon-size) 1fr;
-  gap: 1.5rem;
+  gap: 0.938rem;
   color: var(--requirement-color-text);
 
   &--done {
@@ -147,7 +147,7 @@ export default {
     --icon-fill: var(--requirement-color-icon);
     background: var(--requirement-color-icon-bg);
     border-radius: var(--requirement-icon-size);
-    padding: 0.3rem;
+    padding: 0.188rem;
   }
 }
 </style>
