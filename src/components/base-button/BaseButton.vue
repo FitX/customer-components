@@ -77,7 +77,7 @@ export default {
   --btn-color-border: var(--btn-color-bg);
   --btn-color: #fff;
   --btn-font-size: 1.125rem;
-  --btn-padding: 0.938rem;
+  --btn-padding: 15px; // 15px 0.938rem;
   --btn-border-width: 2px;
   --loader-size: 0;
   --loader-gap: 0;
