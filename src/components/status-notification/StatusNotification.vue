@@ -24,8 +24,6 @@
 <script>
 import { watch } from 'vue';
 import { useOnline, refDebounced } from '@vueuse/core';
-import useModifier from '@/use/modifier-class';
-import validateValueWithList from '@/use/validate-value-with-list';
 import IconOnline from '@/assets/icons/icon-online.svg';
 import IconOffline from '@/assets/icons/icon-offline.svg';
 
