@@ -1,7 +1,6 @@
-import { flushPromises, shallowMount, mount } from '@vue/test-utils';
+import { shallowMount, mount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
 import StatusNotification from '@/components/status-notification/StatusNotification.vue';
-// import * as vueUse from '@vueuse/core';
 
 // For mocking navigator and changing online status
 let navigator = window.navigator;
@@ -37,47 +36,14 @@ describe('Status Notification', () => {
     expect(wrapper.html()).toContain('status--hide-online');
   });
   it('offline emit works', async () => {
-    // const spy = jest.spyOn(vueUse, 'useOnline').mockReturnValue(false);
-    /* jest.mock('navigator', () => ({
-      onLine: jest.fn(() => false)
-    })); */
     Object.defineProperty(window.navigator, 'onLine', { value: false, writable: true });
-    /* jest.mock('@vueuse/core', () => ({
-      useOnline: jest.fn(() => false)
-    })); */
-    const wrapper = mount(StatusNotification, {
-      props: {
-        // offlineThrottle: 4000,
-      },
-    });
-    console.log('w', wrapper.emitted());
+    const wrapper = mount(StatusNotification, {});
     expect(wrapper.emitted('is-offline')).toBeTruthy();
     Object.defineProperty(window.navigator, 'onLine', { value: true, writable: true });
-    // navigator.onLine.mockRestore();
-    /* jest.mock('@vueuse/core', () => ({
-      useOnline: jest.fn().mockReturnValue(false),
-    })); */
-    // Object.defineProperty(window.navigator, 'onLine', { value: false, writable: true });
-    // window.navigator.onLine = false;
-    /* global.navigator = jest.fn().mockReturnValue({
-      onLine: false,
-    }); */
-    // wrapper.vm.isOnline = false;
-    /* Object.defineProperty(window.navigator, 'onLine', { value: false, writable: true });
-    expect(wrapper.emitted('is-offline')).toBeFalsy();
-    jest.runAllTimers();
-    console.log('w', wrapper.vm.isOnline);
-    expect(wrapper.emitted('is-offline')).toBeTruthy();*/
-    //jest.runAllTimers();
-    // expect(wrapper.emitted('is-online')).toBeTruthy();
   });
   it('offline render correctly', async () => {
     Object.defineProperty(window.navigator, 'onLine', { value: false, writable: true });
-    const wrapper = mount(StatusNotification, {
-      props: {
-        // offlineThrottle: 4000,
-      },
-    });
+    const wrapper = mount(StatusNotification, {});
     expect(wrapper.html()).toContain('<icon-offline>');
     Object.defineProperty(window.navigator, 'onLine', { value: true, writable: true });
   });
