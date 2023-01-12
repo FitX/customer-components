@@ -12,6 +12,14 @@ describe('Notification Banner', () => {
     });
     expect(wrapper.html()).toContain('<p>foo bar</p>');
   });
+  it('render correct modifier', async () => {
+    const wrapper = shallowMount(BannerNotification);
+    expect(wrapper.html()).toContain('notification');
+    await wrapper.setProps({ modifier: 'error' });
+    expect(wrapper.html()).toContain('notification--error');
+    await wrapper.setProps({ modifier: 'success' });
+    expect(wrapper.html()).toContain('notification--success');
+  });
   it('dont emit on missing duration', async () => {
     const wrapper = shallowMount(BannerNotification, {});
     jest.runAllTimers();
