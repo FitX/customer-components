@@ -20,3 +20,4 @@ export { default as AccordionWrapper } from '@/components/accordion-content/Acco
 export { default as AccordionItem } from '@/components/accordion-content/AccordionItem.vue';
 export { default as BannerNotification } from '@/components/banner-notification/BannerNotification.vue';
 export { default as DoubleOption } from '@/components/double-option/DoubleOption.vue';
+export { default as StatusNotification } from '@/components/status-notification/StatusNotification.vue';
