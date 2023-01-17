@@ -175,13 +175,6 @@ export default {
     const updateValue = useDebounceFn((val) => {
       emitValue(val);
     }, props.debounce);
-    /**
-     * Clear Input Value
-     */
-    const clearInput = () => {
-      emitValue(null);
-      emit('cleared');
-    };
     const handleFocus = () => {
       hasFocus.value = true;
     };
@@ -194,7 +187,6 @@ export default {
       input,
       isFilled,
       updateValue,
-      clearInput,
       handleFocus,
       handleBlur,
       hasFocus,
