@@ -56,6 +56,11 @@
     <double-option :options="demoDoubleOption" v-model="doubleOptionModel" />
     <hr>
     <status-notification />
+    <hr>
+    <base-select>
+      <option value="1">it</option>
+      <option value="2">works</option>
+    </base-select>
   </div>
 </template>
 

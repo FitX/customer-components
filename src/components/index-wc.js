@@ -1,4 +1,3 @@
-import { StatusNotification } from '@';
 import { defineCustomElement } from 'vue';
 import VueErrorMessage from '@/components/error-message/ErrorMessage.vue';
 import VueTextButton from '@/components/text-button/TextButton.vue';
@@ -23,6 +22,7 @@ import VueFitxAccordionItem from '@/components/accordion-content/AccordionItem.v
 import VueFitxBannerNotification from '@/components/banner-notification/BannerNotification.vue';
 import VueFitxDoubleOption from '@/components/double-option/DoubleOption.vue';
 import VueFitxStatusNotification from '@/components/status-notification/StatusNotification.vue';
+import VueFitxBaseSelect from '@/components/base-select/BaseSelect.vue';
 import styles from '@/assets/styles/lib.scss';
 
 export const ErrorMessage = defineCustomElement(VueErrorMessage);
@@ -48,6 +48,7 @@ export const FitxAccordionItem = defineCustomElement(VueFitxAccordionItem);
 export const FitxBannerNotification = defineCustomElement(VueFitxBannerNotification);
 export const FitxDoubleOption = defineCustomElement(VueFitxDoubleOption);
 export const FitxStatusNotification = defineCustomElement(VueFitxStatusNotification);
+export const FitxBaseSelect = defineCustomElement(VueFitxBaseSelect);
 export { styles };
 
 export function register() {
@@ -73,4 +74,5 @@ export function register() {
   customElements.define('fitx-banner-notification', FitxBannerNotification);
   customElements.define('fitx-double-option', FitxDoubleOption);
   customElements.define('fitx-status-notification', FitxStatusNotification);
+  customElements.define('fitx-base-select', BaseSelect);
 }
