@@ -180,7 +180,7 @@ export default {
   grid-auto-columns: var(--tabs-width);
   font-weight: 300;
   padding-bottom:
-    calc(var(--slot-active-triangle-size) + 0.625rem); // Designer Spacing + Safe Space for scrollbar
+    calc(var(--slot-active-triangle-size) + 0.625rem);// Designer Spacing + Safe Space for scrollbar
 
   /**
     Hide Scrollbar
