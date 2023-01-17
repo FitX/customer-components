@@ -1,10 +1,10 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import '@testing-library/jest-dom';
-import BaseInput from '@/components/base-input/BaseInput.vue';
+import BaseSelect from '@/components/base-select/BaseSelect.vue';
 
-describe('Base Input', () => {
+describe('Base Select', () => {
   it('shows label', async () => {
-    const wrapper = shallowMount(BaseInput, {
+    const wrapper = shallowMount(BaseSelect, {
       props: {
         label: 'John Doe',
       },
@@ -13,24 +13,13 @@ describe('Base Input', () => {
     expect(label.text()).toContain('John Doe');
   });
 
-  it('displays validate icon', async () => {
-    const wrapper = shallowMount(BaseInput);
-
-    const input = wrapper.find('input');
-
-    expect(input.element.value).toBe('');
-    expect(wrapper.vm.$props.modelValue).toBe(null);
-    expect(wrapper.vm.$props.isValid).toBe(false);
-
-    await wrapper.setProps({
-      isValid: true,
-      modelValue: 'Frank',
-    });
-    expect(wrapper.find('.valid-icon').exists()).toBeTruthy();
+  it('displays icon', async () => {
+    const wrapper = shallowMount(BaseSelect);
+    expect(wrapper.find('.field__icon').exists()).toBeTruthy();
   });
 
   it('has error state', async () => {
-    const wrapper = shallowMount(BaseInput);
+    const wrapper = shallowMount(BaseSelect);
 
     const input = wrapper.find('input');
 
@@ -43,7 +32,7 @@ describe('Base Input', () => {
   });
 
   it('additional only render on correct error message condition', async () => {
-    const wrapper = shallowMount(BaseInput);
+    const wrapper = shallowMount(BaseSelect);
 
     expect(wrapper.find('.additional').exists()).toBeFalsy();
     await wrapper.setProps({
@@ -52,32 +41,42 @@ describe('Base Input', () => {
     expect(wrapper.find('.additional').exists()).toBeTruthy();
   });
 
-  it('additional dont render without count slot', async () => {
-    const wrapper = shallowMount(BaseInput);
-
-    expect(wrapper.find('.additional').exists()).toBeFalsy();
-  });
-
   it('additional only render on correct slot condition', async () => {
-    const wrapper = shallowMount(BaseInput, {
+    const wrapper = shallowMount(BaseSelect, {
       slots: {
-        count: '3',
+        items: '<option>Demo</option>',
       },
     });
 
-    expect(wrapper.find('.additional').exists()).toBeTruthy();
+    expect(wrapper.find('option').exists()).toBeTruthy();
+  });
+
+  it('check class was removed by attrs ', async () => {
+    const wrapper = shallowMount(BaseSelect, {
+      attrs: {
+        class: 'foo',
+        'data-temp': 'bar',
+      },
+    });
+    expect(wrapper.element).toHaveClass('foo');
+    expect(wrapper.find('select').element).not.toHaveClass('foo');
+    expect(wrapper.find('select').element).toHaveAttribute('data-temp');
   });
 
   it('sets not empty and autofilled classes ', async () => {
-    const wrapper = shallowMount(BaseInput);
+    const wrapper = shallowMount(BaseSelect);
     await wrapper.setProps({
       modelValue: 'Some value',
+      items: [
+        'some value',
+        'another value',
+      ],
     });
-    expect(wrapper.find('input').element).toHaveClass('field__input--not-empty');
+    expect(wrapper.find('select').element).toHaveClass('field__input--not-empty');
   });
 
   it('has correct modifier classes', () => {
-    const wrapper = shallowMount(BaseInput, {
+    const wrapper = shallowMount(BaseSelect, {
       props: { modifier: 'disabled' },
     });
     const el = wrapper.find('label').element;
@@ -85,17 +84,17 @@ describe('Base Input', () => {
   });
 
   it('updates model', () => {
-    const wrapper = shallowMount(BaseInput);
-    const input = wrapper.find('input');
+    const wrapper = shallowMount(BaseSelect);
+    const input = wrapper.find('select');
     input.setValue('Frank');
     expect(wrapper.emitted()).toBeTruthy();
   });
 
   it('set focus class', async () => {
-    const wrapper = shallowMount(BaseInput);
+    const wrapper = shallowMount(BaseSelect);
     const label = wrapper.find('label').element;
     expect(label).not.toHaveClass('field--fake-focus field');
-    const input = wrapper.find('input');
+    const input = wrapper.find('select');
     await input.trigger('focus');
     expect(label).toHaveClass('field--fake-focus field');
 
@@ -103,55 +102,4 @@ describe('Base Input', () => {
     expect(label).not.toHaveClass('field--fake-focus field');
     expect(label).toHaveClass('field');
   });
-
-  it('clears input', async () => {
-    const wrapper = shallowMount(BaseInput);
-    const input = wrapper.find('input');
-    expect(input.text()).toBe('');
-    await wrapper.setProps({
-      modelValue: 'Frank',
-      clearable: true,
-    });
-    expect(wrapper.vm.modelValue).toBe('Frank');
-    await wrapper.find('button').trigger('click');
-    expect(wrapper.emitted('cleared')).toHaveLength(1);
-  });
-
-  it('render password toggle button on type password', async () => {
-    const wrapper = shallowMount(BaseInput, {
-      attrs: { type: 'password' },
-    });
-    const toggleButton = await wrapper.find('button');
-    expect(toggleButton.text()).toContain('Anzeigen');
-  });
-
-  it('password toggle button works correctly', async () => {
-    const wrapper = shallowMount(BaseInput, {
-      attrs: { type: 'password' },
-      props: {
-        modelValue: 'sicher',
-      },
-    });
-    const toggleButton = await wrapper.find('button');
-    const input = await wrapper.find('input').element;
-    expect(input).toHaveAttribute('type', 'password');
-    await toggleButton.trigger('click');
-    expect(toggleButton.text()).toContain('Verbergen');
-    expect(input).toHaveAttribute('type', 'text');
-  });
-
-  it('password toggle text can be changed', async () => {
-    const wrapper = shallowMount(BaseInput, {
-      attrs: { type: 'password' },
-      props: {
-        textPasswordShow: 'zeig es mir',
-        textPasswordHide: 'mach das weg',
-      },
-    });
-
-    const toggleButton = await wrapper.find('button');
-    expect(toggleButton.text()).toContain('zeig es mir');
-    await toggleButton.trigger('click');
-    expect(toggleButton.text()).toContain('mach das weg');
-  })
 });
