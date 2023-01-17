@@ -34,32 +34,26 @@
       <span
         class="field__text"
         v-if="label">{{ label }}</span>
-      <button
-        class="field__icon clearable-icon"
-        @click.prevent="clearInput()"
-        v-if="clearable && isFilled">
-        <icon-clear />
-      </button>
+      <icon-arrow-down
+        aria-hidden="true"
+        class="field__icon" />
       <span
         class="field__btn-wrapper"
       >
         <!--
-          @slot Default Content Slot
+          @slot Alternate Button Slot
         -->
-        <slot />
+        <slot name="alternate-button" />
       </span>
     </label>
     <div
-      v-if="errorMessage || $slots.count"
+      v-if="errorMessage"
       class="additional">
       <span>
         <error-text
           v-if="errorMessage"
           class="error-message"
           :error-message="errorMessage" />
-      </span>
-      <span class="additional__count">
-        <slot name="count" />
       </span>
     </div>
   </div>
@@ -76,7 +70,7 @@ import {
 import useModifier from '@/use/modifier-class';
 import validateValueWithList from '@/use/validate-value-with-list';
 import ErrorText from '@/components/error-message/ErrorMessage.vue';
-import IconClear from '@/assets/icons/icon-clear.svg';
+import IconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 
 /**
  * @typedef {string|number|null} BaseInputModelValue
@@ -116,13 +110,6 @@ export const baseSelectProps = {
     default: null,
   },
   /**
-   * Option for clearing Input Value
-   */
-  clearable: {
-    type: Boolean,
-    default: false,
-  },
-  /**
    * Optional Debounce e.g for Search
    */
   debounce: {
@@ -136,10 +123,10 @@ export const baseSelectProps = {
   },
 };
 export default {
-  name: 'BaseInput',
+  name: 'BaseSelect',
   components: {
     ErrorText,
-    IconClear,
+    IconArrowDown,
   },
   inheritAttrs: false,
   emits: [
@@ -227,6 +214,7 @@ label {
   font-size: 1.8rem;
   color: #777;
 }
+
 .field {
   $self: &;
   --field-color-label: var(--brand-color-gray-carbon);
@@ -243,6 +231,8 @@ label {
   --field-border-size: var(--form-input-border-size, 1px);
   --field-min-height: var(--form-input-height, 3.75rem);
   --icon-size: var(--field-icon-size, 1.5rem);
+
+  --select-rotate: 0deg;
 
   position: relative;
   font-size: var(--field-font-size);
@@ -349,7 +339,7 @@ label {
       outline: none;
     }
     &:focus-visible {
-      border-color: var(--field-color-border)
+      border-color: var(--field-color-border);
     }
     &::placeholder {
       color: transparent;
@@ -359,7 +349,10 @@ label {
     position: absolute;
     top: 50%;
     right: var(--field-padding-h);
-    transform: translate3d(0, -50%, 0);
+    translate: 0 -50% 0;
+    rotate: var(--select-rotate);
+    transition: 200ms ease rotate;
+    pointer-events: none;
   }
   &__text {
     font-size: var(--field-label-font-size);
@@ -379,18 +372,6 @@ label {
   }
 }
 
-/**
-  Temp @TODO optimize after Icons are final
- */
-.clearable-icon {
-  @include btn-reset();
-  background: none;
-  line-height: 0;
-  --icon-width: 1.125rem;
-  --icon-height: 1.125rem;
-  --icon-fill: var(--brand-color-gray-carbon);
-}
-
 .additional {
   display: grid;
   width: 100%;
@@ -399,10 +380,5 @@ label {
   justify-content: space-between;
   font-size: 0.875rem;
   padding-top: 6px;
-
-  &__count {
-    justify-self: flex-end;
-    align-self: center;
-  }
 }
 </style>
