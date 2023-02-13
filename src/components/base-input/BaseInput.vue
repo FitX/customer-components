@@ -120,6 +120,7 @@ export const modifier = [
   'disabled',
   'fake-focus',
   'fake-hover',
+  'is-single',
 ];
 
 export const baseInputProps = {
@@ -410,6 +411,18 @@ label {
       --field-color-border: var(--brand-color-gray-stone);
     }
   }
+
+  &--is-single {
+    --field-padding-h: 0rem;
+    &#{$self}--error,
+    &#{$self}--disabled {
+      &,
+      #{$self}__input {
+        --field-color-bg: none;
+      }
+    }
+  }
+
   &__input {
     -webkit-appearance: none;
     line-height: 1.313rem;
@@ -431,6 +444,13 @@ label {
     width: 100%;
     height: 100%;
     font-weight: 300;
+
+    #{$self}--is-single & {
+      border: none;
+      border-bottom: var(--field-border-size) solid var(--field-color-border);
+      padding-bottom: 0.288rem;
+      border-radius: 0;
+    }
 
     &::-webkit-inner-spin-button,
     &::-webkit-search-cancel-button {
@@ -534,7 +554,8 @@ label {
     Extra Spacing if Valid Icon is shown
      */
     .valid-icon + & {
-      right: calc(( 2 * var(--field-padding-h)) + var(--icon-size));
+      // right: calc(( 2 * var(--field-padding-h)) + var(--icon-size));
+      right: calc( 1.125rem + var(--field-padding-h) + var(--icon-size));
     }
   }
   &__btn-wrapper {

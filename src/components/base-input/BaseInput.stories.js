@@ -207,3 +207,19 @@ BaseInputPassword.parameters = {
   },
 };
 BaseInputPassword.storyName = 'Password';
+
+export const BaseInputSingle = Template.bind({});
+BaseInputSingle.args = {
+  label: 'Label',
+  type: 'text',
+  modifier: 'is-single',
+};
+BaseInputSingle.parameters = {
+  docs: {
+    description: {
+      story: `### (Alleinstehendes Textfeld)
+ Alternative zum Textfeld bei Sonderfällen, nicht in Forms.`,
+    },
+  },
+};
+BaseInputSingle.storyName = 'Single';
