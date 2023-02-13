@@ -75,6 +75,18 @@ describe('Base Select', () => {
     expect(wrapper.find('select').element).toHaveClass('field__input--not-empty');
   });
 
+  it('sets not empty on zero', async () => {
+    const wrapper = shallowMount(BaseSelect);
+    await wrapper.setProps({
+      modelValue: 0,
+      items: [
+        0,
+        1,
+      ],
+    });
+    expect(wrapper.find('select').element).toHaveClass('field__input--not-empty');
+  });
+
   it('has correct modifier classes', () => {
     const wrapper = shallowMount(BaseSelect, {
       props: { modifier: 'disabled' },
