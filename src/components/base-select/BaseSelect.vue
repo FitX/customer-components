@@ -160,7 +160,13 @@ export default {
      * @type {ToRef<null>}
      */
     const input = ref(null);
-    const isFilled = computed(() => !!props.modelValue);
+    // because !!props.modelValue (0 as number) is false
+    const isFilled = computed(() => {
+      if (typeof props.modelValue === 'number') {
+        return true;
+      }
+      return !!props.modelValue;
+    });
     /**
      * Emit Model Value
      * @param {BaseInputModelValue} val
