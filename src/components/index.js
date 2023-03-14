@@ -22,3 +22,4 @@ export { default as BannerNotification } from '@/components/banner-notification/
 export { default as DoubleOption } from '@/components/double-option/DoubleOption.vue';
 export { default as StatusNotification } from '@/components/status-notification/StatusNotification.vue';
 export { default as BaseSelect } from '@/components/base-select/BaseSelect.vue';
+export { default as FitxBadge } from '@/components/fitx-badge/FitxBadge.vue';

@@ -61,15 +61,18 @@
       <option value="1">it</option>
       <option value="2">works</option>
     </base-select>
+    <fitx-badge status="1">Badge</fitx-badge>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import '../dist/customer-components.css';
+import FitxBadge from '@/components/fitx-badge/FitxBadge.vue';
 
 export default {
   name: 'App',
+  components: {FitxBadge},
   data() {
     return {
       model: null,
