@@ -1,9 +1,14 @@
-import IconCheckmark from '@/assets/icons/icon-checkmark.svg';
-import IconError from '@/assets/icons/icon-error.svg';
-import IconClear from '@/assets/icons/icon-clear.svg';
-import IconClose from '@/assets/icons/icon-close.svg';
+import IconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 import IconBack from '@/assets/icons/icon-back.svg';
+import IconCheckmark from '@/assets/icons/icon-checkmark.svg';
+import IconClear from '@/assets/icons/icon-clear.svg';
+import IconClearFilled from '@/assets/icons/icon-clear-filled.svg';
+import IconClose from '@/assets/icons/icon-close.svg';
+import IconError from '@/assets/icons/icon-error.svg';
 import IconInfo from '@/assets/icons/icon-info.svg';
+import IconOffline from '@/assets/icons/icon-offline.svg';
+import IconOnline from '@/assets/icons/icon-online.svg';
+import IconRefresh from '@/assets/icons/icon-refresh.svg';
 import IconVote1 from '@/assets/icons/icon-vote-1.svg';
 import IconVote2 from '@/assets/icons/icon-vote-2.svg';
 import IconVote3 from '@/assets/icons/icon-vote-3.svg';
@@ -26,6 +31,51 @@ const storyDescription = `
 `;
 
 const iconList = [
+  {
+    component: IconOnline,
+    name: 'Online',
+    source: {
+      name: 'icons8',
+      url: 'https://icons8.com/icon/PLlw4LevCJrl/wi-fi',
+    },
+    category: CATEGORY_ENUMS.SYSTEM,
+  },
+  {
+    component: IconOffline,
+    name: 'Offline',
+    source: {
+      name: 'icons8',
+      url: 'https://icons8.com/icon/E5MrVstVfPLt/wi-fi-off',
+    },
+    category: CATEGORY_ENUMS.SYSTEM,
+  },
+  {
+    component: IconClearFilled,
+    name: 'Clear Filled',
+    source: {
+      name: 'icons8',
+      url: 'https://icons8.de/icon/3QUsgD0WZjSc/symbol:-l%C3%B6schen',
+    },
+    category: CATEGORY_ENUMS.SYSTEM,
+  },
+  {
+    component: IconRefresh,
+    name: 'Refresh',
+    source: {
+      name: 'icons8',
+      url: 'https://icons8.de/icon/dUT1e6ccW1yv/aktualisieren',
+    },
+    category: CATEGORY_ENUMS.SYSTEM,
+  },
+  {
+    component: IconArrowDown,
+    name: 'Arrow Down',
+    source: {
+      name: 'icons8',
+      url: 'https://icons8.com/icon/85123/expand-arrow',
+    },
+    category: CATEGORY_ENUMS.SYSTEM,
+  },
   {
     component: IconCheckmark,
     name: 'Checkmark',
