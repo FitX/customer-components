@@ -1,0 +1,36 @@
+@mixin badge-styles() {
+  $self: &;
+  --badge-color: var(--brand-color-white);
+  --badge-color-bg: var(--brand-color-anthracite);
+  --badge-spacing-h: 1rem;
+  --badge-spacing-v: 0.25rem;
+  --badge-border-radius: 4px;
+  --badge-font-size: 1rem;
+
+  display: inline;
+  background: var(--badge-color-bg);
+  color: var(--badge-color);
+  padding: var(--badge-spacing-v) var(--badge-spacing-h);
+  font-size: var(--badge-font-size);
+  font-weight: 400;
+  text-transform: uppercase;
+  border-radius: var(--badge-border-radius);
+
+  &--status {
+    &-1 {
+      &#{$self}--dark {
+        --badge-color: var(--brand-color-anthracite);
+        --badge-color-bg: var(--brand-color-white-2);
+      }
+    }
+    &-2 {
+      --badge-color-bg: var(--brand-color-orange);
+    }
+    &-3 {
+      --badge-color-bg: var(--functional-color-success);
+    }
+    &-4 {
+      --badge-color-bg: var(--brand-color-anthracite-6);
+    }
+  }
+}

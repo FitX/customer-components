@@ -23,3 +23,4 @@ export { default as DoubleOption } from '@/components/double-option/DoubleOption
 export { default as StatusNotification } from '@/components/status-notification/StatusNotification.vue';
 export { default as BaseSelect } from '@/components/base-select/BaseSelect.vue';
 export { default as FitxBadge } from '@/components/fitx-badge/FitxBadge.vue';
+export { default as FitxNotificationBadge } from '@/components/fitx-notification-badge/FitxNotificationBadge.vue';

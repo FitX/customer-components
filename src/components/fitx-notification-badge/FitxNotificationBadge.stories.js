@@ -1,18 +1,15 @@
-import { ref, reactive } from 'vue';
+import { reactive } from 'vue';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
-import FitxBadge from './FitxBadge.vue';
+import FitxNotificationBadge from './FitxNotificationBadge.vue';
 
 const storyDescription = `
-- werden in Versalien geschrieben
-- Breite passt sich dem Inhalt an
-- können einzeln und zusammen verwendet werden
-- werden nebeneinander und dann mehrzeilig angezeigt
-- Farbe je nach Funktion frei wählbar
+- nur Zahlen
+- benutzung: maximal Zweistellig (Validierung im Projekt)
 `;
 
 export default {
-  title: 'Components/Badges/Badge',
-  component: FitxBadge,
+  title: 'Components/Badges/NotificationBadge',
+  component: FitxNotificationBadge,
   argTypes: {
     status: {
       options: Array.from({ length: 4 }, (_, index) => index + 1),
@@ -22,7 +19,7 @@ export default {
     },
   },
   parameters: {
-    jest: ['FitxBadge.unit.spec.js'],
+    jest: ['FitxNotificationBadge.unit.spec.js'],
     docs: {
       description: {
         component: storyDescription,
@@ -35,12 +32,12 @@ export default {
 /// Templates
 /* ******************************** */
 const baseTemplate = `
-<fitx-badge v-bind="args" v-model="args.model"></fitx-badge>
+<fitx-notification-badge v-bind="args" v-model="args.model"></fitx-notification-badge>
 `;
 
 const groupTemplate = `
 <div style="display: flex; gap: 1rem;">
-<fitx-badge
+<fitx-notification-badge
     v-for="(item, index) in group"
     :key="index"
     v-bind="item.args" />
@@ -58,12 +55,12 @@ const Template = (argsObject) => ({
       isDarkMode,
     };
   },
-  components: { FitxBadge },
+  components: { FitxNotificationBadge },
   template: baseTemplate,
 });
 
 const TemplateGroup = (groupItems, template = groupTemplate) => ({
-  components: { FitxBadge },
+  components: { FitxNotificationBadge },
   setup() {
     const group = groupItems.map((item) => {
       const itemCopy = item;
@@ -84,36 +81,36 @@ const TemplateGroup = (groupItems, template = groupTemplate) => ({
 //* ******************************** */
 /// Stories
 /* ******************************** */
-export const DefaultFitxBadge = Template.bind({});
-DefaultFitxBadge.args = {
-  value: 'Badge',
+export const DefaultFitxNotificationBadge = Template.bind({});
+DefaultFitxNotificationBadge.args = {
+  value: 42,
   status: 1,
 };
 
-DefaultFitxBadge.storyName = 'Badge'
+DefaultFitxNotificationBadge.storyName = 'Notification Badge'
 
 export const States = () => TemplateGroup([
   {
     args: {
-      value: 'Badge 1',
+      value: 1,
       status: 1,
     },
   },
   {
     args: {
-      value: 'Badge 2',
+      value: 2,
       status: 2,
     },
   },
   {
     args: {
-      value: 'Badge 3',
+      value: 3,
       status: 3,
     },
   },
   {
     args: {
-      value: 'Badge 4',
+      value: 4,
       status: 4,
     },
   },

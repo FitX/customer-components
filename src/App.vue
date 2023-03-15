@@ -62,6 +62,7 @@
       <option value="2">works</option>
     </base-select>
     <fitx-badge status="1">Badge</fitx-badge>
+    <fitx-notification-badge>42</fitx-notification-badge>
   </div>
 </template>
 
@@ -69,10 +70,11 @@
 /* eslint-disable */
 import '../dist/customer-components.css';
 import FitxBadge from '@/components/fitx-badge/FitxBadge.vue';
+import FitxNotificationBadge from '@/components/fitx-notification-badge/FitxNotificationBadge.vue';
 
 export default {
   name: 'App',
-  components: {FitxBadge},
+  components: {FitxNotificationBadge, FitxBadge},
   data() {
     return {
       model: null,
