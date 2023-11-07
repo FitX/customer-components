@@ -28,6 +28,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showNoResults: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -176,40 +180,44 @@ onMounted(() => {
   <label :for="inputId" :id="labelId">{{ props.label }}</label>
   <div ref="elComponent" role="combobox" :aria-labelledby="labelId">
     <input
-        ref="elInput"
-        role="textbox"
-        aria-autocomplete="list"
-        :value="modelValue"
-        @input="onInput"
-        :aria-expanded="isExpanded"
-        :aria-controls="resultsId"
-        :id="inputId"
-        :aria-activedescendant="focusedResultId"
+      ref="elInput"
+      role="textbox"
+      aria-autocomplete="list"
+      :value="modelValue"
+      @input="onInput"
+      :aria-expanded="isExpanded"
+      :aria-controls="resultsId"
+      :id="inputId"
+      :aria-activedescendant="focusedResultId"
     />
     <button
-        v-if="showResultsTrigger"
-        aria-label="toggle dropdown"
-        @click="isExpanded ? closeResults() : openResults()">
+      v-if="showResultsTrigger"
+      aria-label="toggle dropdown"
+      @click="isExpanded ? closeResults() : openResults()">
       <svg width="8" height="4" viewBox="0 0 8 4" fill-rule="evenodd">
         <title>{{ isExpanded ? 'Close results' : 'Show results' }}</title>
         <path d="M8 0L4 4 0 0z"></path>
       </svg>
     </button>
     <ul
-        class="auto-suggest-results"
-        :class="{ 'auto-suggest-results--is-expanded': isExpanded }"
-        ref="elResults"
-        role="listbox"
-        aria-label="results"
-        :id="resultsId">
+      class="auto-suggest-results"
+      :class="{ 'auto-suggest-results--is-expanded': isExpanded }"
+      ref="elResults"
+      role="listbox"
+      aria-label="results"
+      :id="resultsId">
       <li
-          v-for="(item, index) in props.suggestions"
-          :key="index"
-          :id="`${resultIdPrefix}-${index}`"
-          :data-index="index"
-          @click="selectResult(index)"
-          role="listitem"
-          tabindex="0"
+        v-if="props.showNoResults && props.suggestions.length === 0">
+        <slot name="fallback"></slot>
+      </li>
+      <li
+        v-for="(item, index) in props.suggestions"
+        :key="index"
+        :id="`${resultIdPrefix}-${index}`"
+        :data-index="index"
+        @click="selectResult(index)"
+        role="listitem"
+        tabindex="0"
       >
         <slot name="item" :item="item">
           {{ item.value }}
