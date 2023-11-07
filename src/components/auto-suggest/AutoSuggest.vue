@@ -33,13 +33,10 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const emitValue = (val) => emit('update:modelValue', val);
-const onInput = (e) => {
-  emitValue(e.target.value);
-};
 
 // const modelValue = defineModel();
 const activeElement = useActiveElement();
-const { ArrowDown, ArrowUp, current: currentInputKey } = useMagicKeys();
+const { current: currentInputKey } = useMagicKeys();
 const elComponent = ref();
 const elInput = ref();
 const elResults = ref();
@@ -114,6 +111,13 @@ const getPrevElement = (nodes) => {
   return nodes[0];
 };
 
+const onInput = (e) => {
+  emitValue(e.target.value);
+  if (!isExpanded.value) {
+    openResults();
+  }
+};
+
 onMounted(() => {
   /**
    * watch([ArrowUp, ArrowDown], ([up, down]) => {
@@ -135,7 +139,6 @@ onMounted(() => {
    *   });
    */
   watch(currentInputKey, (val) => {
-
     const _activeElement = toValue(activeElement);
     if (val.has('enter') && _activeElement.id !== inputId) {
       selectResult(Number(_activeElement.dataset.index));
@@ -163,7 +166,6 @@ onMounted(() => {
         focusResultEl(prevElement);
       }
     } else if (val.size !== 0) {
-      console.log('mmmm', val, val.size);
       focusInput();
     }
   });
@@ -212,7 +214,6 @@ onMounted(() => {
         {{ item }}
       </li>
     </ul>
-    <p>current: {{ current }}</p>
   </div>
 </template>
 
