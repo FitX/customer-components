@@ -75,7 +75,7 @@ watch(activeElement, (el) => {
 });
 
 const selectResult = (index) => {
-  emitValue(toValue(props.suggestions[index]));
+  emitValue(toValue(props.suggestions[index].value));
 };
 
 const getNextElement = (nodes) => {
@@ -211,7 +211,9 @@ onMounted(() => {
           role="listitem"
           tabindex="0"
       >
-        {{ item }}
+        <slot name="item" :item="item">
+          {{ item.value }}
+        </slot>
       </li>
     </ul>
   </div>

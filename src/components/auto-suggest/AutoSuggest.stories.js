@@ -54,14 +54,14 @@ const Template = (argsObject) => ({
 
     const searchTerm = ref('');
 
-    const demoSuggestions = ref(['abcd', 'bcde', 'cdef']);
+    const demoSuggestions = ref(['abcd', 'bcde', 'cdef'].map((value) => ({ value })));
 
     function fetchData(url) {
       // Simulate a network request by waiting for a specified amount of time
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           // Return a random array of data as a response
-          const data = [`0-${url}`, `1-${url}`, `2-${url}`, `3-${url}`, `4-${url}`];
+          const data = [`0-${url}`, `1-${url}`, `2-${url}`, `3-${url}`, `4-${url}`].map((value) => ({ value }));
           resolve(data);
         }, 3000);
       });
