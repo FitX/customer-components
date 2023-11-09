@@ -50,6 +50,7 @@ const baseTemplate = `
 <auto-suggest
     label="Suche nach Buchstaben"
     :suggestions="demoSuggestions"
+    id="demo-search-1"
     v-model="searchTerm"
     v-bind="args"></auto-suggest>`;
 
@@ -58,6 +59,7 @@ const withSlotsTemplate = `
     label="Suche"
     :suggestions="demoSuggestions"
     v-model="searchTerm"
+    id="demo-search-2"
     :show-no-results="true"
     v-bind="args">
     <template
@@ -81,7 +83,7 @@ const Template = (argsObject) => ({
       args.isDarkMode = isDarkMode;
     }
     const searchTerm = ref('');
-    const demoSuggestions = ref(['abcd', 'bcde', 'cdef'].map((value) => ({ value })));
+    const demoSuggestions = ref([]);
     watch(searchTerm, async (val) => {
       demoSuggestions.value = await fetchData(val);
     });
