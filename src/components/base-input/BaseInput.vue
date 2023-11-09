@@ -1,6 +1,8 @@
 <template>
   <div :class="$attrs.class">
     <label
+      :for="$attrs.id"
+      :id="labelId"
       :class="[
         getModifierClasses('field', modifier),
         {
@@ -193,6 +195,14 @@ export const baseInputProps = {
     type: String,
     default: 'Verbergen',
   },
+  /**
+   * Optional Label ID
+   */
+  labelId: {
+    type: String,
+    required: false,
+    default: undefined,
+  },
 };
 export default {
   name: 'BaseInput',
@@ -220,7 +230,7 @@ export default {
     'cleared',
   ],
   props: baseInputProps,
-  setup(props, { emit, attrs }) {
+  setup(props, { emit, attrs, expose }) {
     const hasFocus = ref(false);
     const { getModifierClasses } = useModifier();
     /**
@@ -305,6 +315,11 @@ export default {
     const toggleShowPassword = () => {
       showPassword.value = !showPassword.value;
     };
+
+    expose({
+      elInput: input,
+    });
+
     return {
       getModifierClasses,
       removeByKey,
@@ -319,6 +334,7 @@ export default {
       toggleShowPassword,
       passwordToggleText,
       localType,
+      labelId: props.labelId,
     };
   },
 };
