@@ -15,8 +15,6 @@
     "build": "npm run build:vite && npm run build:lib-web && npm run build:vite-wc",
     "test:unit": "vue-cli-service test:unit --json --outputFile=./coverage/.jest-test-results.json",
     "test:unit-update-snapshot": "vue-cli-service test:unit -u",
-    "test:e2e": "nightwatch -e ios-tunnel tests/local-tunnel-test.js",
-    "test:e2e-local": "nightwatch -c nightwatch.local.json",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -s ./ -p 6006",
     "prepare-storybbok-build": "rsync -av --progress ./ ./storybook-static --exclude /storybook-static --exclude /node_modules",
@@ -24,7 +22,6 @@
   },
   "dependencies": {
     "@fitx/date-input": "^1.3.2",
-    "@lambdatest/node-rest-client": "^1.0.0",
     "@vueuse/core": "^9.10.0",
     "audit": "0.0.6",
     "core-js": "^3.6.5",
@@ -33,7 +30,6 @@
     "path": "^0.12.7",
     "prismjs": "^1.25.0",
     "sass": "^1.39.2",
-    "selenium-webdriver": "^4.0.0-beta.4",
     "vue": "^3.3.7"
   },
   "devDependencies": {
@@ -55,12 +51,10 @@
     "@vue/test-utils": "^2.0.0-0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
-    "chromedriver": "^97.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^7.0.0",
     "jest-vue-preprocessor": "^1.7.1",
-    "nightwatch": "^1.7.7",
     "sass": "^1.39.2",
     "sass-loader": "^8.0.2",
     "storybook-addon-themes": "^6.1.0",
