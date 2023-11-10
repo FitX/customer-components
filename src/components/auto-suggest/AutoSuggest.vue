@@ -5,10 +5,13 @@ export default {
 </script>
 
 <script setup>
+// eslint-disable-next-line
 import {
-  ref, computed, toValue, watch, defineEmits, defineProps, onMounted, defineExpose, useAttrs,
+  ref, computed, toValue, watch, defineEmits, defineProps, onMounted, useAttrs,
 } from 'vue';
+// eslint-disable-next-line
 import { useActiveElement, useMagicKeys, useFocusWithin } from '@vueuse/core';
+// eslint-disable-next-line
 import BaseInput from '@/components/base-input/BaseInput.vue';
 
 /*
@@ -56,8 +59,6 @@ const isTouched = ref(false);
 
 const attrs = useAttrs();
 
-console.log('attrs', attrs);
-
 const getID = (prefix) => {
   const { id } = toValue(attrs);
   return id ? `${id}-${prefix}` : `auto-suggest-${prefix}`;
@@ -90,10 +91,6 @@ const focusResultEl = (el) => {
   el.setAttribute('aria-activedescendant', el.id);
   el.focus();
 };
-
-watch(activeElement, (el) => {
-  console.log('focus changed to', el.id);
-});
 
 const selectResult = (index) => {
   emitValue(toValue(props.suggestions[index].value));
@@ -151,12 +148,16 @@ onMounted(() => {
   });
   watch(currentInputKey, (val) => {
     if (toValue(isFocusedWithinComponent)) {
-      const _activeElement = toValue(activeElement);
-      if (val.has('enter') && _activeElement.id !== toValue(inputId)) {
-        selectResult(Number(_activeElement.dataset.index));
+      const activeEl = toValue(activeElement);
+
+      /**
+       * Select Result if Item are focused
+       */
+      if (val.has('enter') && activeEl.id !== toValue(inputId)) {
+        selectResult(Number(activeEl.dataset.index));
       }
 
-      if (toValue(isFocusedWithinComponent) && val.has('arrowdown')) {
+      if (val.has('arrowdown')) {
         if (!isExpanded.value) {
           openResults();
         }
@@ -166,7 +167,7 @@ onMounted(() => {
         if (nextElement) {
           focusResultEl(nextElement);
         }
-      } else if (toValue(isFocusedWithinComponent) && val.has('arrowup')) {
+      } else if (val.has('arrowup')) {
         if (!isExpanded.value) {
           openResults();
         }
@@ -182,16 +183,13 @@ onMounted(() => {
     }
   });
 });
-
-// const fooooooooo = (irgendwas) => console.log('irgendwas', irgendwas);
-
-defineExpose({
-  deinVater: elInput,
-});
 </script>
 
 <template>
-  <div ref="elComponent" role="combobox" :aria-labelledby="labelId">
+  <div
+      class="auto-suggest"
+      :class="attrs.class"
+      ref="elComponent" role="combobox" :aria-labelledby="labelId">
     <base-input
         autocomplete="off"
         :label="props.label"
@@ -224,7 +222,8 @@ defineExpose({
         aria-label="results"
         :id="resultsId">
       <li
-          v-if="props.showNoResults && props.suggestions.length === 0 && isTouched">
+          v-if="props.showNoResults && props.suggestions.length === 0 && isTouched"
+        class="auto-suggest-results__item">
         <!--
          @slot Fallback Slot, visible after touched
        -->
@@ -235,6 +234,7 @@ defineExpose({
           :key="index"
           :id="`${resultIdPrefix}-${index}`"
           :data-index="index"
+          class="auto-suggest-results__item"
           @click="selectResult(index)"
           role="listitem"
           tabindex="0"
@@ -242,7 +242,7 @@ defineExpose({
         <!--
          @slot Default Item Slot
        -->
-        <slot name="item" :item="item">
+        <slot name="item" v-bind="{ item, index }">
           {{ item.value }}
         </slot>
       </li>
@@ -251,9 +251,43 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/mixin-reset' as reset;
+
+.auto-suggest {
+  --auto-suggest-font-size: var(--form-input-font-size, 1.125rem);
+  --auto-suggest-results-border-color: var(--brand-color-gray-ash);
+  --auto-suggest-results-border-radius: var(--form-input-border-radius, 0.5rem);
+  --auto-suggest-spacing-h: 1.125rem;
+  --auto-suggest-spacing-v: 1.125rem;
+}
 .auto-suggest-results {
+  @include reset.list-unstyled();
+
+  margin: 0;
+  font-size: var(--auto-suggest-font-size);
+  border: 1px solid var(--auto-suggest-results-border-color);
+  border-radius: var(--auto-suggest-results-border-radius);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.10);
+  max-height: 26.1875rem; // 419
+  overflow-y: auto;
   &:not(&--is-expanded) {
-    visibility: hidden;
+    // visibility: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  &__item {
+    padding: var(--auto-suggest-spacing-v) var(--auto-suggest-spacing-h);
+    &:not(:first-child) {
+      border-top: 1px solid var(--brand-color-gray-smoke);
+    }
   }
 }
 </style>

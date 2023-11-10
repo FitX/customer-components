@@ -346,11 +346,7 @@ export default {
 @import '~@/assets/styles/mixin-reset.scss';
 @import '~@/assets/styles/colors.scss';
 @import '~@/assets/styles/form.scss';
-label {
-  display: block;
-  font-size: 1.8rem;
-  color: #777;
-}
+
 .field {
   $self: &;
   --field-color-label: var(--brand-color-gray-carbon);

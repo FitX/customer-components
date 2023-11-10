@@ -3,7 +3,13 @@ import { isDarkMode } from '../../../.storybook/template-helpers/use-template-th
 import AutoSuggest from './AutoSuggest.vue';
 
 const storyDescription = `
-- @TODO
+## Intelligentes Such-Textfeld
+- Breite variabel
+- Label ist Beschreibung
+- In erster Linie immer Pflichtfeld
+- Wenn kein Pflichtfeld, dann in Klammern (optional)
+- Logik je nach Anwendung frei wählbar
+- Hinweis bei leerer Suchliste optional
 `;
 
 export default {
@@ -61,7 +67,8 @@ const withSlotsTemplate = `
     v-model="searchTerm"
     id="demo-search-2"
     :show-no-results="true"
-    v-bind="args">
+    v-bind="args"
+    class="max-width-demo">
     <template
         v-if="demoSuggestions.length === 0"
         #fallback>
@@ -69,8 +76,30 @@ const withSlotsTemplate = `
     </template>
     <template
         v-else
-        #item="{ item }">custom content {{ item.value }}</template>
-</auto-suggest>`;
+        #item="{ item, index }">
+        <div class="demo-res-item">
+            <img src="https://placehold.co/200x100" alt="" aria-hidden="true">
+            <div class="demo-res-item__content">
+                <h3>{{ item.value }}</h3>
+                <p>{{ contentArray[index] }}</p>
+</div>
+</div>
+</template>
+</auto-suggest>
+<component v-cloak is="style" scoped>
+.max-width-demo { max-width: 500px; margin-inline: auto; }
+*:focus-within { outline: none }
+.demo-res-item {
+display: grid;
+gap: 1rem;
+grid-template-columns: 200px 1fr;
+
+:focus & { color: var(--brand-color-orange-1); }
+
+& h3 { margin-top: 0 }
+& p { font-size: 1rem; font-weight: 300; max-width: 50ch }
+}
+</component>`;
 
 /* ******************************** */
 /// Story Wrapper
@@ -110,10 +139,17 @@ const TemplateWithSlots = (argsObject) => ({
     watch(searchTerm, async (val) => {
       demoSuggestions.value = await fetchData(val);
     });
+    const lorem = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+
+    const contentArray = Array
+      .from({ length: Math.floor(Math.random() * 10) + 1})
+      .map((item, index) => (lorem.substring(0, Math.floor(Math.random() * (80 - 5 + 1) + 5))));
+      // .substring(0, Math.floor(Math.random() * (80 - 5 + 1) + 5))
     return {
       args: reactive(args),
       demoSuggestions,
       searchTerm,
+      contentArray,
     };
   },
   components: {
@@ -130,3 +166,4 @@ DefaultAutoSuggest.args = {};
 
 export const WithSlots = TemplateWithSlots.bind({});
 WithSlots.args = {};
+WithSlots.storyName = 'With Item + Fallback Slots';

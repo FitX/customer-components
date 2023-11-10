@@ -63,18 +63,21 @@
     </base-select>
     <fitx-badge status="1">Badge</fitx-badge>
     <fitx-notification-badge>42</fitx-notification-badge>
+    <hr>
+    <auto-suggest label="Find a Employee" v-model="model" />
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import '../dist/customer-components.css';
+import AutoSuggest from '@/components/auto-suggest/AutoSuggest.vue';
 import FitxBadge from '@/components/fitx-badge/FitxBadge.vue';
 import FitxNotificationBadge from '@/components/fitx-notification-badge/FitxNotificationBadge.vue';
 
 export default {
   name: 'App',
-  components: {FitxNotificationBadge, FitxBadge},
+  components: {AutoSuggest, FitxNotificationBadge, FitxBadge},
   data() {
     return {
       model: null,
