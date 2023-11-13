@@ -88,7 +88,7 @@ const withSlotsTemplate = `
 </auto-suggest>
 <component v-cloak is="style" scoped>
 .max-width-demo { max-width: 500px; margin-inline: auto; }
-*:focus-within { outline: none }
+.max-width-demo *:focus-within { outline: none }
 .demo-res-item {
 display: grid;
 gap: 1rem;

@@ -7,7 +7,7 @@ export default {
 <script setup>
 // eslint-disable-next-line
 import {
-  ref, computed, toValue, watch, defineEmits, defineProps, onMounted, useAttrs,
+  ref, computed, unref, watch, defineEmits, defineProps, onMounted, useAttrs,
 } from 'vue';
 // eslint-disable-next-line
 import { useActiveElement, useMagicKeys, useFocusWithin } from '@vueuse/core';
@@ -60,7 +60,7 @@ const isTouched = ref(false);
 const attrs = useAttrs();
 
 const getID = (prefix) => {
-  const { id } = toValue(attrs);
+  const { id } = unref(attrs);
   return id ? `${id}-${prefix}` : `auto-suggest-${prefix}`;
 };
 
@@ -69,9 +69,9 @@ const inputId = computed(() => getID('input'));
 const resultsId = computed(() => getID('results'));
 const resultIdPrefix = computed(() => getID('results-item'));
 
-const isResultEl = (id = '') => id.startsWith(toValue(resultIdPrefix));
+const isResultEl = (id = '') => id.startsWith(unref(resultIdPrefix));
 const focusedResultId = computed(() => {
-  const elId = toValue(activeElement).id;
+  const elId = unref(activeElement).id;
   if (isResultEl(elId)) {
     return elId;
   }
@@ -93,13 +93,13 @@ const focusResultEl = (el) => {
 };
 
 const selectResult = (index) => {
-  emitValue(toValue(props.suggestions[index].value));
+  emitValue(unref(props.suggestions[index].value));
   closeResults();
 };
 
 const getNextElement = (nodes) => {
   // eslint-disable-next-line no-underscore-dangle
-  const _activeElement = toValue(activeElement);
+  const _activeElement = unref(activeElement);
   if (isResultEl(_activeElement.id)) {
     if (nodes.length > Number(_activeElement.dataset.index)) {
       return nodes
@@ -118,7 +118,7 @@ const focusInput = () => {
 
 const getPrevElement = (nodes) => {
   // eslint-disable-next-line no-underscore-dangle
-  const _activeElement = toValue(activeElement);
+  const _activeElement = unref(activeElement);
   if (isResultEl(_activeElement.id)) {
     if (Number(_activeElement.dataset.index) > 0) {
       return nodes
@@ -147,13 +147,13 @@ onMounted(() => {
     }
   });
   watch(currentInputKey, (val) => {
-    if (toValue(isFocusedWithinComponent)) {
-      const activeEl = toValue(activeElement);
+    if (unref(isFocusedWithinComponent)) {
+      const activeEl = unref(activeElement);
 
       /**
        * Select Result if Item are focused
        */
-      if (val.has('enter') && activeEl.id !== toValue(inputId)) {
+      if (val.has('enter') && activeEl.id !== unref(inputId)) {
         selectResult(Number(activeEl.dataset.index));
       }
 
@@ -161,7 +161,7 @@ onMounted(() => {
         if (!isExpanded.value) {
           openResults();
         }
-        const resultElements = [...toValue(elResults)
+        const resultElements = [...unref(elResults)
           .childNodes].filter((node) => isResultEl(node?.id));
         const nextElement = getNextElement(resultElements);
         if (nextElement) {
@@ -171,7 +171,7 @@ onMounted(() => {
         if (!isExpanded.value) {
           openResults();
         }
-        const resultElements = [...toValue(elResults)
+        const resultElements = [...unref(elResults)
           .childNodes].filter((node) => isResultEl(node?.id));
         const prevElement = getPrevElement(resultElements);
         if (prevElement) {
