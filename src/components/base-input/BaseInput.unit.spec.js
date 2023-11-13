@@ -112,7 +112,7 @@ describe('Base Input', () => {
       modelValue: 'Frank',
       clearable: true,
     });
-    expect(wrapper.vm.modelValue).toBe('Frank');
+    expect(wrapper.vm.elInput.value).toBe('Frank');
     await wrapper.find('button').trigger('click');
     expect(wrapper.emitted('cleared')).toHaveLength(1);
   });
