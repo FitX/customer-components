@@ -77,7 +77,7 @@ const focusedResultId = computed(() => {
   }
   return undefined;
 });
-const isExpanded = ref(true);
+const isExpanded = ref(false);
 
 const openResults = () => {
   isExpanded.value = true;
@@ -144,6 +144,10 @@ onMounted(() => {
      */
     if (!val) {
       isTouched.value = true;
+    }
+
+    if (val && unref(props.modelValue)) {
+      openResults();
     }
   });
   watch(currentInputKey, (val) => {

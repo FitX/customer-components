@@ -68,6 +68,7 @@ const withSlotsTemplate = `
     id="demo-search-2"
     :show-no-results="true"
     v-bind="args"
+    :show-results-trigger="false"
     class="max-width-demo">
     <template
         v-if="demoSuggestions.length === 0"
