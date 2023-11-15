@@ -17,7 +17,7 @@ const props = defineProps<{
 const props = defineProps({
   tabs: {
     type: Array,
-    default: () => [{ title: '1', content: 'content 1' }, { title: '2', content: 'content 2' }],
+    default: () => [{ title: '1', content: 'content 1' }, { title: 'voll der lange titel weil wieder keiner bock hat sich damit zu beschäftigen 2', content: 'content 2' }],
     required: true,
   },
 });
@@ -41,38 +41,34 @@ const selectedTabIndex = ref(0);
 const getNextElement = (nodes) => {
   // eslint-disable-next-line no-underscore-dangle
   const _activeElement = unref(activeElement);
-  if (nodes.length > Number(_activeElement.dataset.tabTriggerIndex)) {
-    return nodes
-      .find((node) => (
-        Number(node.dataset.tabTriggerIndex) === (Number(_activeElement.dataset.tabTriggerIndex) + 1)));
-  }
-  return nodes[0];
+  return nodes
+    .find((node) => (
+      Number(
+        node.dataset.tabTriggerIndex) === (Number(_activeElement.dataset.tabTriggerIndex) + 1)
+    )) || nodes[0];
 };
 
 const getPrevElement = (nodes) => {
   // eslint-disable-next-line no-underscore-dangle
   const _activeElement = unref(activeElement);
-  if (Number(_activeElement.dataset.tabTriggerIndex) > 0) {
-    return nodes
-      .find((node) => (
-        Number(node.dataset.tabTriggerIndex) === (Number(_activeElement.dataset.tabTriggerIndex) - 1)));
-  }
-  return nodes[0];
+  return nodes
+    .find((node) => (
+      Number(
+        node.dataset.tabTriggerIndex) === (Number(_activeElement.dataset.tabTriggerIndex) - 1)
+    )) || nodes.at(-1);
 };
 
 const selectTabIndex = (index) => {
-  const {
-    isNext,
-    // isPrev,
-  } = {
-    isNext: unref(selectedTabIndex) < index,
-    isPrev: unref(selectedTabIndex) > index,
-  };
-  const newIndex = unref(tabs).length < index ? 0 : index;
-  selectedTabIndex.value = newIndex;
+  const currentIndex = unref(selectedTabIndex);
+  /**
+   * back = -1 | forward 1
+   * @type {-1 | 0}
+   */
+  const direction = currentIndex < index ? 1 : -1;
+  const outsideOfRange = unref(tabs).length <= index;
+  selectedTabIndex.value = outsideOfRange ? 0 : index;
   const resultElements = [...unref(tabsContainerEl).childNodes].filter((node) => node?.role === 'tab');
-  console.log('resultElements', resultElements);
-  const el = isNext ? getNextElement(resultElements) : getPrevElement(resultElements);
+  const el = direction === 1 ? getNextElement(resultElements) : getPrevElement(resultElements);
   el.focus();
 };
 
@@ -84,6 +80,7 @@ onMounted(() => {
 <template>
   <div class="tabs">
       <div
+          class="tabs__nav"
           ref="tabsContainerEl"
           role="tablist"
           :aria-labelledby="`${componentId}`">
@@ -94,12 +91,15 @@ onMounted(() => {
             :data-tab-trigger-index="index"
             type="button"
             role="tab"
+            class="tabs__trigger"
+            :class="{ 'tabs__trigger--is-active' : selectedTabIndex === index}"
             @keydown.right.prevent.stop="selectTabIndex((index + 1))"
             @keydown.left.prevent.stop="selectTabIndex((index - 1))"
+            @click="selectTabIndex(index)"
             :aria-selected="selectedTabIndex === index"
             :tabindex="selectedTabIndex === index ? undefined : -1"
             :aria-controls="`${componentId}-content-${index}`">
-          {{ tab.title }}
+          <span>{{ tab.title }}</span>
         </button>
       </div>
 
@@ -108,9 +108,60 @@ onMounted(() => {
           :key="tab.id"
           :id="`${componentId}-content-${index}`"
           role="tabpanel"
+          class="tabs__panel"
+          :class="{ 'tabs__panel--is-hidden' : selectedTabIndex !== index}"
           tabindex="0"
           :aria-labelledby="tab.id">
         {{ tab.content }}
       </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+@use '@/assets/styles/mixin-reset' as reset;
+.tabs {
+  --tabs-nav-color-background: var(--brand-color-gray-ash);
+  --tabs-nav-color: var(--brand-color-anthracite);
+  --tabs-trigger-active-color-background: #fff;
+  --tabs-border-radius: 8px;
+  --tabs-nav-outer-spacing: 2px;
+
+  &__nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    background: var(--tabs-nav-color-background);
+    color: var(--tabs-nav-color);
+    border-radius: calc(var(--tabs-border-radius) + var(--tabs-nav-outer-spacing));
+    padding: 2px;
+  }
+
+  &__trigger {
+    @include reset.btn-reset();
+
+    --_tabs-trigger-active-color-background: transparent;
+
+    padding: 8px;
+    font-size: 1rem;
+    line-height: 1;
+    border-radius: var(--tabs-border-radius);
+    background: var(--_tabs-trigger-active-color-background);
+    span {
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    &--is-active {
+      --_tabs-trigger-active-color-background: var(--tabs-trigger-active-color-background);
+    }
+  }
+
+  &__panel {
+    &--is-hidden {
+      @include reset.sr-only();
+    }
+  }
+}
+</style>
