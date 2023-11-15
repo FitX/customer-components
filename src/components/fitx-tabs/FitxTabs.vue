@@ -132,7 +132,7 @@ onMounted(() => {
   --tabs-item-count: 2;
 
   // --tabs-border-radius: 0px;
-  --tabs-nav-gap: 0px;
+  // --tabs-nav-gap: 0px;
   // --tabs-nav-outer-spacing: 0px;
 
   &__nav {
@@ -188,8 +188,10 @@ onMounted(() => {
       - ((var(--tabs-item-count) - 2) * var(--tabs-nav-gap))
   ); */
   width: calc(
-      ((100% - (2 * var(--tabs-nav-outer-spacing))) / var(--tabs-item-count))
-      - ((var(--tabs-item-count) - 2) * (var(--tabs-nav-gap)))
+      (100%
+      - (2 * var(--tabs-nav-outer-spacing))
+      - ((var(--tabs-item-count) - 1) * var(--tabs-nav-gap))
+      ) / var(--tabs-item-count)
   );
   translate:
     calc(
