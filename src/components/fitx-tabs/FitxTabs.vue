@@ -196,7 +196,7 @@ onMounted(() => {
       (var(--tabs-current-index) * 100%)
       + (var(--tabs-current-index) * (var(--tabs-nav-gap)))
     ) 0;
-  transition: translate 1s ease-in-out;
+  transition: translate 300ms ease-in-out;
   position: absolute;
   z-index: 1;
   // top: var(--tabs-nav-outer-spacing);
