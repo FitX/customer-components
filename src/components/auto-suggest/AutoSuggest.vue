@@ -268,6 +268,7 @@ onMounted(() => {
   @include reset.list-unstyled();
 
   margin: 0;
+  padding: 0;
   font-size: var(--auto-suggest-font-size);
   border: 1px solid var(--auto-suggest-results-border-color);
   border-radius: var(--auto-suggest-results-border-radius);
@@ -288,7 +289,11 @@ onMounted(() => {
   }
 
   &__item {
+    margin: 0;
     padding: var(--auto-suggest-spacing-v) var(--auto-suggest-spacing-h);
+    &:focus {
+      background: rgba(0, 0, 0, 0.03);
+    }
     &:not(:first-child) {
       border-top: 1px solid var(--brand-color-gray-smoke);
     }
