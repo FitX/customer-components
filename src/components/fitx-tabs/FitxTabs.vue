@@ -17,7 +17,7 @@ const props = defineProps<{
 const props = defineProps({
   tabs: {
     type: Array,
-    default: () => [{ title: '1', content: 'content 1' }, { title: 'voll der lange titel weil wieder keiner bock hat sich damit zu beschäftigen 2', content: 'content 2' }],
+    default: () => [{ title: '1', content: 'content 1' }, { title: 'voll der lange titel weil wieder keiner bock hat sich damit zu beschäftigen 2', content: 'content 2' }, { title: 'drei', content: 'foo 3'}],
     required: true,
   },
 });
@@ -78,7 +78,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="tabs">
+  <div
+      class="tabs"
+      :style="[ `--tabs-item-count: ${tabs.length}; --tabs-current-index: ${selectedTabIndex}` ]">
       <div
           class="tabs__nav"
           ref="tabsContainerEl"
@@ -101,6 +103,7 @@ onMounted(() => {
             :aria-controls="`${componentId}-content-${index}`">
           <span>{{ tab.title }}</span>
         </button>
+        <div class="slider"></div>
       </div>
 
       <div
@@ -125,13 +128,22 @@ onMounted(() => {
   --tabs-trigger-active-color-background: #fff;
   --tabs-border-radius: 8px;
   --tabs-nav-outer-spacing: 2px;
+  --tabs-nav-gap: 6px;
+  --tabs-item-count: 2;
+
+  // --tabs-border-radius: 0px;
+  --tabs-nav-gap: 0px;
+  // --tabs-nav-outer-spacing: 0px;
 
   &__nav {
+    position: relative; // for slider
+    overflow: hidden;
     display: grid;
+    gap: var(--tabs-nav-gap);
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
     background: var(--tabs-nav-color-background);
     color: var(--tabs-nav-color);
-    border-radius: calc(var(--tabs-border-radius) + var(--tabs-nav-outer-spacing));
+    border-radius: var(--tabs-border-radius);
     padding: 2px;
   }
 
@@ -144,7 +156,9 @@ onMounted(() => {
     font-size: 1rem;
     line-height: 1;
     border-radius: var(--tabs-border-radius);
-    background: var(--_tabs-trigger-active-color-background);
+    z-index: 2;
+    background: none;
+    // background: var(--_tabs-trigger-active-color-background);
     span {
       display: inline-block;
       max-width: 100%;
@@ -154,7 +168,7 @@ onMounted(() => {
     }
 
     &--is-active {
-      --_tabs-trigger-active-color-background: var(--tabs-trigger-active-color-background);
+      // --_tabs-trigger-active-color-background: var(--tabs-trigger-active-color-background);
     }
   }
 
@@ -163,5 +177,32 @@ onMounted(() => {
       @include reset.sr-only();
     }
   }
+}
+
+.slider {
+  background: red;
+  border-radius: calc(var(--tabs-border-radius) - var(--tabs-nav-outer-spacing));
+  /* width: calc(
+      (100% / var(--tabs-item-count))
+      - (2 * var(--tabs-nav-outer-spacing))
+      - ((var(--tabs-item-count) - 2) * var(--tabs-nav-gap))
+  ); */
+  width: calc(
+      ((100% - (2 * var(--tabs-nav-outer-spacing))) / var(--tabs-item-count))
+      - ((var(--tabs-item-count) - 2) * (var(--tabs-nav-gap)))
+  );
+  translate:
+    calc(
+      (var(--tabs-current-index) * 100%)
+      + (var(--tabs-current-index) * (var(--tabs-nav-gap)))
+    ) 0;
+  transition: translate 1s ease-in-out;
+  position: absolute;
+  z-index: 1;
+  // top: var(--tabs-nav-outer-spacing);
+  // left: var(--tabs-nav-outer-spacing);
+  // height: calc(100% - (2 * var(--tabs-nav-outer-spacing)));
+  inset: var(--tabs-nav-outer-spacing);
+  // margin: var(--tabs-nav-outer-spacing);
 }
 </style>
