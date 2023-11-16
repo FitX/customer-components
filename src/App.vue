@@ -65,6 +65,8 @@
     <fitx-notification-badge>42</fitx-notification-badge>
     <hr>
     <auto-suggest label="Find a Employee" v-model="model" />
+    <hr>
+    <fitx-tabs :tabs="[{ title: 'tab 1', content: 'demo 1' }, { title: 'tab 2', content: 'demo 2' }]" />
   </div>
 </template>
 
