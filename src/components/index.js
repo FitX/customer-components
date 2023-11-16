@@ -24,4 +24,5 @@ export { default as ProgressBar } from '@/components/progress-bar/ProgressBar.vu
 export { default as RequirementsList } from '@/components/requirements-list/RequirementsList.vue';
 export { default as SlotSelect } from '@/components/slot-select/SlotSelect.vue';
 export { default as StatusNotification } from '@/components/status-notification/StatusNotification.vue';
+export { default as FitxTabs } from '@/components/fitx-tabs/FitxTabs.vue';
 export { default as TextButton } from '@/components/text-button/TextButton.vue';

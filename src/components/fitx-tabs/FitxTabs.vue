@@ -1,11 +1,11 @@
 <script setup>
-import { useActiveElement } from '@vueuse/core';
 import {
   ref,
   defineProps,
   computed,
   useAttrs,
-  unref, onMounted, defineEmits,
+  unref,
+  defineEmits,
 } from 'vue';
 
 /*
@@ -17,12 +17,16 @@ const props = defineProps<{
 const props = defineProps({
   tabs: {
     type: Array,
-    default: () => [{ title: '1', content: 'content 1' }, { title: 'voll der lange titel weil wieder keiner bock hat sich damit zu beschäftigen 2', content: 'content 2' }, { title: 'drei', content: 'foo 3'}],
+    default: () => [],
     required: true,
   },
   isDarkMode: {
     type: Boolean,
     default: false,
+  },
+  selectedTab: {
+    type: Number,
+    default: 0,
   },
 });
 
@@ -45,26 +49,25 @@ const generateId = (index) => {
 };
 
 const tabs = computed(() => props.tabs.map((tab, index) => ({ id: generateId(index), ...tab })));
-const selectedTabIndex = ref(0);
+const selectedTabIndex = ref(props.selectedTab);
 
 const selectTabIndex = (index) => {
-  const outsideOfRange = unref(tabs).length <= index;
-  selectedTabIndex.value = outsideOfRange ? 0 : index;
+  const fallbackToStart = unref(tabs).length <= index;
+  const fallbackToEnd = index < 0;
+  let newIndex = index;
+  if (fallbackToStart) {
+    newIndex = 0;
+  }
+  if (fallbackToEnd) {
+    newIndex = (unref(tabs).length - 1);
+  }
+  selectedTabIndex.value = newIndex;
   const resultElements = [...unref(tabsContainerEl).childNodes].filter((node) => node?.role === 'tab');
-  // const el = direction === 1 ? getNextElement(resultElements) : getPrevElement(resultElements);
-  const el = resultElements[selectedTabIndex.value];
+  const el = resultElements[newIndex];
   // eslint-disable-next-line no-unused-expressions
   el?.focus();
-  emit('selected', selectedTabIndex.value);
+  emit('selected', newIndex);
 };
-
-onMounted(() => {
-  console.log(tabsContainerEl.value);
-
-  setInterval(() => {
-    console.log('activelement', document.activeElement);
-  }, 10000);
-});
 </script>
 
 <template>
@@ -130,6 +133,7 @@ onMounted(() => {
 .tabs {
   --tabs-nav-color-background: var(--brand-color-gray-ash);
   --tabs-nav-color: var(--brand-color-anthracite);
+  --tabs-content-color: var(--tabs-nav-color);
   --tabs-trigger-active-color-background: #fff;
   --tabs-border-radius: 8px;
   --tabs-nav-outer-spacing: 2px;
@@ -185,6 +189,8 @@ onMounted(() => {
   }
 
   &__panel {
+    color: var(--tabs-content-color);
+
     &--is-hidden {
       display: none;
     }
