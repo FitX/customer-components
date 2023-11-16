@@ -282,7 +282,7 @@ onMounted(() => {
   &__item {
     margin: 0;
     padding: var(--auto-suggest-spacing-v) var(--auto-suggest-spacing-h);
-    &:focus {
+    &:focus-visible {
       background: rgba(0, 0, 0, 0.03);
     }
     &:not(:first-child) {
