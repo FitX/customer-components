@@ -3,6 +3,7 @@ import { create } from '@storybook/theming';
 import logo from './logo.png';
 
 addons.setConfig({
+enableShortcuts: false,
   theme: create({
     base: 'light',
     // colorPrimary: 'hotpink',
