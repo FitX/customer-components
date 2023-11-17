@@ -45,7 +45,7 @@ const componentId = computed(() => attrs?.id || DEFAULT_ID_NAME);
 const generateId = (index) => {
   const { id } = attrs;
   if (id) return `${id}-${index}`;
-  return `${unref(componentId)}-${index};`;
+  return `${unref(componentId)}-${index}`;
 };
 
 const tabs = computed(() => props.tabs.map((tab, index) => ({ id: generateId(index), ...tab })));
