@@ -56,6 +56,7 @@ const elComponent = ref();
 const elInput = ref();
 const elResults = ref();
 const isTouched = ref(false);
+const currentResultIndex = ref();
 
 const attrs = useAttrs();
 
@@ -102,6 +103,7 @@ const selectResult = (index) => {
 };
 
 const focusResult = (index) => {
+  currentResultIndex.value = index;
   const resultElements = [...unref(elResults).childNodes].filter((node) => node?.role === 'listitem');
   const el = resultElements[index];
   if (el) {
@@ -135,19 +137,73 @@ watch(props.modelValue, (newVal, oldVal) => {
   }
 });
 
-const whatsup = (event) => {
-  console.log(event)
-  if (!['ArrowUp', 'ArrowDown', 'Enter', 'Home', 'End', 'Meta'].includes(event.key)) {
-    focusInput();
+const handleKeyDown = (event) => {
+  if (['ArrowUp', 'ArrowDown', 'Enter', 'Escape'].includes(event.key)) {
+    event.preventDefault();
   }
-  /* if (new RegExp(/^[a-z@-Z0-9?().,'+ /:@-](?: ?[a-z@-Z0-9?().,'+ /:@-]+)*$/).test(event.key)) {
-    focusInput();
-  } */
+
+  const inputHasNoFocus = unref(activeElement).id !== unref(elInput).id;
+
+  switch (event.key) {
+    case 'Escape': {
+      if (inputHasNoFocus) {
+        /**
+         * @TODO research better input.focus() or input.blur()
+         */
+        elInput.value.focus();
+        elInput.value.blur();
+        closeResults();
+      }
+      break;
+    }
+    case 'ArrowDown': {
+      const currentIndex = unref(currentResultIndex) ?? -1;
+      const itemsLength = props.suggestions.length;
+      const newIndex = (currentIndex + 1);
+      if (itemsLength > newIndex) {
+        focusResult(newIndex);
+      }
+      break;
+    }
+    case 'ArrowUp': {
+      const currentIndex = unref(currentResultIndex) ?? -1;
+      const newIndex = (currentIndex - 1);
+      if (newIndex >= 0) {
+        focusResult(newIndex);
+      }
+      break;
+    }
+    case 'Home': {
+      focusResult(0);
+      break;
+    }
+    case 'End': {
+      const itemsLength = props.suggestions.length;
+      if (itemsLength) {
+        focusResult((itemsLength - 1));
+      }
+      break;
+    }
+    case 'Enter': {
+      const currentIndex = unref(currentResultIndex);
+      if (currentIndex) {
+        selectResult(currentIndex);
+      }
+      break;
+    }
+    default: {
+      if (inputHasNoFocus) {
+        if (new RegExp(/^[a-z@-Z0-9?().,'+ /:@-](?: ?[a-z@-Z0-9?().,'+ /:@-]+)*$/).test(event.key)) {
+          focusInput();
+        }
+      }
+      break;
+    }
+  }
 };
 </script>
 
 <template>
-  <p>Is Expanded {{ isExpanded }}</p>
   <div
       class="auto-suggest"
       :class="attrs.class"
@@ -162,8 +218,7 @@ const whatsup = (event) => {
         @input="onInput"
         @blur="inputOnBlur()"
         @focus="openResults()"
-        @keydown.down.prevent.stop="focusResult(0)"
-        @keydown.esc.prevent.stop="closeResults()"
+        @keydown="handleKeyDown"
         :aria-expanded="isExpanded"
         :aria-controls="resultsId"
         :label-id="labelId"
@@ -202,13 +257,7 @@ const whatsup = (event) => {
           :data-index="index"
           class="auto-suggest-results__item"
           @click="selectResult(index)"
-          @keydown.home.prevent.stop="focusResult(0)"
-          @keydown.end.prevent.stop="focusResult((props.suggestions.length - 1))"
-          @keydown.enter.prevent.stop="selectResult(index)"
-          @keydown.down.prevent.stop="focusResult((index + 1))"
-          @keydown.up.prevent.stop="focusResult((index - 1))"
-          @keydown.esc.prevent.stop="closeResults()"
-          @keydown="whatsup"
+          @keydown="handleKeyDown"
           role="listitem"
           tabindex="0"
       >
