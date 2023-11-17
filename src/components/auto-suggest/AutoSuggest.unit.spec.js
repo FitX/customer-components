@@ -64,12 +64,9 @@ describe('AutoSuggest', () => {
         const resultItem = wrapper.find('#auto-suggest-results-item-0');
         await resultItem.trigger('focus');
 
-        console.log('resultItem html', resultItem.html());
-        console.log('resultItem element html', resultItem.element.id);
-        console.log('resultItem', resultItem.element.dispatchEvent(new Event('focus')));
-
         // Trigger the computed property to recalculate
-        const result = wrapper.vm.focusedResultId;
+        await wrapper.vm.$nextTick();
+        const result = wrapper.vm.$.setupState.focusedResultId;
 
         console.log('result', result);
 

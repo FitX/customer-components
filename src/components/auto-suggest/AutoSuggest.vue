@@ -7,10 +7,10 @@ export default {
 <script setup>
 // eslint-disable-next-line
 import {
-  ref, computed, unref, watch, defineEmits, defineProps, onMounted, useAttrs,
+  ref, computed, unref, defineEmits, defineProps, useAttrs, watch,
 } from 'vue';
 // eslint-disable-next-line
-import { useActiveElement, useMagicKeys, useFocusWithin } from '@vueuse/core';
+import { useActiveElement, onClickOutside } from '@vueuse/core';
 // eslint-disable-next-line
 import BaseInput from '@/components/base-input/BaseInput.vue';
 
@@ -48,21 +48,29 @@ const emit = defineEmits(['update:modelValue']);
 
 const emitValue = (val) => emit('update:modelValue', val);
 
+const DEFAULT_ID_NAME = 'auto-suggest';
+
 // const modelValue = defineModel();
 const activeElement = useActiveElement();
-const { current: currentInputKey } = useMagicKeys();
 const elComponent = ref();
 const elInput = ref();
 const elResults = ref();
-const { focused: isFocusedWithinComponent } = useFocusWithin(elComponent);
 const isTouched = ref(false);
 
 const attrs = useAttrs();
 
+const componentId = computed(() => attrs?.id || DEFAULT_ID_NAME);
+
 const getID = (prefix) => {
   const { id } = unref(attrs);
-  return id ? `${id}-${prefix}` : `auto-suggest-${prefix}`;
+  return id ? `${id}-${prefix}` : `${unref(componentId)}-${prefix}`;
 };
+/*
+const generateId = (index) => {
+  const { id } = attrs;
+  if (id) return `${id}-${index}`;
+  return `${unref(componentId)}-${index}`;
+}; */
 
 const labelId = computed(() => getID('label'));
 const inputId = computed(() => getID('input'));
@@ -87,47 +95,23 @@ const closeResults = () => {
   isExpanded.value = false;
 };
 
-const focusResultEl = (el) => {
-  el.setAttribute('aria-activedescendant', el.id);
-  el.focus();
-};
-
 const selectResult = (index) => {
   emitValue(unref(props.suggestions[index].value));
+  focusInput();
   closeResults();
 };
 
-const getNextElement = (nodes) => {
-  // eslint-disable-next-line no-underscore-dangle
-  const _activeElement = unref(activeElement);
-  if (isResultEl(_activeElement.id)) {
-    if (nodes.length > Number(_activeElement.dataset.index)) {
-      return nodes
-        .find((node) => (
-          Number(node.dataset.index) === (Number(_activeElement.dataset.index) + 1)));
-    }
-    return undefined;
+const focusResult = (index) => {
+  const resultElements = [...unref(elResults).childNodes].filter((node) => node?.role === 'listitem');
+  const el = resultElements[index];
+  if (el) {
+    elInput.value.setAttribute('aria-activedescendant', el.id);
+    el.focus();
   }
-  return nodes[0];
 };
 
 const focusInput = () => {
-  elInput.value.removeAttribute('aria-activedescendant');
   elInput.value.focus();
-};
-
-const getPrevElement = (nodes) => {
-  // eslint-disable-next-line no-underscore-dangle
-  const _activeElement = unref(activeElement);
-  if (isResultEl(_activeElement.id)) {
-    if (Number(_activeElement.dataset.index) > 0) {
-      return nodes
-        .find((node) => (
-          Number(node.dataset.index) === (Number(_activeElement.dataset.index) - 1)));
-    }
-    return undefined;
-  }
-  return nodes[0];
 };
 
 const onInput = (e) => {
@@ -137,59 +121,33 @@ const onInput = (e) => {
   }
 };
 
-onMounted(() => {
-  watch(isFocusedWithinComponent, (val) => {
-    /**
-     * Touched === if leave Focus
-     */
-    if (!val) {
-      isTouched.value = true;
-    }
+const inputOnBlur = () => {
+  isTouched.value = true;
+};
 
-    if (val && unref(props.modelValue)) {
-      openResults();
-    }
-  });
-  watch(currentInputKey, (val) => {
-    if (unref(isFocusedWithinComponent)) {
-      const activeEl = unref(activeElement);
-
-      /**
-       * Select Result if Item are focused
-       */
-      if (val.has('enter') && activeEl.id !== unref(inputId)) {
-        selectResult(Number(activeEl.dataset.index));
-      }
-
-      if (val.has('arrowdown')) {
-        if (!isExpanded.value) {
-          openResults();
-        }
-        const resultElements = [...unref(elResults)
-          .childNodes].filter((node) => isResultEl(node?.id));
-        const nextElement = getNextElement(resultElements);
-        if (nextElement) {
-          focusResultEl(nextElement);
-        }
-      } else if (val.has('arrowup')) {
-        if (!isExpanded.value) {
-          openResults();
-        }
-        const resultElements = [...unref(elResults)
-          .childNodes].filter((node) => isResultEl(node?.id));
-        const prevElement = getPrevElement(resultElements);
-        if (prevElement) {
-          focusResultEl(prevElement);
-        }
-      } else if (val.size !== 0) {
-        focusInput();
-      }
-    }
-  });
+onClickOutside(elComponent, () => {
+  closeResults();
 });
+
+watch(props.modelValue, (newVal, oldVal) => {
+  if (props.suggestions.length > 0 && (newVal !== oldVal)) {
+    openResults();
+  }
+});
+
+const whatsup = (event) => {
+  console.log(event)
+  if (!['ArrowUp', 'ArrowDown', 'Enter', 'Home', 'End', 'Meta'].includes(event.key)) {
+    focusInput();
+  }
+  /* if (new RegExp(/^[a-z@-Z0-9?().,'+ /:@-](?: ?[a-z@-Z0-9?().,'+ /:@-]+)*$/).test(event.key)) {
+    focusInput();
+  } */
+};
 </script>
 
 <template>
+  <p>Is Expanded {{ isExpanded }}</p>
   <div
       class="auto-suggest"
       :class="attrs.class"
@@ -202,6 +160,10 @@ onMounted(() => {
         aria-autocomplete="list"
         :model-value="modelValue"
         @input="onInput"
+        @blur="inputOnBlur()"
+        @focus="openResults()"
+        @keydown.down.prevent.stop="focusResult(0)"
+        @keydown.esc.prevent.stop="closeResults()"
         :aria-expanded="isExpanded"
         :aria-controls="resultsId"
         :label-id="labelId"
@@ -240,6 +202,13 @@ onMounted(() => {
           :data-index="index"
           class="auto-suggest-results__item"
           @click="selectResult(index)"
+          @keydown.home.prevent.stop="focusResult(0)"
+          @keydown.end.prevent.stop="focusResult((props.suggestions.length - 1))"
+          @keydown.enter.prevent.stop="selectResult(index)"
+          @keydown.down.prevent.stop="focusResult((index + 1))"
+          @keydown.up.prevent.stop="focusResult((index - 1))"
+          @keydown.esc.prevent.stop="closeResults()"
+          @keydown="whatsup"
           role="listitem"
           tabindex="0"
       >
