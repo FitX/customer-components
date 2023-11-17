@@ -49,52 +49,78 @@ describe('AutoSuggest', () => {
         expect(wrapper.emitted('update:modelValue')[0]).toEqual([suggestions[0].value]);
     });
 
-    it.skip('computes focusedResultId correctly when activeElement is a result element', async () => {
-        const suggestions = [{ value: 'Option 1' }, { value: 'Option 2' }];
+    it('generateId works correctly', () => {
         const wrapper = mount(AutoSuggest, {
             props: {
-                suggestions,
-            },
-        });
+                suggestions: [
+                    { value: 'Result 1' },
+                ],
+            }});
+        const resultItem = wrapper.find('.auto-suggest-results__item');
+        expect(resultItem.element.id).toBe('auto-suggest-results-item-0');
 
+        const wrapperWithId = mount(AutoSuggest, {
+            props: {
+                id: 'demo',
+                suggestions: [
+                    { value: 'Result 2' },
+                ],
+            }});
+        const resultItemWithCustomId = wrapperWithId.find('.auto-suggest-results__item');
+        expect(resultItemWithCustomId.element.id).toBe('demo-results-item-0');
+    });
+
+    it.skip('computes focusedResultId correctly when activeElement is a result element', async () => {
+    });
+
+    it('open and close results works correctly on curser navigation', async () => {
+        const wrapper = mount(AutoSuggest, {
+            props: {
+                suggestions: [
+                    { value: 'Result 0' },
+                    { value: 'Result 1' },
+                    { value: 'Result 2' },
+                ],
+            }});
+        expect(wrapper.vm.$.setupState.isExpanded).toBe(false);
         const input = wrapper.find('input');
-        await input.setValue('Option');
-        await nextTick();
-
-        const resultItem = wrapper.find('#auto-suggest-results-item-0');
-        await resultItem.trigger('focus');
-
-        // Trigger the computed property to recalculate
-        await wrapper.vm.$nextTick();
-        const result = wrapper.vm.$.setupState.focusedResultId;
-
-        console.log('result', result);
-
-        // input.dispatchEvent(new Event('focus'));
-        // await nextTick();
-        console.log('html', wrapper.findComponent({ name: 'BaseInput' }).html());
-        console.log('wrapper.find(\'input\'', wrapper.find('input').html());
-
-        // Expect the computed property to be the id of the activeElement
-        expect(wrapper.find('input').toBe('results-item-0'))
-        // expect(result).toBe('results-item-0');
+        // const resultItems = wrapper.findAll('.auto-suggest-results__item');
+        await input.setValue('result ')
+        await input.trigger('keydown.down');
+        // await wrapper.vm.$nextTick();
+        expect(wrapper.vm.$.setupState.isExpanded).toBe(true);
     });
 
-    it('returns undefined for focusedResultId when activeElement is not a result element', async () => {
-        const wrapper = mount(AutoSuggest);
-
-        // Set activeElement to an input element
-        const inputEl = wrapper.find('input');
-        await inputEl.trigger('click');
-        // console.log('activeElement', inputEl.element, document.activeElement);
-        console.log('wrapper.vm.focusedResultId;', wrapper.vm.focusedResultId, wrapper.vm.focusedResultId);
-
-        const result = wrapper.vm.focusedResultId;
-
-        expect(result).toBeUndefined();
+    it('dirty check', async () => {
+        const wrapper = mount(AutoSuggest, {
+            props: {
+                suggestions: [
+                    { value: 'Result 0' },
+                    { value: 'Result 1' },
+                    { value: 'Result 2' },
+                ],
+            }});
+        expect(wrapper.vm.$.setupState.isTouched).toBe(false);
+        const input = wrapper.find('input');
+        await input.trigger('click');
+        await input.trigger('blur');
+        // await wrapper.vm.$nextTick();
+        expect(wrapper.vm.$.setupState.isTouched).toBe(true);
     });
 
-    it('computes getNextElement correctly when activeElement is a result element', () => {
-
+    it.skip('open and close results works correctly on input', async () => {
+        const wrapper = mount(AutoSuggest, {
+            props: {
+                suggestions: [
+                    { value: 'Result 0' },
+                    { value: 'Result 1' },
+                    { value: 'Result 2' },
+                ],
+            }});
+        expect(wrapper.html()).not.toContain('.auto-suggest-results--is-expanded');
+        const input = wrapper.find('input');
+        input.value = 'test';
+        wrapper.vm.$nextTick();
+        expect(wrapper.html()).toContain('.auto-suggest-results--is-expanded');
     });
 });

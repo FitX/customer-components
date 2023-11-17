@@ -80,7 +80,7 @@ const resultIdPrefix = computed(() => getID('results-item'));
 
 const isResultEl = (id = '') => id.startsWith(unref(resultIdPrefix));
 const focusedResultId = computed(() => {
-  const elId = unref(activeElement).id;
+  const elId = unref(activeElement)?.id;
   if (isResultEl(elId)) {
     return elId;
   }
@@ -113,7 +113,8 @@ const focusResult = (index) => {
 };
 
 const focusInput = () => {
-  elInput.value.focus();
+  // eslint-disable-next-line no-unused-expressions
+  elInput.value?.focus();
 };
 
 const onInput = (e) => {
@@ -142,7 +143,7 @@ const handleKeyDown = (event) => {
     event.preventDefault();
   }
 
-  const inputHasNoFocus = unref(activeElement).id !== unref(elInput).id;
+  const inputHasNoFocus = unref(activeElement)?.id !== unref(elInput)?.id;
 
   switch (event.key) {
     case 'Escape': {
@@ -150,7 +151,8 @@ const handleKeyDown = (event) => {
         /**
          * @TODO research better input.focus() or input.blur()
          */
-        elInput.value.focus();
+        // eslint-disable-next-line no-unused-expressions
+        elInput.value?.focus();
         elInput.value.blur();
         closeResults();
       }
