@@ -128,11 +128,24 @@ const inputOnBlur = () => {
   isTouched.value = true;
 };
 
+/**
+ * Temp Usage because comp can be null
+ * @TODO remove after ts update
+ * @param comp
+ */
+const dynamicReference = (comp) => {
+  if (comp) {
+    elInput.value = comp.elInput;
+  } else {
+    elInput.value = null;
+  }
+};
+
 onClickOutside(elComponent, () => {
   closeResults();
 });
 
-watch(props.modelValue, (newVal, oldVal) => {
+watch(() => props.modelValue, (newVal, oldVal) => {
   if (props.suggestions.length > 0 && (newVal !== oldVal)) {
     openResults();
   }
@@ -213,7 +226,7 @@ const handleKeyDown = (event) => {
     <base-input
         autocomplete="off"
         :label="props.label"
-        :ref="(comp) => elInput = comp.elInput"
+        :ref="(comp) => dynamicReference(comp)"
         role="textbox"
         aria-autocomplete="list"
         :model-value="modelValue"
