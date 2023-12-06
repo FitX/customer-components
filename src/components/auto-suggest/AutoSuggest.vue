@@ -288,7 +288,7 @@ const handleKeyDown = (event) => {
 </template>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/mixin-reset' as reset;
+@import '@/assets/styles/mixin-reset';
 
 .auto-suggest {
   --auto-suggest-font-size: var(--form-input-font-size, 1.125rem);
@@ -298,7 +298,7 @@ const handleKeyDown = (event) => {
   --auto-suggest-spacing-v: 1.125rem;
 }
 .auto-suggest-results {
-  @include reset.list-unstyled();
+  @include list-unstyled();
 
   margin: 0;
   padding: 0;
@@ -309,7 +309,7 @@ const handleKeyDown = (event) => {
   max-height: 26.1875rem; // 419
   overflow-y: auto;
   &:not(&--is-expanded) {
-    @include reset.sr-only();
+    @include sr-only();
   }
 
   &__item {
