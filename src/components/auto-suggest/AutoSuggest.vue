@@ -7,7 +7,7 @@ export default {
 <script setup>
 // eslint-disable-next-line
 import {
-  ref, computed, unref, defineEmits, defineProps, useAttrs, watch,
+  ref, computed, unref, defineEmits, defineProps, useAttrs, watch, nextTick,
 } from 'vue';
 // eslint-disable-next-line
 import { useActiveElement, onClickOutside } from '@vueuse/core';
@@ -44,9 +44,10 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'selected']);
 
 const emitValue = (val) => emit('update:modelValue', val);
+const emitSelected = (val) => emit('selected', val);
 
 const DEFAULT_ID_NAME = 'auto-suggest';
 
@@ -96,9 +97,12 @@ const closeResults = () => {
   isExpanded.value = false;
 };
 
-const selectResult = (index) => {
-  emitValue(unref(props.suggestions[index].value));
+const selectResult = async (index) => {
+  const val = unref(props.suggestions[index].value);
+  emitValue(val);
+  emitSelected(val);
   focusInput();
+  await nextTick();
   closeResults();
 };
 
