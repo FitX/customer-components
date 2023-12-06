@@ -129,7 +129,8 @@ const selectTabIndex = (index) => {
 </template>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/mixin-reset' as reset;
+@import '@/assets/styles/mixin-reset';
+
 .tabs {
   --tabs-nav-color-background: var(--brand-color-gray-ash);
   --tabs-nav-color: var(--brand-color-anthracite);
@@ -163,7 +164,7 @@ const selectTabIndex = (index) => {
   }
 
   &__trigger {
-    @include reset.btn-reset();
+    @include btn-reset();
 
     --_tabs-trigger-active-color-background: transparent;
 
