@@ -6,6 +6,7 @@ import {
   useAttrs,
   unref,
   defineEmits,
+  watch,
 } from 'vue';
 
 /*
@@ -68,6 +69,12 @@ const selectTabIndex = (index) => {
   el?.focus();
   emit('selected', newIndex);
 };
+
+watch(() => props.selectedTab, (val) => {
+  selectedTabIndex.value = val;
+}, {
+  immediate: true,
+});
 </script>
 
 <template>

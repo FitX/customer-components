@@ -1,4 +1,4 @@
-import { reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
 import FitxTabs from './FitxTabs.vue';
 
@@ -129,7 +129,12 @@ const TemplateWithSlots = (argsObject) => ({
         }, {
             title: 'Slotted Tab 2',
         }]
-        const selectedTab = ref(1);
+        const selectedTab = ref(0);
+        onMounted(() => {
+          setTimeout(() => {
+            selectedTab.value = 1;
+          }, 600);
+        })
         return {
             args: reactive(args),
             demoTabs,
