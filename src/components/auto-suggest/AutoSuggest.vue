@@ -42,6 +42,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * Rendering Error Message if not null
+   */
+  errorMessage: {
+    type: String,
+    default: null,
+  },
 });
 
 const emit = defineEmits(['update:modelValue', 'selected']);
@@ -244,6 +251,7 @@ const handleKeyDown = (event) => {
         :is-dark-mode="attrs.isDarkMode"
         :id="inputId"
         :aria-activedescendant="focusedResultId"
+        :error-message="props.errorMessage"
     />
     <button
         v-if="showResultsTrigger"
