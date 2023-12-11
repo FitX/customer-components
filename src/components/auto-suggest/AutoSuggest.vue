@@ -96,6 +96,11 @@ const focusedResultId = computed(() => {
 });
 const isExpanded = ref(false);
 
+const showFallback = computed(() => (
+  props.showNoResults
+  && (props.suggestions.length === 0)
+  && unref(isTouched)));
+
 const openResults = () => {
   isExpanded.value = true;
 };
@@ -264,13 +269,13 @@ const handleKeyDown = (event) => {
     </button>
     <ul
         class="auto-suggest-results"
-        :class="{ 'auto-suggest-results--is-expanded': isExpanded }"
+        :class="{ 'auto-suggest-results--is-expanded': isExpanded || showFallback }"
         ref="elResults"
         role="listbox"
         aria-label="results"
         :id="resultsId">
       <li
-          v-if="props.showNoResults && props.suggestions.length === 0 && isTouched"
+          v-if="showFallback"
         class="auto-suggest-results__item">
         <!--
          @slot Fallback Slot, visible after touched
