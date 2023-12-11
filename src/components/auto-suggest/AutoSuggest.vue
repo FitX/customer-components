@@ -51,7 +51,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:modelValue', 'selected']);
+const emit = defineEmits(['update:modelValue', 'selected', 'blur']);
 
 const emitValue = (val) => emit('update:modelValue', val);
 const emitSelected = (val) => emit('selected', val);
@@ -140,8 +140,9 @@ const onInput = (e) => {
   }
 };
 
-const inputOnBlur = () => {
+const inputOnBlur = (e) => {
   isTouched.value = true;
+  emit('blur', e);
 };
 
 /**
@@ -247,7 +248,7 @@ const handleKeyDown = (event) => {
         aria-autocomplete="list"
         :model-value="modelValue"
         @input="onInput"
-        @blur="inputOnBlur()"
+        @blur="(e) => inputOnBlur(e)"
         @focus="openResults()"
         @keydown="handleKeyDown"
         :aria-expanded="isExpanded"
