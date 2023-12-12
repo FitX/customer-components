@@ -222,10 +222,8 @@ const handleKeyDown = (event) => {
       break;
     }
     case 'Enter': {
-      const currentIndex = unref(currentResultIndex);
-      if (currentIndex) {
-        selectResult(currentIndex);
-      }
+      const currentIndex = unref(currentResultIndex) || 0;
+      selectResult(currentIndex);
       break;
     }
     default: {
