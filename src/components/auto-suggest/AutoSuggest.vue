@@ -10,7 +10,7 @@ import {
   ref, computed, unref, defineEmits, defineProps, useAttrs, watch, nextTick,
 } from 'vue';
 // eslint-disable-next-line
-import { useActiveElement, onClickOutside } from '@vueuse/core';
+import { useActiveElement, onClickOutside, useFocusWithin } from '@vueuse/core';
 // eslint-disable-next-line
 import BaseInput from '@/components/base-input/BaseInput.vue';
 
@@ -51,7 +51,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:modelValue', 'selected', 'blur']);
+const emit = defineEmits(['update:modelValue', 'selected', 'focused']);
 
 const emitValue = (val) => emit('update:modelValue', val);
 const emitSelected = (val) => emit('selected', val);
@@ -65,6 +65,8 @@ const elInput = ref();
 const elResults = ref();
 const isTouched = ref(false);
 const currentResultIndex = ref();
+
+const { focused: componentIsFocused } = useFocusWithin(elComponent);
 
 const attrs = useAttrs();
 
@@ -140,9 +142,8 @@ const onInput = (e) => {
   }
 };
 
-const inputOnBlur = (e) => {
+const inputOnBlur = () => {
   isTouched.value = true;
-  emit('blur', e);
 };
 
 /**
@@ -166,6 +167,10 @@ watch(() => props.modelValue, (newVal, oldVal) => {
   if (props.suggestions.length > 0 && (newVal !== oldVal)) {
     openResults();
   }
+});
+
+watch(componentIsFocused, (val) => {
+  emit('focused', val);
 });
 
 const handleKeyDown = (event) => {
@@ -248,7 +253,7 @@ const handleKeyDown = (event) => {
         aria-autocomplete="list"
         :model-value="modelValue"
         @input="onInput"
-        @blur="(e) => inputOnBlur(e)"
+        @blur="inputOnBlur()"
         @focus="openResults()"
         @keydown="handleKeyDown"
         :aria-expanded="isExpanded"
