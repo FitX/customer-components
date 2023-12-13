@@ -28,7 +28,9 @@
         <slot name="items">
           <option
             v-for="(option, index) in items"
-            :key="index">{{ option }}</option>
+            :key="index">
+            {{ option }}
+          </option>
         </slot>
       </select>
       <span
@@ -95,7 +97,7 @@ export const baseSelectProps = {
    * @model
    */
   modelValue: {
-    type: [String, Number],
+    type: [String, Number, Boolean],
     default: null,
   },
   items: {
@@ -160,9 +162,9 @@ export default {
      * @type {ToRef<null>}
      */
     const input = ref(null);
-    // because !!props.modelValue (0 as number) is false
+    // because !!props.modelValue (0 as number) is false and boolean also
     const isFilled = computed(() => {
-      if (typeof props.modelValue === 'number') {
+      if (['number', 'boolean'].includes(typeof props.modelValue)) {
         return true;
       }
       return !!props.modelValue;
