@@ -9,7 +9,8 @@
     ".": {
       "module": "./dist/customer-components.es.js",
       "require": "./dist/customer-components.umd.js"
-    }
+    },
+    "./dist/customer-components.css": "./dist/customer-components.css"
   },
   "style": "./dist/customer-components.css",
   "scripts": {
