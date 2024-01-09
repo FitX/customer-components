@@ -1,10 +1,7 @@
 import { reactive, computed, ref } from 'vue';
 import { mapPropToArgTypes } from '../../../.storybook/helpers/manual-mapping-props-to-argtypes';
 import { isDarkMode } from '../../../.storybook/template-helpers/use-template-theme-detection';
-import BaseSelect, {
-  modifier,
-  baseSelectProps,
-} from './BaseSelect.vue';
+import BaseSelect from './BaseSelect.vue';
 
 const demoItems = [
   'FitX',
@@ -23,15 +20,6 @@ const storyDescription = `
 export default {
   title: 'Components/Form/Dropdown',
   component: BaseSelect,
-  argTypes: {
-    ...mapPropToArgTypes(baseSelectProps),
-    modifier: {
-      options: modifier,
-      control: {
-        type: 'multi-select',
-      },
-    },
-  },
   parameters: {
     jest: ['BaseSelect.unit.spec.js'],
     docs: {
@@ -51,9 +39,10 @@ export default {
  */
 const baseTemplate = `
 <base-select v-bind="args" v-model="args.model">
-  <template v-if="args?.demo?.options" #items>
+  <template v-if="args?.demoCustomOptions" #items="{ items }">
+  <option value="foo">{{ items }}</option>
     <option
-        v-for="demoOption in args?.demo?.options"
+        v-for="demoOption in items"
         :key="demoOption.value"
         :value="demoOption.value">{{ demoOption.text }}</option>
   </template>
@@ -150,19 +139,34 @@ BaseSelectDisabledPreFilled.storyName = 'Disabled Prefilled';
 
 export const BaseSelectWithSlotOptions = Template.bind({});
 BaseSelectWithSlotOptions.args = {
-  label: 'Custom Options Structure',
+  label: 'Custom Options Structure with Slots',
   model: 456,
-  demo: {
-    options: [
-      {
-        value: 123,
-        text: 'text 123',
-      },
-      {
-        value: 456,
-        text: 'text 456',
-      },
-    ],
-  },
+  demoCustomOptions: true,
+  items: [
+    {
+      value: 123,
+      text: 'text 123',
+    },
+    {
+      value: 456,
+      text: 'text 456',
+    },
+  ],
 };
-BaseSelectDisabledPreFilled.storyName = 'Disabled Prefilled';
+
+export const BaseSelectWithCustomOptions = Template.bind({});
+const demoItemsForCustomOptions = [
+  {
+    value: true,
+    text: 'Wahr',
+  },
+  {
+    value: false,
+    text: 'Unwahr',
+  },
+];
+BaseSelectWithCustomOptions.args = {
+  label: 'Custom Options Structure',
+  model: demoItemsForCustomOptions[0],
+  items: demoItemsForCustomOptions,
+};

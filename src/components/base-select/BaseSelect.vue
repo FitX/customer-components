@@ -1,19 +1,159 @@
+<script>
+export default {
+  inheritAttrs: false,
+};
+
+export const modifier = [
+  'disabled',
+  'fake-focus',
+  'fake-hover',
+];
+</script>
+
+<script setup>
+// eslint-disable-next-line
+import {
+  ref,
+  computed,
+  defineProps,
+  defineEmits, useAttrs,
+} from 'vue';
+// eslint-disable-next-line
+import {
+  useDebounceFn,
+} from '@vueuse/core';
+// eslint-disable-next-line
+import useModifier from '@/use/modifier-class';
+// eslint-disable-next-line
+import validateValueWithList from '@/use/validate-value-with-list';
+// eslint-disable-next-line
+import ErrorText from '@/components/error-message/ErrorMessage.vue';
+// eslint-disable-next-line
+import IconArrowDown from '@/assets/icons/icon-arrow-down.svg';
+
+/**
+ * @typedef {string|number|null} BaseInputModelValue
+ */
+
+const props = defineProps({
+  label: {
+    type: String,
+    default: null,
+  },
+  isDarkMode: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * @model
+   * Object Interface: { value, text }
+   */
+  modelValue: {
+    type: [String, Number, Boolean, Object],
+    default: null,
+  },
+  items: {
+    type: Array,
+    default: null,
+  },
+  /**
+   * Rendering Error Message if not null
+   */
+  errorMessage: {
+    type: String,
+    default: null,
+  },
+  /**
+   * Optional Debounce e.g for Search
+   */
+  debounce: {
+    type: Number,
+    default: 0,
+  },
+  modifier: {
+    type: [String, Array],
+    default: null,
+    validator: (value) => validateValueWithList(value, modifier),
+  },
+});
+
+const emit = defineEmits([
+  /**
+   * Fires on Model Update
+   * @property {BaseInputModelValue} val - Input Value
+   */
+  'update:modelValue',
+]);
+
+const attrs = useAttrs();
+
+const hasFocus = ref(false);
+const { getModifierClasses } = useModifier();
+/**
+ * Removes Key from Object
+ * @param {object} myObj
+ * @param {string} deleteKey
+ */
+function removeByKey(myObj, deleteKey) {
+  return Object.keys(myObj)
+    .filter((key) => key !== deleteKey)
+    .reduce((res, current) => {
+      const result = res;
+      result[current] = myObj[current];
+      return result;
+    }, {});
+}
+
+/**
+ * Template Ref
+ * @type {ToRef<null>}
+ */
+const input = ref(null);
+// because !!props.modelValue (0 as number) is false and boolean also
+const isFilled = computed(() => {
+  if (['number', 'boolean'].includes(typeof props.modelValue)) {
+    return true;
+  }
+  return !!props.modelValue;
+});
+/**
+ * Emit Model Value
+ * @param {BaseInputModelValue} val
+ */
+const emitValue = (val) => {
+  emit('update:modelValue', val);
+};
+/**
+ * Update with optional debounce
+ * @type {(function(*=): void)|*}
+ */
+const updateValue = useDebounceFn((val) => {
+  emitValue(val);
+}, props.debounce);
+const handleFocus = () => {
+  hasFocus.value = true;
+};
+const handleBlur = () => {
+  hasFocus.value = false;
+};
+</script>
+
 <template>
-  <div :class="$attrs.class">
+  <div :class="attrs.class">
     <label
       :class="[
-        getModifierClasses('field', modifier),
+        getModifierClasses('field', props.modifier),
         {
         'field--error': errorMessage,
         'field--dark': isDarkMode,
-        'field--disabled': $attrs.disabled,
+        'field--disabled': attrs.disabled,
         'field--fake-focus': hasFocus,
         }
       ]"
       class="field">
       <select
         ref="input"
-        v-bind="removeByKey($attrs, 'class')"
+        v-bind="removeByKey(attrs, 'class')"
         :value="modelValue"
         @change="updateValue($event.target.value)"
         @focus="handleFocus()"
@@ -25,11 +165,12 @@
         <!--
           @slot optional Options Slot
         -->
-        <slot name="items">
+        <slot name="items" v-bind="{ items }">
           <option
             v-for="(option, index) in items"
+            :value="option"
             :key="index">
-            {{ option }}
+            {{ typeof option === 'object' ? option.text : option }}
           </option>
         </slot>
       </select>
@@ -60,148 +201,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import {
-  ref,
-  computed,
-} from 'vue';
-import {
-  useDebounceFn,
-} from '@vueuse/core';
-import useModifier from '@/use/modifier-class';
-import validateValueWithList from '@/use/validate-value-with-list';
-import ErrorText from '@/components/error-message/ErrorMessage.vue';
-import IconArrowDown from '@/assets/icons/icon-arrow-down.svg';
-
-/**
- * @typedef {string|number|null} BaseInputModelValue
- */
-
-export const modifier = [
-  'disabled',
-  'fake-focus',
-  'fake-hover',
-];
-
-export const baseSelectProps = {
-  label: {
-    type: String,
-    default: null,
-  },
-  isDarkMode: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * @model
-   */
-  modelValue: {
-    type: [String, Number, Boolean],
-    default: null,
-  },
-  items: {
-    type: Array,
-    default: null,
-  },
-  /**
-   * Rendering Error Message if not null
-   */
-  errorMessage: {
-    type: String,
-    default: null,
-  },
-  /**
-   * Optional Debounce e.g for Search
-   */
-  debounce: {
-    type: Number,
-    default: 0,
-  },
-  modifier: {
-    type: [String, Array],
-    default: null,
-    validator: (value) => validateValueWithList(value, modifier),
-  },
-};
-export default {
-  name: 'BaseSelect',
-  components: {
-    ErrorText,
-    IconArrowDown,
-  },
-  inheritAttrs: false,
-  emits: [
-    /**
-     * Fires on Model Update
-     * @property {BaseInputModelValue} val - Input Value
-     */
-    'update:modelValue',
-  ],
-  props: baseSelectProps,
-  setup(props, { emit }) {
-    const hasFocus = ref(false);
-    const { getModifierClasses } = useModifier();
-    /**
-     * Removes Key from Object
-     * @param {object} myObj
-     * @param {string} deleteKey
-     */
-    function removeByKey(myObj, deleteKey) {
-      return Object.keys(myObj)
-        .filter((key) => key !== deleteKey)
-        .reduce((res, current) => {
-          const result = res;
-          result[current] = myObj[current];
-          return result;
-        }, {});
-    }
-
-    /**
-     * Template Ref
-     * @type {ToRef<null>}
-     */
-    const input = ref(null);
-    // because !!props.modelValue (0 as number) is false and boolean also
-    const isFilled = computed(() => {
-      if (['number', 'boolean'].includes(typeof props.modelValue)) {
-        return true;
-      }
-      return !!props.modelValue;
-    });
-    /**
-     * Emit Model Value
-     * @param {BaseInputModelValue} val
-     */
-    const emitValue = (val) => {
-      emit('update:modelValue', val);
-    };
-    /**
-     * Update with optional debounce
-     * @type {(function(*=): void)|*}
-     */
-    const updateValue = useDebounceFn((val) => {
-      emitValue(val);
-    }, props.debounce);
-    const handleFocus = () => {
-      hasFocus.value = true;
-    };
-    const handleBlur = () => {
-      hasFocus.value = false;
-    };
-    return {
-      getModifierClasses,
-      removeByKey,
-      input,
-      isFilled,
-      updateValue,
-      handleFocus,
-      handleBlur,
-      hasFocus,
-    };
-  },
-};
-</script>
 
 <style scoped lang="scss">
 // @use currently only with dart-sass
