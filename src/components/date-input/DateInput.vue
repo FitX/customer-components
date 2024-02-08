@@ -9,7 +9,7 @@
     }"
     :error-message="errorMessage"
     type="text"
-    pattern="[0-9.-]*"
+    pattern="^[0-9]{2}.[0-9]{2}.[0-9]{4}"
     inputmode="numeric"
     placeholder="TT.MM.JJJJ"
   ></base-input>
