@@ -29,6 +29,10 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  hasOverlay: {
+    type: Boolean,
+    default: false,
+  },
   suggestions: {
     // { value: string }[]
     type: Array,
@@ -241,7 +245,12 @@ const handleKeyDown = (event) => {
 <template>
   <div
       class="auto-suggest"
-      :class="attrs.class"
+      :class="[
+        attrs.class,
+        { 'auto-suggest--has-overlay' : props.hasOverlay },
+        { 'auto-suggest--has-error' : props.errorMessage },
+        { 'auto-suggest--is-expanded': isExpanded || showFallback }
+        ]"
       ref="elComponent" role="combobox" :aria-labelledby="labelId">
     <base-input
         autocomplete="off"
@@ -312,12 +321,22 @@ const handleKeyDown = (event) => {
 @import '@/assets/styles/mixin-reset';
 
 .auto-suggest {
+  $self: &;
   --auto-suggest-font-size: var(--form-input-font-size, 1.125rem);
   --auto-suggest-results-border-color: var(--brand-color-gray-ash);
   --auto-suggest-results-border-radius: var(--form-input-border-radius, 0.5rem);
   --auto-suggest-spacing-h: 1.125rem;
   --auto-suggest-spacing-v: 1.125rem;
+  --auto-suggest-color-bg: var(--brand-color-white);
+
+  &--has-error#{$self}--is-expanded {
+    & :deep(.additional),
+    & :deep(.error-message) {
+      @include sr-only();
+    }
+  }
 }
+
 .auto-suggest-results {
   @include list-unstyled();
 
@@ -326,9 +345,16 @@ const handleKeyDown = (event) => {
   font-size: var(--auto-suggest-font-size);
   border: 1px solid var(--auto-suggest-results-border-color);
   border-radius: var(--auto-suggest-results-border-radius);
+  background: var(--auto-suggest-color-bg);
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.10);
   max-height: 26.1875rem; // 419
   overflow-y: auto;
+
+  .auto-suggest--has-overlay & {
+    z-index: 4;
+    position: absolute;
+  }
+
   &:not(&--is-expanded) {
     @include sr-only();
   }
