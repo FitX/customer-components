@@ -168,7 +168,7 @@ onClickOutside(elComponent, () => {
 });
 
 watch(() => props.modelValue, (newVal, oldVal) => {
-  if (props.suggestions.length > 0 && (newVal !== oldVal)) {
+  if (unref(componentIsFocused) && props.suggestions.length > 0 && (newVal !== oldVal)) {
     openResults();
   }
 });
