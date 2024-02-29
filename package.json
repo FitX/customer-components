@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@fitx/date-input": "^1.3.2",
-    "@vueuse/core": "9.10.0",
+    "@vueuse/core": "10.9.0",
     "audit": "0.0.6",
     "core-js": "3.16.1",
     "fix": "0.0.6",

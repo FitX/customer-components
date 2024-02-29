@@ -194,6 +194,9 @@ const handleKeyDown = (event) => {
         elInput.value?.focus();
         elInput.value.blur();
         closeResults();
+      } else {
+        elInput.value.blur();
+        closeResults();
       }
       break;
     }
@@ -226,8 +229,13 @@ const handleKeyDown = (event) => {
       break;
     }
     case 'Enter': {
-      const currentIndex = unref(currentResultIndex) || 0;
-      selectResult(currentIndex);
+      if (!inputHasNoFocus) {
+        elInput.value.blur();
+        closeResults();
+      } else {
+        const currentIndex = unref(currentResultIndex) || 0;
+        selectResult(currentIndex);
+      }
       break;
     }
     default: {
@@ -304,7 +312,7 @@ const handleKeyDown = (event) => {
           @click="selectResult(index)"
           @keydown="handleKeyDown"
           role="listitem"
-          tabindex="0"
+          :tabindex="isExpanded ? 0 : -1"
       >
         <!--
          @slot Default Item Slot

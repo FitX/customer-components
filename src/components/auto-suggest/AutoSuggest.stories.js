@@ -10,6 +10,28 @@ const storyDescription = `
 - Wenn kein Pflichtfeld, dann in Klammern (optional)
 - Logik je nach Anwendung frei wählbar
 - Hinweis bei leerer Suchliste optional
+
+## Navigation
+- <kbd>Pfeil runter</kbd> navigiert die Ergebnisse und fokusiert diese
+- <kbd>Pfeil hoch</kbd> navigiert die Ergebnisse und fokusiert diese
+- <kbd>Enter</kbd> im Suchfefld wird der aktuelle Input Value übernommen
+- <kbd>Enter</kbd> in der Ergebnisliste wählt das aktuell fokusierte Ergebnis aus
+- <kbd>Esc</kbd> schliesst die Ergebnise
+- <kbd>Home</kbd> fokusiert das erste Ergebnis
+- <kbd>End</kbd> fokusiert das letzte Ergebnis
+- <kbd>Tab</kbd> bei öffnet Liste
+<style>
+kbd {
+  padding: 2px 4px;
+  white-space: nowrap;
+  color: #000;
+  background: #eee;
+  border-width: 1px 3px 3px 1px;
+  border-style: solid;
+  border-color: #ccc #aaa #888 #bbb;
+  border-radius: 4px;
+}
+</style>
 `;
 
 export default {
@@ -58,7 +80,8 @@ const baseTemplate = `
     :suggestions="demoSuggestions"
     id="demo-search-1"
     v-model="searchTerm"
-    v-bind="args"></auto-suggest>`;
+    v-bind="args"></auto-suggest>
+    <!--<label>another input for testing tabindex <input v-model="searchTerm"></label>-->`;
 
 const withSlotsTemplate = `
 <auto-suggest
