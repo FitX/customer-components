@@ -1,22 +1,21 @@
 {
   "name": "@fitx/customer-components",
-  "version": "3.5.0",
+  "version": "4.0.0",
   "files": [
     "dist/*",
     "src/*"
   ],
   "exports": {
     ".": {
-      "module": "./dist/customer-components.es.js",
-      "require": "./dist/customer-components.umd.js"
+      "module": "./dist/customer-components.js"
     },
     "./dist/customer-components.css": "./dist/customer-components.css",
     "./icons": "./src/assets/icons"
   },
   "style": "./dist/customer-components.css",
   "scripts": {
-    "serve": "vue-cli-service serve ./src/main.js",
-    "build:lib-web": "vue-cli-service build --formats umd,umd-min --dest ./dist/web --target lib ./src/index.js",
+    "serve": "vue-cli-service serve bu_src_v3/main.js",
+    "build:lib-web": "vue-cli-service build --formats umd,umd-min --dest ./dist/web --target lib bu_src_v3/index.js",
     "build:vite": "vite build --config vite.config.js",
     "build:vite-wc": "vite build --config vite.config-wc.js",
     "build": "npm run build:vite && npm run build:lib-web && npm run build:vite-wc",
