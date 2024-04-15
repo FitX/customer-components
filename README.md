@@ -1,125 +1,64 @@
 # customer-components
 
-Vue 3 Brand-Evo Components and Widget Library for Customer Apps. [Overview](https://customer-components.netlify.app)
+This template should help get you started developing with Vue 3 in Vite.
 
+## Recommended IDE Setup
 
-![Netlify](https://img.shields.io/netlify/72371083-7785-4449-bddc-842826333f40)
-![npm (scoped)](https://img.shields.io/npm/v/@fitx/customer-components?style=flat-square)
-![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@fitx/customer-components)
-![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@fitx/customer-components)
-![Release CI](https://github.com/FitX/customer-components/actions/workflows/workflow.yml/badge.svg)
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Use Package 🐨
-### Requirements
-- [![Node Version](https://img.shields.io/badge/Node-lts%20_v.14_-blue)](.nvmrc)
-- [![Vue ^3.2.11](https://img.shields.io/badge/Vue-^3.2.11-blue)](.package.json)
+## Type Support for `.vue` Imports in TS
 
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-### Install
+## Customize configuration
 
-```
-npm i @fitx/customer-components
-```
-### Use in App
-```
-import { BaseButton } from '@fitx/customer-components';
-```
+See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Development 🤖
+## Project Setup
 
-All Designs located as sketch files in [sketch cloud ✍](https://www.sketch.com/s/afae2a3c-0eaf-4735-9bd3-d0269c5c5bb3)
-
-```
+```sh
 npm install
 ```
 
-### Compiles and hot-reloads for development Demo
-```
-npm run serve
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
 ```
 
-### Compiles and minifies Lib for production
-```
-npm run build:vite
-```
+### Type-Check, Compile and Minify for Production
 
-### Compiles and minifies Lib as web imports
-```
-npm run build:lib-web
-```
-
-### Compiles and minifies Lib as web components for production
-```
-npm run build:vite-wc
-```
-
-### Compiles and minifies Lib as all above
-```
+```sh
 npm run build
 ```
 
-### Run your unit tests
-```
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+```sh
 npm run test:unit
 ```
 
-### Run your end-to-end tests
-```
+### Run End-to-End Tests with [Playwright](https://playwright.dev)
+
+```sh
+# Install browsers for the first run
+npx playwright install
+
+# When testing on CI, must build the project first
+npm run build
+
+# Runs the end-to-end tests
 npm run test:e2e
+# Runs the tests only on Chromium
+npm run test:e2e -- --project=chromium
+# Runs the tests of a specific file
+npm run test:e2e -- tests/example.spec.ts
+# Runs the tests in debug mode
+npm run test:e2e -- --debug
 ```
 
-### Lints and fixes files
-```
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
 npm run lint
 ```
-
-### Start Storybook
-```
-npm run storybook
-```
-
-### Build Storybook
-```
-npm run build-storybook
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-## Local testing
-### Link Lib to other Repo
-Create local SymLink to Package
-
-```
-npm link
-```
-
-Go to consuming App, link and install
-
-```
-npm link @fitx/customer-components
-npm i @fitx/customer-components
-```
-
-## Update Lib
-Make sure to update [index file](src/index.js) after add new Components. and run
-```
-npm run build:lib
-```
-## Publish Lib
-```
-npm publish --access public
-```
-
-## Release to NPM and publish to netlify
-As soon as you merge or push into branch 'release' GitHub Actions starts a workflow:
-- run unit tests
-- after success:
-- publish to NPM
-- netlify will trigger build for manually deployment
-
-- On update Master, Netlify will build and deploy automatically
-
-❗ If version in package.json is not updated, NPM release will fail ❗
-
-![github actions](public/actions.png)
