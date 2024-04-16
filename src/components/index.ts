@@ -1,1 +1,1 @@
-export * as FitxButton from '@/components/fitx-button/fitx-button.vue';
+export { default as FitxButton } from '@/components/fitx-button/fitx-button.vue';

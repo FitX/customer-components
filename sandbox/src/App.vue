@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {
-  FitxButton
+  FitxButton,
 } from '@fitx/customer-components';
 </script>
 
 <template>
   <main>
     <h1>Components</h1>
-    <fitx-button msg="fooooo" />
+    <fitx-button :msg="4" deine-mudda="foo" />
   </main>
 </template>
 
