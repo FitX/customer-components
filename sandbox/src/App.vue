@@ -6,16 +6,20 @@ import {
 } from '@fitx/customer-components';
 import { ref } from 'vue';
 
-const demo = ref(0);
+const isANumberRef = ref('abc');
 const mayBeBook = ref<Book>({
-  author: 'lorem',
-})
+  author: 'Frank',
+  year: 2024,
+  title: 'sollte so stimmen',
+});
+
+const isANumber = 5;
 </script>
 
 <template>
   <main>
     <h1>Components</h1>
-    <fitx-button :msg="demo" deine-mudda="foo" />
+    <fitx-button :msg="isANumberRef" deine-mudda="foo" />
     <fitx-another-button :book="mayBeBook" />
   </main>
 </template>
