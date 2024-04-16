@@ -1,13 +1,22 @@
 <script setup lang="ts">
 import {
+  type Book,
   FitxButton,
+  FitxAnotherButton,
 } from '@fitx/customer-components';
+import { ref } from 'vue';
+
+const demo = ref(0);
+const mayBeBook = ref<Book>({
+  author: 'lorem',
+})
 </script>
 
 <template>
   <main>
     <h1>Components</h1>
-    <fitx-button :msg="4" deine-mudda="foo" />
+    <fitx-button :msg="demo" deine-mudda="foo" />
+    <fitx-another-button :book="mayBeBook" />
   </main>
 </template>
 
