@@ -1,5 +1,1 @@
-import FitxButton from './fitx-button.vue';
-
-export {
-  FitxButton,
-};
+export { default as FitxButton } from './fitx-button.vue';

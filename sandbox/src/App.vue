@@ -6,7 +6,7 @@ import {
 } from '@fitx/customer-components';
 import { ref } from 'vue';
 
-const isANumberRef = ref('abc');
+const isANumberRef = ref('5');
 const mayBeBook = ref<Book>({
   author: 'Frank',
   year: 2024,

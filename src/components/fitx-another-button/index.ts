@@ -1,7 +1,2 @@
-import type { Book } from './types';
-import FitxAnotherButton from './fitx-another-button.vue';
-
-export {
-  type Book,
-  FitxAnotherButton,
-}
+export type { Book } from './types';
+export { default as FitxAnotherButton } from './fitx-another-button.vue';
