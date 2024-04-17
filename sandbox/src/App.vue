@@ -3,8 +3,9 @@ import {
   type Book,
   FitxButton,
   FitxAnotherButton,
+  isDefined,
 } from '@fitx/customer-components';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const isANumberRef = ref('5');
 const mayBeBook = ref<Book>({
@@ -13,7 +14,11 @@ const mayBeBook = ref<Book>({
   title: 'sollte so stimmen',
 });
 
-const isANumber = 5;
+const maybeDefined = ref('nice');
+const tach = computed(() => isDefined(maybeDefined));
+
+const example = ref(Math.random() ? 'example' : undefined);
+const check = () => isDefined(example);
 </script>
 
 <template>
@@ -21,6 +26,10 @@ const isANumber = 5;
     <h1>Components</h1>
     <fitx-button :msg="isANumberRef" deine-mudda="foo" />
     <fitx-another-button :book="mayBeBook" />
+    <pre>
+      tach {{ tach }}
+      example: {{ example }} {{ check() }}
+    </pre>
   </main>
 </template>
 
