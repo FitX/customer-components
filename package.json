@@ -15,19 +15,11 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
+    "build:lib": "vue-tsc --project tsconfig.build-types.json && vite build",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
-    "build:lib": "vue-tsc --project tsconfig.build-types.json && vite build",
-    "build:lib:foo": "vite build && npm run build:types",
-    "build:types": "vue-tsc --project tsconfig.build-types.json --declaration --emitDeclarationOnly --outDir dist/types ",
-    "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit"
+    "format": "prettier --write src/"
   },
   "devDependencies": {
     "@babel/types": "^7.24.0",
