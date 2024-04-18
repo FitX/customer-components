@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import IconClose from '@/assets/icons/close.svg';
+import { IconClose } from '@/components/icons';
 const props = defineProps<{
   msg: string,
 }>();

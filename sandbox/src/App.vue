@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {
   type Book,
+  IconBack,
+  IconClear,
   FitxButton,
   FitxAnotherButton,
   isDefined,
@@ -30,6 +32,8 @@ const check = () => isDefined(example);
       tach {{ tach }}
       example: {{ example }} {{ check() }}
     </pre>
+    <icon-back />
+    <icon-clear />
   </main>
 </template>
 
