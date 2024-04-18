@@ -1,0 +1,11 @@
+<svg
+        viewBox="0 0 18 18"
+        xmlns="http://www.w3.org/2000/svg"
+        style="width: var(--icon-width, 18px); height: var(--icon-height, 18px)">
+    <g fill="none" fill-rule="evenodd">
+        <path d="M0 0h18v18H0z"/>
+        <path d="M9 1a8 8 0 1 0 0 16A8 8 0 0 0 9 1Zm.943 8 2.195 2.195a.666.666 0 1 1-.943.943L9 9.943l-2.195 2.195a.666.666 0 1 1-.943-.943L8.057 9 5.862 6.805a.666.666 0 1 1 .943-.943L9 8.057l2.195-2.195a.666.666 0 1 1 .943.943L9.943 9Z"
+              fill="var(--icon-fill, #181D1E)"
+              fill-rule="nonzero"/>
+    </g>
+</svg>

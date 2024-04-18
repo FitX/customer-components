@@ -5,6 +5,9 @@ import {
   FitxAnotherButton,
   isDefined,
 } from '@fitx/customer-components';
+import {
+  ComponentA,
+} from 'my-lib';
 import { computed, ref } from 'vue';
 
 const isANumberRef = ref('5');
@@ -30,6 +33,7 @@ const check = () => isDefined(example);
       tach {{ tach }}
       example: {{ example }} {{ check() }}
     </pre>
+    <component-a msg="3" />
   </main>
 </template>
 
@@ -59,5 +63,14 @@ header {
     place-items: flex-start;
     flex-wrap: wrap;
   }
+}
+</style>
+
+<style>
+svg {
+  --icon-width: 40px;
+  --icon-height: 40px;
+  --icon-fill: white;
+  border: 2px solid white;
 }
 </style>
