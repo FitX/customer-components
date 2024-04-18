@@ -5,9 +5,6 @@ import {
   FitxAnotherButton,
   isDefined,
 } from '@fitx/customer-components';
-import {
-  ComponentA,
-} from 'my-lib';
 import { computed, ref } from 'vue';
 
 const isANumberRef = ref('5');
@@ -27,13 +24,12 @@ const check = () => isDefined(example);
 <template>
   <main>
     <h1>Components</h1>
-    <fitx-button :msg="isANumberRef" deine-mudda="foo" />
+    <fitx-button :msg="isANumberRef" />
     <fitx-another-button :book="mayBeBook" />
     <pre>
       tach {{ tach }}
       example: {{ example }} {{ check() }}
     </pre>
-    <component-a msg="3" />
   </main>
 </template>
 

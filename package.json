@@ -5,9 +5,14 @@
     "dist",
     "src"
   ],
-  "main": "./dist/index.umd.js",
   "module": "./dist/index.js",
-  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +24,8 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "build:lib": "vite build && npm run build:types",
+    "build:lib": "vue-tsc --project tsconfig.build-types.json && vite build",
+    "build:lib:foo": "vite build && npm run build:types",
     "build:types": "vue-tsc --project tsconfig.build-types.json --declaration --emitDeclarationOnly --outDir dist/types ",
     "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit"
   },
