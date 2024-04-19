@@ -16,12 +16,12 @@
   "type": "module",
   "scripts": {
     "build:lib": "rm -rf ./dist && vue-tsc --project tsconfig.build-types.json && vite build",
+    "build:storybook": "storybook build",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "storybook dev -p 6006"
   },
   "devDependencies": {
     "@babel/types": "^7.24.0",

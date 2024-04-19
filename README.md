@@ -1,10 +1,40 @@
 # customer-components
 
-This template should help get you started developing with Vue 3 in Vite.
+FitX Vue 3 Components and Widget Library. [Overview](https://customer-components.netlify.app)
 
-## Recommended IDE Setup
+[![Netlify Status](https://api.netlify.com/api/v1/badges/72371083-7785-4449-bddc-842826333f40/deploy-status)](https://app.netlify.com/sites/customer-components/deploys)
+![npm (scoped)](https://img.shields.io/npm/v/@fitx/customer-components?style=flat-square)
+![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@fitx/customer-components)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@fitx/customer-components)
+![Release CI](https://github.com/FitX/customer-components/actions/workflows/workflow.yml/badge.svg)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Use Package 🐨
+### Requirements
+- [![Node Version](https://img.shields.io/badge/Node-lts%20_v.20_-blue)](.nvmrc)
+- [![Vue ^3.2.11](https://img.shields.io/badge/Vue-^3.4-blue)](.package.json)
+
+### Install Fitx Customer Components
+
+```shell
+$ npm install @fitx/customer-components --save
+```
+
+### Using Components
+
+```vue
+<script lang="ts" setup>
+  import { FitxButton } from '@fitx/customer-components';
+</script>
+<template>
+  <fitx-button>Nice</fitx-button>
+</template>
+```
+
+### Import Styles
+Normally via main.ts
+```js
+import '@fitx/customer-components/styles.css';
+```
 
 ## Type Support for `.vue` Imports in TS
 
@@ -20,16 +50,10 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Type-Check, Compile and Minify for Package Release
 
 ```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
+npm run build:lib
 ```
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
@@ -62,3 +86,38 @@ npm run test:e2e -- --debug
 ```sh
 npm run lint
 ```
+
+### Start Storybook local
+```
+npm run storybook
+```
+
+### Build Storybook
+```
+npm run build-storybook
+```
+
+## Development
+For Local Component Testing see [Sandbox](./sandbox/) Implementation.
+
+
+## Update Lib
+Make sure to update [component index file](src/components/index.ts) after add new Components. and run
+```
+npm run build:lib
+```
+## Publish Lib
+```
+npm publish --access public
+```
+
+## Release to NPM and publish to netlify
+As soon as you merge or push into branch 'release' GitHub Actions starts a workflow:
+- run unit tests
+- after success:
+- publish to NPM
+- netlify will trigger build for manually deployment
+
+- On update Master, Netlify will build and deploy automatically
+
+❗ If version in package.json is not updated, NPM release will fail ❗
