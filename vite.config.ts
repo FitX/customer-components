@@ -16,6 +16,7 @@ export default defineConfig({
     }
   },
   build: {
+    cssCodeSplit: true,
     lib: {
       entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
       formats: ['es'],
