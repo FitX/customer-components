@@ -16,12 +16,13 @@
   "type": "module",
   "scripts": {
     "build:lib": "rm -rf ./dist && vue-tsc --project tsconfig.build-types.json && vite build",
-    "build:storybook": "storybook build",
+    "build:storybook": "storybook build && npm run temp-fix-copy-storybook",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "temp-fix-copy-storybook": "cp ./coverage/index.html ./storybook-static/coverage/index.html "
   },
   "devDependencies": {
     "@babel/types": "^7.24.0",
