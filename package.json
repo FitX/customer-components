@@ -60,5 +60,8 @@
     "vitest": "^1.4.0",
     "vue": "^3.4.22",
     "vue-tsc": "^2.0.13"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.9.0"
   }
 }
