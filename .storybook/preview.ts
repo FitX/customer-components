@@ -1,86 +1,73 @@
 import { type Preview } from '@storybook/vue3';
-import { useUrlSearchParams } from '@vueuse/core';
-import { computed, watch } from 'vue'
 
-const urlParameterGlobalTheme = /^backgrounds.value:!hex/
-const selectedThemeColor = new URL(location.href).searchParams
-  .get('globals')
-  ?.split(";")
-  .filter((item) => item.match(urlParameterGlobalTheme))?.[0]
-  .replace('backgrounds.value:!hex','')
-  .replace('(', '')
-  .replace(')', '');
-
-const themeOptions = [
-  { name: 'light', value: '#fff' },
-  { name: 'dark', value: '#181D1E' },
-];
+const themeOptions = ['light', 'dark'];
 
 const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        theme: /theme/,
         date: /Date$/i
       }
-    },
-    backgrounds: {
-      clearable: false,
-      values: themeOptions,
-    },
+    }
   },
-  argTypes: {
+  /* argTypes: {
     theme: {
       control: 'select',
-      options: themeOptions.map((option) => (option.name)),
-      description: 'Kannste dein Theme überschreiben wenn du willst.'
+      options: themeOptions,
+      description: 'Kannste dein Theme überschreiben wenn du willst.',
     },
-  },
-  args: {
-    // theme: themeOptions.find((option) => option.value.endsWith(selectedThemeColor))?.name,
-    // theme: 'dark',
-  },
+  }, */
   globalTypes: {
     theme: {
       description: 'Global theme for components',
-      defaultValue: 'light',
+      defaultValue: themeOptions[0],
       toolbar: {
         // The label to show for this toolbar item
         title: 'Theme',
         icon: 'circlehollow',
         // Array of plain string values or MenuItem shape (see below)
-        items: ['light', 'dark'],
+        items: themeOptions,
         // Change title based on selected value
         dynamicTitle: true,
       },
     },
   },
+  args: {
+    theme: themeOptions[0]
+  },
   decorators: [
     (story, context) => ({
       components: { story },
       setup() {
-        const urlParam = useUrlSearchParams('history');
-        const theme = computed(() => {
-          const hexLike = urlParam.globals?.toString()
-            .replace('backgrounds.value:!hex','')
-            .replace('(', '')
-            .replace(')', '');
-          const val = themeOptions.find((option) => option.value.endsWith(hexLike))?.name;
-          console.log('context.args.theme', context.args.theme);
-          console.log('val', val);
-          context.args.theme = val;
-          console.log('context', context)
-          return val;
-        });
-        const theme2 = context.globals.theme || 'light';
-        context.args.theme = theme2;
+        const theme = context.globals.theme || 'light';
+        // macht was
+        // context.args.theme = theme;
+        const backGround = `background: ${theme === 'dark' ? '#000' : '#fff'}`;
+        /* context.args = {
+          ...context.args,
+          theme: theme,
+        };
+         */
+        // context.hooks.hasUpdates = true;
+        // context.argTypes.theme.defaultValue = theme;
+        // context.initialArgs.theme = theme;
+        // context.allArgs.theme = theme;
+        /* const foo = async () => {
+          context.args.theme = theme;
+          const l = await context.applyLoaders(context);
+          console.log('l', l)
+        };
+        foo(); */
+        // context.initialArgs.theme = theme;
+        // context.initialArgs.msg = theme;
+        console.log('context', context);
+        context.args.theme = theme;
         return {
-          theme,
-          theme2,
-        }
+          backGround,
+        };
       },
-      template: '<div><h1>Deine mudda </h1><story /></div><pre>{{ theme }}</pre><h1 style="color: red;">{{ theme2 }}</h1>',
+      template: '<div :style="backGround"><story /></div>',
     }),
   ],
 };

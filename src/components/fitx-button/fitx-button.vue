@@ -1,13 +1,15 @@
 <script lang="ts" setup>
 import { IconClose } from '@/components/icons';
 const props = defineProps<{
-  theme: 'dark' | 'light',
+  theme?: 'dark' | 'light',
   msg: string,
 }>();
 </script>
 <template>
-  <button :data-theme="props.theme">{{ props.msg }} {{ props.theme }}</button>
-  <icon-close />
+  <main>
+    <button :data-theme="props.theme">{{ props.msg }} {{ props.theme }}</button>
+    <icon-close />
+  </main>
 </template>
 
 <style lang="scss" scoped>
