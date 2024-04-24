@@ -40,10 +40,10 @@ const preview: Preview = {
   decorators: [
     (story, context) => {
       const [args, updateArgs] = useArgs();
-      if (args.theme !== context.globals.theme) {
+      if (context.args.theme !== context.globals.theme) {
         updateArgs({
           // ...args,
-          theme: context.globals.theme || 'light',
+          theme: context.globals.theme,
         });
       }
       console.log('args', args);
