@@ -1,4 +1,5 @@
 import { type Preview } from '@storybook/vue3';
+import { useArgs } from '@storybook/preview-api'
 
 const themeOptions = ['light', 'dark'];
 
@@ -37,38 +38,49 @@ const preview: Preview = {
     theme: themeOptions[0]
   },
   decorators: [
-    (story, context) => ({
-      components: { story },
-      setup() {
-        const theme = context.globals.theme || 'light';
-        // macht was
-        // context.args.theme = theme;
-        const backGround = `background: ${theme === 'dark' ? '#000' : '#fff'}`;
-        /* context.args = {
-          ...context.args,
-          theme: theme,
-        };
-         */
-        // context.hooks.hasUpdates = true;
-        // context.argTypes.theme.defaultValue = theme;
-        // context.initialArgs.theme = theme;
-        // context.allArgs.theme = theme;
-        /* const foo = async () => {
-          context.args.theme = theme;
-          const l = await context.applyLoaders(context);
-          console.log('l', l)
-        };
-        foo(); */
-        // context.initialArgs.theme = theme;
-        // context.initialArgs.msg = theme;
-        console.log('context', context);
-        context.args.theme = theme;
-        return {
-          backGround,
-        };
-      },
-      template: '<div :style="backGround"><story /></div>',
-    }),
+    (story, context) => {
+      const [args, updateArgs] = useArgs();
+      if (args.theme !== context.globals.theme) {
+        updateArgs({
+          // ...args,
+          theme: context.globals.theme || 'light',
+        });
+      }
+      console.log('args', args);
+      return {
+        components: { story },
+        setup() {
+          const theme = context.globals.theme || 'light';
+          // macht was
+          // context.args.theme = theme;
+          const backGround = `background: ${theme === 'dark' ? '#000' : '#fff'}`;
+          /* context.args = {
+            ...context.args,
+            theme: theme,
+          };
+           */
+          // context.hooks.hasUpdates = true;
+          // context.argTypes.theme.defaultValue = theme;
+          // context.initialArgs.theme = theme;
+          // context.allArgs.theme = theme;
+          /* const foo = async () => {
+            context.args.theme = theme;
+            const l = await context.applyLoaders(context);
+            console.log('l', l)
+          };
+          foo(); */
+          // context.initialArgs.theme = theme;
+          // context.initialArgs.msg = theme;
+
+          console.log('context', context);
+          // context.args.theme = theme;
+          return {
+            backGround,
+          };
+        },
+        template: '<div :style="backGround"><story /></div>',
+      };
+    },
   ],
 };
 
