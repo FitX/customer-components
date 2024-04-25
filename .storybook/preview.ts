@@ -4,6 +4,8 @@ import { GLOBALS_UPDATED, UPDATE_GLOBALS } from '@storybook/core-events';
 
 const themeOptions = ['light', 'dark'];
 
+let ThemeEventListenerIsActive = false;
+
 const preview: Preview = {
   parameters: {
     controls: {
@@ -41,60 +43,33 @@ const preview: Preview = {
   decorators: [
     (story, context) => {
       const [args, updateArgs] = useArgs();
-      /* console.log({
-        context: context.args.theme,
-        globals: context.globals.theme,
-        foo: context,
-      }); */
-      console.log('??', addons.getChannel().eventNames());
-      addons.getChannel().on(GLOBALS_UPDATED || UPDATE_GLOBALS || GLOBALS_UPDATED, (globalStore) => {
-        console.log('GLOBALS_UPDATED', globalStore);
+
+      const handleUpdates = (globalStore) => {
+        console.log('??', addons.getChannel().eventNames());
         const newThemeName = globalStore.globals.theme;
         if (context.args.theme !== newThemeName) {
+          console.log('UPDATE START')
           updateArgs({
-            // ...args,
             theme: newThemeName,
           });
+          console.log('UPDATE END')
         }
-      });
-      /* addons.getChannel().on(UPDATE_GLOBALS, (globals) => {
-        console.log('UPDATE_GLOBALS', globals);
-      }) */
-      /* if (context.args.theme !== context.globals.theme) {
-        const newThemeName = context.globals.theme;
-        updateArgs({
-          // ...args,
-          theme: newThemeName,
-        });
-      } */
+      };
+
+      console.log('ThemeEventListenerIsActive', ThemeEventListenerIsActive)
+      if (!ThemeEventListenerIsActive) {
+        addons.getChannel().on(GLOBALS_UPDATED, handleUpdates);
+        ThemeEventListenerIsActive = true;
+      }
+
+      // console.log('UPDATE END END')
+      // addons.getChannel().off(GLOBALS_UPDATED, handleUpdates);
       return {
         components: { story },
         setup() {
-          // const theme = context.globals.theme || 'light';
           const theme = context.args.theme || 'light';
-          // macht was
-          // context.args.theme = theme;
           const backGround = `background: ${theme === 'dark' ? '#000' : '#fff'}`;
-          /* context.args = {
-            ...context.args,
-            theme: theme,
-          };
-           */
-          // context.hooks.hasUpdates = true;
-          // context.argTypes.theme.defaultValue = theme;
-          // context.initialArgs.theme = theme;
-          // context.allArgs.theme = theme;
-          /* const foo = async () => {
-            context.args.theme = theme;
-            const l = await context.applyLoaders(context);
-            console.log('l', l)
-          };
-          foo(); */
-          // context.initialArgs.theme = theme;
-          // context.initialArgs.msg = theme;
-
-          // console.log('context', context);
-          // context.args.theme = theme;
+          console.log('huhu vue')
           return {
             backGround,
             theme,
