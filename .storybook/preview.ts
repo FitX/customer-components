@@ -1,5 +1,6 @@
 import { type Preview } from '@storybook/vue3';
-import { useArgs } from '@storybook/preview-api'
+import { useArgs, addons } from '@storybook/preview-api';
+import { GLOBALS_UPDATED, UPDATE_GLOBALS } from '@storybook/core-events';
 
 const themeOptions = ['light', 'dark'];
 
@@ -40,17 +41,37 @@ const preview: Preview = {
   decorators: [
     (story, context) => {
       const [args, updateArgs] = useArgs();
-      if (context.args.theme !== context.globals.theme) {
+      /* console.log({
+        context: context.args.theme,
+        globals: context.globals.theme,
+        foo: context,
+      }); */
+      console.log('??', addons.getChannel().eventNames());
+      addons.getChannel().on(GLOBALS_UPDATED || UPDATE_GLOBALS || GLOBALS_UPDATED, (globalStore) => {
+        console.log('GLOBALS_UPDATED', globalStore);
+        const newThemeName = globalStore.globals.theme;
+        if (context.args.theme !== newThemeName) {
+          updateArgs({
+            // ...args,
+            theme: newThemeName,
+          });
+        }
+      });
+      /* addons.getChannel().on(UPDATE_GLOBALS, (globals) => {
+        console.log('UPDATE_GLOBALS', globals);
+      }) */
+      /* if (context.args.theme !== context.globals.theme) {
+        const newThemeName = context.globals.theme;
         updateArgs({
           // ...args,
-          theme: context.globals.theme,
+          theme: newThemeName,
         });
-      }
-      console.log('args', args);
+      } */
       return {
         components: { story },
         setup() {
-          const theme = context.globals.theme || 'light';
+          // const theme = context.globals.theme || 'light';
+          const theme = context.args.theme || 'light';
           // macht was
           // context.args.theme = theme;
           const backGround = `background: ${theme === 'dark' ? '#000' : '#fff'}`;
@@ -72,13 +93,14 @@ const preview: Preview = {
           // context.initialArgs.theme = theme;
           // context.initialArgs.msg = theme;
 
-          console.log('context', context);
+          // console.log('context', context);
           // context.args.theme = theme;
           return {
             backGround,
+            theme,
           };
         },
-        template: '<div :style="backGround"><story /></div>',
+        template: '<h1>Hallo {{ theme }}</h1><div :style="backGround"><story /></div>',
       };
     },
   ],
