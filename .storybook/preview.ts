@@ -1,11 +1,11 @@
 import { type Preview } from '@storybook/vue3';
 import { useArgs, addons } from '@storybook/preview-api';
-import { GLOBALS_UPDATED, UPDATE_GLOBALS } from '@storybook/core-events';
+import { UPDATE_GLOBALS } from '@storybook/core-events';
 
-const themeOptions = ['light', 'dark'];
+const themeOptions = ['light', 'dark'] as const;
 
 let ThemeEventListenerIsActive = false;
-const toggleDocumentStyles = (name) => {
+const toggleDocumentStyles = (name: typeof themeOptions[number]) => {
   document.documentElement.setAttribute('data-theme', name);
 };
 
@@ -18,13 +18,6 @@ const preview: Preview = {
       }
     }
   },
-  /* argTypes: {
-    theme: {
-      control: 'select',
-      options: themeOptions,
-      description: 'Kannste dein Theme überschreiben wenn du willst.',
-    },
-  }, */
   globalTypes: {
     theme: {
       description: 'Global theme for components',
@@ -45,28 +38,34 @@ const preview: Preview = {
   },
   decorators: [
     (story, context) => {
-      const [args, updateArgs] = useArgs();
+      const [,, updateArgs] = useArgs();
 
       const handleUpdates = (globalStore) => {
         const newThemeName = globalStore.globals.theme;
         toggleDocumentStyles(newThemeName);
         if (context.args.theme !== newThemeName) {
-          console.log('UPDATE START')
           updateArgs({
             theme: newThemeName,
           });
-          console.log('UPDATE END')
         }
       };
 
       console.log('ThemeEventListenerIsActive', ThemeEventListenerIsActive)
       if (!ThemeEventListenerIsActive) {
-        addons.getChannel().on(GLOBALS_UPDATED, handleUpdates);
+        addons.getChannel().on(UPDATE_GLOBALS, handleUpdates);
         ThemeEventListenerIsActive = true;
       }
-      return story();
+      return {
+        setup(props, ctx) {
+            return {
+              theme: context.args.theme,
+              story,
+            }
+        },
+        template: `<h1 style="background: blue; padding: 1rem; color: white">{{ theme }}?</h1><story />`,
+      };
     },
   ],
 };
 
-export default preview
+export default preview;
