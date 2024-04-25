@@ -5,6 +5,9 @@ import { GLOBALS_UPDATED, UPDATE_GLOBALS } from '@storybook/core-events';
 const themeOptions = ['light', 'dark'];
 
 let ThemeEventListenerIsActive = false;
+const toggleDocumentStyles = (name) => {
+  document.documentElement.setAttribute('data-theme', name);
+};
 
 const preview: Preview = {
   parameters: {
@@ -45,8 +48,8 @@ const preview: Preview = {
       const [args, updateArgs] = useArgs();
 
       const handleUpdates = (globalStore) => {
-        console.log('??', addons.getChannel().eventNames());
         const newThemeName = globalStore.globals.theme;
+        toggleDocumentStyles(newThemeName);
         if (context.args.theme !== newThemeName) {
           console.log('UPDATE START')
           updateArgs({
@@ -61,22 +64,7 @@ const preview: Preview = {
         addons.getChannel().on(GLOBALS_UPDATED, handleUpdates);
         ThemeEventListenerIsActive = true;
       }
-
-      // console.log('UPDATE END END')
-      // addons.getChannel().off(GLOBALS_UPDATED, handleUpdates);
-      return {
-        components: { story },
-        setup() {
-          const theme = context.args.theme || 'light';
-          const backGround = `background: ${theme === 'dark' ? '#000' : '#fff'}`;
-          console.log('huhu vue')
-          return {
-            backGround,
-            theme,
-          };
-        },
-        template: '<h1>Hallo {{ theme }}</h1><div :style="backGround"><story /></div>',
-      };
+      return story();
     },
   ],
 };
