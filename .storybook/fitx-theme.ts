@@ -7,8 +7,8 @@ export default create({
   fontBase: '"Open Sans", sans-serif',
   fontCode: 'monospace',
 
-  brandTitle: 'My custom Storybook',
-  brandUrl: 'https://example.com',
+  brandTitle: 'FitX Components',
+  brandUrl: 'https://customer-components.netlify.app',
   brandImage: FitxLogo,
   brandTarget: '_self',
 });
