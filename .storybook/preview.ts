@@ -16,12 +16,9 @@ const preview: Preview = {
       description: 'Global theme for components',
       defaultValue: themeOptions[0],
       toolbar: {
-        // The label to show for this toolbar item
         title: 'Theme',
         icon: 'circlehollow',
-        // Array of plain string values or MenuItem shape (see below)
         items: themeOptions,
-        // Change title based on selected value
         dynamicTitle: true,
       },
     },
@@ -49,11 +46,11 @@ const preview: Preview = {
           story: story,
           args: args,
         })
-        if (context.args.theme !== newThemeName) {
+        // if (context.args.theme !== newThemeName) {
           updateArgs({
             theme: newThemeName,
           });
-        }
+        // }
       };
 
       const handleUpdatesByStory = (event) => {

@@ -4,5 +4,18 @@
       background: #000;
     }
   }
+
+  .docblock-colorpalette {
+    --weight: 600;
+    & *:has(> span) {
+      &, & span {
+        font-weight: var(--weight);
+      }
+
+      & span {
+        --weight: 300;
+      }
+    }
+  }
 </style>
 <div id="custom-root"></div>
