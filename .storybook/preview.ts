@@ -1,13 +1,14 @@
 import type { Preview } from '@storybook/vue3';
 import { useArgs, addons } from '@storybook/preview-api';
-import { UPDATE_GLOBALS, UPDATE_STORY_ARGS } from '@storybook/core-events';
+import { STORY_CHANGED, UPDATE_GLOBALS, UPDATE_STORY_ARGS } from '@storybook/core-events'
 import '../src/assets/styles/lib.scss';
 
 const themeOptions = ['light', 'dark'] as const;
 
-let ThemeGlobalEventListenerIsActive = false;
-let ThemeStoryEventListenerIsActive = false;
-const toggleDocumentStyles = (name: typeof themeOptions[number]) => {
+let initial = true;
+let lastComponentId = null;
+const toggleDocumentStyles = (name: typeof themeOptions[number], context) => {
+  console.log('set data name', name, context);
   document.documentElement.setAttribute('data-theme', name);
 };
 
@@ -42,32 +43,49 @@ const preview: Preview = {
     (story, context) => {
       const [args, updateArgs] = useArgs();
 
-      const handleUpdates = (globalStore) => {
-        const newThemeName = globalStore.globals.theme;
-        toggleDocumentStyles(newThemeName);
-        // if (context.args.theme !== newThemeName) {
-          updateArgs({
-            theme: newThemeName,
-          });
-        // }
-      };
+      const newContextId = context.id;
 
-      const handleUpdatesByStory = (event) => {
-        const newThemeName = event.updatedArgs.theme;
-        toggleDocumentStyles(newThemeName);
-      };
+      if (newContextId !== lastComponentId) {
+        const newThemeName = context.globals.theme;
 
-      if (!ThemeGlobalEventListenerIsActive) {
-        addons.getChannel().on(UPDATE_GLOBALS, handleUpdates);
-        ThemeGlobalEventListenerIsActive = true;
+        toggleDocumentStyles(newThemeName, 'initial');
+        updateArgs({
+          theme: newThemeName,
+        })
+      }
+
+      addons.getChannel().on(UPDATE_STORY_ARGS, (val) => {
+        console.log('vali', val);
+        toggleDocumentStyles(val.updatedArgs.theme, 'UPDATE_STORY_ARGS');
+      });
+
+      addons.getChannel().on(UPDATE_GLOBALS, (val) => {
+        if (context.abortSignal.aborted) return;
+        const newThemeName = val.globals.theme;
+        updateArgs({
+          theme: newThemeName,
+        })
+        toggleDocumentStyles(newThemeName, 'UPDATE_GLOBALS');
+      });
+
+      addons.getChannel().on(STORY_CHANGED, () => {
+        if (context.abortSignal.aborted) return;
+
+        if (context.globals.theme === 'light') {
+          console.log('oh nooooo light', context);
+        }
+        const newThemeName = context.globals.theme;
+        updateArgs({
+          theme: newThemeName,
+        })
+        toggleDocumentStyles(newThemeName, 'STORY_CHANGED');
+      });
+
         // initial set theme styles
-        toggleDocumentStyles(context.globals.theme);
-      }
+        // handleUpdates(context);
+      // }
 
-      if (!ThemeStoryEventListenerIsActive) {
-        addons.getChannel().on(UPDATE_STORY_ARGS, handleUpdatesByStory);
-        ThemeStoryEventListenerIsActive = true;
-      }
+      lastComponentId = newContextId;
 
       return {
         setup(props, ctx) {
