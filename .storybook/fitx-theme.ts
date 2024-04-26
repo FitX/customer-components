@@ -1,4 +1,5 @@
 import { create } from '@storybook/theming/create';
+import FitxLogo from '../public/fitx-logo.png';
 
 export default create({
   base: 'light',
@@ -8,6 +9,6 @@ export default create({
 
   brandTitle: 'My custom Storybook',
   brandUrl: 'https://example.com',
-  brandImage: 'https://storybook.js.org/images/placeholders/350x150.png',
+  brandImage: FitxLogo,
   brandTarget: '_self',
 });
