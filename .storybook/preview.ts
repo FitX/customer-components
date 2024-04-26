@@ -5,8 +5,7 @@ import '../src/assets/styles/lib.scss';
 
 const themeOptions = ['light', 'dark'] as const;
 
-let initial = true;
-let lastComponentId = null;
+let lastComponentId: string = null;
 const toggleDocumentStyles = (name: typeof themeOptions[number], context) => {
   console.log('set data name', name, context);
   document.documentElement.setAttribute('data-theme', name);
@@ -41,26 +40,28 @@ const preview: Preview = {
   },
   decorators: [
     (story, context) => {
-      const [args, updateArgs] = useArgs();
+      const [_, updateArgs] = useArgs();
 
       const newContextId = context.id;
 
+      // overwrite args default
       if (newContextId !== lastComponentId) {
         const newThemeName = context.globals.theme;
-
-        toggleDocumentStyles(newThemeName, 'initial');
         updateArgs({
           theme: newThemeName,
         })
       }
 
+      // set theme by story args
       addons.getChannel().on(UPDATE_STORY_ARGS, (val) => {
-        console.log('vali', val);
         toggleDocumentStyles(val.updatedArgs.theme, 'UPDATE_STORY_ARGS');
       });
 
+      // overwrite args by global change
       addons.getChannel().on(UPDATE_GLOBALS, (val) => {
+        // prevent multiple events
         if (context.abortSignal.aborted) return;
+
         const newThemeName = val.globals.theme;
         updateArgs({
           theme: newThemeName,
@@ -68,22 +69,17 @@ const preview: Preview = {
         toggleDocumentStyles(newThemeName, 'UPDATE_GLOBALS');
       });
 
+      // overwrite args by globals on navigate
       addons.getChannel().on(STORY_CHANGED, () => {
+        // prevent multiple events
         if (context.abortSignal.aborted) return;
 
-        if (context.globals.theme === 'light') {
-          console.log('oh nooooo light', context);
-        }
         const newThemeName = context.globals.theme;
         updateArgs({
           theme: newThemeName,
         })
         toggleDocumentStyles(newThemeName, 'STORY_CHANGED');
       });
-
-        // initial set theme styles
-        // handleUpdates(context);
-      // }
 
       lastComponentId = newContextId;
 
