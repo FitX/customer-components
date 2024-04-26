@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/vue3';
 import { useArgs, addons } from '@storybook/preview-api';
 import { UPDATE_GLOBALS, UPDATE_STORY_ARGS } from '@storybook/core-events';
+import '../src/assets/styles/lib.scss';
 
 const themeOptions = ['light', 'dark'] as const;
 
