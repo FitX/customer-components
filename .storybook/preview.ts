@@ -1,23 +1,16 @@
-import { type Preview } from '@storybook/vue3';
+import type { Preview } from '@storybook/vue3';
 import { useArgs, addons } from '@storybook/preview-api';
-import { UPDATE_GLOBALS } from '@storybook/core-events';
+import { UPDATE_GLOBALS, UPDATE_STORY_ARGS } from '@storybook/core-events';
 
 const themeOptions = ['light', 'dark'] as const;
 
-let ThemeEventListenerIsActive = false;
+let ThemeGlobalEventListenerIsActive = false;
+let ThemeStoryEventListenerIsActive = false;
 const toggleDocumentStyles = (name: typeof themeOptions[number]) => {
   document.documentElement.setAttribute('data-theme', name);
 };
 
 const preview: Preview = {
-  parameters: {
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i
-      }
-    }
-  },
   globalTypes: {
     theme: {
       description: 'Global theme for components',
@@ -33,16 +26,29 @@ const preview: Preview = {
       },
     },
   },
+  argTypes: {
+    theme: {
+      options: themeOptions,
+      control: 'select'
+    }
+  },
   args: {
     theme: themeOptions[0]
   },
   decorators: [
     (story, context) => {
-      const [,, updateArgs] = useArgs();
+      const [args, updateArgs] = useArgs();
 
       const handleUpdates = (globalStore) => {
+        console.log('handleUpdates', globalStore)
         const newThemeName = globalStore.globals.theme;
         toggleDocumentStyles(newThemeName);
+        console.log({
+          context: context,
+          globalStore: globalStore,
+          story: story,
+          args: args,
+        })
         if (context.args.theme !== newThemeName) {
           updateArgs({
             theme: newThemeName,
@@ -50,22 +56,42 @@ const preview: Preview = {
         }
       };
 
-      console.log('ThemeEventListenerIsActive', ThemeEventListenerIsActive)
-      if (!ThemeEventListenerIsActive) {
+      const handleUpdatesByStory = (event) => {
+        const newThemeName = event.updatedArgs.theme;
+        toggleDocumentStyles(newThemeName);
+      };
+
+      if (!ThemeGlobalEventListenerIsActive) {
         addons.getChannel().on(UPDATE_GLOBALS, handleUpdates);
-        ThemeEventListenerIsActive = true;
+        ThemeGlobalEventListenerIsActive = true;
+        // initial set theme styles
+        toggleDocumentStyles(context.globals.theme);
       }
+
+      if (!ThemeStoryEventListenerIsActive) {
+        addons.getChannel().on(UPDATE_STORY_ARGS, handleUpdatesByStory);
+        ThemeStoryEventListenerIsActive = true;
+      }
+
       return {
         setup(props, ctx) {
-            return {
-              theme: context.args.theme,
-              story,
-            }
+          return {
+            story,
+          }
         },
-        template: `<h1 style="background: blue; padding: 1rem; color: white">{{ theme }}?</h1><story />`,
+        template: '<story />',
       };
     },
   ],
+  parameters: {
+    backgrounds: { disable: true },
+    /* controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i
+      },
+    } */
+  },
 };
 
 export default preview;
