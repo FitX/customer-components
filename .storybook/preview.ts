@@ -26,26 +26,24 @@ const preview: Preview = {
   argTypes: {
     theme: {
       options: themeOptions,
-      control: 'select'
-    }
+      control: 'select',
+    },
   },
   args: {
-    theme: themeOptions[0]
+    theme: themeOptions[0],
+  },
+  parameters: {
+    backgrounds: {
+      disable: true,
+    },
   },
   decorators: [
     (story, context) => {
       const [args, updateArgs] = useArgs();
 
       const handleUpdates = (globalStore) => {
-        console.log('handleUpdates', globalStore)
         const newThemeName = globalStore.globals.theme;
         toggleDocumentStyles(newThemeName);
-        console.log({
-          context: context,
-          globalStore: globalStore,
-          story: story,
-          args: args,
-        })
         // if (context.args.theme !== newThemeName) {
           updateArgs({
             theme: newThemeName,
@@ -80,15 +78,6 @@ const preview: Preview = {
       };
     },
   ],
-  parameters: {
-    backgrounds: { disable: true },
-    /* controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i
-      },
-    } */
-  },
 };
 
 export default preview;
