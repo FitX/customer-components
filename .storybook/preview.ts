@@ -1,13 +1,12 @@
 import type { Preview } from '@storybook/vue3';
 import { useArgs, addons } from '@storybook/preview-api';
-import { STORY_CHANGED, UPDATE_GLOBALS, UPDATE_STORY_ARGS } from '@storybook/core-events'
+import { UPDATE_GLOBALS, UPDATE_STORY_ARGS } from '@storybook/core-events'
 import '../src/assets/styles/lib.scss';
 
 const themeOptions = ['light', 'dark'] as const;
 
 let lastComponentId: string = null;
-const toggleDocumentStyles = (name: typeof themeOptions[number], context) => {
-  console.log('set data name', name, context);
+const toggleDocumentStyles = (name: typeof themeOptions[number]) => {
   document.documentElement.setAttribute('data-theme', name);
 };
 
@@ -50,12 +49,12 @@ const preview: Preview = {
         updateArgs({
           theme: newThemeName,
         });
-        toggleDocumentStyles(newThemeName, 'INITIAL');
+        toggleDocumentStyles(newThemeName);
       }
 
       // set theme by story args
       addons.getChannel().on(UPDATE_STORY_ARGS, (val) => {
-        toggleDocumentStyles(val.updatedArgs.theme, 'UPDATE_STORY_ARGS');
+        toggleDocumentStyles(val.updatedArgs.theme);
       });
 
       // overwrite args by global change
@@ -67,19 +66,6 @@ const preview: Preview = {
         updateArgs({
           theme: newThemeName,
         })
-        toggleDocumentStyles(newThemeName, 'UPDATE_GLOBALS');
-      });
-
-      // overwrite args by globals on navigate
-      addons.getChannel().on(STORY_CHANGED, () => {
-        // prevent multiple events
-        if (context.abortSignal.aborted) return;
-
-        const newThemeName = context.globals.theme;
-        updateArgs({
-          theme: newThemeName,
-        })
-        toggleDocumentStyles(newThemeName, 'STORY_CHANGED');
       });
 
       lastComponentId = newContextId;
