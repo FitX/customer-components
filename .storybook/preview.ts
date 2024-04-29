@@ -49,7 +49,8 @@ const preview: Preview = {
         const newThemeName = context.globals.theme;
         updateArgs({
           theme: newThemeName,
-        })
+        });
+        toggleDocumentStyles(newThemeName, 'INITIAL');
       }
 
       // set theme by story args
