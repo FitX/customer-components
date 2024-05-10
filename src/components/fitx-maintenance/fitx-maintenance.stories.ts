@@ -109,13 +109,14 @@ export const Usage2: Story = {
         args,
       }
     },
-    template: `<main :style="{ color: args.theme === 'dark' ? '#fff' : '#000'}">
-          <header>
-            <pre>isInMaintenanceMode {{ isInMaintenanceMode }}</pre>
-            <button @click="reCheck()">Start Fake Call is in Maintenance</button>
-          </header>
+    template: `<main style="background: var(--brand-color-anthracite-0);">
       <fitx-maintenance theme="dark">
-        <template #title>Example</template>
+        <template #title>Optional Title</template>
+        <template #copy>Optional Copy</template>
+        <template #after-copy>
+          <p>Optional After Copy <button @click="reCheck()">Start Fake Call is in Maintenance</button></p>
+          <p>{{ isInMaintenanceMode }}</p>
+        </template>
       </fitx-maintenance>
         </main>`
   })
