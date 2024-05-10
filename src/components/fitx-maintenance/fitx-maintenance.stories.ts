@@ -22,6 +22,13 @@ const meta = {
   component: FitxMaintenance,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
+  argTypes: {
+    title: {
+      control: 'text',
+      description: 'Slot content',
+      defaultValue: 'Badge'
+    }
+  }
 } satisfies Meta<typeof FitxMaintenance>;
 
 export default meta;
@@ -37,7 +44,8 @@ export const Usage: Story = {
   args: {
     theme: 'dark',
     title: (_) => (`Beispielimplementierung`),
-    copy: (_) => (`Copy Text`),
+    // copy: (_) => (`Copy Text`),
+    copy: `Copy Text`,
     'after-copy': () => (`Hier könnte noch ein Button hin`),
     // msg: 'Test'
   },
@@ -71,4 +79,44 @@ export const Usage: Story = {
       };
     },
   ],
+};
+
+export const Usage2: Story = {
+  parameters: {
+    disable: true,
+    controls: {
+      disable: true,
+      // exclude: /^hello*/ },
+    },
+  },
+  render: (args) => ({
+    components: { FitxMaintenance },
+    setup(props, ctx) {
+      const {
+        startMaintenanceObserver,
+        reCheck,
+        isInMaintenanceMode,
+      } = useMaintenance({
+        interval: 5000,
+        getMaintenanceStatus: () => fakeGetMaintenanceStatus(true),
+      });
+
+      startMaintenanceObserver();
+
+      return {
+        reCheck,
+        isInMaintenanceMode,
+        args,
+      }
+    },
+    template: `<main :style="{ color: args.theme === 'dark' ? '#fff' : '#000'}">
+          <header>
+            <pre>isInMaintenanceMode {{ isInMaintenanceMode }}</pre>
+            <button @click="reCheck()">Start Fake Call is in Maintenance</button>
+          </header>
+      <fitx-maintenance theme="dark">
+        <template #title>Example</template>
+      </fitx-maintenance>
+        </main>`
+  })
 };

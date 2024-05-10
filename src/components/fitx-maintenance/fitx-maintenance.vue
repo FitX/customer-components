@@ -59,7 +59,8 @@ const props = defineProps<{
   }
 
   &__bg {
-    width: 100vw;
+    // width: 100vw;
+    width: 100%;
   }
 
   &__copy {

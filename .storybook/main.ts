@@ -16,8 +16,8 @@ const config: StorybookConfig = {
     }
   },
   docs: {
-    autodocs: false
-    // autodocs: 'tag'
+    // autodocs: false
+    autodocs: 'tag'
   }
 }
 export default config
