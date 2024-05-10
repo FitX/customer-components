@@ -1,25 +1,53 @@
 <script lang="ts" setup>
 import { IconClose } from '@/components/icons';
-const props = defineProps<{
-  theme?: 'dark' | 'light',
-  msg: string,
+import { type Theme, type ButtonSize, buttonStates } from '@/types';
+import { getModifierClasses } from '@/utils/css-modifier';
+import { computed } from 'vue';
+
+// type FakeStates = 'hover' | 'focus' | 'active';
+// export type ButtonState = 'disabled' | 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+export type ButtonState = typeof buttonStates[number] | typeof buttonStates;
+
+const {
+  theme,
+  tag = 'button',
+  size = 'default',
+  modifier,
+} = defineProps<{
+  theme?: Theme,
+  tag?: 'button' | 'span',
+  size?: ButtonSize,
+  modifier?: ButtonState,
+  fakeModifier?: 'hover' | 'focus' | 'active', // Dev Mode only @TODO remove from export on build
 }>();
+
+const componentClasses = computed(() => getModifierClasses('button', [size]));
 </script>
 <template>
-  <main>
-    <button :data-theme="props.theme">{{ props.msg }} {{ props.theme }}</button>
-    <icon-close />
-  </main>
+  <component
+    :is="tag"
+    :data-theme="theme"
+    class="button"
+    :class="componentClasses">
+    <slot name="icon-start"></slot>
+    <slot name="default">{{ modifier }}</slot>
+    <slot name="icon-end" />
+  </component>
 </template>
 
 <style lang="scss" scoped>
 button {
-  --demo-border-color: red;
+  --_button-color-primary-surface-light: var(--button-color-primary-surface-light, var(--brand-color-orange-0));
+  --_button-color-primary-border-light: var(--button-color-primary-border-light, var(--brand-color-orange-0));
+  --_button-color-primary-surface-hover-light: var(--button-color-primary-surface-hover-light, var(--brand-color-orange-1));
+  --_button-color-primary-text-light: var(--button-color-primary-text-light, var(--brand-color-white-0));
+  // disabled
+  --_button-color-primary-surface-disabled-light: var(--button-color-primary-surface-disabled-light, var(--brand-color-orange-0));
+  --_button-color-primary-border-disabled-light: var(--button-color-primary-border-disabled-light, var(--brand-color-orange-0));
+  --_button-color-primary-text-disabled-light: var(--button-color-primary-text-disabled-light, var(--brand-color-white-0));
 
   &[data-theme=dark] {
-    --demo-border-color: blue;
-  }
 
-  border: 5px dashed var(--demo-border-color); padding: 2rem; margin: 1rem; outline: 5px solid var(--demo-border-color);
+  }
 }
 </style>
