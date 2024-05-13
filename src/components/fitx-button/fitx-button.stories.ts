@@ -64,38 +64,49 @@ export const Overview: Story = {
       FitxButton,
     },
     setup() {
-      const demoStyles = 'display: flex; gap: 1rem; margin-block-end: 1rem';
+      const demoStyles = '';
       return {
         demoStyles,
       };
     },
     template: `
-      <section :style="demoStyles">
+      <component is="style">
+        section {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          margin-block-end: 1rem;
+          h1 {
+            flex: 1 0 100%;
+          }
+        }
+      </component>
+      <section style="--button-color-primary-surface-dark: red">
         <h1>Primary</h1>
-        <fitx-button modifier="primary">Primary</fitx-button>
+        <fitx-button theme="dark" modifier="primary">Primary</fitx-button>
         <fitx-button modifier="primary" fake-modifier="hover">Primary (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['primary', 'disabled']" fake-modifier="hover">Primary disabled</fitx-button>
+        <fitx-button :modifier="['primary', 'disabled']">Primary disabled</fitx-button>
       </section>
 
-      <section :style="demoStyles">
+      <section>
         <h1>Secondary</h1>
         <fitx-button modifier="secondary">Secondary</fitx-button>
         <fitx-button modifier="secondary" fake-modifier="hover">Secondary (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['secondary', 'disabled']" fake-modifier="hover">Secondary disabled</fitx-button>
+        <fitx-button :modifier="['secondary', 'disabled']">Secondary disabled</fitx-button>
       </section>
 
-      <section :style="demoStyles">
+      <section>
         <h1>Tertiary</h1>
         <fitx-button modifier="tertiary">Tertiary</fitx-button>
         <fitx-button modifier="tertiary" fake-modifier="hover">Tertiary (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['tertiary', 'disabled']" fake-modifier="hover">Tertiary disabled</fitx-button>
+        <fitx-button :modifier="['tertiary', 'disabled']">Tertiary disabled</fitx-button>
       </section>
 
-      <section :style="demoStyles">
+      <section>
         <h1>Quaternary</h1>
         <fitx-button modifier="quaternary">Quaternary</fitx-button>
         <fitx-button modifier="quaternary" fake-modifier="hover">Quaternary (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['quaternary', 'disabled']" fake-modifier="hover">Quaternary disabled</fitx-button>
+        <fitx-button :modifier="['quaternary', 'disabled']">Quaternary disabled</fitx-button>
       </section>
     `
   })
