@@ -30,6 +30,8 @@ export const Primary: Story = {
   args: {
     modifier: 'primary',
   },
+  parameters: {
+    options: { showPanel: false } }
 };
 
 export const Secondary: Story = {
@@ -89,10 +91,24 @@ export const Overview: Story = {
       </section>
 
       <section>
+        <h1>Primary small</h1>
+        <fitx-button theme="dark" size="small">Primary small</fitx-button>
+        <fitx-button size="small" fake-modifier="hover">Primary small (hover|focus|active)</fitx-button>
+        <fitx-button size="small" disabled>Primary small disabled</fitx-button>
+      </section>
+
+      <section>
         <h1>Secondary</h1>
         <fitx-button modifier="secondary">Secondary</fitx-button>
         <fitx-button modifier="secondary" fake-modifier="hover">Secondary (hover|focus|active)</fitx-button>
         <fitx-button :modifier="['secondary', 'disabled']">Secondary disabled</fitx-button>
+      </section>
+
+      <section>
+        <h1>Secondary small</h1>
+        <fitx-button modifier="secondary" size="small">Secondary small</fitx-button>
+        <fitx-button modifier="secondary" size="small" fake-modifier="hover">Secondary small (hover|focus|active)</fitx-button>
+        <fitx-button :modifier="['secondary', 'disabled']" size="small">Secondary small disabled</fitx-button>
       </section>
 
       <section>
@@ -103,10 +119,24 @@ export const Overview: Story = {
       </section>
 
       <section>
+        <h1>Tertiary small</h1>
+        <fitx-button modifier="tertiary" size="small">Tertiary small</fitx-button>
+        <fitx-button modifier="tertiary" size="small" fake-modifier="hover">Tertiary small (hover|focus|active)</fitx-button>
+        <fitx-button :modifier="['tertiary', 'disabled']" size="small">Tertiary small disabled</fitx-button>
+      </section>
+
+      <section>
         <h1>Quaternary</h1>
         <fitx-button modifier="quaternary">Quaternary</fitx-button>
         <fitx-button modifier="quaternary" fake-modifier="hover">Quaternary (hover|focus|active)</fitx-button>
         <fitx-button :modifier="['quaternary', 'disabled']">Quaternary disabled</fitx-button>
+      </section>
+
+      <section>
+        <h1>Quaternary small</h1>
+        <fitx-button modifier="quaternary" size="small">Quaternary small</fitx-button>
+        <fitx-button modifier="quaternary" fake-modifier="hover" size="small">Quaternary small (hover|focus|active)</fitx-button>
+        <fitx-button :modifier="['quaternary', 'disabled']" size="small">Quaternary small disabled</fitx-button>
       </section>
     `
   })
