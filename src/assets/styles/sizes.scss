@@ -1,0 +1,25 @@
+:where(html) {
+  --size-000: -0.5rem; /* -8px / 16px = -0.5rem */
+  --size-00: -0.25rem; /* -4px / 16px = -0.25rem */
+  --size-1: 0.25rem; /* 4px / 16px = 0.25rem */
+  --size-2: 0.5rem; /* 8px / 16px = 0.5rem */
+  --size-3: 1rem; /* 16px / 16px = 1rem */
+  --size-4: 1.25rem; /* 20px / 16px = 1.25rem */
+  --size-5: 1.5rem; /* 24px / 16px = 1.5rem */
+  --size-6: 1.75rem; /* 28px / 16px = 1.75rem */
+  --size-7: 2rem; /* 32px / 16px = 2rem */
+  --size-8: 3rem; /* 48px / 16px = 3rem */
+  --size-9: 4rem; /* 64px / 16px = 4rem */
+
+  --size-px-000: -8px;
+  --size-px-00: -4px;
+  --size-px-1: 4px;
+  --size-px-2: 8px;
+  --size-px-3: 16px;
+  --size-px-4: 20px;
+  --size-px-5: 24px;
+  --size-px-6: 28px;
+  --size-px-7: 32px;
+  --size-px-8: 48px;
+  --size-px-9: 64px;
+}
