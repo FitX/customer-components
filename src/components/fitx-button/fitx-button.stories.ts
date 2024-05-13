@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
 import FitxButton from './fitx-button.vue';
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { buttonStates } from '@/types'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
@@ -12,6 +12,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     modifier: { control: 'multi-select', options: buttonStates },
+    // size: { control: 'select', options: ['small', 'default'] },
   },
   args: {
     // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
@@ -66,77 +67,83 @@ export const Overview: Story = {
       FitxButton,
     },
     setup() {
-      const demoStyles = '';
+      const theme = computed(() => args.theme);
       return {
-        demoStyles,
+        theme,
       };
     },
     template: `
       <component is="style">
         section {
+          --demo-text-color: inherit;
+          &:is([data-theme=dark]) {
+            --demo-text-color: white;
+          }
+
           display: flex;
           flex-wrap: wrap;
           gap: 1rem;
-          margin-block-end: 1rem;
-          h1 {
+          margin-block-end: 2rem;
+          & h1 {
             flex: 1 0 100%;
+            color: var(--demo-text-color);
           }
         }
       </component>
-      <section style="--button-color-primary-surface-dark: red">
+      <section :data-theme="theme">
         <h1>Primary</h1>
-        <fitx-button theme="dark" modifier="primary">Primary</fitx-button>
-        <fitx-button modifier="primary" fake-modifier="hover">Primary (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['primary', 'disabled']">Primary disabled</fitx-button>
+        <fitx-button :theme="theme" modifier="primary">Primary</fitx-button>
+        <fitx-button :theme="theme" modifier="primary" fake-modifier="hover">Primary (hover|focus|active)</fitx-button>
+        <fitx-button :theme="theme" :modifier="['primary', 'disabled']">Primary disabled</fitx-button>
       </section>
 
-      <section>
+      <section :data-theme="theme">
         <h1>Primary small</h1>
-        <fitx-button theme="dark" size="small">Primary small</fitx-button>
-        <fitx-button size="small" fake-modifier="hover">Primary small (hover|focus|active)</fitx-button>
-        <fitx-button size="small" disabled>Primary small disabled</fitx-button>
+        <fitx-button :theme="theme" size="small">Primary small</fitx-button>
+        <fitx-button :theme="theme" size="small" fake-modifier="hover">Primary small (hover|focus|active)</fitx-button>
+        <fitx-button :theme="theme" size="small" disabled>Primary small disabled</fitx-button>
       </section>
 
-      <section>
+      <section :data-theme="theme">
         <h1>Secondary</h1>
-        <fitx-button modifier="secondary">Secondary</fitx-button>
-        <fitx-button modifier="secondary" fake-modifier="hover">Secondary (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['secondary', 'disabled']">Secondary disabled</fitx-button>
+        <fitx-button :theme="theme" modifier="secondary">Secondary</fitx-button>
+        <fitx-button :theme="theme" modifier="secondary" fake-modifier="hover">Secondary (hover|focus|active)</fitx-button>
+        <fitx-button :theme="theme" :modifier="['secondary', 'disabled']">Secondary disabled</fitx-button>
       </section>
 
-      <section>
+      <section :data-theme="theme">
         <h1>Secondary small</h1>
-        <fitx-button modifier="secondary" size="small">Secondary small</fitx-button>
-        <fitx-button modifier="secondary" size="small" fake-modifier="hover">Secondary small (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['secondary', 'disabled']" size="small">Secondary small disabled</fitx-button>
+        <fitx-button :theme="theme" modifier="secondary" size="small">Secondary small</fitx-button>
+        <fitx-button :theme="theme" modifier="secondary" size="small" fake-modifier="hover">Secondary small (hover|focus|active)</fitx-button>
+        <fitx-button :theme="theme" :modifier="['secondary', 'disabled']" size="small">Secondary small disabled</fitx-button>
       </section>
 
-      <section>
+      <section :data-theme="theme">
         <h1>Tertiary</h1>
-        <fitx-button modifier="tertiary">Tertiary</fitx-button>
-        <fitx-button modifier="tertiary" fake-modifier="hover">Tertiary (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['tertiary', 'disabled']">Tertiary disabled</fitx-button>
+        <fitx-button :theme="theme" modifier="tertiary">Tertiary</fitx-button>
+        <fitx-button :theme="theme" modifier="tertiary" fake-modifier="hover">Tertiary (hover|focus|active)</fitx-button>
+        <fitx-button :theme="theme" :modifier="['tertiary', 'disabled']">Tertiary disabled</fitx-button>
       </section>
 
-      <section>
+      <section :data-theme="theme">
         <h1>Tertiary small</h1>
-        <fitx-button modifier="tertiary" size="small">Tertiary small</fitx-button>
-        <fitx-button modifier="tertiary" size="small" fake-modifier="hover">Tertiary small (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['tertiary', 'disabled']" size="small">Tertiary small disabled</fitx-button>
+        <fitx-button :theme="theme" modifier="tertiary" size="small">Tertiary small</fitx-button>
+        <fitx-button :theme="theme" modifier="tertiary" size="small" fake-modifier="hover">Tertiary small (hover|focus|active)</fitx-button>
+        <fitx-button :theme="theme" :modifier="['tertiary', 'disabled']" size="small">Tertiary small disabled</fitx-button>
       </section>
 
-      <section>
+      <section :data-theme="theme">
         <h1>Quaternary</h1>
-        <fitx-button modifier="quaternary">Quaternary</fitx-button>
-        <fitx-button modifier="quaternary" fake-modifier="hover">Quaternary (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['quaternary', 'disabled']">Quaternary disabled</fitx-button>
+        <fitx-button :theme="theme" modifier="quaternary">Quaternary</fitx-button>
+        <fitx-button :theme="theme" modifier="quaternary" fake-modifier="hover">Quaternary (hover|focus|active)</fitx-button>
+        <fitx-button :theme="theme" :modifier="['quaternary', 'disabled']">Quaternary disabled</fitx-button>
       </section>
 
-      <section>
+      <section :data-theme="theme">
         <h1>Quaternary small</h1>
-        <fitx-button modifier="quaternary" size="small">Quaternary small</fitx-button>
-        <fitx-button modifier="quaternary" fake-modifier="hover" size="small">Quaternary small (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['quaternary', 'disabled']" size="small">Quaternary small disabled</fitx-button>
+        <fitx-button :theme="theme" modifier="quaternary" size="small">Quaternary small</fitx-button>
+        <fitx-button :theme="theme" modifier="quaternary" fake-modifier="hover" size="small">Quaternary small (hover|focus|active)</fitx-button>
+        <fitx-button :theme="theme" :modifier="['quaternary', 'disabled']" size="small">Quaternary small disabled</fitx-button>
       </section>
     `
   })

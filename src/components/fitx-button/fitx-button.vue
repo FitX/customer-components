@@ -58,7 +58,11 @@ const componentClasses = computed(() => (
 </template>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/normalize.scss' as normalize;
+
 .button {
+  @include normalize.btn();
+
   $self: &;
   --_button-spacing-inline: var(--button-spacing-inline, var(--size-px-8));
   --_button-spacing-block: var(--button-spacing-block, var(--size-px-3));
@@ -81,6 +85,18 @@ const componentClasses = computed(() => (
     --_button-radius: var(--button-radius, var(--radius-7));
   }
 
+  &:is([data-theme=dark]) {
+    // primary Styles
+    --_button-color-surface: var(--button-color-primary-surface-dark, var(--brand-color-orange-0));
+    --_button-color-border: var(--button-color-primary-border-dark, var(--brand-color-orange-0));
+    --_button-color-surface-hover: var(--button-color-primary-surface-hover-dark, var(--brand-color-orange-1));
+    --_button-color-text: var(--button-color-primary-text-dark, var(--brand-color-white-0));
+    // disabled
+    --_button-color-surface-disabled: var(--button-color-primary-surface-disabled-dark, var(--brand-color-anthracite-3));
+    --_button-color-border-disabled: var(--button-color-primary-border-disabled-dark, var(--button-color-primary-surface-disabled-dark));
+    --_button-color-text-disabled: var(--button-color-primary-text-disabled-dark, var(--brand-color-gray-cement));
+  }
+
   &--secondary {
     // secondary Styles
     --_button-color-surface: var(--button-color-secondary-surface-light, var(--brand-color-white-0));
@@ -91,6 +107,18 @@ const componentClasses = computed(() => (
     --_button-color-surface-disabled: var(--button-color-secondary-surface-disabled-light, var(--brand-color-white-0));
     --_button-color-border-disabled: var(--button-color-secondary-border-disabled-light, var(--brand-color-gray-ash));
     --_button-color-text-disabled: var(--button-color-secondary-text-disabled-light, var(--brand-color-gray-cement));
+
+    &:is([data-theme=dark]) {
+      // secondary Styles
+      --_button-color-surface: var(--button-color-secondary-surface-dark, var(--brand-color-anthracite-0));
+      --_button-color-border: var(--button-color-secondary-border-dark, var(--brand-color-white-0));
+      --_button-color-surface-hover: var(--button-color-secondary-surface-hover-dark, var(--brand-color-anthracite-3));
+      --_button-color-text: var(--button-color-secondary-text-dark, var(--brand-color-white-0));
+      // disabled
+      --_button-color-surface-disabled: var(--button-color-secondary-surface-disabled-dark, var(--button-color-secondary-surface-dark));
+      --_button-color-border-disabled: var(--button-color-secondary-border-disabled-dark, var(--brand-color-anthracite-3));
+      --_button-color-text-disabled: var(--button-color-secondary-text-disabled-dark, var(--brand-color-gray-cement));
+    }
   }
 
   &--tertiary {
@@ -103,6 +131,18 @@ const componentClasses = computed(() => (
     --_button-color-surface-disabled: var(--button-color-tertiary-surface-disabled-light, var(--brand-color-white-0));
     --_button-color-border-disabled: var(--button-color-tertiary-border-disabled-light, var(--_button-color-surface-disabled));
     --_button-color-text-disabled: var(--button-color-tertiary-text-disabled-light, var(--brand-color-gray-cement));
+
+    &:is([data-theme=dark]) {
+      // secondary Styles
+      --_button-color-surface: var(--button-color-tertiary-surface-dark, var(--brand-color-anthracite-0));
+      --_button-color-border: var(--button-color-tertiary-border-dark, var(--button-color-tertiary-surface-dark));
+      --_button-color-surface-hover: var(--button-color-tertiary-surface-hover-dark, var(--brand-color-anthracite-3));
+      --_button-color-text: var(--button-color-tertiary-text-dark, var(--brand-color-white-0));
+      // disabled
+      --_button-color-surface-disabled: var(--button-color-tertiary-surface-disabled-dark, var(--button-color-tertiary-surface-dark));
+      --_button-color-border-disabled: var(--button-color-tertiary-border-disabled-dark, var(--_button-color-surface-disabled));
+      --_button-color-text-disabled: var(--button-color-tertiary-text-disabled-dark, var(--brand-color-gray-cement));
+    }
   }
 
   &--quaternary {
@@ -117,6 +157,7 @@ const componentClasses = computed(() => (
     --_button-color-text-disabled: var(--button-color-quaternary-text-disabled-light, var(--brand-color-gray-cement));
   }
 
+  display: inline-block;
   background: var(--_button-color-surface);
   color: var(--_button-color-text);
   font-size: var(--_button-font-size);
@@ -134,18 +175,6 @@ const componentClasses = computed(() => (
     --_button-color-surface: var(--_button-color-surface-disabled);
     --_button-color-text: var(--_button-color-text-disabled);
     --_button-color-border: var(--_button-color-border-disabled);
-  }
-
-  &[data-theme=darki] {
-    // primary
-    --_button-color-surface: var(--button-color-primary-surface-dark, var(--brand-color-orange-0));
-    --_button-color-border: var(--button-color-primary-border-dark, var(--brand-color-orange-0));
-    --_button-color-surface-hover: var(--button-color-primary-surface-hover-dark, var(--brand-color-orange-1));
-    --_button-color-text: var(--button-color-primary-text-dark, var(--brand-color-white-0));
-    // primary disabled
-    --_button-color-surface-disabled: var(--button-color-primary-surface-disabled-dark, var(--brand-color-orange-0));
-    --_button-color-border-disabled: var(--button-color-primary-border-disabled-dark, var(--brand-color-orange-0));
-    --_button-color-text-disabled: var(--button-color-primary-text-disabled-dark, var(--brand-color-white-0));
   }
 }
 </style>
