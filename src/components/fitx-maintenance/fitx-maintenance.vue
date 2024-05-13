@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // import LogoX from '@/assets/logo-x.svg';
 import BrandGorilla from '@/assets/brand/gorilla.svg';
+import type { Theme } from '@/types';
 const props = defineProps<{
-  theme?: 'dark' | 'light',
+  theme?: Theme,
 }>();
 </script>
 
