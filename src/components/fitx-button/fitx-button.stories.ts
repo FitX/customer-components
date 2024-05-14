@@ -58,6 +58,11 @@ export const Overview: Story = {
     // size: 'default',
   },
   parameters: {
+    docs: {
+      // story: { inline: true }, // render the story in an iframe
+      canvas: { sourceState: 'shown' }, // start with the source open
+      // source: { type: 'code' }, // forces the raw source code (rather than the rendered JSX).
+    },
     controls: {
       disable: true,
     },
@@ -74,7 +79,7 @@ export const Overview: Story = {
     },
     template: `
       <component is="style">
-        section {
+        section, .demo {
           --demo-text-color: inherit;
           &:is([data-theme=dark]) {
             --demo-text-color: white;
@@ -83,9 +88,11 @@ export const Overview: Story = {
           display: flex;
           flex-wrap: wrap;
           gap: 1rem;
-          margin-block-end: 2rem;
+          margin-block-end: 3rem;
+          & p { margin: 0 }
           & h1 {
             flex: 1 0 100%;
+            margin: 0;
             color: var(--demo-text-color);
           }
         }
@@ -141,9 +148,15 @@ export const Overview: Story = {
 
       <section :data-theme="theme">
         <h1>Quaternary small</h1>
-        <fitx-button :theme="theme" modifier="quaternary" size="small">Quaternary small</fitx-button>
-        <fitx-button :theme="theme" modifier="quaternary" fake-modifier="hover" size="small">Quaternary small (hover|focus|active)</fitx-button>
-        <fitx-button :theme="theme" :modifier="['quaternary', 'disabled']" size="small">Quaternary small disabled</fitx-button>
+        <p>Für die Verwendung auf Bildern</p>
+        <div
+          class="demo"
+          style="padding: 2rem; background: url(https://images.ctfassets.net/5nz27qohji6m/3SltSCoCc705Ft514zJzyw/a95f62dc0663acda5d24dabb3c76de7e/fitnessstudios_in_berlin.webp) 50% no-repeat">
+          <fitx-button :theme="theme" modifier="quaternary" size="small">Quaternary small</fitx-button>
+          <fitx-button :theme="theme" modifier="quaternary" fake-modifier="hover" size="small">Quaternary small (hover|focus|active)</fitx-button>
+          <fitx-button :theme="theme" :modifier="['quaternary', 'disabled']" size="small">Quaternary small disabled</fitx-button>
+        </div>
+
       </section>
     `
   })
