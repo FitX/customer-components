@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
-import FitxButton from './fitx-button.vue';
+import { buttonStates, default as FitxButton } from './fitx-button.vue';
 import { computed, ref } from 'vue'
-import { buttonStates } from '@/types'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {

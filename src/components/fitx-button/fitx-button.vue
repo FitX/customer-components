@@ -1,15 +1,26 @@
+<script lang="ts">
+import type { Theme } from '@/types';
+export type ButtonSize = 'default' | 'small';
+export const buttonStates = [
+  'primary',
+  'secondary',
+  'tertiary',
+  'quaternary',
+  'disabled',
+] as const;
+export type ButtonState = typeof buttonStates[number];
+</script>
+
 <script lang="ts" setup>
 import { IconClose } from '@/components/icons';
-import { type Theme, type ButtonSize, buttonStates } from '@/types';
+
 import { getModifierClasses } from '@/utils/css-modifier';
 import { computed } from 'vue';
 
-type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
+// type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
 
 // type FakeStates = 'hover' | 'focus' | 'active';
 // export type ButtonState = 'disabled' | 'primary' | 'secondary' | 'tertiary' | 'quaternary';
-export type ButtonState = typeof buttonStates[number];
-
 const {
   theme,
   tag = 'button',

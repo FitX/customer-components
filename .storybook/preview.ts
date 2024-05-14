@@ -2,8 +2,9 @@ import type { Preview } from '@storybook/vue3';
 import { useArgs, addons } from '@storybook/preview-api';
 import { UPDATE_GLOBALS, UPDATE_STORY_ARGS } from '@storybook/core-events'
 import '../src/assets/styles/lib.scss';
+import { Theme } from '../src/types'
 
-const themeOptions = ['light', 'dark'] as const;
+const themeOptions: Theme[] = ['light', 'dark'] as const;
 
 let lastComponentId: string = null;
 const toggleDocumentStyles = (name: typeof themeOptions[number]) => {
@@ -14,7 +15,6 @@ const preview: Preview = {
   globalTypes: {
     theme: {
       description: 'Global theme for components',
-      defaultValue: themeOptions[0],
       toolbar: {
         title: 'Theme',
         icon: 'circlehollow',
@@ -25,8 +25,12 @@ const preview: Preview = {
   },
   argTypes: {
     theme: {
+      description: themeOptions.toString(),
       options: themeOptions,
       control: 'select',
+      table: {
+        type: { summary: themeOptions.map((theme) => `"${theme}"`).toString().replace(',',' | ') },
+      },
     },
   },
   args: {
