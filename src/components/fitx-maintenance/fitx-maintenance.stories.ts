@@ -28,7 +28,7 @@ const meta = {
       description: 'Slot content',
       defaultValue: 'Badge'
     }
-  }
+  },
 } satisfies Meta<typeof FitxMaintenance>;
 
 export default meta;
@@ -38,7 +38,15 @@ type Story = StoryObj<typeof meta>;
  * See https://storybook.js.org/docs/api/csf
  * to learn how to use render functions.
  */
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Component for Maintenance Mode in FitX Applications. We also have a composable for this. (@/composables/use-maintenance)',
+      },
+    },
+  },
+};
 
 export const Usage: Story = {
   args: {

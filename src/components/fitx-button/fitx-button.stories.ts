@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
 import { buttonStates, default as FitxButton } from './fitx-button.vue';
+import IconClose from '@/assets/icons/close.svg'
 import { computed, ref } from 'vue'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
@@ -156,6 +157,166 @@ export const Overview: Story = {
           <fitx-button :theme="theme" :modifier="['quaternary', 'disabled']" size="small">Quaternary small disabled</fitx-button>
         </div>
 
+      </section>
+    `
+  })
+};
+
+export const WithIcons: Story = {
+  args: {
+    // size: 'default',
+  },
+  parameters: {
+    docs: {
+      // story: { inline: true }, // render the story in an iframe
+      canvas: { sourceState: 'shown' }, // start with the source open
+      // source: { type: 'code' }, // forces the raw source code (rather than the rendered JSX).
+    },
+    controls: {
+      disable: true,
+    },
+  },
+  render: (args) => ({
+    components: {
+      FitxButton,
+      IconClose,
+    },
+    setup() {
+      const theme = computed(() => args.theme);
+      return {
+        theme,
+      };
+    },
+    template: `
+      <component is="style">
+        section, .demo {
+          --demo-text-color: inherit;
+          &:is([data-theme=dark]) {
+            --demo-text-color: white;
+          }
+
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          margin-block-end: 3rem;
+          & p { margin: 0 }
+          & h1 {
+            flex: 1 0 100%;
+            margin: 0;
+            color: var(--demo-text-color);
+          }
+        }
+      </component>
+      <section :data-theme="theme">
+        <h1>Icons Start</h1>
+        <fitx-button :theme="theme">
+          <template #icon-start>
+            <icon-close />
+          </template>
+          Icon Left
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="secondary">
+          <template #icon-start>
+            <icon-close />
+          </template>
+          Icon Left
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="tertiary">
+          <template #icon-start>
+            <icon-close />
+          </template>
+          Icon Left
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="quaternary">
+          <template #icon-start>
+            <icon-close />
+          </template>
+          Icon Left
+        </fitx-button>
+      </section>
+
+      <section :data-theme="theme">
+        <h1>Icons Start small</h1>
+        <fitx-button :theme="theme" size="small">
+          <template #icon-start>
+            <icon-close />
+          </template>
+          Icon Left
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="secondary" size="small">
+          <template #icon-start>
+            <icon-close />
+          </template>
+          Icon Left
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="tertiary" size="small">
+          <template #icon-start>
+            <icon-close />
+          </template>
+          Icon Left
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="quaternary" size="small">
+          <template #icon-start>
+            <icon-close />
+          </template>
+          Icon Left
+        </fitx-button>
+      </section>
+
+      <section :data-theme="theme">
+        <h1>Icons End</h1>
+        <fitx-button :theme="theme">
+          <template #icon-end>
+            <icon-close />
+          </template>
+          Icon End
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="secondary">
+          <template #icon-end>
+            <icon-close />
+          </template>
+          Icon End
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="tertiary">
+          <template #icon-end>
+            <icon-close />
+          </template>
+          Icon End
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="quaternary">
+          <template #icon-end>
+            <icon-close />
+          </template>
+          Icon End
+        </fitx-button>
+      </section>
+
+      <section :data-theme="theme">
+        <h1>Icons End small</h1>
+        <fitx-button :theme="theme" size="small">
+          <template #icon-end>
+            <icon-close />
+          </template>
+          Icon End
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="secondary" size="small">
+          <template #icon-end>
+            <icon-close />
+          </template>
+          Icon End
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="tertiary" size="small">
+          <template #icon-end>
+            <icon-close />
+          </template>
+          Icon End
+        </fitx-button>
+        <fitx-button :theme="theme" modifier="quaternary" size="small">
+          <template #icon-end>
+            <icon-close />
+          </template>
+          Icon End
+        </fitx-button>
       </section>
     `
   })

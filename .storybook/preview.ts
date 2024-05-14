@@ -30,6 +30,7 @@ const preview: Preview = {
       control: 'select',
       table: {
         type: { summary: themeOptions.map((theme) => `"${theme}"`).toString().replace(',',' | ') },
+        defaultValue: themeOptions[0],
       },
     },
   },

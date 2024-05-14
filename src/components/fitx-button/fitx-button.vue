@@ -12,10 +12,8 @@ export type ButtonState = typeof buttonStates[number];
 </script>
 
 <script lang="ts" setup>
-import { IconClose } from '@/components/icons';
-
+import { computed, toValue, useSlots } from 'vue'
 import { getModifierClasses } from '@/utils/css-modifier';
-import { computed } from 'vue';
 
 // type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
 
@@ -27,11 +25,13 @@ const props = withDefaults(defineProps<{
   size?: ButtonSize,
   isActive?: boolean,
   modifier?: ButtonState | ButtonState[],
-  fakeModifier?: 'hover' | 'focus' | 'active', // Dev Mode only @TODO remove from export on build
+  fakeModifier?: 'none' | 'hover' | 'focus' | 'active', // Dev Mode only @TODO remove from export on build
 }>(), {
   tag: 'button',
-  size: 'default',
 });
+
+const slots = useSlots();
+const hasIcons = computed(() => !!slots['icon-start'] || !!slots['icon-end']);
 
 /* const componentClasses = computed(() => {
   const sizes = size ? [`size-${size}`] : [];
@@ -52,6 +52,7 @@ const componentClasses = computed(() => (
     ...getModifierClasses('button', props.modifier ?? []),
     ...getModifierClasses('button', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
     ...getModifierClasses('button', props.isActive ? 'is-active' : []),
+    ...getModifierClasses('button', toValue(hasIcons) ? 'has-icon' : []),
   ]
 ));
 </script>
@@ -61,18 +62,24 @@ const componentClasses = computed(() => (
     :data-theme="props.theme"
     class="button"
     :class="componentClasses">
-    <!--
-    @slot optional Icon Slot
-    -->
-    <slot name="icon-start">
-      <span />
-    </slot>
-    <slot name="default">{{ props.modifier }}</slot>
-    <slot name="icon-end">
-      <span
-        v-show="props.isActive"
-        class="button__loading" />
-    </slot>
+    <span class="button__inner">
+       <!--
+      @slot optional Icon Slot
+      -->
+      <slot name="icon-start">
+        <span />
+      </slot>
+      <slot name="default">
+        <span>
+          {{ props.modifier }}
+        </span>
+      </slot>
+      <slot name="icon-end">
+        <span
+          v-show="props.isActive"
+          class="button__loading" />
+      </slot>
+    </span>
   </component>
 </template>
 
@@ -88,7 +95,8 @@ const componentClasses = computed(() => (
   --_button-radius: var(--button-radius, var(--radius-10));
   --_button-border-width: var(--button-border-width, 2px);
   --_button-font-size: var(--button-font-size, 1.125rem);
-  --_button-loader-size: var(--button-loader-size, calc(var(--_button-font-size) / 2));
+  --_button-font-size-small: var(--button-font-size-small, 1rem);
+  --_button-icon-size: var(--button-icon-size, calc(var(--_button-font-size) / 2));
   --_button-content-gap: var(--button-content-gap, var(--size-px-2));
   // primary Styles
   --_button-color-surface: var(--button-color-primary-surface-light, var(--brand-color-orange-0));
@@ -104,6 +112,7 @@ const componentClasses = computed(() => (
     --_button-spacing-inline: var(--button-spacing-inline, var(--size-px-4));
     --_button-spacing-block: var(--button-spacing-block, var(--size-px-2));
     --_button-radius: var(--button-radius, var(--radius-7));
+    --_button-font-size: var(--_button-font-size-small);
   }
 
   &:is([data-theme=dark]) {
@@ -180,9 +189,16 @@ const componentClasses = computed(() => (
 
   // display: inline-block;
   display: inline-grid;
-  grid-template-columns: var(--_button-loader-size) 1fr var(--_button-loader-size);
-  gap: var(--_button-content-gap);
   align-items: center;
+
+  &__inner {
+    --icon-fill: currentColor;
+
+    display: inline-grid;
+    grid-template-columns: repeat(3, auto);
+    gap: var(--_button-content-gap);
+    align-items: center;
+  }
 
   background: var(--_button-color-surface);
   color: var(--_button-color-text);
@@ -209,8 +225,8 @@ const componentClasses = computed(() => (
     #{$self}__loading {
       display: inline-block;
       aspect-ratio: 1;
-      max-height: var(--_button-loader-size);
-      right: var(--_button-loader-size);
+      max-height: var(--_button-icon-size);
+      // right: var(--_button-icon-size);
 
       &:after {
         content: '';
