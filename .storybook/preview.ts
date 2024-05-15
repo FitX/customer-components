@@ -25,7 +25,7 @@ const preview: Preview = {
   },
   argTypes: {
     theme: {
-      description: themeOptions.toString(),
+      description: 'FitX Theme Options. At the moment we only use dark mode. Light mode corresponds to unset.',
       options: themeOptions,
       control: 'select',
       table: {

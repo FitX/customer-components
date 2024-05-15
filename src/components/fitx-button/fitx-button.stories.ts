@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
 import { buttonStates, default as FitxButton } from './fitx-button.vue';
-import IconClose from '@/assets/icons/close.svg'
-import { computed, ref } from 'vue'
+import { IconClose } from '@/components/icons/index';
+import { computed } from 'vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -15,6 +15,7 @@ const meta = {
     // size: { control: 'select', options: ['small', 'default'] },
   },
   args: {
+    default: 'FitX Button',
     // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
     // onClick: fn(),
   },
@@ -89,11 +90,11 @@ export const Overview: Story = {
           flex-wrap: wrap;
           gap: 1rem;
           margin-block-end: 3rem;
+          color: var(--demo-text-color);
           & p { margin: 0 }
           & h1 {
             flex: 1 0 100%;
             margin: 0;
-            color: var(--demo-text-color);
           }
         }
       </component>
@@ -141,9 +142,14 @@ export const Overview: Story = {
 
       <section :data-theme="theme">
         <h1>Quaternary</h1>
-        <fitx-button :theme="theme" modifier="quaternary">Quaternary</fitx-button>
-        <fitx-button :theme="theme" modifier="quaternary" fake-modifier="hover">Quaternary (hover|focus|active)</fitx-button>
-        <fitx-button :theme="theme" :modifier="['quaternary', 'disabled']">Quaternary disabled</fitx-button>
+        <p>Für die Verwendung auf Bildern</p>
+        <div
+          class="demo"
+          style="padding: 2rem; background: url(https://images.ctfassets.net/5nz27qohji6m/3SltSCoCc705Ft514zJzyw/a95f62dc0663acda5d24dabb3c76de7e/fitnessstudios_in_berlin.webp) 50% no-repeat; background-size: cover;">
+          <fitx-button :theme="theme" modifier="quaternary">Quaternary</fitx-button>
+          <fitx-button :theme="theme" modifier="quaternary" fake-modifier="hover">Quaternary (hover|focus|active)</fitx-button>
+          <fitx-button :theme="theme" :modifier="['quaternary', 'disabled']">Quaternary disabled</fitx-button>
+        </div>
       </section>
 
       <section :data-theme="theme">
@@ -151,7 +157,7 @@ export const Overview: Story = {
         <p>Für die Verwendung auf Bildern</p>
         <div
           class="demo"
-          style="padding: 2rem; background: url(https://images.ctfassets.net/5nz27qohji6m/3SltSCoCc705Ft514zJzyw/a95f62dc0663acda5d24dabb3c76de7e/fitnessstudios_in_berlin.webp) 50% no-repeat">
+          style="padding: 2rem; background: url(https://images.ctfassets.net/5nz27qohji6m/3SltSCoCc705Ft514zJzyw/a95f62dc0663acda5d24dabb3c76de7e/fitnessstudios_in_berlin.webp) 50% no-repeat; background-size: cover;">
           <fitx-button :theme="theme" modifier="quaternary" size="small">Quaternary small</fitx-button>
           <fitx-button :theme="theme" modifier="quaternary" fake-modifier="hover" size="small">Quaternary small (hover|focus|active)</fitx-button>
           <fitx-button :theme="theme" :modifier="['quaternary', 'disabled']" size="small">Quaternary small disabled</fitx-button>

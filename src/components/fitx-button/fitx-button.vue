@@ -23,8 +23,16 @@ const props = withDefaults(defineProps<{
   theme?: Theme,
   tag?: 'button' | 'span',
   size?: ButtonSize,
+  /**
+   * Active State
+   */
   isActive?: boolean,
   modifier?: ButtonState | ButtonState[],
+  /**
+   * ## Dev Mode Only
+   * Just for presentation in Storybook
+   * don't use this in Production
+   */
   fakeModifier?: 'none' | 'hover' | 'focus' | 'active', // Dev Mode only @TODO remove from export on build
 }>(), {
   tag: 'button',
@@ -70,9 +78,6 @@ const componentClasses = computed(() => (
         <span />
       </slot>
       <slot name="default">
-        <span>
-          {{ props.modifier }}
-        </span>
       </slot>
       <slot name="icon-end">
         <span
