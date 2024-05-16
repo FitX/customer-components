@@ -15,6 +15,7 @@
   },
   "type": "module",
   "scripts": {
+    "build": "npm run test:unit -- run --coverage  && npm run build:storybook",
     "build:lib": "rm -rf ./dist && vue-tsc --project tsconfig.build-types.json && vite build",
     "build:storybook": "storybook build && npm run temp-fix-copy-storybook",
     "test:unit": "vitest",
