@@ -14,6 +14,7 @@ const config: StorybookConfig = {
     name: '@storybook/vue3-vite',
     options: {
       docgen: 'vue-component-meta',
+      tsconfig: 'tsconfig.app.json',
     }
   },
   docs: {}

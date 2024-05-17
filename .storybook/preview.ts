@@ -33,7 +33,6 @@ const preview: Preview = {
       control: 'select',
       table: {
         type: { summary: themeOptions.map((theme) => `"${theme}"`).toString().replace(',',' | ') },
-        defaultValue: themeOptions[0],
       },
     },
   },
@@ -64,7 +63,7 @@ const preview: Preview = {
       }
 
       // set theme by story args
-      addons.getChannel().on(UPDATE_STORY_ARGS, (val) => {å
+      addons.getChannel().on(UPDATE_STORY_ARGS, (val) => {
         toggleDocumentStyles(val.updatedArgs.theme);
       });
 

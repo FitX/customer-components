@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
 import { buttonStates, default as FitxButton } from './fitx-button.vue';
 import { IconClose } from '@/components/icons/index';
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -11,7 +11,7 @@ const meta = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
-    modifier: { control: 'multi-select', options: buttonStates },
+    modifier: { control: 'multi-select', options: [...buttonStates] },
     // size: { control: 'select', options: ['small', 'default'] },
   },
   args: {
@@ -73,9 +73,8 @@ export const Overview: Story = {
       FitxButton,
     },
     setup() {
-      const theme = computed(() => args.theme);
       return {
-        theme,
+        theme: args.theme,
       };
     },
     template: `
