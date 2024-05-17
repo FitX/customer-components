@@ -16,9 +16,6 @@ const config: StorybookConfig = {
       docgen: 'vue-component-meta',
     }
   },
-  docs: {
-    // autodocs: false
-    autodocs: 'tag'
-  }
+  docs: {}
 }
 export default config

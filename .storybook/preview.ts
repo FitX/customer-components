@@ -8,7 +8,9 @@ const themeOptions: Theme[] = ['light', 'dark'] as const;
 
 let lastComponentId: string = null;
 const toggleDocumentStyles = (name: typeof themeOptions[number]) => {
-  document.documentElement.setAttribute('data-theme', name);
+  if (name) {
+    document.documentElement.setAttribute('data-theme', name);
+  }
 };
 
 const preview: Preview = {
@@ -23,6 +25,7 @@ const preview: Preview = {
       },
     },
   },
+
   argTypes: {
     theme: {
       description: 'FitX Theme Options. At the moment we only use dark mode. Light mode corresponds to unset.',
@@ -34,14 +37,17 @@ const preview: Preview = {
       },
     },
   },
+
   args: {
     theme: themeOptions[0],
   },
+
   parameters: {
     backgrounds: {
       disable: true,
     },
   },
+
   decorators: [
     (story, context) => {
       const [_, updateArgs] = useArgs();
@@ -58,7 +64,7 @@ const preview: Preview = {
       }
 
       // set theme by story args
-      addons.getChannel().on(UPDATE_STORY_ARGS, (val) => {
+      addons.getChannel().on(UPDATE_STORY_ARGS, (val) => {å
         toggleDocumentStyles(val.updatedArgs.theme);
       });
 
@@ -85,6 +91,8 @@ const preview: Preview = {
       };
     },
   ],
+
+  tags: ['autodocs']
 };
 
 export default preview;

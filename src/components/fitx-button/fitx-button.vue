@@ -128,7 +128,7 @@ const componentClasses = computed(() => (
     --_button-color-text: var(--button-color-primary-text-dark, var(--brand-color-white-0));
     // disabled
     --_button-color-surface-disabled: var(--button-color-primary-surface-disabled-dark, var(--brand-color-anthracite-3));
-    --_button-color-border-disabled: var(--button-color-primary-border-disabled-dark, var(--button-color-primary-surface-disabled-dark));
+    --_button-color-border-disabled: var(--button-color-primary-border-disabled-dark, var(--_button-color-surface-disabled));
     --_button-color-text-disabled: var(--button-color-primary-text-disabled-dark, var(--brand-color-gray-cement));
   }
 
@@ -170,7 +170,7 @@ const componentClasses = computed(() => (
     &:is([data-theme=dark]) {
       // secondary Styles
       --_button-color-surface: var(--button-color-tertiary-surface-dark, var(--brand-color-anthracite-0));
-      --_button-color-border: var(--button-color-tertiary-border-dark, var(--button-color-tertiary-surface-dark));
+      --_button-color-border: var(--button-color-tertiary-border-dark, var(--_button-color-surface));
       --_button-color-surface-hover: var(--button-color-tertiary-surface-hover-dark, var(--brand-color-anthracite-3));
       --_button-color-text: var(--button-color-tertiary-text-dark, var(--brand-color-white-0));
       // disabled
