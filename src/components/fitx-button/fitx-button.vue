@@ -1,42 +1,39 @@
 <script lang="ts">
 import type { Theme } from '@/types';
 export type ButtonSize = 'default' | 'small';
-export const buttonStates = [
-  'primary',
-  'secondary',
-  'tertiary',
-  'quaternary',
-  'disabled',
-] as const;
-export type ButtonState = typeof buttonStates[number];
+export const buttonStates = ['primary', 'secondary', 'tertiary', 'quaternary', 'disabled'] as const;
+export type ButtonState = (typeof buttonStates)[number];
 </script>
 
 <script lang="ts" setup>
-import { computed, toValue, useSlots } from 'vue'
+import { computed, toValue, useSlots } from 'vue';
 import { getModifierClasses } from '@/utils/css-modifier';
 
 // type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
 
 // type FakeStates = 'hover' | 'focus' | 'active';
 // export type ButtonState = 'disabled' | 'primary' | 'secondary' | 'tertiary' | 'quaternary';
-const props = withDefaults(defineProps<{
-  theme?: Theme,
-  tag?: 'button' | 'span',
-  size?: ButtonSize,
-  /**
-   * Active State
-   */
-  isActive?: boolean,
-  modifier?: ButtonState | ButtonState[],
-  /**
-   * ## Dev Mode Only
-   * Just for presentation in Storybook
-   * don't use this in Production
-   */
-  fakeModifier?: 'none' | 'hover' | 'focus' | 'active', // Dev Mode only @TODO remove from export on build
-}>(), {
-  tag: 'button',
-});
+const props = withDefaults(
+  defineProps<{
+    theme?: Theme;
+    tag?: 'button' | 'span';
+    size?: ButtonSize;
+    /**
+     * Active State
+     */
+    isActive?: boolean;
+    modifier?: ButtonState | ButtonState[];
+    /**
+     * ## Dev Mode Only
+     * Just for presentation in Storybook
+     * don't use this in Production
+     */
+    fakeModifier?: 'none' | 'hover' | 'focus' | 'active'; // Dev Mode only @TODO remove from export on build
+  }>(),
+  {
+    tag: 'button'
+  }
+);
 
 const slots = useSlots();
 const hasIcons = computed(() => !!slots['icon-start'] || !!slots['icon-end']);
@@ -54,15 +51,13 @@ const hasIcons = computed(() => !!slots['icon-start'] || !!slots['icon-end']);
   return getModifierClasses('button', [...sizes, ...modifierList]);
 });
  */
-const componentClasses = computed(() => (
-  [
-    ...getModifierClasses('button', props.size ? `size-${props.size}` : []),
-    ...getModifierClasses('button', props.modifier ?? []),
-    ...getModifierClasses('button', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
-    ...getModifierClasses('button', props.isActive ? 'is-active' : []),
-    ...getModifierClasses('button', toValue(hasIcons) ? 'has-icon' : []),
-  ]
-));
+const componentClasses = computed(() => [
+  ...getModifierClasses('button', props.size ? `size-${props.size}` : []),
+  ...getModifierClasses('button', props.modifier ?? []),
+  ...getModifierClasses('button', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
+  ...getModifierClasses('button', props.isActive ? 'is-active' : []),
+  ...getModifierClasses('button', toValue(hasIcons) ? 'has-icon' : [])
+]);
 </script>
 <template>
   <component
@@ -71,14 +66,13 @@ const componentClasses = computed(() => (
     class="button"
     :class="componentClasses">
     <span class="button__inner">
-       <!--
+      <!--
       @slot optional Icon Slot
       -->
       <slot name="icon-start">
         <span />
       </slot>
-      <slot name="default">
-      </slot>
+      <slot name="default"> </slot>
       <slot name="icon-end">
         <span
           v-show="props.isActive"
@@ -106,12 +100,24 @@ const componentClasses = computed(() => (
   // primary Styles
   --_button-color-surface: var(--button-color-primary-surface-light, var(--brand-color-orange-0));
   --_button-color-border: var(--button-color-primary-border-light, var(--brand-color-orange-0));
-  --_button-color-surface-hover: var(--button-color-primary-surface-hover-light, var(--brand-color-orange-1));
+  --_button-color-surface-hover: var(
+    --button-color-primary-surface-hover-light,
+    var(--brand-color-orange-1)
+  );
   --_button-color-text: var(--button-color-primary-text-light, var(--brand-color-white-0));
   // disabled
-  --_button-color-surface-disabled: var(--button-color-primary-surface-disabled-light, var(--brand-color-gray-chalk));
-  --_button-color-border-disabled: var(--button-color-primary-border-disabled-light, var(--brand-color-gray-chalk));
-  --_button-color-text-disabled: var(--button-color-primary-text-disabled-light, var(--brand-color-gray-cement));
+  --_button-color-surface-disabled: var(
+    --button-color-primary-surface-disabled-light,
+    var(--brand-color-gray-chalk)
+  );
+  --_button-color-border-disabled: var(
+    --button-color-primary-border-disabled-light,
+    var(--brand-color-gray-chalk)
+  );
+  --_button-color-text-disabled: var(
+    --button-color-primary-text-disabled-light,
+    var(--brand-color-gray-cement)
+  );
 
   &--size-small {
     --_button-spacing-inline: var(--button-spacing-inline, var(--size-px-4));
@@ -120,39 +126,84 @@ const componentClasses = computed(() => (
     --_button-font-size: var(--_button-font-size-small);
   }
 
-  &:is([data-theme=dark]) {
+  &:is([data-theme='dark']) {
     // primary Styles
     --_button-color-surface: var(--button-color-primary-surface-dark, var(--brand-color-orange-0));
     --_button-color-border: var(--button-color-primary-border-dark, var(--brand-color-orange-0));
-    --_button-color-surface-hover: var(--button-color-primary-surface-hover-dark, var(--brand-color-orange-1));
+    --_button-color-surface-hover: var(
+      --button-color-primary-surface-hover-dark,
+      var(--brand-color-orange-1)
+    );
     --_button-color-text: var(--button-color-primary-text-dark, var(--brand-color-white-0));
     // disabled
-    --_button-color-surface-disabled: var(--button-color-primary-surface-disabled-dark, var(--brand-color-anthracite-3));
-    --_button-color-border-disabled: var(--button-color-primary-border-disabled-dark, var(--_button-color-surface-disabled));
-    --_button-color-text-disabled: var(--button-color-primary-text-disabled-dark, var(--brand-color-gray-cement));
+    --_button-color-surface-disabled: var(
+      --button-color-primary-surface-disabled-dark,
+      var(--brand-color-anthracite-3)
+    );
+    --_button-color-border-disabled: var(
+      --button-color-primary-border-disabled-dark,
+      var(--_button-color-surface-disabled)
+    );
+    --_button-color-text-disabled: var(
+      --button-color-primary-text-disabled-dark,
+      var(--brand-color-gray-cement)
+    );
   }
 
   &--secondary {
     // secondary Styles
-    --_button-color-surface: var(--button-color-secondary-surface-light, var(--brand-color-white-0));
-    --_button-color-border: var(--button-color-secondary-border-light, var(--brand-color-anthracite-0));
-    --_button-color-surface-hover: var(--button-color-secondary-surface-hover-light, var(--brand-color-white-1));
+    --_button-color-surface: var(
+      --button-color-secondary-surface-light,
+      var(--brand-color-white-0)
+    );
+    --_button-color-border: var(
+      --button-color-secondary-border-light,
+      var(--brand-color-anthracite-0)
+    );
+    --_button-color-surface-hover: var(
+      --button-color-secondary-surface-hover-light,
+      var(--brand-color-white-1)
+    );
     --_button-color-text: var(--button-color-secondary-text-light, var(--brand-color-anthracite-0));
     // disabled
-    --_button-color-surface-disabled: var(--button-color-secondary-surface-disabled-light, var(--brand-color-white-0));
-    --_button-color-border-disabled: var(--button-color-secondary-border-disabled-light, var(--brand-color-gray-ash));
-    --_button-color-text-disabled: var(--button-color-secondary-text-disabled-light, var(--brand-color-gray-cement));
+    --_button-color-surface-disabled: var(
+      --button-color-secondary-surface-disabled-light,
+      var(--brand-color-white-0)
+    );
+    --_button-color-border-disabled: var(
+      --button-color-secondary-border-disabled-light,
+      var(--brand-color-gray-ash)
+    );
+    --_button-color-text-disabled: var(
+      --button-color-secondary-text-disabled-light,
+      var(--brand-color-gray-cement)
+    );
 
-    &:is([data-theme=dark]) {
+    &:is([data-theme='dark']) {
       // secondary Styles
-      --_button-color-surface: var(--button-color-secondary-surface-dark, var(--brand-color-anthracite-0));
+      --_button-color-surface: var(
+        --button-color-secondary-surface-dark,
+        var(--brand-color-anthracite-0)
+      );
       --_button-color-border: var(--button-color-secondary-border-dark, var(--brand-color-white-0));
-      --_button-color-surface-hover: var(--button-color-secondary-surface-hover-dark, var(--brand-color-anthracite-3));
+      --_button-color-surface-hover: var(
+        --button-color-secondary-surface-hover-dark,
+        var(--brand-color-anthracite-3)
+      );
       --_button-color-text: var(--button-color-secondary-text-dark, var(--brand-color-white-0));
       // disabled
-      --_button-color-surface-disabled: var(--button-color-secondary-surface-disabled-dark, var(--button-color-secondary-surface-dark));
-      --_button-color-border-disabled: var(--button-color-secondary-border-disabled-dark, var(--brand-color-anthracite-3));
-      --_button-color-text-disabled: var(--button-color-secondary-text-disabled-dark, var(--brand-color-gray-cement));
+      --_button-color-surface-disabled: var(
+        --button-color-secondary-surface-disabled-dark,
+        var(--button-color-secondary-surface-dark)
+      );
+      --_button-color-border-disabled: var(
+        --button-color-secondary-border-disabled-dark,
+        var(--brand-color-anthracite-3)
+      );
+      --_button-color-text-disabled: var(
+        --button-color-secondary-text-disabled-dark,
+        var(--brand-color-gray-cement)
+      );
     }
   }
 
@@ -160,36 +211,84 @@ const componentClasses = computed(() => (
     // tertiary Styles
     --_button-color-surface: var(--button-color-tertiary-surface-light, var(--brand-color-white-0));
     --_button-color-border: var(--button-color-tertiary-border-light, var(--brand-color-white-0));
-    --_button-color-surface-hover: var(--button-color-tertiary-surface-hover-light, var(--brand-color-white-1));
+    --_button-color-surface-hover: var(
+      --button-color-tertiary-surface-hover-light,
+      var(--brand-color-white-1)
+    );
     --_button-color-text: var(--button-color-tertiary-text-light, var(--brand-color-anthracite-0));
     // disabled
-    --_button-color-surface-disabled: var(--button-color-tertiary-surface-disabled-light, var(--brand-color-white-0));
-    --_button-color-border-disabled: var(--button-color-tertiary-border-disabled-light, var(--_button-color-surface-disabled));
-    --_button-color-text-disabled: var(--button-color-tertiary-text-disabled-light, var(--brand-color-gray-cement));
+    --_button-color-surface-disabled: var(
+      --button-color-tertiary-surface-disabled-light,
+      var(--brand-color-white-0)
+    );
+    --_button-color-border-disabled: var(
+      --button-color-tertiary-border-disabled-light,
+      var(--_button-color-surface-disabled)
+    );
+    --_button-color-text-disabled: var(
+      --button-color-tertiary-text-disabled-light,
+      var(--brand-color-gray-cement)
+    );
 
-    &:is([data-theme=dark]) {
+    &:is([data-theme='dark']) {
       // secondary Styles
-      --_button-color-surface: var(--button-color-tertiary-surface-dark, var(--brand-color-anthracite-0));
-      --_button-color-border: var(--button-color-tertiary-border-dark, var(--_button-color-surface));
-      --_button-color-surface-hover: var(--button-color-tertiary-surface-hover-dark, var(--brand-color-anthracite-3));
+      --_button-color-surface: var(
+        --button-color-tertiary-surface-dark,
+        var(--brand-color-anthracite-0)
+      );
+      --_button-color-border: var(
+        --button-color-tertiary-border-dark,
+        var(--_button-color-surface)
+      );
+      --_button-color-surface-hover: var(
+        --button-color-tertiary-surface-hover-dark,
+        var(--brand-color-anthracite-3)
+      );
       --_button-color-text: var(--button-color-tertiary-text-dark, var(--brand-color-white-0));
       // disabled
-      --_button-color-surface-disabled: var(--button-color-tertiary-surface-disabled-dark, var(--button-color-tertiary-surface-dark));
-      --_button-color-border-disabled: var(--button-color-tertiary-border-disabled-dark, var(--_button-color-surface-disabled));
-      --_button-color-text-disabled: var(--button-color-tertiary-text-disabled-dark, var(--brand-color-gray-cement));
+      --_button-color-surface-disabled: var(
+        --button-color-tertiary-surface-disabled-dark,
+        var(--button-color-tertiary-surface-dark)
+      );
+      --_button-color-border-disabled: var(
+        --button-color-tertiary-border-disabled-dark,
+        var(--_button-color-surface-disabled)
+      );
+      --_button-color-text-disabled: var(
+        --button-color-tertiary-text-disabled-dark,
+        var(--brand-color-gray-cement)
+      );
     }
   }
 
   &--quaternary {
     // quaternary Styles
-    --_button-color-surface: var(--button-color-quaternary-surface-light, var(--brand-color-white-0));
+    --_button-color-surface: var(
+      --button-color-quaternary-surface-light,
+      var(--brand-color-white-0)
+    );
     --_button-color-border: var(--button-color-quaternary-border-light, var(--brand-color-white-0));
-    --_button-color-surface-hover: var(--button-color-quaternary-surface-hover-light, var(--brand-color-white-1));
-    --_button-color-text: var(--button-color-quaternary-text-light, var(--brand-color-anthracite-0));
+    --_button-color-surface-hover: var(
+      --button-color-quaternary-surface-hover-light,
+      var(--brand-color-white-1)
+    );
+    --_button-color-text: var(
+      --button-color-quaternary-text-light,
+      var(--brand-color-anthracite-0)
+    );
     // disabled
-    --_button-color-surface-disabled: var(--button-color-quaternary-surface-disabled-light, var(--brand-color-white-1));
-    --_button-color-border-disabled: var(--button-color-quaternary-border-disabled-light, var(--_button-color-surface-disabled));
-    --_button-color-text-disabled: var(--button-color-quaternary-text-disabled-light, var(--brand-color-gray-cement));
+    --_button-color-surface-disabled: var(
+      --button-color-quaternary-surface-disabled-light,
+      var(--brand-color-white-1)
+    );
+    --_button-color-border-disabled: var(
+      --button-color-quaternary-border-disabled-light,
+      var(--_button-color-surface-disabled)
+    );
+    --_button-color-text-disabled: var(
+      --button-color-quaternary-text-disabled-light,
+      var(--brand-color-gray-cement)
+    );
   }
 
   // display: inline-block;

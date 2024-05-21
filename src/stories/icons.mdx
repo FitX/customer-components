@@ -3,20 +3,21 @@ import IconClose from '@/assets/icons/close.svg?raw';
 import IconClear from '@/assets/icons/clear.svg?raw';
 import IconBack from '@/assets/icons/back.svg?raw';
 
-export const Icons = [
-  IconClose,
-  IconClear,
-  IconBack,
-];
+export const Icons = [IconClose, IconClear, IconBack];
 
-export const getIcon = (raw) => <div dangerouslySetInnerHTML={{__html: raw}}></div>;
+export const getIcon = (raw) => <div dangerouslySetInnerHTML={{ __html: raw }}></div>;
 
-export const RenderIcons = () => <>
-  {Icons.map((item) => (
-<IconItem name="demo" key={item}>
-  {getIcon(item)}
-</IconItem>))}
-</>;
+export const RenderIcons = () => (
+  <>
+    {Icons.map((item) => (
+      <IconItem
+        name="demo"
+        key={item}>
+        {getIcon(item)}
+      </IconItem>
+    ))}
+  </>
+);
 
 <Meta title="Icons" />
 

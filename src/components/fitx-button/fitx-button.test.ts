@@ -5,11 +5,11 @@ import { FitxButton } from './index';
 
 describe('FitxButton', () => {
   it('renders properly', () => {
-    const wrapper = mount(FitxButton, { slots: { default: 'Hello FitX' } })
-    expect(wrapper.text()).toContain('Hello FitX')
+    const wrapper = mount(FitxButton, { slots: { default: 'Hello FitX' } });
+    expect(wrapper.text()).toContain('Hello FitX');
   });
   it('modifier works', async () => {
-    const wrapper = mount(FitxButton, { props: { modifier: 'primary' } })
+    const wrapper = mount(FitxButton, { props: { modifier: 'primary' } });
     expect(wrapper.html()).toContain('button--primary');
     expect(wrapper.html()).not.toContain('button--secondary');
     wrapper.setProps({ modifier: ['secondary', 'disabled'] });
@@ -20,7 +20,7 @@ describe('FitxButton', () => {
   });
 
   it('sizes works', async () => {
-    const wrapper = mount(FitxButton, { props: { size: 'small' } })
+    const wrapper = mount(FitxButton, { props: { size: 'small' } });
     expect(wrapper.html()).toContain('button--size-small');
     wrapper.setProps({ size: undefined });
     await wrapper.vm.$nextTick();
@@ -28,7 +28,7 @@ describe('FitxButton', () => {
   });
 
   it('fake modifier works', async () => {
-    const wrapper = mount(FitxButton, { props: { fakeModifier: 'hover' } })
+    const wrapper = mount(FitxButton, { props: { fakeModifier: 'hover' } });
     expect(wrapper.html()).toContain('button--fake-hover');
     wrapper.setProps({ fakeModifier: undefined });
     await wrapper.vm.$nextTick();
@@ -36,13 +36,13 @@ describe('FitxButton', () => {
   });
 
   it('fake modifier works', async () => {
-    const wrapper = mount(FitxButton, { props: { isActive: true } })
+    const wrapper = mount(FitxButton, { props: { isActive: true } });
     expect(wrapper.html()).toContain('button--is-active');
   });
 
   it('icons detected', async () => {
-    const wrapper = mount(FitxButton, { slots: { 'icon-start': 'jo' } })
+    const wrapper = mount(FitxButton, { slots: { 'icon-start': 'jo' } });
     expect(wrapper.html()).toContain('button--has-icon');
     expect(wrapper.html()).toContain('jo');
   });
-})
+});

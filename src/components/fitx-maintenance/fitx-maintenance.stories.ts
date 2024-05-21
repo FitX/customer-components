@@ -8,7 +8,7 @@ const fakeGetMaintenanceStatus = (sync: boolean): boolean | Promise<boolean> => 
     return Math.random() < 0.5;
   } else {
     // Asynchroner Fall
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve(Math.random() < 0.5);
       }, 1000);
@@ -18,7 +18,7 @@ const fakeGetMaintenanceStatus = (sync: boolean): boolean | Promise<boolean> => 
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
-  title: 'components/Maintenance',
+  title: 'wip ⚠/components/Maintenance',
   component: FitxMaintenance,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
@@ -42,32 +42,31 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Component for Maintenance Mode in FitX Applications. We also have a composable for this. (@/composables/use-maintenance)',
-      },
-    },
-  },
+        story:
+          `# ⚠ Work in Progress
+          Component for Maintenance Mode in FitX Applications. We also have a composable for this. (@/composables/use-maintenance)
+          `
+      }
+    }
+  }
 };
 
 export const Usage: Story = {
   args: {
     theme: 'dark',
-    title: (_) => (`Beispielimplementierung`),
+    title: () => `Beispielimplementierung`,
     // copy: (_) => (`Copy Text`),
     copy: `Copy Text`,
-    'after-copy': () => (`Hier könnte noch ein Button hin`),
+    'after-copy': () => `Hier könnte noch ein Button hin`
     // msg: 'Test'
   },
   decorators: [
     (story, context) => {
       return {
-        setup(props, ctx) {
-          const {
-            startMaintenanceObserver,
-            reCheck,
-            isInMaintenanceMode,
-          } = useMaintenance({
+        setup() {
+          const { startMaintenanceObserver, reCheck, isInMaintenanceMode } = useMaintenance({
             interval: 5000,
-            getMaintenanceStatus: () => fakeGetMaintenanceStatus(true),
+            getMaintenanceStatus: () => fakeGetMaintenanceStatus(true)
           });
 
           startMaintenanceObserver();
@@ -76,37 +75,33 @@ export const Usage: Story = {
             story,
             reCheck,
             isInMaintenanceMode,
-            context,
-          }
+            context
+          };
         },
         template: `<div :style="{ color: context.args.theme === 'dark' ? '#fff' : '#000'}">
           <pre>isInMaintenanceMode {{ isInMaintenanceMode }}</pre>
           <button @click="reCheck()">Start Fake Call is in Maintenance</button>
             <story />
-        </div>`,
+        </div>`
       };
-    },
-  ],
+    }
+  ]
 };
 
 export const Usage2: Story = {
   parameters: {
     disable: true,
     controls: {
-      disable: true,
+      disable: true
       // exclude: /^hello*/ },
-    },
+    }
   },
   render: (args) => ({
     components: { FitxMaintenance },
-    setup(props, ctx) {
-      const {
-        startMaintenanceObserver,
-        reCheck,
-        isInMaintenanceMode,
-      } = useMaintenance({
+    setup() {
+      const { startMaintenanceObserver, reCheck, isInMaintenanceMode } = useMaintenance({
         interval: 5000,
-        getMaintenanceStatus: () => fakeGetMaintenanceStatus(true),
+        getMaintenanceStatus: () => fakeGetMaintenanceStatus(true)
       });
 
       startMaintenanceObserver();
@@ -114,8 +109,8 @@ export const Usage2: Story = {
       return {
         reCheck,
         isInMaintenanceMode,
-        args,
-      }
+        args
+      };
     },
     template: `<main style="background: var(--brand-color-anthracite-0);">
       <fitx-maintenance theme="dark">

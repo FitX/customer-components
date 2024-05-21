@@ -1,4 +1,4 @@
-const getModifierClass = (defaultClass: string, modifier: string) => (`${defaultClass}--${modifier}`);
+const getModifierClass = (defaultClass: string, modifier: string) => `${defaultClass}--${modifier}`;
 export const getModifierClasses = (defaultClass: string, modifiers: string | string[]) => {
   if (!modifiers) {
     return [];
@@ -6,5 +6,5 @@ export const getModifierClasses = (defaultClass: string, modifiers: string | str
   if (typeof modifiers === 'string') {
     return [getModifierClass(defaultClass, modifiers)];
   }
-  return modifiers.map((mod) => (getModifierClass(defaultClass, mod)));
+  return modifiers.map((mod) => getModifierClass(defaultClass, mod));
 };

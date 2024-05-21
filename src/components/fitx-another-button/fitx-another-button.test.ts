@@ -11,9 +11,10 @@ describe('FitxButton', () => {
         book: {
           title: 'Hallo Title',
           year: 2024,
-          author: 'Micha',
+          author: 'Micha'
         }
-      } })
-    expect(wrapper.text()).not.toContain('Hello FitX')
-  })
-})
+      }
+    });
+    expect(wrapper.text()).not.toContain('Hello FitX');
+  });
+});
