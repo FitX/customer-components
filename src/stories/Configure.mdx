@@ -1,16 +1,15 @@
-import { Meta } from "@storybook/blocks";
+import { Meta, Markdown } from '@storybook/blocks';
 
-import Github from "./assets/github.svg?svg";
-import Styling from "./assets/styling.png";
-import Context from "./assets/context.png";
-import Assets from "./assets/assets.png";
-import FigmaPlugin from "./assets/figma-plugin.png";
-import Testing from "./assets/testing.png";
-import Accessibility from "./assets/accessibility.png";
-import Theming from "./assets/theming.png";
-import AddonLibrary from "./assets/addon-library.png";
+import Github from './assets/github.svg?svg';
+import FigmaPlugin from './assets/figma-plugin.png';
+import Testing from './assets/testing.png';
+import Accessibility from './assets/accessibility.png';
+import Theming from './assets/theming.png';
+import AddonLibrary from './assets/addon-library.png';
+import ReadMe from '../../README.md?raw';
 
-export const RightArrow = () => <svg
+export const RightArrow = () => (
+  <svg
     viewBox="0 0 14 14"
     width="8px"
     height="14px"
@@ -21,25 +20,37 @@ export const RightArrow = () => <svg
       verticalAlign: 'middle',
       fill: 'currentColor',
       'path fill': 'currentColor'
-    }}
->
-  <path d="m11.1 7.35-5.5 5.5a.5.5 0 0 1-.7-.7L10.04 7 4.9 1.85a.5.5 0 1 1 .7-.7l5.5 5.5c.2.2.2.5 0 .7Z" />
-</svg>
+    }}>
+    <path d="m11.1 7.35-5.5 5.5a.5.5 0 0 1-.7-.7L10.04 7 4.9 1.85a.5.5 0 1 1 .7-.7l5.5 5.5c.2.2.2.5 0 .7Z" />
+  </svg>
+);
+
 
 <Meta title="Welcome" />
+
+
+<Markdown children={ReadMe} options={{
+  renderRule(next, node, renderChildren, state) {
+    console.log('node', node, renderChildren, state)
+    return next()
+  },
+}}/>
+
 
 <div className="sb-container">
   <div className='sb-section-title'>
     # Welcome
 
     @TODO some nice greetings
+
   </div>
 </div>
 <div className="sb-container">
   <div className='sb-section-title'>
     # Overview
 
-    @TODO some nice text
+    @TODO
+
   </div>
 
   <div className="sb-section">
@@ -102,6 +113,7 @@ export const RightArrow = () => <svg
         href="https://github.com/FitX/customer-components"
       >Star on GitHub<RightArrow /></a>
     </div>
+
 </div>
 
 <style>
