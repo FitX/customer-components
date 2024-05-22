@@ -1,24 +1,22 @@
 # customer-components
 
-FitX Vue 3 Components and Widget Library. [Overview](https://customer-components.netlify.app)
+FitX Vue 3 Component and Widget Library. [Overview](https://customer-components.netlify.app)
 
 ![npm (scoped)](https://img.shields.io/npm/v/@fitx/customer-components?style=flat-square)
 ![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@fitx/customer-components)
-![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@fitx/customer-components)
-![Release CI](https://github.com/FitX/customer-components/actions/workflows/workflow.yml/badge.svg)
 
 ## Use Package 🐨
 ### Requirements
-- [![Node Version](https://img.shields.io/badge/Node-lts%20_v.20_-blue)](.nvmrc)
-- [![Vue ^3.2.11](https://img.shields.io/badge/Vue-^3.4-blue)](.package.json)
+- [<img src="https://img.shields.io/badge/Node-lts%20_v.20_-blue" alt="">](.nvmrc)
+- [<img src="https://img.shields.io/badge/Vue-^3.4-blue" alt="">](package.json)
 
-### Install Fitx Customer Components
+### Install
 
 ```shell
 $ npm install @fitx/customer-components --save
 ```
 
-### Using Components
+### Use
 
 ```vue
 <script lang="ts" setup>

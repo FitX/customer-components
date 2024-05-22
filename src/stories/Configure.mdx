@@ -1,4 +1,4 @@
-import { Meta, Markdown } from '@storybook/blocks';
+import { Meta } from '@storybook/blocks';
 
 import Github from './assets/github.svg?svg';
 import FigmaPlugin from './assets/figma-plugin.png';
@@ -6,7 +6,6 @@ import Testing from './assets/testing.png';
 import Accessibility from './assets/accessibility.png';
 import Theming from './assets/theming.png';
 import AddonLibrary from './assets/addon-library.png';
-import ReadMe from '../../README.md?raw';
 
 export const RightArrow = () => (
   <svg
@@ -27,15 +26,6 @@ export const RightArrow = () => (
 
 
 <Meta title="Welcome" />
-
-
-<Markdown children={ReadMe} options={{
-  renderRule(next, node, renderChildren, state) {
-    console.log('node', node, renderChildren, state)
-    return next()
-  },
-}}/>
-
 
 <div className="sb-container">
   <div className='sb-section-title'>
@@ -92,12 +82,11 @@ export const RightArrow = () => (
 </div>
 <div className='sb-addon'>
   <div className='sb-addon-text'>
-    <h4>Updates</h4>
-    <p className="sb-section-item-paragraph">Link Readme?</p>
+    <h4>Component Usage</h4>
+    <p className="sb-section-item-paragraph">Install and Use</p>
     <a
-        href="#"
-        target="_blank"
-      >Work in Progress<RightArrow /></a>
+        href="/?path=/docs/welcome-install-and-use--docs"
+      >Introductions<RightArrow /></a>
   </div>
   <div className='sb-addon-img'>
     <img src={AddonLibrary} alt="Integrate your tools with Storybook to connect workflows." />
