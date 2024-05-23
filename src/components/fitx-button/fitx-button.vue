@@ -16,7 +16,7 @@ import { getModifierClasses } from '@/utils/css-modifier';
 const props = withDefaults(
   defineProps<{
     theme?: Theme;
-    tag?: 'button' | 'span';
+    tag?: 'button' | 'span' | 'a';
     size?: ButtonSize;
     /**
      * Active State

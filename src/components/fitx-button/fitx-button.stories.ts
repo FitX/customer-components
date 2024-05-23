@@ -182,6 +182,7 @@ export const WithIcons: Story = {
       disable: true
     }
   },
+  // @ts-ignore-next-line
   render: (args) => ({
     components: {
       FitxButton,
