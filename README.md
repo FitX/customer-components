@@ -7,8 +7,8 @@ FitX Vue 3 Component and Widget Library. [Overview](https://customer-components.
 
 ## Use Package 🐨
 ### Requirements
-- [<img src="https://img.shields.io/badge/Node-lts%20_v.20_-blue" alt="">](.nvmrc)
-- [<img src="https://img.shields.io/badge/Vue-^3.4-blue" alt="">](package.json)
+[<img src="https://img.shields.io/badge/Node-lts%20_v.20_-blue" alt="">](.nvmrc)
+[<img src="https://img.shields.io/badge/Vue-^3.4-blue" alt="">](./package.json)
 
 ### Install
 
@@ -26,6 +26,7 @@ $ npm install @fitx/customer-components --save
   <fitx-button>Nice</fitx-button>
 </template>
 ```
+
 
 ### Import Styles
 Normally via main.ts
