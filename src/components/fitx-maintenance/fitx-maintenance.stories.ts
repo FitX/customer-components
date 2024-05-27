@@ -66,7 +66,7 @@ export const Usage: Story = {
         setup() {
           const { startMaintenanceObserver, reCheck, isInMaintenanceMode } = useMaintenance({
             interval: 5000,
-            getMaintenanceStatus: () => fakeGetMaintenanceStatus(true)
+            getMaintenanceStatus: fakeGetMaintenanceStatus(true)
           });
 
           startMaintenanceObserver();
@@ -101,7 +101,7 @@ export const Usage2: Story = {
     setup() {
       const { startMaintenanceObserver, reCheck, isInMaintenanceMode } = useMaintenance({
         interval: 5000,
-        getMaintenanceStatus: () => fakeGetMaintenanceStatus(true)
+        getMaintenanceStatus: fakeGetMaintenanceStatus(true)
       });
 
       startMaintenanceObserver();
