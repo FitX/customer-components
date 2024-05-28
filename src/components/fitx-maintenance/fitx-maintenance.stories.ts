@@ -19,7 +19,7 @@ const fakeGetMaintenanceStatus = (sync: boolean): boolean | Promise<boolean> => 
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
-  title: 'wip ⚠/components/Maintenance',
+  title: 'components/Maintenance',
   component: FitxMaintenance,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
@@ -30,6 +30,14 @@ const meta = {
       defaultValue: 'Badge'
     }
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          `blubber`
+      }
+    }
+  }
 } satisfies Meta<typeof FitxMaintenance>;
 
 export default meta;
@@ -44,9 +52,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          `# Just UI
-Component for Maintenance Mode in FitX Applications.
-Demo with automatic interval checking from the Composable (@/composables/use-maintenance).
+          `**Just a UI** Component for Maintenance Mode in FitX Applications. Demo with automatic interval checking from the Composable (@/composables/use-maintenance).
           `
       }
     }
