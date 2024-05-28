@@ -2,7 +2,10 @@ import type { StorybookConfig } from '@storybook/vue3-vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)', '../docs/**/*.mdx'],
-  staticDirs: [{ from: '../coverage', to: '/coverage'}],
+  staticDirs: [
+    { from: '../coverage', to: '/coverage'},
+    '../docs',
+  ],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',

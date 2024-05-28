@@ -45,6 +45,11 @@ const preview: Preview = {
     backgrounds: {
       disable: true,
     },
+    options: {
+      storySort: {
+        order: ['Welcome', ['Docs', 'Install and Use', 'Colors', 'Icons'], 'Components', 'Composables', '*', 'Tests'],
+      },
+    },
   },
 
   decorators: [
