@@ -83,7 +83,7 @@ const componentClasses = computed(() => [
 </template>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/normalize.scss' as normalize;
+@use '@/assets/styles/mixins.scss' as normalize;
 
 .button {
   @include normalize.btn();
