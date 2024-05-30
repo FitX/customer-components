@@ -32,14 +32,19 @@ export const Primary: Story = {
   args: {
     modifier: 'primary'
   },
-  parameters: {
-    options: { showPanel: false }
-  }
 };
 
 export const Secondary: Story = {
   args: {
-    modifier: 'secondary'
+    modifier: 'secondary',
+  },
+  parameters: {
+   /* controls: {
+      disable: true,
+    },
+    actions: {
+      disable: true,
+    },*/
   }
 };
 
