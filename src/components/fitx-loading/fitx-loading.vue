@@ -3,7 +3,7 @@ import type { Theme } from '@/types';
 
 export interface FitXLoadingProps {
   theme?: Theme;
-  isActive?: boolean; // default true
+  isActive?: boolean;
   /**
    * For Screenreader only
    */
@@ -59,7 +59,7 @@ const componentClasses = computed(() => [
 .loading {
   --_loading-animation-duration: var(--loading-animation-duration, 1s);
   --_loading-block-size: var(--loading-block-size, var(--size-px-3));
-  --_loading-border-size: var(--loading-radius, var(--radius-px-2));
+  --_loading-radius: var(--loading-radius, var(--radius-px-2));
   --_loading-surface-light: var(
     --loading-surface-light,
     radial-gradient(
@@ -86,16 +86,17 @@ const componentClasses = computed(() => [
   }
 
   block-size: var(--_loading-block-size);
-  border-radius: var(--_loading-border-size);
+  border-radius: var(--_loading-radius);
 
-  animation: loadingBarAnimation var(--_loading-animation-duration) ease-in infinite forwards;
-
-  background: var(--_loading-surface);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size:
-    var(--_loading-indicator-inline-size) 300%,
-    100% 100%;
+  &--is-loading {
+    animation: loadingBarAnimation var(--_loading-animation-duration) ease-in infinite forwards;
+    background: var(--_loading-surface);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:
+      var(--_loading-indicator-inline-size) 300%,
+      100% 100%;
+  }
 }
 
 @keyframes loadingBarAnimation {
