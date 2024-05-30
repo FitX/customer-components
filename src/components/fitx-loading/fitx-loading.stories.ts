@@ -21,9 +21,8 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          `fitx-loading are used when retrieving data or performing slow computations, and help to notify users that loading is processing`
-      }
-    }
-  }
+        story: `fitx-loading are used when retrieving data or performing slow computations, and help to notify users that loading is processing`,
+      },
+    },
+  },
 };

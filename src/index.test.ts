@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  FitxMaintenance,
-  FitxButton,
-  useMaintenance,
-} from './index';
+import { FitxMaintenance, FitxButton, useMaintenance } from './index';
 
 describe('components', () => {
   it('should be defined', () => {

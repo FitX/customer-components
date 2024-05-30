@@ -31,8 +31,8 @@ const props = withDefaults(
     fakeModifier?: 'none' | 'hover' | 'focus' | 'active'; // Dev Mode only @TODO remove from export on build
   }>(),
   {
-    tag: 'button'
-  }
+    tag: 'button',
+  },
 );
 
 const slots = useSlots();
@@ -56,7 +56,7 @@ const componentClasses = computed(() => [
   ...getModifierClasses('button', props.modifier ?? []),
   ...getModifierClasses('button', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
   ...getModifierClasses('button', props.isActive ? 'is-active' : []),
-  ...getModifierClasses('button', toValue(hasIcons) ? 'has-icon' : [])
+  ...getModifierClasses('button', toValue(hasIcons) ? 'has-icon' : []),
 ]);
 </script>
 <template>

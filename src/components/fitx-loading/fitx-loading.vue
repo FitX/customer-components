@@ -1,18 +1,18 @@
 <script lang="ts">
-import type { Theme } from '@/types'
+import type { Theme } from '@/types';
 
 export interface FitXLoadingProps {
   theme?: Theme;
-  isActive?: boolean, // default true
+  isActive?: boolean; // default true
   /**
    * For Screenreader only
    */
-  description?: string,
+  description?: string;
   /**
    * css animation direction
    * @link https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction
    */
-  animationDirection?: 'normal' | 'reverse' | 'alternate',
+  animationDirection?: 'normal' | 'reverse' | 'alternate';
 }
 </script>
 
@@ -46,9 +46,10 @@ const componentClasses = computed(() => [
     aria-live="assertive"
     role="progressbar"
     :aria-busy="props.isActive"
-    :style="{ 'animation-direction': props.animationDirection }"
-  >
-    <label :id="componentId" class="visually-hidden">
+    :style="{ 'animation-direction': props.animationDirection }">
+    <label
+      :id="componentId"
+      class="visually-hidden">
       {{ description }}
     </label>
   </div>
@@ -59,14 +60,22 @@ const componentClasses = computed(() => [
   --_loading-animation-duration: var(--loading-animation-duration, 1s);
   --_loading-block-size: var(--loading-block-size, var(--size-px-3));
   --_loading-border-size: var(--loading-radius, var(--radius-px-2));
-  --_loading-surface-light: var(--loading-surface-light,
+  --_loading-surface-light: var(
+    --loading-surface-light,
     radial-gradient(
-        var(--brand-color-orange-0) 5%, var(--brand-color-orange-2) 30%, transparent 40%),
+      var(--brand-color-orange-0) 5%,
+      var(--brand-color-orange-2) 30%,
+      transparent 40%
+    ),
     var(--brand-color-gray-ash)
   );
-  --_loading-surface-dark: var(--loading-surface-dark,
+  --_loading-surface-dark: var(
+    --loading-surface-dark,
     radial-gradient(
-        var(--brand-color-orange-1) 5%, var(--brand-color-orange-0) 30%, transparent 40%),
+      var(--brand-color-orange-1) 5%,
+      var(--brand-color-orange-0) 30%,
+      transparent 40%
+    ),
     var(--brand-color-anthracite-3)
   );
   --_loading-indicator-inline-size: var(--loading-indicator-inline-size, 37.5rem);
@@ -84,7 +93,9 @@ const componentClasses = computed(() => [
   background: var(--_loading-surface);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: var(--_loading-indicator-inline-size) 300%, 100% 100%;
+  background-size:
+    var(--_loading-indicator-inline-size) 300%,
+    100% 100%;
 }
 
 @keyframes loadingBarAnimation {
@@ -92,7 +103,7 @@ const componentClasses = computed(() => [
     background-position-x: calc(var(--_loading-indicator-inline-size) * -1);
   }
   100% {
-    background-position-x: calc(100% + var(--_loading-indicator-inline-size))
+    background-position-x: calc(100% + var(--_loading-indicator-inline-size));
   }
 }
 </style>

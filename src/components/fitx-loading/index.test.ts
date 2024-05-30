@@ -27,8 +27,8 @@ describe('FitXLoading', () => {
         theme: 'dark',
         isActive: false,
         description: 'Lädt...',
-        animationDirection: 'reverse'
-      }
+        animationDirection: 'reverse',
+      },
     });
 
     const loadingDiv = wrapper.find('[data-loading]');
@@ -60,8 +60,8 @@ describe('FitXLoading', () => {
   it('uses provided id for componentId', () => {
     const wrapper = mount(FitxLoading, {
       attrs: {
-        id: 'custom-id'
-      }
+        id: 'custom-id',
+      },
     });
 
     const loadingDiv = wrapper.find('[data-loading]');

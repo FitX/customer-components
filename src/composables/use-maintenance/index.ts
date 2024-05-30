@@ -3,7 +3,10 @@ import {
   type UnwrapNestedRefs,
   type MaybeRefOrGetter,
   type Ref,
-  readonly, ref, toValue } from 'vue';
+  readonly,
+  ref,
+  toValue,
+} from 'vue';
 import { useIntervalFn } from '@vueuse/core';
 
 export interface MaintenanceModeOptions {
@@ -42,11 +45,11 @@ export const useMaintenance = (options: MaintenanceModeOptions): MaintenanceMode
 
   const startMaintenanceObserver = (
     getMaintenanceStatus: MaintenanceModeOptions['getMaintenanceStatus'],
-    interval?: MaybeRefOrGetter<number>
+    interval?: MaybeRefOrGetter<number>,
   ) => {
     return useIntervalFn(() => reCheck(getMaintenanceStatus), interval || DEFAULT_INTERVAL, {
       immediate: true,
-      immediateCallback: true
+      immediateCallback: true,
     });
   };
 

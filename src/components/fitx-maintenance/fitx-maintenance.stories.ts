@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
 import FitxMaintenance from './fitx-maintenance.vue';
 import { useMaintenance } from '@/composables/use-maintenance';
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const fakeGetMaintenanceStatus = (sync: boolean): boolean | Promise<boolean> => {
   if (sync) {
@@ -27,17 +27,16 @@ const meta = {
     title: {
       control: 'text',
       description: 'Slot content',
-      defaultValue: 'Badge'
-    }
+      defaultValue: 'Badge',
+    },
   },
   parameters: {
     docs: {
       description: {
-        story:
-          `blubber`
-      }
-    }
-  }
+        story: `blubber`,
+      },
+    },
+  },
 } satisfies Meta<typeof FitxMaintenance>;
 
 export default meta;
@@ -51,12 +50,11 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          `**Just a UI** Component for Maintenance Mode in FitX Applications. Demo with automatic interval checking from the Composable (@/composables/use-maintenance).
-          `
-      }
-    }
-  }
+        story: `**Just a UI** Component for Maintenance Mode in FitX Applications. Demo with automatic interval checking from the Composable (@/composables/use-maintenance).
+          `,
+      },
+    },
+  },
 };
 
 export const Usage: Story = {
@@ -65,7 +63,7 @@ export const Usage: Story = {
     title: () => `Beispielimplementierung`,
     // copy: (_) => (`Copy Text`),
     copy: `Copy Text`,
-    'after-copy': () => `Hier könnte noch ein Button hin`
+    'after-copy': () => `Hier könnte noch ein Button hin`,
     // msg: 'Test'
   },
   decorators: [
@@ -74,7 +72,7 @@ export const Usage: Story = {
         setup() {
           const { startMaintenanceObserver, reCheck, isInMaintenanceMode } = useMaintenance({
             interval: 5000,
-            getMaintenanceStatus: async () => fakeGetMaintenanceStatus(true)
+            getMaintenanceStatus: async () => fakeGetMaintenanceStatus(true),
           });
 
           startMaintenanceObserver();
@@ -83,7 +81,7 @@ export const Usage: Story = {
             story,
             reCheck,
             isInMaintenanceMode,
-            context
+            context,
           };
         },
         template: `
@@ -94,32 +92,31 @@ export const Usage: Story = {
               <p><button @click="reCheck()">Re-Check</button></p>
             </div>
             <story />
-          </div>`
+          </div>`,
       };
-    }
-  ]
+    },
+  ],
 };
 
 export const JustManualCheck: Story = {
   parameters: {
     disable: true,
     controls: {
-      disable: true
+      disable: true,
       // exclude: /^hello*/ },
     },
     docs: {
       description: {
-        story:
-          `This demo includes a manual testing function. The interval check ('startMaintenanceObserver') has been deactivated.`
-      }
-    }
+        story: `This demo includes a manual testing function. The interval check ('startMaintenanceObserver') has been deactivated.`,
+      },
+    },
   },
   render: (args) => ({
     components: { FitxMaintenance },
     setup() {
       const { reCheck, isInMaintenanceMode } = useMaintenance({
         interval: 5000,
-        getMaintenanceStatus: async () => fakeGetMaintenanceStatus(false)
+        getMaintenanceStatus: async () => fakeGetMaintenanceStatus(false),
       });
 
       const isLoading = ref(false);
@@ -133,13 +130,13 @@ export const JustManualCheck: Story = {
         } finally {
           isLoading.value = false;
         }
-      }
+      };
 
       return {
         isLoading,
         customCheckWithLoading,
         isInMaintenanceMode,
-        args
+        args,
       };
     },
     template: `<main style="background: var(--brand-color-anthracite-0);">
@@ -152,6 +149,6 @@ export const JustManualCheck: Story = {
           <p>Status is maintenance?: {{ isInMaintenanceMode }}</p>
         </template>
       </fitx-maintenance>
-        </main>`
-  })
+        </main>`,
+  }),
 };

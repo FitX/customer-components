@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref } from 'vue';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { type MaintenanceModeOptions, useMaintenance } from './index';
 // import * as vueuse from '@vueuse/core';

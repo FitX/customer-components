@@ -11,14 +11,14 @@ const meta = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
-    modifier: { control: 'multi-select', options: [...buttonStates] }
+    modifier: { control: 'multi-select', options: [...buttonStates] },
     // size: { control: 'select', options: ['small', 'default'] },
   },
   args: {
-    default: 'FitX Button'
+    default: 'FitX Button',
     // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
     // onClick: fn(),
-  }
+  },
 } satisfies Meta<typeof FitxButton>;
 
 export default meta;
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Primary: Story = {
   args: {
-    modifier: 'primary'
+    modifier: 'primary',
   },
 };
 
@@ -39,25 +39,25 @@ export const Secondary: Story = {
     modifier: 'secondary',
   },
   parameters: {
-   /* controls: {
+    /* controls: {
       disable: true,
     },
     actions: {
       disable: true,
     },*/
-  }
+  },
 };
 
 export const Tertiary: Story = {
   args: {
-    modifier: 'tertiary'
-  }
+    modifier: 'tertiary',
+  },
 };
 
 export const Quaternary: Story = {
   args: {
-    modifier: 'quaternary'
-  }
+    modifier: 'quaternary',
+  },
 };
 
 export const Overview: Story = {
@@ -67,20 +67,20 @@ export const Overview: Story = {
   parameters: {
     docs: {
       // story: { inline: true }, // render the story in an iframe
-      canvas: { sourceState: 'shown' } // start with the source open
+      canvas: { sourceState: 'shown' }, // start with the source open
       // source: { type: 'code' }, // forces the raw source code (rather than the rendered JSX).
     },
     controls: {
-      disable: true
-    }
+      disable: true,
+    },
   },
   render: (args) => ({
     components: {
-      FitxButton
+      FitxButton,
     },
     setup() {
       return {
-        theme: args.theme
+        theme: args.theme,
       };
     },
     template: `
@@ -169,8 +169,8 @@ export const Overview: Story = {
         </div>
 
       </section>
-    `
-  })
+    `,
+  }),
 };
 
 export const WithIcons: Story = {
@@ -180,23 +180,23 @@ export const WithIcons: Story = {
   parameters: {
     docs: {
       // story: { inline: true }, // render the story in an iframe
-      canvas: { sourceState: 'shown' } // start with the source open
+      canvas: { sourceState: 'shown' }, // start with the source open
       // source: { type: 'code' }, // forces the raw source code (rather than the rendered JSX).
     },
     controls: {
-      disable: true
-    }
+      disable: true,
+    },
   },
   // @ts-ignore-next-line
   render: (args) => ({
     components: {
       FitxButton,
-      IconClose
+      IconClose,
     },
     setup() {
       const theme = computed(() => args.theme);
       return {
-        theme
+        theme,
       };
     },
     template: `
@@ -330,6 +330,6 @@ export const WithIcons: Story = {
           Icon End
         </fitx-button>
       </section>
-    `
-  })
+    `,
+  }),
 };
