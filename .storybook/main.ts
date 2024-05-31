@@ -12,6 +12,7 @@ const config: StorybookConfig = {
     // '@chromatic-com/storybook',
     // '@storybook/addon-interactions',
     '@storybook/addon-a11y',
+    'addon-screen-reader',
   ],
   framework: {
     name: '@storybook/vue3-vite',
