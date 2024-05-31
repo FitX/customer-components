@@ -1,7 +1,7 @@
 # useMaintenance
 
 A reactive interval function for checking and responding to the maintenance mode.
-The composable can be combined with the component [fitx-loading](?path=/docs/components-maintenance--docs).
+The composable can be combined with the component [fitx-maintenance](?path=/docs/components-maintenance--docs).
 
 ## Usage
 
@@ -16,7 +16,7 @@ const {
 } = useMaintenance({
   interval: 600000, // optional in ms, default 600000 (10 minutes)
   // boolean | Promise<boolean> | (() => boolean) | (() => Promise<boolean>)
-  getMaintenanceStatus: async () => mayBeGetStudioMaintenanceMode(toValue(studioId)),
+  getMaintenanceStatus: async () => mayBeGetStudioMaintenanceMode(),
 });
 
 startMaintenanceObserver();
@@ -35,7 +35,7 @@ startMaintenanceObserver();
 
 ### Example
 ```ts
-import { toValue, watch } from 'vue';
+import { watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useMaintenance } from '@fitx/customer-components';
 import { getStudioMaintenanceMode } from '@/api/maintenance';
