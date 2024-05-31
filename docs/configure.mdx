@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/blocks';
 
+import pkg from '../package.json'
 import Github from './assets/github.svg?svg';
 import FigmaPlugin from './assets/figma-plugin.png';
 import Testing from './assets/testing.png';
@@ -30,6 +31,8 @@ export const RightArrow = () => (
 <div className="sb-container">
   <div className='sb-section-title'>
     # Welcome
+
+    FitX Customer Components v.{pkg.version}
 
     @TODO some nice greetings
 
