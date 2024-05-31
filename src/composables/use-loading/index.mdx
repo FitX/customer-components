@@ -2,6 +2,7 @@
 
 This composable provides an easy way to manage loading and error states.
 It allows you to start and stop loading processes and to store errors that occur during loading.
+The composable can be combined with the component [fitx-loading](?path=/docs/components-loading--docs).
 
 ## Usage
 
@@ -30,20 +31,21 @@ const {
 ### Properties and Methods
 
 #### Options
-- asyncFn: The asynchronous function to be executed. Can either be a function returning a Promise or a synchronous function.
-- id: A unique ID to identify the loading state.
-- loadingText: Optional text displayed during the loading process. Default is 'Loading...'.
+- **asyncFn**: The asynchronous function to be executed. Can either be a function returning a Promise or a synchronous function.
+- **id**: A unique ID to identify the loading state.
+- **loadingText**: Optional text displayed during the loading process. Default is `'Loading...'`.
 
 #### Return Values
-- isLoading: `Ref<boolean>` - Indicates whether the current loading process is active.
-- hasError: `Ref<boolean>` - Indicates whether there was an error in the current loading process.
-- execute: `() => Promise<T | undefined>` - Executes the asynchronous function and manages the loading state.
-- activeLoadingStates: `ComputedRef<LoadingInfo[]>` - List of all active loading processes.
-- errorLoadingStates: `ComputedRef<LoadingInfo[]>` - List of all loading processes with errors.
+- **isLoading**: `Ref<boolean>` - Indicates whether the current loading process is active.
+- **hasError**: `Ref<boolean>` - Indicates whether there was an error in the current loading process.
+- **execute**: `() => Promise<T | undefined>` - Executes the asynchronous function and manages the loading state.
+- **activeLoadingStates**: `ComputedRef<LoadingInfo[]>` - List of all active loading processes.
+- **errorLoadingStates**: `ComputedRef<LoadingInfo[]>` - List of all loading processes with errors.
 
 ### Example
 
-```vue
+```html
+<!-- some-component.vue -->
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { type LoadingInfo, useLoading } from '@fitx/customer-components';
