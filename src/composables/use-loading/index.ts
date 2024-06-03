@@ -7,9 +7,12 @@ export type LoadingInfo = {
 };
 
 export type LoadingState = Map<string, LoadingInfo>;
+type MaybePromiseWithoutParams<T> = (() => Promise<T>) | (() => T);
+type MaybePromiseWithOptionalParams<T, P> = ((params?: P) => Promise<T>) | ((params?: P) => T);
+type MaybePromiseWithParams<T, P> = ((params: P) => Promise<T>) | ((params: P) => T);
 
-export type UseLoadingOptions<T> = {
-  asyncFn: (() => Promise<T>) | (() => T);
+export type UseLoadingOptions<T, P> = {
+  asyncFn: MaybePromiseWithoutParams<T> | MaybePromiseWithOptionalParams<T, P> | MaybePromiseWithParams<T, P>;
   id: string;
   loadingText?: string;
 }
@@ -17,7 +20,7 @@ export type UseLoadingOptions<T> = {
 export const loadingState = ref<LoadingState>(new Map());
 
 // const isLoading = ref<boolean>(false);
-export const useLoading = <T = unknown>(options: UseLoadingOptions<T>) => {
+export const useLoading = <T = unknown, P = unknown>(options: UseLoadingOptions<T, P>) => {
   const result = ref<T>();
   const {
     asyncFn,
@@ -52,11 +55,16 @@ export const useLoading = <T = unknown>(options: UseLoadingOptions<T>) => {
     }
   };
 
-  const execute = async () => {
+  const execute = async (params?: P) => {
     start();
     clearError();
     try {
-      result.value = await asyncFn();
+      if (params) {
+        result.value = await asyncFn(params);
+      } else {
+        result.value = await (asyncFn as MaybePromiseWithoutParams<T>)();
+      }
+
     } catch (err) {
       setError(err as Error);
     } finally {

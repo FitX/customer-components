@@ -90,5 +90,20 @@ describe('useLoading', () => {
     expect(activeLoadingStates.value.length).toBe(0);
     expect(errorLoadingStates.value.length).toBe(1);
   });
+
+  it('should manage optional params correctly', async () => {
+    type DemoParams = { a: string, b?: number};
+    const someFunc = async (params: DemoParams) : Promise<any> => ({ a: params?.a, b: params?.b || -1 });
+    const someFunc2 = async () : Promise<any> => ('lorem');
+
+
+    const { execute } = useLoading<any, DemoParams>({ asyncFn: someFunc, id: 'test1' });
+    const { execute: execute2 } = useLoading({ asyncFn: someFunc2, id: 'test2' });
+
+    const res1 = await execute({ a: 'f'});
+    const res2 = await execute2();
+    expect(res1).toEqual({ a:'f', b: -1 });
+    expect(res2).toBe('lorem');
+  });
 });
 
