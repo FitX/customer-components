@@ -4,10 +4,12 @@ import type { Theme } from '@/types';
 export interface FitXLoadingProps {
   theme?: Theme;
   isActive?: boolean;
-  /**
-   * For Screenreader only
-   */
   description?: string;
+  /**
+   * true = visible;
+   * false = for for Screenreader only;
+   */
+  showDescription?: boolean;
   /**
    * css animation direction
    * @link https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction
@@ -24,6 +26,7 @@ const props = withDefaults(defineProps<FitXLoadingProps>(), {
   isActive: true,
   description: 'wird geladen',
   animationDirection: 'normal',
+  showDescription: false,
 });
 
 const attrs = useAttrs();
@@ -49,7 +52,8 @@ const componentClasses = computed(() => [
     :style="{ 'animation-direction': props.animationDirection }">
     <label
       :id="componentId"
-      class="visually-hidden">
+      class="loading__label"
+      :class="{ 'visually-hidden' : props.showDescription }">
       {{ description }}
     </label>
   </div>
@@ -59,6 +63,7 @@ const componentClasses = computed(() => [
 .loading {
   --_loading-animation-duration: var(--loading-animation-duration, 1s);
   --_loading-block-size: var(--loading-block-size, var(--size-px-3));
+  --_loading-font-size: var(--loading-font-size, calc(var(--_loading-block-size) / 1.5));
   --_loading-radius: var(--loading-radius, var(--radius-px-2));
   --_loading-surface-light: var(
     --loading-surface-light,
@@ -80,13 +85,25 @@ const componentClasses = computed(() => [
   );
   --_loading-indicator-inline-size: var(--loading-indicator-inline-size, 37.5rem);
   --_loading-surface: var(--_loading-surface-light);
+  --_loading-color-light: var(--loading-color-light, var(--brand-color-anthracite-0));
+  --_loading-color-dark: var(--loading-color-dark, var(--brand-color-white-0));
+  --_loading-color: var(--loading-color-light);
 
   &:is([data-theme='dark']) {
     --_loading-surface: var(--_loading-surface-dark);
+    --_loading-color: var(--_loading-color-dark);
   }
 
+  display: grid;
+  align-items: center;
   block-size: var(--_loading-block-size);
   border-radius: var(--_loading-radius);
+  font-size: var(--_loading-font-size);
+  color: var(--_loading-color);
+
+  &__label {
+    padding-inline-start: var(--_loading-font-size);
+  }
 
   &--is-loading {
     animation: loadingBarAnimation var(--_loading-animation-duration) ease-in infinite forwards;
