@@ -64,7 +64,6 @@
   },
   "dependencies": {
     "@storybook/addon-a11y": "^8.1.5",
-    "@vueuse/core": "^10.9.0",
-    "addon-screen-reader": "^1.8.6"
+    "@vueuse/core": "^10.9.0"
   }
 }

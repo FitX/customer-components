@@ -53,18 +53,15 @@ export const useLoading = <T = unknown>(options: UseLoadingOptions<T>) => {
   };
 
   const execute = async () => {
-    console.log('execute', id);
     start();
     clearError();
     try {
       result.value = await asyncFn();
-      console.log('execute done');
     } catch (err) {
       setError(err as Error);
     } finally {
       end();
     }
-    console.log('execute return');
     return result.value;
   };
 
