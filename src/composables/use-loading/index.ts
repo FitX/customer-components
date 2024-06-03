@@ -7,9 +7,9 @@ export type LoadingInfo = {
 };
 
 export type LoadingState = Map<string, LoadingInfo>;
-type MaybePromiseWithoutParams<T> = (() => Promise<T>) | (() => T);
-type MaybePromiseWithOptionalParams<T, P> = ((params?: P) => Promise<T>) | ((params?: P) => T);
-type MaybePromiseWithParams<T, P> = ((params: P) => Promise<T>) | ((params: P) => T);
+export type MaybePromiseWithoutParams<T> = (() => Promise<T>) | (() => T);
+export type MaybePromiseWithOptionalParams<T, P> = ((params?: P) => Promise<T>) | ((params?: P) => T);
+export type MaybePromiseWithParams<T, P> = ((params: P) => Promise<T>) | ((params: P) => T);
 
 export type UseLoadingOptions<T, P> = {
   asyncFn: MaybePromiseWithoutParams<T> | MaybePromiseWithOptionalParams<T, P> | MaybePromiseWithParams<T, P>;
