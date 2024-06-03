@@ -53,7 +53,7 @@ const componentClasses = computed(() => [
     <label
       :id="componentId"
       class="loading__label"
-      :class="{ 'visually-hidden' : props.showDescription }">
+      :class="{ 'visually-hidden': !props.showDescription }">
       {{ description }}
     </label>
   </div>
