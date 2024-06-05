@@ -30,9 +30,9 @@ const props = withDefaults(defineProps<FitxSwitchProps>(), {
 const modelValue = defineModel<boolean>({ required: true });
 
 const componentClasses = computed(() => [
-  ...getModifierClasses('button', props.modifier ?? []),
+  ...getModifierClasses('switch', props.modifier ?? []),
   ...getModifierClasses('switch', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
-  ...getModifierClasses('button', toValue(modelValue) ? 'is-active' : []),
+  ...getModifierClasses('switch', toValue(modelValue) ? 'is-active' : []),
 ]);
 </script>
 
@@ -72,73 +72,41 @@ const componentClasses = computed(() => [
   /**
   Light Mode Tokens
    */
-  --_switch-color-surface-light-selected: var(--switch-color-surface-light-selected, var(--functional-color-success-0));
-  --_switch-color-surface-light-unselected: var(--switch-color-surface-light-unselected, var(--brand-color-gray-stone));
-  --_switch-color-surface-light-unselected-hover: var(--switch-color-surface-light-unselected-hover, var(--brand-color-gray-graphite));
-  --_switch-color-surface-light-unselected-disabled: var(--switch-color-surface-light-unselected-disabled, var(--brand-color-gray-chalk));
-  --_switch-color-surface-light-unselected-focused: var(--switch-color-surface-light-unselected-focused, var(--brand-color-gray-graphite));
-  --_switch-color-surface-light-selected-focused: var(--switch-color-surface-light-selected-focused, var(--_switch-color-surface-light-selected));
-  --_switch-color-surface-light-selected-disabled: var(--switch-color-surface-light-selected-disabled, var(--brand-color-gray-plumb));
+  --_switch-color-surface-selected: var(--switch-color-surface-selected-light, var(--functional-color-success-0));
+  --_switch-color-surface-unselected: var(--switch-color-surface-unselected-light, var(--brand-color-gray-stone));
+  --_switch-color-surface-unselected-hover: var(--switch-color-surface-unselected-hover-light, var(--brand-color-gray-graphite));
+  --_switch-color-surface-unselected-disabled: var(--switch-color-surface-unselected-disabled-light, var(--brand-color-gray-chalk));
+  --_switch-color-surface-unselected-focused: var(--switch-color-surface-unselected-focused-light, var(--brand-color-gray-graphite));
+  --_switch-color-surface-selected-focused: var(--switch-color-surface-selected-focused-light, var(--_switch-color-surface-selected));
+  --_switch-color-surface-selected-disabled: var(--switch-color-surface-selected-disabled-light, var(--brand-color-gray-plumb));
 
-  --_switch-color-surface-light-track-selected: var(--switch-color-surface-light-track-selected, var(--brand-color-white-0));
-  --_switch-color-surface-light-track-unselected: var(--switch-color-surface-light-track-unselected, var(--_switch-color-surface-light-track-selected));
-  --_switch-color-surface-light-track-unselected-hover: var(--switch-color-surface-light-track-unselected-hover, var(--_switch-color-surface-light-track-selected));
-  --_switch-color-surface-light-track-unselected-disabled: var(--switch-color-surface-light-track-unselected-disabled, var(--_switch-color-surface-light-track-selected));
-  --_switch-color-surface-light-track-unselected-focused: var(--switch-color-surface-light-track-unselected-focused, var(--_switch-color-surface-light-track-selected));
-  --_switch-color-surface-light-track-selected-focused: var(--switch-color-surface-light-track-selected-focused, var(--_switch-color-surface-light-track-selected));
-  --_switch-color-surface-light-track-selected-disabled: var(--switch-color-surface-light-track-selected-disabled, var(--_switch-color-surface-light-track-selected));
+  --_switch-color-track-selected: var(--switch-color-track-selected-light, var(--brand-color-white-0));
+  --_switch-color-track-unselected: var(--switch-color-track-unselected-light, var(--_switch-color-track-selected));
+  --_switch-color-track-unselected-hover: var(--switch-color-track-unselected-hover-light, var(--_switch-color-track-selected));
+  --_switch-color-track-unselected-disabled: var(--switch-color-track-unselected-disabled-light, var(--_switch-color-track-selected));
+  --_switch-color-track-unselected-focused: var(--switch-color-track-unselected-focused-light, var(--_switch-color-track-selected));
+  --_switch-color-track-selected-focused: var(--switch-color-track-selected-focused-light, var(--_switch-color-track-selected));
+  --_switch-color-track-selected-disabled: var(--switch-color-track-selected-disabled-light, var(--_switch-color-track-selected));
 
-  --_switch-color-surface-light-icon-selected: var(--switch-color-surface-light-icon-selected, var(--_switch-color-surface-light-selected));
-  --_switch-color-surface-light-icon-selected-focused: var(--switch-color-surface-light-icon-selected-focused, var(--_switch-color-surface-light-selected));
-  --_switch-color-surface-light-icon-selected-disabled: var(--switch-color-surface-light-icon-selected-disabled, var(--brand-color-gray-cement));
+  --_switch-color-icon-selected: var(--switch-color-icon-selected-light, var(--_switch-color-surface-selected));
+  --_switch-color-icon-selected-focused: var(--switch-color-icon-selected-focused-light, var(--_switch-color-surface-selected));
+  --_switch-color-icon-selected-disabled: var(--switch-color-icon-selected-disabled-light, var(--brand-color-gray-cement));
 
-  --_switch-color-surface-light-label-selected: var(--switch-color-surface-light-label-selected, var(--brand-color-anthracite-0));
-  --_switch-color-surface-light-label-unselected: var(--switch-color-surface-light-label-unselected, var(--_switch-color-surface-light-label-selected));
-  --_switch-color-surface-light-label-unselected-hover: var(--switch-color-surface-light-label-unselected-hover, var(--_switch-color-surface-light-label-selected));
-  --_switch-color-surface-light-label-unselected-disabled: var(--switch-color-surface-light-label-unselected-disabled, var(--_switch-color-surface-light-label-selected));
-  --_switch-color-surface-light-label-unselected-focused: var(--switch-color-surface-light-label-unselected-focused, var(--_switch-color-surface-light-label-selected));
-  --_switch-color-surface-light-label-selected-focused: var(--switch-color-surface-light-label-selected-focused, var(--_switch-color-surface-light-label-selected));
-  --_switch-color-surface-light-label-selected-disabled: var(--switch-color-surface-light-label-selected-disabled, var(--_switch-color-surface-light-label-selected));
-
-  /**
-  Dark Mode Tokens
-   */
-  --_switch-color-surface-dark-selected: var(--switch-color-surface-dark-selected, var(--functional-color-success-0));
-  --_switch-color-surface-dark-unselected: var(--switch-color-surface-dark-unselected, var(--brand-color-gray-graphite));
-  --_switch-color-surface-dark-unselected-hover: var(--switch-color-surface-dark-unselected-hover, var(--brand-color-gray-stone));
-  --_switch-color-surface-dark-unselected-disabled: var(--switch-color-surface-dark-unselected-disabled, var(--brand-color-gray-carbon));
-  --_switch-color-surface-dark-unselected-focused: var(--switch-color-surface-dark-unselected-focused, var(--brand-color-gray-graphite));
-  --_switch-color-surface-dark-selected-focused: var(--switch-color-surface-dark-selected-focused, var(--_switch-color-surface-dark-selected));
-  --_switch-color-surface-dark-selected-disabled: var(--switch-color-surface-dark-selected-disabled, var(--brand-color-gray-cement));
-
-  --_switch-color-surface-dark-track-selected: var(--switch-color-surface-dark-track-selected, var(--brand-color-white-0));
-  --_switch-color-surface-dark-track-unselected: var(--switch-color-surface-dark-track-unselected, var(--_switch-color-surface-dark-track-selected));
-  --_switch-color-surface-dark-track-unselected-hover: var(--switch-color-surface-dark-track-unselected-hover, var(--_switch-color-surface-dark-track-selected));
-  --_switch-color-surface-dark-track-unselected-disabled: var(--switch-color-surface-dark-track-unselected-disabled, var(--brand-color-gray-cement));
-  --_switch-color-surface-dark-track-unselected-focused: var(--switch-color-surface-dark-track-unselected-focused, var(--_switch-color-surface-dark-track-selected));
-  --_switch-color-surface-dark-track-selected-focused: var(--switch-color-surface-dark-track-selected-focused, var(--_switch-color-surface-dark-track-selected));
-  --_switch-color-surface-dark-track-selected-disabled: var(--switch-color-surface-dark-track-selected-disabled, var(--brand-color-gray-stone));
-
-  --_switch-color-surface-dark-icon-selected: var(--switch-color-surface-dark-icon-selected, var(--_switch-color-surface-dark-selected));
-  --_switch-color-surface-dark-icon-selected-focused: var(--switch-color-surface-dark-icon-selected-focused, var(--_switch-color-surface-dark-selected));
-  --_switch-color-surface-dark-icon-selected-disabled: var(--switch-color-surface-dark-icon-selected-disabled, var(--_switch-color-surface-dark-selected-disabled));
-
-  --_switch-color-surface-dark-label-selected: var(--switch-color-surface-dark-label-selected, var(--brand-color-white-0));
-  --_switch-color-surface-dark-label-unselected: var(--switch-color-surface-dark-label-unselected, var(--_switch-color-surface-dark-label-selected));
-  --_switch-color-surface-dark-label-unselected-hover: var(--switch-color-surface-dark-label-unselected-hover, var(--_switch-color-surface-dark-label-selected));
-  --_switch-color-surface-dark-label-unselected-disabled: var(--switch-color-surface-dark-label-unselected-disabled, var(--_switch-color-surface-dark-label-selected));
-  --_switch-color-surface-dark-label-unselected-focused: var(--switch-color-surface-dark-label-unselected-focused, var(--_switch-color-surface-dark-label-selected));
-  --_switch-color-surface-dark-label-selected-focused: var(--switch-color-surface-dark-label-selected-focused, var(--_switch-color-surface-dark-label-selected));
-  --_switch-color-surface-dark-label-selected-disabled: var(--switch-color-surface-dark-label-selected-disabled, var(--_switch-color-surface-dark-label-selected));
+  --_switch-color-label-selected: var(--switch-color-label-selected-light, var(--brand-color-anthracite-0));
+  --_switch-color-label-unselected: var(--switch-color-label-unselected-light, var(--_switch-color-label-selected));
+  --_switch-color-label-unselected-hover: var(--switch-color-label-unselected-hover-light, var(--_switch-color-label-selected));
+  --_switch-color-label-unselected-disabled: var(--switch-color-label-unselected-disabled-light, var(--_switch-color-label-selected));
+  --_switch-color-label-unselected-focused: var(--switch-color-label-unselected-focused-light, var(--_switch-color-label-selected));
+  --_switch-color-label-selected-focused: var(--switch-color-label-selected-focused-light, var(--_switch-color-label-selected));
+  --_switch-color-label-selected-disabled: var(--switch-color-label-selected-disabled-light, var(--_switch-color-label-selected));
 
   /**
   Styles
    */
-  --_switch-color-surface: var(--_switch-color-surface-light-label-selected);
-  --_switch-color-surface-track: var(--_switch-color-surface-light-track-selected);
-  --_switch-color-surface-icon: var(--_switch-color-surface-light-icon-selected);
-  --_switch-color-surface-label: var(--_switch-color-surface-light-label-selected);
-
+  --_switch-color-surface: var(--_switch-color-surface-unselected);
+  --_switch-color-track: var(--_switch-color-track-unselected);
+  --_switch-color-icon: var(--_switch-color-icon-selected);
+  --_switch-color-label: var(--_switch-color-label-selected);
 
   display: inline-grid;
   align-items: center;
@@ -154,6 +122,8 @@ const componentClasses = computed(() => [
     inline-size: var(--_switch-inline-size);
     border-radius: var(--_switch-radius);
     background-color: var(--_switch-color-surface);
+    // transition: all 0.2s ease;
+    // transition-behavior: allow-discrete;
     &:hover {
       justify-content: end;
     }
@@ -165,6 +135,7 @@ const componentClasses = computed(() => [
 
   &__label {
     order: -1;
+    color: var(--_switch-color-label-unselected);
   }
 
   &__track {
@@ -173,18 +144,36 @@ const componentClasses = computed(() => [
     block-size: var(--_switch-track-size);
     margin: 2px;
     aspect-ratio: 1;
-    background-color: var(--_switch-color-surface-track);
+    background-color: var(--_switch-color-track);
+    color: var(--_switch-color-icon-selected);
 
     border-radius: calc(infinity * 1px);
-
   }
 
 
   &:is([data-theme='dark']) {
-    --_switch-color-surface: var(--_switch-color-surface-dark-label-selected);
-    --_switch-color-surface-track: var(--_switch-color-surface-dark-track-selected);
-    --_switch-color-surface-icon: var(--_switch-color-surface-dark-icon-selected);
-    --_switch-color-surface-label: var(--_switch-color-surface-dark-label-selected);
+    /**
+      Dark Mode Tokens
+    */
+    --_switch-color-surface-selected: var(--switch-color-surface-selected-dark, var(--brand-color-white-0));
+    --_switch-color-surface-unselected: var(--switch-color-surface-unselected-dark, var(--_switch-color-track-selected));
+    --_switch-color-surface-unselected-hover: var(--switch-color-surface-unselected-hover-dark, var(--_switch-color-track-selected));
+    --_switch-color-surface-unselected-disabled: var(--switch-color-surface-unselected-disabled-dark, var(--brand-color-gray-cement));
+    --_switch-color-surface-unselected-focused: var(--switch-color-surface-unselected-focused-dark, var(--_switch-color-track-selected));
+    --_switch-color-surface-selected-focused: var(--switch-color-surface-selected-focused-dark, var(--_switch-color-track-selected));
+    --_switch-color-surface-selected-disabled: var(--switch-color-surface-selected-disabled-dark, var(--brand-color-gray-stone));
+
+    --_switch-color-icon-selected: var(--switch-color-icon-selected-dark, var(--_switch-color-surface-selected));
+    --_switch-color-icon-selected-focused: var(--switch-color-icon-selected-focused-dark, var(--_switch-color-surface-selected));
+    --_switch-color-icon-selected-disabled: var(--switch-color-icon-selected-disabled-dark, var(--_switch-color-surface-selected-disabled));
+
+    --_switch-color-label-selected: var(--switch-color-label-selected-dark, var(--brand-color-white-0));
+    --_switch-color-label-unselected: var(--switch-color-label-unselected-dark, var(--_-switch-color-label-selected));
+    --_switch-color-label-unselected-hover: var(--switch-color-label-unselected-hover-dark, var(--_-switch-color-label-selected));
+    --_switch-color-label-unselected-disabled: var(--switch-color-label-unselected-disabled-dark, var(--_-switch-color-label-selected));
+    --_switch-color-label-unselected-focused: var(--switch-color-label-unselected-focused-dark, var(--_-switch-color-label-selected));
+    --_switch-color-label-selected-focused: var(--switch-color-label-selected-focused-dark, var(--_-switch-color-label-selected));
+    --_switch-color-label-selected-disabled: var(--switch-color-label-selected-disabled-dark, var(--_-switch-color-label-selected));
   }
 }
 </style>
