@@ -29,4 +29,8 @@ export const Default: Story = {
       },
     },
   },
+  args: {
+    label: 'Switch',
+    modelValue: false,
+  },
 };
