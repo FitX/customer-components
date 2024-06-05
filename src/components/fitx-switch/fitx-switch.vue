@@ -15,7 +15,7 @@ export type FitxSwitchProps = {
    * Just for presentation in Storybook
    * don't use this in Production
    */
-  fakeModifier?: 'none' | 'hover' | 'focus' | 'active'; // Dev Mode only @TODO remove from export on build
+  fakeModifier?: 'none' | 'hover' | 'focus'; // Dev Mode only @TODO remove from export on build
 };
 </script>
 <script lang="ts" setup>
@@ -39,10 +39,12 @@ const componentClasses = computed(() => [
 <template>
   <label
     class="switch"
+    :for="props.id"
     :class="componentClasses">
     <input
       role="switch"
       :id="props.id"
+      v-model="modelValue"
       class="switch__input"
       type="checkbox">
     <span class="switch__presentation">
@@ -59,6 +61,8 @@ const componentClasses = computed(() => [
 </template>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/utilities' as utilities;
+
 .switch {
   $self: &;
 
@@ -106,7 +110,8 @@ const componentClasses = computed(() => [
   --_switch-color-surface: var(--_switch-color-surface-unselected);
   --_switch-color-track: var(--_switch-color-track-unselected);
   --_switch-color-icon: var(--_switch-color-icon-selected);
-  --_switch-color-label: var(--_switch-color-label-selected);
+  --_switch-color-label: var(--_switch-color-label-unselected);
+  --_switch-icon-opacity: 0;
 
   display: inline-grid;
   align-items: center;
@@ -115,39 +120,78 @@ const componentClasses = computed(() => [
   font-size: var(--_switch-font-size);
   font-weight: 400;
 
+  // &:focus-visible {
+  &:has(:focus-visible) {
+    outline: 1px solid;
+    outline-offset: var(--_switch-track-spacing);
+  }
+
+  #{$self}:not(&--is-active):is(:hover, :active, :focus, .switch--fake-hover, .switch--fake-focus), &:focus-within {
+    --_switch-color-surface: var(--_switch-color-surface-unselected-hover);
+    --_switch-color-track: var(--_switch-color-track-unselected-hover);
+    --_switch-color-label: var(--_switch-color-label-unselected-hover);
+  }
+
+  &--is-active {
+    --_switch-color-surface: var(--_switch-color-surface-selected);
+    --_switch-color-track: var(--_switch-color-track-selected);
+    --_switch-color-icon: var(--_switch-color-icon-selected);
+    --_switch-color-label: var(--_switch-color-label-selected);
+    --_switch-icon-opacity: 1;
+  }
+
   &__presentation {
-    display: flex;
+    display: grid;
     align-items: center;
     block-size: var(--_switch-block-size);
     inline-size: var(--_switch-inline-size);
     border-radius: var(--_switch-radius);
     background-color: var(--_switch-color-surface);
+    position: relative;
     // transition: all 0.2s ease;
     // transition-behavior: allow-discrete;
-    &:hover {
-      justify-content: end;
+    #{$self}--is-active & {
+      // justify-content: end;
     }
   }
 
+  &__icon {
+    opacity: var(--_switch-icon-opacity);
+  }
+
   &__input {
-    display: none;
+    @include utilities.visually-hidden();
+    // display: none;
   }
 
   &__label {
     order: -1;
     color: var(--_switch-color-label-unselected);
+    user-select: none;
   }
 
   &__track {
+    --_switch-track-position: 0;
     display: grid;
     place-items: center;
     block-size: var(--_switch-track-size);
-    margin: 2px;
+    margin: var(--_switch-track-spacing);
     aspect-ratio: 1;
     background-color: var(--_switch-color-track);
     color: var(--_switch-color-icon-selected);
+    position: absolute;
+    translate: var(--_switch-track-position) 0;
+    /* justify-self: start;
+    transition: all 2s ease;
+    transition-behavior: allow-discrete; */
+    transition: all 600ms ease;
 
     border-radius: calc(infinity * 1px);
+
+    #{$self}--is-active & {
+      --_switch-track-position: calc((var(--_switch-inline-size) - (2 * var(--_switch-track-spacing))) - (var(--_switch-track-size) + (2 * var(--_switch-track-spacing))));
+      // justify-self: end;
+    }
   }
 
 
