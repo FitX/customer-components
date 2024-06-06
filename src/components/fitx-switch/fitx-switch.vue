@@ -4,9 +4,13 @@ import type { Theme } from '@/types';
 export type SwitchModifier = 'disabled';
 
 export type FitxSwitchProps = {
+  label: string,
   theme?: Theme;
   id?: string,
-  label: string,
+  /**
+   * Native disabled Attribute
+   */
+  disabled?: boolean,
   textOn?: string;
   textOff?: string;
   modifier?: SwitchModifier,
@@ -23,14 +27,17 @@ import { computed, toValue } from 'vue';
 import { IconCheckmark } from '@/components/icons';
 import { getModifierClasses } from '@/utils/css-modifier'
 const props = withDefaults(defineProps<FitxSwitchProps>(), {
-  id: crypto.randomUUID(),
+  id: () => crypto.randomUUID(),
   textOn: 'An',
   textOff: 'Aus',
+  disabled: false,
 });
 const modelValue = defineModel<boolean>({ required: true });
+const isDisabled = computed<boolean>(() => props.disabled || props.modifier === 'disabled');
+const tabIndex = computed<number>(() => (props.modifier === 'disabled' ? 0 : -1));
 
 const componentClasses = computed(() => [
-  ...getModifierClasses('switch', props.modifier ?? []),
+  ...getModifierClasses('switch', toValue(isDisabled) ? 'disabled' : []),
   ...getModifierClasses('switch', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
   ...getModifierClasses('switch', toValue(modelValue) ? 'is-active' : []),
 ]);
@@ -40,11 +47,14 @@ const componentClasses = computed(() => [
   <label
     class="switch"
     :for="props.id"
+    :tabindex="tabIndex"
     :class="componentClasses">
     <input
       role="switch"
       :id="props.id"
       v-model="modelValue"
+      :disabled="isDisabled"
+      :aria-disabled="isDisabled"
       class="switch__input"
       type="checkbox">
     <span class="switch__presentation">
@@ -53,7 +63,7 @@ const componentClasses = computed(() => [
       </span>
     </span>
     <span class="switch__label">
-      {{ props.label }}
+      {{ props.label }} {{ isDisabled }}
       <span class="switch__text-on visually-hidden">{{ props.textOn }}</span>
       <span class="switch__text-off visually-hidden">{{ props.textOff }}</span>
     </span>
@@ -72,6 +82,7 @@ const componentClasses = computed(() => [
   --_switch-track-spacing: var(--switch-track-spacing, 2px);
   --_switch-track-size: var(--switch-track-size, calc(100% - (2 * var(--_switch-track-spacing))));
   --_switch-font-size: var(--switch-font-size, 1.25rem);
+  --_switch-toggle-animation-duration: var(--switch-toggle-animation-duration, 300ms);
 
   /**
   Light Mode Tokens
@@ -112,6 +123,7 @@ const componentClasses = computed(() => [
   --_switch-color-icon: var(--_switch-color-icon-selected);
   --_switch-color-label: var(--_switch-color-label-unselected);
   --_switch-icon-opacity: 0;
+  --_switch-icon-inactive-scale: 0;
 
   display: inline-grid;
   align-items: center;
@@ -122,22 +134,39 @@ const componentClasses = computed(() => [
 
   // &:focus-visible {
   &:has(:focus-visible) {
-    outline: 1px solid;
+    outline: inset;
     outline-offset: var(--_switch-track-spacing);
   }
 
-  #{$self}:not(&--is-active):is(:hover, :active, :focus, .switch--fake-hover, .switch--fake-focus), &:focus-within {
+  #{$self}:not(&--is-active):is(:hover, :focus-within, .switch--fake-hover, .switch--fake-focus) {
     --_switch-color-surface: var(--_switch-color-surface-unselected-hover);
     --_switch-color-track: var(--_switch-color-track-unselected-hover);
     --_switch-color-label: var(--_switch-color-label-unselected-hover);
   }
 
+  #{$self}--disabled:not(&--is-active) {
+    --_switch-color-surface: var(--_switch-color-surface-unselected-disabled);
+    --_switch-color-track: var(--_switch-color-track-unselected-disabled);
+    --_switch-color-label: var(--_switch-color-label-unselected-disabled);
+  }
+
   &--is-active {
-    --_switch-color-surface: var(--_switch-color-surface-selected);
-    --_switch-color-track: var(--_switch-color-track-selected);
-    --_switch-color-icon: var(--_switch-color-icon-selected);
-    --_switch-color-label: var(--_switch-color-label-selected);
-    --_switch-icon-opacity: 1;
+    &:not(#{$self}--disabled) {
+      --_switch-color-surface: var(--_switch-color-surface-selected);
+      --_switch-color-track: var(--_switch-color-track-selected);
+      --_switch-color-icon: var(--_switch-color-icon-selected);
+      --_switch-color-label: var(--_switch-color-label-selected);
+      --_switch-icon-opacity: 1;
+      --_switch-icon-inactive-scale: 1;
+    }
+    &:is(#{$self}--disabled) {
+      --_switch-color-surface: var(--_switch-color-surface-selected-disabled);
+      --_switch-color-track: var(--_switch-color-track-selected-disabled);
+      --_switch-color-icon: var(--_switch-color-icon-selected-disabled);
+      --_switch-color-label: var(--_switch-color-label-selected-disabled);
+      --_switch-icon-opacity: 1;
+      --_switch-icon-inactive-scale: 1;
+    }
   }
 
   &__presentation {
@@ -148,6 +177,7 @@ const componentClasses = computed(() => [
     border-radius: var(--_switch-radius);
     background-color: var(--_switch-color-surface);
     position: relative;
+    transition: background-color var(--_switch-toggle-animation-duration) ease 10ms;
     // transition: all 0.2s ease;
     // transition-behavior: allow-discrete;
     #{$self}--is-active & {
@@ -157,11 +187,13 @@ const componentClasses = computed(() => [
 
   &__icon {
     opacity: var(--_switch-icon-opacity);
+    scale: var(--_switch-icon-inactive-scale);
+    transform-origin: center;
+    transition: opacity 10ms ease-in-out, scale var(--_switch-toggle-animation-duration) ease var(--_switch-toggle-animation-duration);
   }
 
   &__input {
     @include utilities.visually-hidden();
-    // display: none;
   }
 
   &__label {
@@ -184,7 +216,7 @@ const componentClasses = computed(() => [
     /* justify-self: start;
     transition: all 2s ease;
     transition-behavior: allow-discrete; */
-    transition: all 600ms ease;
+    transition: translate var(--_switch-toggle-animation-duration) ease;
 
     border-radius: calc(infinity * 1px);
 
