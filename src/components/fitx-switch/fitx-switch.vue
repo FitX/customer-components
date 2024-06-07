@@ -34,7 +34,6 @@ const props = withDefaults(defineProps<FitxSwitchProps>(), {
 });
 const modelValue = defineModel<boolean>({ required: true });
 const isDisabled = computed<boolean>(() => props.disabled || props.modifier === 'disabled');
-const tabIndex = computed<number>(() => (props.modifier === 'disabled' ? 0 : -1));
 
 const componentClasses = computed(() => [
   ...getModifierClasses('switch', toValue(isDisabled) ? 'disabled' : []),
@@ -53,7 +52,7 @@ const componentClasses = computed(() => [
       role="switch"
       :id="props.id"
       :checked="modelValue"
-      :aria-disabled="disabled"
+      aria-disabled="true"
       class="switch__input"
       type="checkbox">
     <input
