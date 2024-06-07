@@ -285,7 +285,7 @@ const componentClasses = computed(() => [
 
   &__label {
     order: -1;
-    color: var(--_switch-color-label-unselected);
+    color: var(--_switch-color-label);
     user-select: none;
   }
 
@@ -393,27 +393,27 @@ const componentClasses = computed(() => [
     );
     --_switch-color-label-unselected: var(
       --switch-color-label-unselected-dark,
-      var(--_-switch-color-label-selected)
+      var(--_switch-color-label-selected)
     );
     --_switch-color-label-unselected-hover: var(
       --switch-color-label-unselected-hover-dark,
-      var(--_-switch-color-label-selected)
+      var(--_switch-color-label-selected)
     );
     --_switch-color-label-unselected-disabled: var(
       --switch-color-label-unselected-disabled-dark,
-      var(--_-switch-color-label-selected)
+      var(--_switch-color-label-selected)
     );
     --_switch-color-label-unselected-focused: var(
       --switch-color-label-unselected-focused-dark,
-      var(--_-switch-color-label-selected)
+      var(--_switch-color-label-selected)
     );
     --_switch-color-label-selected-focused: var(
       --switch-color-label-selected-focused-dark,
-      var(--_-switch-color-label-selected)
+      var(--_switch-color-label-selected)
     );
     --_switch-color-label-selected-disabled: var(
       --switch-color-label-selected-disabled-dark,
-      var(--_-switch-color-label-selected)
+      var(--_switch-color-label-selected)
     );
   }
 }
