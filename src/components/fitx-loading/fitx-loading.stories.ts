@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { computed, watch } from 'vue'
+import { computed, watch } from 'vue';
 import FitxLoading from './fitx-loading.vue';
 import { type LoadingInfo, loadingState, useLoading } from '@/composables';
 
@@ -56,17 +56,13 @@ export const ExampleMultiLoading: Story = {
             return 'Data loaded successfully too';
           };
 
-          const {
-            execute,
-          } = useLoading({
+          const { execute } = useLoading({
             asyncFn: someCall,
             id: 'get-data',
             loadingText: 'wichtige Informationen',
           });
 
-          const {
-            execute: anotherCallExecute,
-          } = useLoading({
+          const { execute: anotherCallExecute } = useLoading({
             asyncFn: otherCall,
             id: 'another',
             loadingText: 'andere wichtige Informationen',
@@ -77,12 +73,18 @@ export const ExampleMultiLoading: Story = {
             anotherCallExecute();
           };
 
-          const allLoadingStates = computed<ExtendedLoadingInfo<string>[]>(() => [...Array.from(loadingState.value).reduce((acc, [key, value]) => {
-            if (value.isLoading) {
-              acc.set(key, { ...value, id: key });
-            }
-            return acc;
-          }, new Map()).values()].filter((item) => item.isLoading));
+          const allLoadingStates = computed<ExtendedLoadingInfo<string>[]>(() =>
+            [
+              ...Array.from(loadingState.value)
+                .reduce((acc, [key, value]) => {
+                  if (value.isLoading) {
+                    acc.set(key, { ...value, id: key });
+                  }
+                  return acc;
+                }, new Map())
+                .values(),
+            ].filter((item) => item.isLoading),
+          );
           const allLoadingTexts = computed(() => {
             const activeLoadings = allLoadingStates.value.map((item) => item.loadingText);
             if (activeLoadings?.length > 0) {
@@ -105,7 +107,7 @@ export const ExampleMultiLoading: Story = {
 
           watch(allLoadingTexts, (val) => {
             context.args.description = val;
-          })
+          });
 
           return {
             messages,

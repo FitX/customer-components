@@ -3,30 +3,31 @@ import { computed, ref } from 'vue';
 export type LoadingInfo = {
   isLoading: boolean;
   loadingText: string;
-  error: Error | null,
+  error: Error | null;
 };
 
 export type LoadingState = Map<string, LoadingInfo>;
 export type MaybePromiseWithoutParams<T> = (() => Promise<T>) | (() => T);
-export type MaybePromiseWithOptionalParams<T, P> = ((params?: P) => Promise<T>) | ((params?: P) => T);
+export type MaybePromiseWithOptionalParams<T, P> =
+  | ((params?: P) => Promise<T>)
+  | ((params?: P) => T);
 export type MaybePromiseWithParams<T, P> = ((params: P) => Promise<T>) | ((params: P) => T);
 
 export type UseLoadingOptions<T, P> = {
-  asyncFn: MaybePromiseWithoutParams<T> | MaybePromiseWithOptionalParams<T, P> | MaybePromiseWithParams<T, P>;
+  asyncFn:
+    | MaybePromiseWithoutParams<T>
+    | MaybePromiseWithOptionalParams<T, P>
+    | MaybePromiseWithParams<T, P>;
   id: string;
   loadingText?: string;
-}
+};
 
 export const loadingState = ref<LoadingState>(new Map());
 
 // const isLoading = ref<boolean>(false);
 export const useLoading = <T = unknown, P = unknown>(options: UseLoadingOptions<T, P>) => {
   const result = ref<T>();
-  const {
-    asyncFn,
-    id,
-    loadingText = 'wird geladen',
-  } = options;
+  const { asyncFn, id, loadingText = 'wird geladen' } = options;
 
   const setError = (error: Error) => {
     // isLoading.value = false;
@@ -64,7 +65,6 @@ export const useLoading = <T = unknown, P = unknown>(options: UseLoadingOptions<
       } else {
         result.value = await (asyncFn as MaybePromiseWithoutParams<T>)();
       }
-
     } catch (err) {
       setError(err as Error);
     } finally {
@@ -77,8 +77,12 @@ export const useLoading = <T = unknown, P = unknown>(options: UseLoadingOptions<
     // isLoading,
     loadingState,
     // containsActiveLoadings: computed(() => [...loadingState.value.values()].some((state) => state.isLoading)),
-    activeLoadingStates: computed(() => [...loadingState.value.values()].filter((state) => state.isLoading)),
-    errorLoadingStates: computed(() => [...loadingState.value.values()].filter((state) => state.error)),
+    activeLoadingStates: computed(() =>
+      [...loadingState.value.values()].filter((state) => state.isLoading),
+    ),
+    errorLoadingStates: computed(() =>
+      [...loadingState.value.values()].filter((state) => state.error),
+    ),
     isLoading: computed(() => !!loadingState.value.get(id)?.isLoading),
     hasError: computed(() => !!loadingState.value.get(id)?.error),
     execute,

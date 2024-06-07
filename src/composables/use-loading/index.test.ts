@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useLoading, loadingState } from './index';
 
@@ -35,7 +34,9 @@ describe('useLoading', () => {
 
   it('should handle errors correctly', async () => {
     const error = new Error('test error');
-    const asyncFn = async () => { throw error; };
+    const asyncFn = async () => {
+      throw error;
+    };
     const { hasError, execute } = useLoading({ asyncFn, id: 'test' });
 
     await execute();
@@ -44,7 +45,9 @@ describe('useLoading', () => {
 
   it('should clear error before executing', async () => {
     const error = new Error('test error');
-    const asyncFn = async () => { throw error; };
+    const asyncFn = async () => {
+      throw error;
+    };
     const { hasError, execute } = useLoading({ asyncFn, id: 'test' });
 
     await execute();
@@ -60,8 +63,14 @@ describe('useLoading', () => {
   it('should track multiple loading states', async () => {
     const asyncFn1 = async () => 'test1';
     const asyncFn2 = async () => 'test2';
-    const { execute: execute1, isLoading: isLoading1 } = useLoading({ asyncFn: asyncFn1, id: 'test1' });
-    const { execute: execute2, isLoading: isLoading2 } = useLoading({ asyncFn: asyncFn2, id: 'test2' });
+    const { execute: execute1, isLoading: isLoading1 } = useLoading({
+      asyncFn: asyncFn1,
+      id: 'test1',
+    });
+    const { execute: execute2, isLoading: isLoading2 } = useLoading({
+      asyncFn: asyncFn2,
+      id: 'test2',
+    });
 
     const promise1 = execute1();
     const promise2 = execute2();
@@ -79,9 +88,15 @@ describe('useLoading', () => {
   it('should manage active and error loading states correctly', async () => {
     const asyncFn1 = async () => 'test1';
     const error = new Error('test error');
-    const asyncFn2 = async () => { throw error; };
+    const asyncFn2 = async () => {
+      throw error;
+    };
 
-    const { execute: execute1, activeLoadingStates, errorLoadingStates } = useLoading({ asyncFn: asyncFn1, id: 'test1' });
+    const {
+      execute: execute1,
+      activeLoadingStates,
+      errorLoadingStates,
+    } = useLoading({ asyncFn: asyncFn1, id: 'test1' });
     const { execute: execute2 } = useLoading({ asyncFn: asyncFn2, id: 'test2' });
 
     await execute1();
@@ -92,18 +107,19 @@ describe('useLoading', () => {
   });
 
   it('should manage optional params correctly', async () => {
-    type DemoParams = { a: string, b?: number};
-    const someFunc = async (params: DemoParams) : Promise<any> => ({ a: params?.a, b: params?.b || -1 });
-    const someFunc2 = async () : Promise<any> => ('lorem');
-
+    type DemoParams = { a: string; b?: number };
+    const someFunc = async (params: DemoParams): Promise<any> => ({
+      a: params?.a,
+      b: params?.b || -1,
+    });
+    const someFunc2 = async (): Promise<any> => 'lorem';
 
     const { execute } = useLoading<any, DemoParams>({ asyncFn: someFunc, id: 'test1' });
     const { execute: execute2 } = useLoading({ asyncFn: someFunc2, id: 'test2' });
 
-    const res1 = await execute({ a: 'f'});
+    const res1 = await execute({ a: 'f' });
     const res2 = await execute2();
-    expect(res1).toEqual({ a:'f', b: -1 });
+    expect(res1).toEqual({ a: 'f', b: -1 });
     expect(res2).toBe('lorem');
   });
 });
-

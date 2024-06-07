@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
 import FitxSwitch from './fitx-switch.vue';
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
