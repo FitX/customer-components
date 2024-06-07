@@ -47,14 +47,21 @@ const componentClasses = computed(() => [
   <label
     class="switch"
     :for="props.id"
-    :tabindex="tabIndex"
     :class="componentClasses">
     <input
+      v-if="props.modifier === 'disabled'"
+      role="switch"
+      :id="props.id"
+      :checked="modelValue"
+      :aria-disabled="disabled"
+      class="switch__input"
+      type="checkbox">
+    <input
+      v-else
       role="switch"
       :id="props.id"
       v-model="modelValue"
       :disabled="isDisabled"
-      :aria-disabled="isDisabled"
       class="switch__input"
       type="checkbox">
     <span class="switch__presentation">
@@ -63,7 +70,7 @@ const componentClasses = computed(() => [
       </span>
     </span>
     <span class="switch__label">
-      {{ props.label }} {{ isDisabled }}
+      {{ props.label }}
       <span class="switch__text-on visually-hidden">{{ props.textOn }}</span>
       <span class="switch__text-off visually-hidden">{{ props.textOff }}</span>
     </span>
@@ -138,13 +145,13 @@ const componentClasses = computed(() => [
     outline-offset: var(--_switch-track-spacing);
   }
 
-  #{$self}:not(&--is-active):is(:hover, :focus-within, .switch--fake-hover, .switch--fake-focus) {
+  &:not(&--is-active, &--disabled):is(:hover, :focus-within, .switch--fake-hover, .switch--fake-focus) {
     --_switch-color-surface: var(--_switch-color-surface-unselected-hover);
     --_switch-color-track: var(--_switch-color-track-unselected-hover);
     --_switch-color-label: var(--_switch-color-label-unselected-hover);
   }
 
-  #{$self}--disabled:not(&--is-active) {
+  &--disabled:not(&--is-active) {
     --_switch-color-surface: var(--_switch-color-surface-unselected-disabled);
     --_switch-color-track: var(--_switch-color-track-unselected-disabled);
     --_switch-color-label: var(--_switch-color-label-unselected-disabled);
