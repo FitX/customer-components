@@ -80,7 +80,7 @@ export const Overview: Story = {
     },
     setup() {
       return {
-        theme: args.theme,
+        theme: computed(() => args.theme),
       };
     },
     template: `
@@ -194,9 +194,8 @@ export const WithIcons: Story = {
       IconClose,
     },
     setup() {
-      const theme = computed(() => args.theme);
       return {
-        theme,
+        theme: computed(() => args.theme),
       };
     },
     template: `

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
 import FitxSwitch from './fitx-switch.vue';
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -55,7 +55,7 @@ export const Overview: Story = {
       const trueValue = ref(true);
       const falseValue = ref(false);
       return {
-        theme: args.theme,
+        theme: computed(() => args.theme),
         trueValue,
         falseValue,
       };
@@ -131,7 +131,7 @@ export const Disabled: Story = {
       const trueValue = ref(true);
       const falseValue = ref(false);
       return {
-        theme: args.theme,
+        theme: computed(() => args.theme),
         trueValue,
         falseValue,
       };

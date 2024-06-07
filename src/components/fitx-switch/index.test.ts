@@ -29,7 +29,7 @@ describe('Switch', () => {
     expect(wrapper.find('.switch__text-off').text()).toBe('Off')
   })
 
-  it('computes isDisabled correctly', async () => {
+  it('display disabled modifier correctly', async () => {
     const wrapper = mount(FitxSwitch, {
       props: {
         label: 'Test Label',
@@ -38,8 +38,20 @@ describe('Switch', () => {
       },
     })
     const input = wrapper.find('input')
+    expect(input.attributes('aria-disabled')).toBeDefined()
+  });
+
+  it('computes isDisabled correctly', async () => {
+    const wrapper = mount(FitxSwitch, {
+      props: {
+        label: 'Test Label',
+        disabled: true,
+        modelValue: false,
+      },
+    })
+    const input = wrapper.find('input')
     expect(input.attributes('disabled')).toBeDefined()
-  })
+  });
 
   it('updates modelValue when input is clicked', async () => {
     const wrapper = mount(FitxSwitch, {

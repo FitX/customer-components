@@ -45,6 +45,7 @@ const componentClasses = computed(() => [
 <template>
   <label
     class="switch"
+    :data-theme="props.theme"
     :for="props.id"
     :class="componentClasses">
     <input
@@ -192,6 +193,7 @@ const componentClasses = computed(() => [
   }
 
   &__icon {
+    --icon-fill: var(--_switch-color-icon);
     opacity: var(--_switch-icon-opacity);
     scale: var(--_switch-icon-inactive-scale);
     transform-origin: center;
@@ -219,16 +221,12 @@ const componentClasses = computed(() => [
     color: var(--_switch-color-icon-selected);
     position: absolute;
     translate: var(--_switch-track-position) 0;
-    /* justify-self: start;
-    transition: all 2s ease;
-    transition-behavior: allow-discrete; */
     transition: translate var(--_switch-toggle-animation-duration) ease;
 
-    border-radius: calc(infinity * 1px);
+    border-radius: var(--_switch-track-size);
 
     #{$self}--is-active & {
       --_switch-track-position: calc((var(--_switch-inline-size) - (2 * var(--_switch-track-spacing))) - (var(--_switch-track-size) + (2 * var(--_switch-track-spacing))));
-      // justify-self: end;
     }
   }
 
@@ -237,17 +235,25 @@ const componentClasses = computed(() => [
     /**
       Dark Mode Tokens
     */
-    --_switch-color-surface-selected: var(--switch-color-surface-selected-dark, var(--brand-color-white-0));
-    --_switch-color-surface-unselected: var(--switch-color-surface-unselected-dark, var(--_switch-color-track-selected));
-    --_switch-color-surface-unselected-hover: var(--switch-color-surface-unselected-hover-dark, var(--_switch-color-track-selected));
-    --_switch-color-surface-unselected-disabled: var(--switch-color-surface-unselected-disabled-dark, var(--brand-color-gray-cement));
-    --_switch-color-surface-unselected-focused: var(--switch-color-surface-unselected-focused-dark, var(--_switch-color-track-selected));
-    --_switch-color-surface-selected-focused: var(--switch-color-surface-selected-focused-dark, var(--_switch-color-track-selected));
-    --_switch-color-surface-selected-disabled: var(--switch-color-surface-selected-disabled-dark, var(--brand-color-gray-stone));
+    --_switch-color-surface-selected: var(--switch-color-surface-selected-dark, var(--functional-color-success-0));
+    --_switch-color-surface-unselected: var(--switch-color-surface-unselected-dark, var(--brand-color-gray-graphite));
+    --_switch-color-surface-unselected-hover: var(--switch-color-surface-unselected-hover-dark, var(--brand-color-gray-stone));
+    --_switch-color-surface-unselected-disabled: var(--switch-color-surface-unselected-disabled-dark, var(--brand-color-gray-carbon));
+    --_switch-color-surface-unselected-focused: var(--switch-color-surface-unselected-focused-dark, var(--brand-color-gray-graphite));
+    --_switch-color-surface-selected-focused: var(--switch-color-surface-selected-focused-dark, var(--_switch-color-surface-selected));
+    --_switch-color-surface-selected-disabled: var(--switch-color-surface-selected-disabled-dark, var(--brand-color-gray-cement));
+
+    --_switch-color-track-selected: var(--switch-color-track-selected-dark, var(--brand-color-white-0));
+    --_switch-color-track-unselected: var(--switch-color-track-unselected-dark, var(--_switch-color-track-selected));
+    --_switch-color-track-unselected-hover: var(--switch-color-track-unselected-hover-dark, var(--_switch-color-track-selected));
+    --_switch-color-track-unselected-disabled: var(--switch-color-track-unselected-disabled-dark, var(--brand-color-gray-cement));
+    --_switch-color-track-unselected-focused: var(--switch-color-track-unselected-focused-dark, var(--_switch-color-track-selected));
+    --_switch-color-track-selected-focused: var(--switch-color-track-selected-focused-dark, var(--_switch-color-track-selected));
+    --_switch-color-track-selected-disabled: var(--switch-color-track-selected-disabled-dark, var(--brand-color-gray-stone));
 
     --_switch-color-icon-selected: var(--switch-color-icon-selected-dark, var(--_switch-color-surface-selected));
-    --_switch-color-icon-selected-focused: var(--switch-color-icon-selected-focused-dark, var(--_switch-color-surface-selected));
-    --_switch-color-icon-selected-disabled: var(--switch-color-icon-selected-disabled-dark, var(--_switch-color-surface-selected-disabled));
+    --_switch-color-icon-selected-focused: var(--switch-color-icon-selected-focused-dark, var(--_switch-color-icon-selected));
+    --_switch-color-icon-selected-disabled: var(--switch-color-icon-selected-disabled-dark, var(--brand-color-gray-cement));
 
     --_switch-color-label-selected: var(--switch-color-label-selected-dark, var(--brand-color-white-0));
     --_switch-color-label-unselected: var(--switch-color-label-unselected-dark, var(--_-switch-color-label-selected));
