@@ -1,70 +1,45 @@
 <script lang="ts">
 import type { Theme } from '@/types';
-export type messageState = 'errorMessage' | 'supportingText';
 export type FitxErrorMessageProps = {
-  text?: string;
+  text: string;
   theme?: Theme;
-  modifier?: messageState;
-  showIcon?: boolean;
 }
 </script>
 
 <script lang="ts" setup>
-import { computed, toValue, useSlots } from 'vue';
-import { IconExclamationmark, IconInfo } from '@/components/icons';
+import { IconExclamationmark } from '@/components/icons';
 
-
-const props = withDefaults(
-  defineProps<FitxErrorMessageProps>(),
-  {
-    text: 'error',
-    modifier: 'errorMessage',
-    showIcon: true,
-  },
-);
-
-const errorIcon = computed(() => props.modifier === 'errorMessage' ? IconExclamationmark : IconInfo);
-const errorTextClass = computed(() => props.modifier === 'errorMessage' ?  'error-message--error' : 'error-message--support');
-
+const props = defineProps<FitxErrorMessageProps>();
 </script>
 <template>
-  <span class="error-message" :class="{'error-message--no-icon': !showIcon}">
-    <component v-if="showIcon" :is="errorIcon" class="error-message__icon" />
-    <span :class="errorTextClass">
-      {{ text }}
+  <span class="error-message">
+    <icon-exclamationmark class="error-message__icon" />
+    <span>
+      {{ props.text }}
     </span>
   </span>
 </template>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/mixins.scss' as normalize;
-
 .error-message {
-  font-size: 0.875rem;
-  font-weight: 300;
+  --_error-message-font-size: var(--error-message-font-size, 0.875rem);
+  --_error-message-color: var(--error-message-color, var(--functional-color-error-0));
+  --_error-message-gap: var(--error-message-gap, var(--size-1));
+  --_error-message-icon-size: var(--error-message-icon-size, var(--icon-size-px-mini));
+
+  font-size: var(--_error-message-font-size);
+  font-weight: 400;
   display: grid;
   width: 100%;
-  grid-template-columns: 1.25rem 1fr;
-  grid-gap: 0.25rem;
+  color: var(--_error-message-color);
+  grid-template-columns: var(--_error-message-icon-size) 1fr;
+  grid-gap: var(--_error-message-gap);
   align-items: center;
 
-  &--no-icon {
-    grid-template-columns: none;
-  }
-
-  &--error {
-    color: var(--functional-color-error-0);
-  }
-
-  &--support {
-    color: var(--brand-color-gray-carbon);
-  }
-
   &__icon {
-    --icon-size: 1.125rem;
-    --icon-width: var(--icon-size);
-    --icon-height: var(--icon-size);
-    --icon-fill: var(--functional-color-error);
+    --icon-width: var(--_error-message-icon-size);
+    --icon-fill: currentColor;
+    aspect-ratio: 1;
   }
 }
 </style>
