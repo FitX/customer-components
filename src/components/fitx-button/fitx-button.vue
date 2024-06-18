@@ -307,7 +307,7 @@ const componentClasses = computed(() => [
   background: var(--_button-color-surface);
   color: var(--_button-color-text);
   font-size: var(--_button-font-size);
-  font-weight: 400;
+  font-weight: 500;
   border: var(--_button-border-width) solid var(--_button-color-border);
   border-radius: var(--_button-radius);
   padding-block: var(--_button-spacing-block);
