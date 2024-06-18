@@ -73,9 +73,9 @@ export const Overview: Story = {
       </component>
       <section :data-theme="theme">
         <fitx-label
-          :theme="theme" modifier="disabled" text="Disabled Label" id="label-disabled" />
+          :theme="theme" modifier="disabled" text="Disabled Label" for="label-disabled" />
         <fitx-label
-          :theme="theme" :error="true" text="Error Label" id="label-error" />
+          :theme="theme" :error="true" text="Error Label" for="label-error" />
       </section>
     `,
   }),

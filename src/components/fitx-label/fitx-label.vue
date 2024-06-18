@@ -4,7 +4,7 @@ import type { Theme } from '@/types';
 export type LabelModifier = 'disabled';
 export type FitxInputProps = {
   text: string;
-  id?: string;
+  for?: string;
   modifier?: LabelModifier,
   theme?: Theme;
   error?: boolean;
@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { getModifierClasses } from '@/utils/css-modifier';
 
 const props = withDefaults(defineProps<FitxInputProps>(), {
-  id: () => crypto.randomUUID(),
+  for: () => crypto.randomUUID(),
 });
 
 const componentClasses = computed(() => [
@@ -29,7 +29,7 @@ const componentClasses = computed(() => [
     :data-theme="props.theme"
     class="label"
     :class="componentClasses"
-    :for="props.id">
+    :for="props.for">
     {{ props.text }}
   </label>
 </template>

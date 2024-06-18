@@ -31,4 +31,20 @@ describe('FitxInput', () => {
     });
     expect(wrapper.html()).toContain('label--has-error');
   });
+
+  it('respects for props', () => {
+    const wrapper = mount(FitxLabel, {
+      props: {
+        text: 'Hello disabled Label',
+        for: 'abc',
+      },
+    });
+
+    const wrapper2 = mount(FitxLabel, {
+      props: {
+        text: 'Hello disabled Label',
+      },
+    });
+    !expect(wrapper2.element.attributes['for']).toBeDefined();
+  });
 });
