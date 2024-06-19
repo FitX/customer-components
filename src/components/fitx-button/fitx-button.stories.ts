@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
-import { buttonStates, default as FitxButton } from './fitx-button.vue';
+import { FitxButton, buttonStates } from './index';
 import { IconClose } from '@/components/icons/index';
 import { computed } from 'vue';
 

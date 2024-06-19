@@ -1,35 +1,10 @@
-<script lang="ts">
-import type { Theme } from '@/types';
-export type ButtonSize = 'default' | 'small';
-export const buttonStates = ['primary', 'secondary', 'tertiary', 'quaternary', 'disabled'] as const;
-export type ButtonState = (typeof buttonStates)[number];
-</script>
-
 <script lang="ts" setup>
 import { computed, toValue, useSlots } from 'vue';
 import { getModifierClasses } from '@/utils/css-modifier';
+import type { FitxButtonProps } from '@/components/fitx-button/types'
 
-// type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
-
-// type FakeStates = 'hover' | 'focus' | 'active';
-// export type ButtonState = 'disabled' | 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 const props = withDefaults(
-  defineProps<{
-    theme?: Theme;
-    tag?: 'button' | 'span' | 'a';
-    size?: ButtonSize;
-    /**
-     * Active State
-     */
-    isActive?: boolean;
-    modifier?: ButtonState | ButtonState[];
-    /**
-     * ## Dev Mode Only
-     * Just for presentation in Storybook
-     * don't use this in Production
-     */
-    fakeModifier?: 'none' | 'hover' | 'focus' | 'active'; // Dev Mode only @TODO remove from export on build
-  }>(),
+  defineProps<FitxButtonProps>(),
   {
     tag: 'button',
   },
@@ -38,19 +13,6 @@ const props = withDefaults(
 const slots = useSlots();
 const hasIcons = computed(() => !!slots['icon-start'] || !!slots['icon-end']);
 
-/* const componentClasses = computed(() => {
-  const sizes = size ? [`size-${size}`] : [];
-  let modifierList: ButtonState[] = [];
-  if (modifier) {
-    if (typeof modifier === 'string') {
-      modifierList.push(modifier);
-    } else {
-      modifierList = modifier;
-    }
-  }
-  return getModifierClasses('button', [...sizes, ...modifierList]);
-});
- */
 const componentClasses = computed(() => [
   ...getModifierClasses('button', props.size ? `size-${props.size}` : []),
   ...getModifierClasses('button', props.modifier ?? []),

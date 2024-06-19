@@ -1,25 +1,8 @@
-<script lang="ts">
-import type { Theme } from '@/types';
-export type FitxInputProps = {
-  theme?: Theme;
-  label: string;
-  id?: string;
-  type?: HTMLInputElement['type'];
-  disabled?: boolean;
-  errorMessage?: string;
-  /**
-   * ## Dev Mode Only
-   * Just for presentation in Storybook
-   * don't use this in Production
-   */
-  fakeModifier?: 'none' | 'hover' | 'focus'; // Dev Mode only @TODO remove from export on build
-};
-</script>
-
 <script lang="ts" setup>
 import { computed, toValue } from 'vue';
 import { FitxLabel, FitxErrorMessage } from '@/components';
 import { getModifierClasses } from '@/utils/css-modifier';
+import type { FitxInputProps } from '@/components/fitx-input/types'
 const props = withDefaults(defineProps<FitxInputProps>(), {
   type: 'text',
   id: () => crypto.randomUUID(),

@@ -1,13 +1,7 @@
-<script lang="ts">
-import type { Theme } from '@/types';
-export type FitxErrorMessageProps = {
-  text: string;
-  theme?: Theme;
-};
-</script>
 
 <script lang="ts" setup>
 import { IconExclamationmark } from '@/components/icons';
+import type { FitxErrorMessageProps } from '@/components/fitx-error-message/types'
 
 const props = defineProps<FitxErrorMessageProps>();
 </script>

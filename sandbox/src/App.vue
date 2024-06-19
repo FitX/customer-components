@@ -2,18 +2,14 @@
 import {
   IconBack,
   IconClear,
-  FitxButton,
   FitxLabel,
 } from '@fitx/customer-components';
-
-const isANumberRef = ref('5');
 </script>
 
 <template>
   <main>
     <h1>Components</h1>
-    <fitx-label text="4" modifier="disabled" />
-    <fitx-button :msg="isANumberRef" />
+    <fitx-label text="4" modifier="disabled" for="4" />
     <icon-back />
     <icon-clear />
   </main>
