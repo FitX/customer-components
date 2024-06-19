@@ -1,37 +1,19 @@
 <script setup lang="ts">
 import {
-  type Book,
   IconBack,
   IconClear,
   FitxButton,
-  FitxAnotherButton,
-  isDefined,
+  FitxLabel,
 } from '@fitx/customer-components';
-import { computed, ref } from 'vue';
 
 const isANumberRef = ref('5');
-const mayBeBook = ref<Book>({
-  author: 'Frank',
-  year: 2024,
-  title: 'sollte so stimmen',
-});
-
-const maybeDefined = ref('nice');
-const tach = computed(() => isDefined(maybeDefined));
-
-const example = ref(Math.random() ? 'example' : undefined);
-const check = () => isDefined(example);
 </script>
 
 <template>
   <main>
     <h1>Components</h1>
+    <fitx-label text="4" modifier="disabled" />
     <fitx-button :msg="isANumberRef" />
-    <fitx-another-button :book="mayBeBook" />
-    <pre>
-      tach {{ tach }}
-      example: {{ example }} {{ check() }}
-    </pre>
     <icon-back />
     <icon-clear />
   </main>

@@ -1,4 +1,6 @@
-<script lang="ts">
+<script lang="ts" setup>
+import { computed } from 'vue';
+import { getModifierClasses } from '@/utils/css-modifier';
 import type { Theme } from '@/types';
 
 export type LabelModifier = 'disabled';
@@ -9,11 +11,6 @@ export type FitxInputProps = {
   theme?: Theme;
   error?: boolean;
 };
-</script>
-
-<script lang="ts" setup>
-import { computed } from 'vue';
-import { getModifierClasses } from '@/utils/css-modifier';
 
 const props = withDefaults(defineProps<FitxInputProps>(), {
   for: () => crypto.randomUUID(),

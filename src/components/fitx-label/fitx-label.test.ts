@@ -45,6 +45,7 @@ describe('FitxInput', () => {
         text: 'Hello disabled Label',
       },
     });
-    !expect(wrapper2.element.attributes['for']).toBeDefined();
+    expect(wrapper.element.attributes['for']).toBe('abc');
+    expect(wrapper2.element.attributes['for']).toBeDefined();
   });
 });

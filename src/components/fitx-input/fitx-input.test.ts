@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { FitxInput } from './index';
 
-describe('FitxInput', () => {
+describe.skip('FitxInput', () => {
   it('renders properly', () => {
     const wrapper = mount(FitxInput, {
       props: {

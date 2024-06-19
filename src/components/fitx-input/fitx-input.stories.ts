@@ -3,7 +3,7 @@ import { default as FitxInput } from './fitx-input.vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
-  title: 'components/Input',
+  title: 'components/Form/Input',
   component: FitxInput,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
@@ -17,5 +17,7 @@ type Story = StoryObj<typeof meta>;
  * to learn how to use render functions.
  */
 export const Default: Story = {
-  args: {},
+  args: {
+    label: 'Input'
+  },
 };
