@@ -3,13 +3,15 @@ import {
   IconBack,
   IconClear,
   FitxLabel,
+  FitxButton,
 } from '@fitx/customer-components';
 </script>
 
 <template>
   <main>
     <h1>Components</h1>
-    <fitx-label text="4" modifier="disabled" for="4" />
+    <fitx-label text="4" modifier="disabled" for="test" />
+    <fitx-button id="234" :modifier="'primary'">Lorem</fitx-button>
     <icon-back />
     <icon-clear />
   </main>
