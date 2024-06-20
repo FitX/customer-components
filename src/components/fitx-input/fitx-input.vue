@@ -24,7 +24,7 @@ const componentClasses = computed(() => [
         text="props.label"
         :for="props.id" />
       <input
-        class="foo"
+        class="input__input"
         :type="type"
         v-model="modelValue"
       />
@@ -37,6 +37,7 @@ const componentClasses = computed(() => [
 
 <style lang="scss" scoped>
 .input {
+  $self: &;
   --_input-inline-size: var(--input-inline-size, 3.75rem);
   --_input-spacing-inline: var(--input-spacing-inline, 1.125rem);
   --_input-spacing-block: var(--input-spacing-block, 0.625rem);
@@ -48,16 +49,13 @@ const componentClasses = computed(() => [
   // --_input-font-size-label: var(--input-font-size-label, 0.875rem); // 77.78%
   --_input-font-size-label-factor: var(--input-font-size-label-factor, 0.7778); // 77.78%
 
-  --_input-label-row: var(--_input-inline-size);
   --_input-font-size-label: var(--_input-font-size-input);
 
   &__ui {
+    position: relative;
     display: grid;
+    grid: 'input' 1fr / 1fr;
     height: var(--_input-inline-size);
-    grid-template-rows: var(--_input-label-row) var(--_input-inline-size);
-    grid-template-columns: 1fr;
-    transition: grid-template-rows 200ms ease;
-    align-items: center;
     padding-block: var(--_input-spacing-block);
     padding-inline: var(--_input-spacing-inline);
     border: 1px solid var(--_input-color-border);
@@ -66,25 +64,35 @@ const componentClasses = computed(() => [
 
 
   &__label {
-    //z-index: 1;
-    grid-row: 1 / -1;
-    grid-column: 1;
-    border: 1px solid blue;
-    // align-self: center;
+    position: absolute;
     font-size: var(--_input-font-size-label);
+    transition: font-size 300ms ease;
+    text-align: start;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+    overflow: hidden;
+    // inset: 0;
+    // height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    padding-block: var(--_input-spacing-block);
+    padding-inline: var(--_input-spacing-inline);
+
+    #{$self}:has(#{$self}__input:focus, #{$self}__input:not(:placeholder-shown)) {
+      transform: scale(.85) translateY(-.5rem) translateX(.5rem);
+    }
   }
 
-  .foo {
-    grid-row: 1 / -1;
-    grid-column: 1;
+  &__input {
     font-size: var(--_input-font-size-input);
     background: none;
-    border: 1px solid red;
   }
 
   &:hover {
-    --_input-font-size-label: calc(var(--_input-font-size-input) * var(--_input-font-size-label-factor));
-    --_input-label-row: calc(var(--_input-inline-size) * 0.4);
+    // --_input-font-size-label: calc(var(--_input-font-size-input) * var(--_input-font-size-label-factor));
+    // --_input-label-row: calc(var(--_input-inline-size) * 0.4);
   }
 }
 </style>
