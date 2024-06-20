@@ -3,21 +3,35 @@ import { computed, toValue } from 'vue';
 import { FitxLabel, FitxErrorMessage } from '@/components';
 import { getModifierClasses } from '@/utils/css-modifier';
 import type { FitxInputProps } from '@/components/fitx-input/types';
+
 const props = withDefaults(defineProps<FitxInputProps>(), {
   type: 'text',
   id: () => crypto.randomUUID(),
 });
+
+const slots = defineSlots<{
+  'icon-start'?: () => any;
+  'icon-end'?: () => any;
+}>();
+
 const modelValue = defineModel<string | number>({ default: '' });
+
+const hasIconStart = computed(() => !!slots['icon-start']);
+const hasIconEnd = computed(() => !!slots['icon-end']);
+
 const componentClasses = computed(() => [
   'input',
   ...getModifierClasses('input', props.disabled ? 'disabled' : []),
+  ...getModifierClasses('input', toValue(hasIconStart) ? 'has-icon-start' : []),
+  ...getModifierClasses('input', toValue(hasIconEnd) ? 'has-icon-end' : []),
   ...getModifierClasses('input', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
   ...getModifierClasses('input', toValue(modelValue) ? 'is-filled' : []),
 ]);
 </script>
 
 <template>
-  <div :class="componentClasses">
+  <div
+    :class="componentClasses">
     <div class="input__ui">
       <fitx-label
         class="input__label"
@@ -30,6 +44,12 @@ const componentClasses = computed(() => [
         :type="type"
         v-model="modelValue"
       />
+      <span class="input__icon input__icon--start">
+        <slot name="icon-start"></slot>
+      </span>
+      <span class="input__icon input__icon--end">
+        <slot name="icon-end"></slot>
+      </span>
     </div>
     <fitx-error-message
       v-if="errorMessage"
@@ -53,12 +73,24 @@ const componentClasses = computed(() => [
   --_input-font-size-label: var(--_input-font-size-input);
   --_input-transition-duration: var(--input-transition-duration, 200ms);
 
+  --_input-icon-size: var(--input-icon-size, 24px);
   --_input-label-size: 100%; // overlapping 2 rows
+
+  &--has-icon-start {
+    --_input-icon-size-start: var(--_input-icon-size);
+  }
+  &--has-icon-end {
+    --_input-icon-size-end: var(--_input-icon-size);
+  }
 
   &__ui {
     display: grid;
-    grid-template-rows: var(--_input-label-size) calc(100% - var(--_input-label-size));
-    grid-template-columns: 100%;
+    // grid-template-rows: var(--_input-label-size) calc(100% - var(--_input-label-size));
+    // grid-template-columns: minmax(0, var(--_input-icon-size)) 100% minmax(0, var(--_input-icon-size));
+    grid:
+      'icon-start label icon-end' var(--_input-label-size)
+      'icon-start input icon-end' calc(100% - var(--_input-label-size)) /
+    minmax(0, var(--_input-icon-size-start, 0)) 1fr minmax(0, var(--_input-icon-size-end, 0));
     block-size: var(--_input-block-size);
     padding-block: var(--_input-spacing-block);
     padding-inline: var(--_input-spacing-inline);
@@ -68,6 +100,7 @@ const componentClasses = computed(() => [
     border: 1px solid var(--_input-color-border);
     border-radius: var(--_input-radius);
     font-weight: 400;
+    column-gap: 0.625rem;
 
     /**
     @TODO replace because browser support has
@@ -79,12 +112,28 @@ const componentClasses = computed(() => [
     }
   }
 
+  &__icon {
+    align-self: center;
+    aspect-ratio: 1;
+    overflow: hidden;
+    display: inline-grid;
+    place-items: center;
+
+    &--start {
+      grid-area: icon-start;
+    }
+    &--end {
+      grid-area: icon-end;
+    }
+  }
+
 
   &__label {
+    grid-area: label;
     font-size: var(--_input-font-size-label);
     z-index: 2;
-    grid-row: 1 / 2;
-    grid-column: 1;
+    // grid-row: 1 / 2;
+    // grid-column: 1;
     height: 100%;
     display: grid;
     align-items: center;
@@ -92,9 +141,10 @@ const componentClasses = computed(() => [
   }
 
   &__input {
+    grid-area: input;
     font: inherit;
     font-size: var(--_input-font-size-input);
-    grid-column: 1;
+    // grid-column: 1;
     padding: 0;
     border: unset;
     outline: 0;
