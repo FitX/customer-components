@@ -25,6 +25,8 @@ const componentClasses = computed(() => [
         :for="props.id" />
       <input
         class="input__input"
+        placeholder=""
+        :id="props.id"
         :type="type"
         v-model="modelValue"
       />
@@ -38,7 +40,7 @@ const componentClasses = computed(() => [
 <style lang="scss" scoped>
 .input {
   $self: &;
-  --_input-inline-size: var(--input-inline-size, 3.75rem);
+  --_input-block-size: var(--input-block-size, 3.75rem); // 3.75rem
   --_input-spacing-inline: var(--input-spacing-inline, 1.125rem);
   --_input-spacing-block: var(--input-spacing-block, 0.625rem);
   --_input-radius: var(--input-radius, var(--radius-4));
@@ -46,48 +48,49 @@ const componentClasses = computed(() => [
   --_input-color-input: var(--input-color-input-light, var(--brand-color-anthracite-0));
   --_input-color-label: var(--input-color-label-light, var(--brand-color-gray-carbon));
   --_input-font-size-input: var(--input-font-size-input, 1.125rem);
-  // --_input-font-size-label: var(--input-font-size-label, 0.875rem); // 77.78%
-  --_input-font-size-label-factor: var(--input-font-size-label-factor, 0.7778); // 77.78%
 
-  --_input-font-size-label: var(--_input-font-size-input);
+  --_input-label-size: 100%;
 
   &__ui {
-    position: relative;
     display: grid;
-    grid: 'input' 1fr / 1fr;
-    height: var(--_input-inline-size);
+    grid-template-rows: var(--_input-label-size) calc(100% - var(--_input-label-size));
+    grid-template-columns: 100%;
+    block-size: var(--_input-block-size);
+    background: coral;
     padding-block: var(--_input-spacing-block);
     padding-inline: var(--_input-spacing-inline);
+    transition: grid-template-rows 200ms ease;
+    align-content: center;
+    overflow: hidden;
     border: 1px solid var(--_input-color-border);
     border-radius: var(--_input-radius);
+
+    /**
+    @TODO replace because browser support has
+     */
+    &:has(input:focus),
+    &:has(input:not(:placeholder-shown)){
+      --_input-label-size: 1.25rem;
+    }
   }
 
 
   &__label {
-    position: absolute;
     font-size: var(--_input-font-size-label);
-    transition: font-size 300ms ease;
-    text-align: start;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    pointer-events: none;
-    overflow: hidden;
-    // inset: 0;
-    // height: 100%;
-    top: 0;
-    left: 0;
-    transform-origin: 0 0;
-    padding-block: var(--_input-spacing-block);
-    padding-inline: var(--_input-spacing-inline);
-
-    #{$self}:has(#{$self}__input:focus, #{$self}__input:not(:placeholder-shown)) {
-      transform: scale(.85) translateY(-.5rem) translateX(.5rem);
-    }
+    z-index: 2;
+    grid-row: 1 / 2;
+    grid-column: 1;
+    height: 100%;
+    display: grid;
+    align-items: center;
   }
 
   &__input {
     font-size: var(--_input-font-size-input);
-    background: none;
+    grid-column: 1;
+    padding: 0;
+    border: unset;
+    outline: 0;
   }
 
   &:hover {
