@@ -41,6 +41,7 @@ const componentClasses = computed(() => [
 <template>
   <div
     ref="wrapper"
+    :data-theme="props.theme"
     :class="componentClasses">
     <div class="input__ui">
       <fitx-label
@@ -78,6 +79,11 @@ const componentClasses = computed(() => [
   --_input-radius: var(--input-radius, var(--radius-4));
 
   /* States / Modifiers */
+  --_input-color-border-default: var(--input-color-border-light, var(--brand-color-gray-stone));
+  --_input-color-input-default: var(--input-color-input-light, var(--brand-color-anthracite-0));
+  --_input-color-label-default: var(--input-color-label-light, var(--brand-color-gray-carbon));
+  --_input-color-surface-default: var(--input-color-surface-light, transparent);
+
   --_input-color-border-error: var(--input-color-border-error-light, var(--functional-color-error-0));
   --_input-color-label-error: var(--input-color-label-error-light, var(--functional-color-error-0));
   --_input-color-surface-error: var(--input-color-surface-error-light, var(--functional-color-error-1-light));
@@ -85,15 +91,10 @@ const componentClasses = computed(() => [
   --_input-color-border-hover: var(--input-color-border-hover-light, var(--brand-color-gray-graphite));
   --_input-color-border-focus: var(--input-color-border-focus-light, var(--brand-color-anthracite-0));
 
-  --_input-color-border-disabled: var(--input-color-border-disabled-light, var(--brand-color-gray-stone));
-  --_input-color-label-disabled: var(--input-color-label-disabled-light, var(--brand-color-gray-cement));
-  --_input-color-input-disabled: var(--input-color-input-disabled-light, var(--brand-color-gray-cement));
-  --_input-color-surface-disabled: var(--input-color-surface-disabled-light, var(--brand-color-gray-chalk));
-
-  --_input-color-border: var(--input-color-border-light, var(--brand-color-gray-stone));
-  --_input-color-input: var(--input-color-input-light, var(--brand-color-anthracite-0));
-  --_input-color-label: var(--input-color-label-light, var(--brand-color-gray-carbon));
-  --_input-color-surface: var(--input-color-surface-light, transparent);
+  --_input-color-border: var(--_input-color-border-default);
+  --_input-color-input: var(--_input-color-input-default);
+  --_input-color-label: var(--_input-color-label-default);
+  --_input-color-surface: var(--_input-color-surface-default);
 
   --_input-font-size-input: var(--input-font-size-input, 1.125rem);
   --_input-font-size-label: var(--_input-font-size-input);
@@ -104,6 +105,20 @@ const componentClasses = computed(() => [
 
   display: inline-grid;
   gap: 4px;
+
+  &:is([data-theme='dark']) {
+    /* States / Modifiers */
+    --_input-color-border-error: var(--input-color-border-error-dark, var(--functional-color-error-0));
+    --_input-color-label-error: var(--input-color-label-error-dark, var(--functional-color-error-0));
+    --_input-color-surface-error: var(--input-color-surface-error-dark, var(--functional-color-error-1-dark));
+
+    --_input-color-border-hover: var(--input-color-border-hover-dark, var(--brand-color-gray-stone));
+    --_input-color-border-focus: var(--input-color-border-focus-dark, var(--brand-color-gray-stone));
+
+    --_input-color-border-default: var(--input-color-border-dark, var(--brand-color-gray-stone));
+    --_input-color-input-default: var(--input-color-input-dark, var(--brand-color-white-0));
+    --_input-color-label-default: var(--input-color-label-dark, var(--brand-color-gray-graphite));
+  }
 
   &:hover,
   &--fake-hover {
@@ -232,11 +247,6 @@ const componentClasses = computed(() => [
     #{$self}--has-icon-end & {
       grid-column-end: input;
     }
-  }
-
-  &:hover {
-    // --_input-font-size-label: calc(var(--_input-font-size-input) * var(--_input-font-size-label-factor));
-    // --_input-label-row: calc(var(--_input-inline-size) * 0.4);
   }
 }
 </style>
