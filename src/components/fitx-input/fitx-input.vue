@@ -84,7 +84,7 @@ const componentClasses = computed(() => [
   --_input-label-size: 100%; // overlapping 2 rows
 
   display: inline-grid;
-  gap: 2px;
+  gap: 4px;
 
   &--has-error {
     --_input-color-border: var(--_input-color-border-error);
@@ -152,23 +152,50 @@ const componentClasses = computed(() => [
   &__label {
     grid-area: label;
     font-size: var(--_input-font-size-label);
+    color: var(--_input-color-label);
     z-index: 2;
-    // grid-row: 1 / 2;
-    // grid-column: 1;
     height: 100%;
     display: grid;
     align-items: center;
     transition: font-size var(--_input-transition-duration) ease;
+
+    /**
+    Overwrite label grid column to get rid of gap (1/2)
+    reset if icons shown
+     */
+    grid-column: icon-start / icon-end;
+
+    #{$self}--has-icon-start & {
+      grid-column-start: label;
+    }
+
+    #{$self}--has-icon-end & {
+      grid-column-end: label;
+    }
   }
 
   &__input {
     grid-area: input;
     font: inherit;
     font-size: var(--_input-font-size-input);
-    // grid-column: 1;
+    background: none;
     padding: 0;
     border: unset;
     outline: 0;
+
+    /**
+    Overwrite label grid column to get rid of gap (2/2)
+    reset if icons shown
+     */
+    grid-column: icon-start / icon-end;
+
+    #{$self}--has-icon-start & {
+      grid-column-start: input;
+    }
+
+    #{$self}--has-icon-end & {
+      grid-column-end: input;
+    }
   }
 
   &:hover {
