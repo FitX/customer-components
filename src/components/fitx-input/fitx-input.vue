@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed, toValue } from 'vue';
+import { computed, ref, toValue, unref } from 'vue'
+import { useFocusWithin } from '@vueuse/core';
 import { FitxLabel, FitxErrorMessage } from '@/components';
 import { getModifierClasses } from '@/utils/css-modifier';
 import type { InputProps } from '@/components/fitx-input/types';
@@ -15,15 +16,20 @@ const slots = defineSlots<{
 }>();
 
 const modelValue = defineModel<string | number>({ default: '' });
+const wrapper = ref();
+const { focused } = useFocusWithin(wrapper);
 
 const isDisabled = computed<boolean>(() => props.disabled || props.modifier === 'disabled');
+const isFilled = computed(() => `${modelValue.value}`.length > 0);
+const isActive = computed(() => toValue(focused));
 const hasIconStart = computed(() => !!slots['icon-start']);
 const hasIconEnd = computed(() => !!slots['icon-end']);
 
 const componentClasses = computed(() => [
   'input',
+  ...getModifierClasses('input', toValue(isFilled) ? 'is-filled' : []),
+  ...getModifierClasses('input', toValue(isActive) ? 'is-active' : []),
   ...getModifierClasses('input', toValue(isDisabled) ? 'disabled' : []),
-  ...getModifierClasses('input', props.disabled ? 'disabled' : []),
   ...getModifierClasses('input', toValue(hasIconStart) ? 'has-icon-start' : []),
   ...getModifierClasses('input', toValue(hasIconEnd) ? 'has-icon-end' : []),
   ...getModifierClasses('input', props.errorMessage ? 'has-error' : []),
@@ -34,6 +40,7 @@ const componentClasses = computed(() => [
 
 <template>
   <div
+    ref="wrapper"
     :class="componentClasses">
     <div class="input__ui">
       <fitx-label
@@ -108,14 +115,20 @@ const componentClasses = computed(() => [
     --_input-color-border: var(--_input-color-border-focus);
   }
 
+  &--is-active,
+  &--is-filled {
+    &:not(#{$self}--disabled) {
+      --_input-label-size: 1rem;
+      --_input-font-size-label: 0.875rem;
+    }
+  }
+
   &--disabled {
     --_input-color-border: var(--_input-color-border-disabled);
     --_input-color-label: var(--_input-color-label-disabled);
     --_input-color-input: var(--_input-color-input-disabled);
     --_input-color-surface: var(--_input-color-surface-disabled);
   }
-
-
 
   &--has-error {
     --_input-color-border: var(--_input-color-border-error);
@@ -149,15 +162,6 @@ const componentClasses = computed(() => [
     font-weight: 400;
     column-gap: 0.625rem;
     background: var(--_input-color-surface);
-
-    /**
-    @TODO replace because browser support has
-     */
-    &:has(input:focus),
-    &:has(input:not(:placeholder-shown)){
-      --_input-label-size: 1rem;
-      --_input-font-size-label: 0.875rem;
-    }
   }
 
   &__icon {
