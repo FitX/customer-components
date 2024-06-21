@@ -49,6 +49,13 @@ export const WithIcons: Story = {
     'icon-end': getSVGComponent(IconClear),
   },
 };
+
+export const WithError: Story = {
+  args: {
+    label: 'Input with Error',
+    errorMessage: 'This Field has a Error'
+  },
+};
 /*
 export const Examples: Story = {
   render: (args) => ({

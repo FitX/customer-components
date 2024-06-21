@@ -24,6 +24,7 @@ const componentClasses = computed(() => [
   ...getModifierClasses('input', props.disabled ? 'disabled' : []),
   ...getModifierClasses('input', toValue(hasIconStart) ? 'has-icon-start' : []),
   ...getModifierClasses('input', toValue(hasIconEnd) ? 'has-icon-end' : []),
+  ...getModifierClasses('input', props.errorMessage ? 'has-error' : []),
   ...getModifierClasses('input', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
   ...getModifierClasses('input', toValue(modelValue) ? 'is-filled' : []),
 ]);
@@ -65,9 +66,15 @@ const componentClasses = computed(() => [
   --_input-spacing-block: var(--input-spacing-block, 0.625rem);
   --_input-radius: var(--input-radius, var(--radius-4));
 
+  /* States / Modifiers */
+  --_input-color-border-error: var(--input-color-border-error-light, var(--functional-color-error-0));
+  --_input-color-label-error: var(--input-color-label-error-light, var(--functional-color-error-0));
+  --_input-color-surface-error: var(--input-color-surface-error-light, var(--functional-color-error-1-light));
+
   --_input-color-border: var(--input-color-border-light, var(--brand-color-gray-stone));
   --_input-color-input: var(--input-color-input-light, var(--brand-color-anthracite-0));
   --_input-color-label: var(--input-color-label-light, var(--brand-color-gray-carbon));
+  --_input-color-surface: var(--input-color-surface-light, transparent);
 
   --_input-font-size-input: var(--input-font-size-input, 1.125rem);
   --_input-font-size-label: var(--_input-font-size-input);
@@ -75,6 +82,15 @@ const componentClasses = computed(() => [
 
   --_input-icon-size: var(--input-icon-size, 24px);
   --_input-label-size: 100%; // overlapping 2 rows
+
+  display: inline-grid;
+  gap: 2px;
+
+  &--has-error {
+    --_input-color-border: var(--_input-color-border-error);
+    --_input-color-label: var(--_input-color-label-error);
+    --_input-color-surface: var(--_input-color-surface-error);
+  }
 
   &--has-icon-start {
     --_input-icon-size-start: var(--_input-icon-size);
@@ -101,6 +117,7 @@ const componentClasses = computed(() => [
     border-radius: var(--_input-radius);
     font-weight: 400;
     column-gap: 0.625rem;
+    background: var(--_input-color-surface);
 
     /**
     @TODO replace because browser support has
@@ -118,6 +135,10 @@ const componentClasses = computed(() => [
     overflow: hidden;
     display: inline-grid;
     place-items: center;
+
+    /* &:empty {
+      display: none;
+    } */
 
     &--start {
       grid-area: icon-start;
