@@ -71,6 +71,9 @@ const componentClasses = computed(() => [
   --_input-color-label-error: var(--input-color-label-error-light, var(--functional-color-error-0));
   --_input-color-surface-error: var(--input-color-surface-error-light, var(--functional-color-error-1-light));
 
+  --_input-color-border-hover: var(--input-color-border-hover-light, var(--brand-color-gray-graphite));
+  --_input-color-border-focus: var(--input-color-border-focus-light, var(--brand-color-anthracite-0));
+
   --_input-color-border: var(--input-color-border-light, var(--brand-color-gray-stone));
   --_input-color-input: var(--input-color-input-light, var(--brand-color-anthracite-0));
   --_input-color-label: var(--input-color-label-light, var(--brand-color-gray-carbon));
@@ -85,6 +88,18 @@ const componentClasses = computed(() => [
 
   display: inline-grid;
   gap: 4px;
+
+  &:hover,
+  &--fake-hover {
+    --_input-color-border: var(--_input-color-border-hover);
+  }
+
+  &:focus,
+  &--fake-focus {
+    --_input-color-border: var(--_input-color-border-focus);
+  }
+
+
 
   &--has-error {
     --_input-color-border: var(--_input-color-border-error);
