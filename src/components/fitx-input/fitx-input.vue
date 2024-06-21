@@ -2,9 +2,9 @@
 import { computed, toValue } from 'vue';
 import { FitxLabel, FitxErrorMessage } from '@/components';
 import { getModifierClasses } from '@/utils/css-modifier';
-import type { FitxInputProps } from '@/components/fitx-input/types';
+import type { InputProps } from '@/components/fitx-input/types';
 
-const props = withDefaults(defineProps<FitxInputProps>(), {
+const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
   id: () => crypto.randomUUID(),
 });
@@ -16,11 +16,13 @@ const slots = defineSlots<{
 
 const modelValue = defineModel<string | number>({ default: '' });
 
+const isDisabled = computed<boolean>(() => props.disabled || props.modifier === 'disabled');
 const hasIconStart = computed(() => !!slots['icon-start']);
 const hasIconEnd = computed(() => !!slots['icon-end']);
 
 const componentClasses = computed(() => [
   'input',
+  ...getModifierClasses('input', toValue(isDisabled) ? 'disabled' : []),
   ...getModifierClasses('input', props.disabled ? 'disabled' : []),
   ...getModifierClasses('input', toValue(hasIconStart) ? 'has-icon-start' : []),
   ...getModifierClasses('input', toValue(hasIconEnd) ? 'has-icon-end' : []),
@@ -41,6 +43,8 @@ const componentClasses = computed(() => [
       <input
         class="input__input"
         placeholder=""
+        :readonly="isDisabled || !!$attrs.readonly"
+        :disabled="props.disabled"
         :id="props.id"
         :type="type"
         v-model="modelValue"
@@ -74,6 +78,11 @@ const componentClasses = computed(() => [
   --_input-color-border-hover: var(--input-color-border-hover-light, var(--brand-color-gray-graphite));
   --_input-color-border-focus: var(--input-color-border-focus-light, var(--brand-color-anthracite-0));
 
+  --_input-color-border-disabled: var(--input-color-border-disabled-light, var(--brand-color-gray-stone));
+  --_input-color-label-disabled: var(--input-color-label-disabled-light, var(--brand-color-gray-cement));
+  --_input-color-input-disabled: var(--input-color-input-disabled-light, var(--brand-color-gray-cement));
+  --_input-color-surface-disabled: var(--input-color-surface-disabled-light, var(--brand-color-gray-chalk));
+
   --_input-color-border: var(--input-color-border-light, var(--brand-color-gray-stone));
   --_input-color-input: var(--input-color-input-light, var(--brand-color-anthracite-0));
   --_input-color-label: var(--input-color-label-light, var(--brand-color-gray-carbon));
@@ -97,6 +106,13 @@ const componentClasses = computed(() => [
   &:focus,
   &--fake-focus {
     --_input-color-border: var(--_input-color-border-focus);
+  }
+
+  &--disabled {
+    --_input-color-border: var(--_input-color-border-disabled);
+    --_input-color-label: var(--_input-color-label-disabled);
+    --_input-color-input: var(--_input-color-input-disabled);
+    --_input-color-surface: var(--_input-color-surface-disabled);
   }
 
 
@@ -193,6 +209,7 @@ const componentClasses = computed(() => [
     grid-area: input;
     font: inherit;
     font-size: var(--_input-font-size-input);
+    color: var(--_input-color-input);
     background: none;
     padding: 0;
     border: unset;

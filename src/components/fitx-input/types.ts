@@ -1,11 +1,17 @@
 import type { Theme } from '@/types';
-export type FitxInputProps = {
+
+export type InputModifier = 'disabled';
+export type InputProps = {
   theme?: Theme;
   label: string;
   id?: string;
   type?: HTMLInputElement['type'];
+  /**
+   * Native disabled Attribute
+   */
   disabled?: boolean;
   errorMessage?: string;
+  modifier?: InputModifier,
   /**
    * ## Dev Mode Only
    * Just for presentation in Storybook

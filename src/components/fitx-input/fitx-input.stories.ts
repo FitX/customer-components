@@ -56,6 +56,21 @@ export const WithError: Story = {
     errorMessage: 'This Field has a Error'
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    label: 'Input Disabled',
+    disabled: true,
+  },
+};
+
+export const DisabledModifierFilled: Story = {
+  args: {
+    label: 'Input Disabled',
+    modelValue: '', // some Content
+    modifier: 'disabled',
+  },
+};
 /*
 export const Examples: Story = {
   render: (args) => ({

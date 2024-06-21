@@ -2,8 +2,8 @@
 import { computed, toValue } from 'vue';
 import { FitxLabel, FitxErrorMessage } from '@/components';
 import { getModifierClasses } from '@/utils/css-modifier';
-import type { FitxInputProps } from '@/components/fitx-input/types';
-const props = withDefaults(defineProps<FitxInputProps>(), {
+import type { InputProps } from '@/components/fitx-input/types';
+const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
   id: () => crypto.randomUUID(),
 });
