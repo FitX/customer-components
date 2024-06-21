@@ -11,6 +11,10 @@ export type InputProps = {
    */
   disabled?: boolean;
   errorMessage?: string;
+  /**
+   * Currently only disabled.
+   * Same as disabled attribute, but with focus state
+   */
   modifier?: InputModifier,
   /**
    * ## Dev Mode Only

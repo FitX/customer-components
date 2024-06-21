@@ -84,6 +84,11 @@ const componentClasses = computed(() => [
   --_input-color-label-default: var(--input-color-label-light, var(--brand-color-gray-carbon));
   --_input-color-surface-default: var(--input-color-surface-light, transparent);
 
+  --_input-color-border-disabled: var(--_input-color-border-disabled-light, var(--brand-color-gray-stone));
+  --_input-color-label-disabled: var(--_input-color-label-disabled-light, var(--brand-color-gray-cement));
+  --_input-color-input-disabled: var(--_input-color-input-disabled-light, var(--brand-color-gray-cement));
+  --_input-color-surface-disabled: var(--_input-color-surface-disabled-light, var(--brand-color-gray-chalk));
+
   --_input-color-border-error: var(--input-color-border-error-light, var(--functional-color-error-0));
   --_input-color-label-error: var(--input-color-label-error-light, var(--functional-color-error-0));
   --_input-color-surface-error: var(--input-color-surface-error-light, var(--functional-color-error-1-light));
@@ -108,6 +113,11 @@ const componentClasses = computed(() => [
 
   &:is([data-theme='dark']) {
     /* States / Modifiers */
+    --_input-color-border-disabled: var(--_input-color-border-disabled-dark, var(--brand-color-gray-graphite));
+    --_input-color-label-disabled: var(--_input-color-label-disabled-dark, var(--brand-color-gray-graphite));
+    // --_input-color-input-disabled: var(--_input-color-input-disabled-dark, var(--brand-color-gray-cement));
+    --_input-color-surface-disabled: var(--_input-color-surface-disabled-dark, var(--brand-color-anthracite-3));
+
     --_input-color-border-error: var(--input-color-border-error-dark, var(--functional-color-error-0));
     --_input-color-label-error: var(--input-color-label-error-dark, var(--functional-color-error-0));
     --_input-color-surface-error: var(--input-color-surface-error-dark, var(--functional-color-error-1-dark));
