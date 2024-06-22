@@ -1,46 +1,31 @@
 <script lang="ts" setup>
-import { computed, ref, toValue, unref } from 'vue'
-import { useFocusWithin } from '@vueuse/core';
 import { FitxLabel, FitxErrorMessage } from '@/components';
-import { getModifierClasses } from '@/utils/css-modifier';
 import type { InputProps } from '@/components/fitx-input/types';
+import { useInput } from '@/composables/use-input'
 
 const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
   id: () => crypto.randomUUID(),
 });
 
-const slots = defineSlots<{
+defineSlots<{
   'icon-start'?: () => any;
   'icon-end'?: () => any;
 }>();
 
 const modelValue = defineModel<string | number>({ default: '' });
-const wrapper = ref();
-const { focused } = useFocusWithin(wrapper);
 
-const isDisabled = computed<boolean>(() => props.disabled || props.modifier === 'disabled');
-const isFilled = computed(() => `${modelValue.value}`.length > 0);
-const isActive = computed(() => toValue(focused));
-const hasIconStart = computed(() => !!slots['icon-start']);
-const hasIconEnd = computed(() => !!slots['icon-end']);
+const {
+  wrapperEl,
+  isDisabled,
+  componentClasses,
+} = useInput<string | number>(props, modelValue);
 
-const componentClasses = computed(() => [
-  'input',
-  ...getModifierClasses('input', toValue(isFilled) ? 'is-filled' : []),
-  ...getModifierClasses('input', toValue(isActive) ? 'is-active' : []),
-  ...getModifierClasses('input', toValue(isDisabled) ? 'disabled' : []),
-  ...getModifierClasses('input', toValue(hasIconStart) ? 'has-icon-start' : []),
-  ...getModifierClasses('input', toValue(hasIconEnd) ? 'has-icon-end' : []),
-  ...getModifierClasses('input', props.errorMessage ? 'has-error' : []),
-  ...getModifierClasses('input', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
-  ...getModifierClasses('input', toValue(modelValue) ? 'is-filled' : []),
-]);
 </script>
 
 <template>
   <div
-    ref="wrapper"
+    ref="wrapperEl"
     :data-theme="props.theme"
     :class="componentClasses">
     <div class="input__ui">
