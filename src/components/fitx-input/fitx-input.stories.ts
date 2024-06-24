@@ -44,7 +44,7 @@ export const WithIconEnd: Story = {
 
 export const WithIcons: Story = {
   args: {
-    label: 'Search @TODO replace Icons',
+    label: 'With Slots',
     'icon-start': getSVGComponent(IconExclamationmark),
     'icon-end': getSVGComponent(IconClear),
   },

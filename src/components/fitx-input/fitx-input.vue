@@ -9,7 +9,13 @@ const props = withDefaults(defineProps<InputProps>(), {
 });
 
 defineSlots<{
+  /**
+   * prepend usage for icons
+   */
   'icon-start'?: () => any;
+  /**
+   * append usage for icons
+   */
   'icon-end'?: () => any;
 }>();
 
@@ -31,7 +37,7 @@ const {
     <div class="input__ui">
       <fitx-label
         class="input__label"
-        text="props.label"
+        :text="props.label"
         :for="props.id" />
       <input
         class="input__input"
