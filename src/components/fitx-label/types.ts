@@ -4,7 +4,7 @@ export type LabelModifier = 'disabled';
 export type FitxLabelProps = {
   text: string;
   for?: string;
-  modifier?: LabelModifier,
+  modifier?: LabelModifier;
   theme?: Theme;
   error?: boolean;
 };

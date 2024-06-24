@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { default as FitxLabel } from './fitx-label.vue';
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -30,7 +30,6 @@ export const Default: Story = {
     },
   },
 };
-
 
 export const Overview: Story = {
   args: {

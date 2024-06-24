@@ -1,14 +1,11 @@
 <script lang="ts" setup>
 import { computed, toValue, useSlots } from 'vue';
 import { getModifierClasses } from '@/utils/css-modifier';
-import type { FitxButtonProps } from '@/components/fitx-button/types'
+import type { FitxButtonProps } from '@/components/fitx-button/types';
 
-const props = withDefaults(
-  defineProps<FitxButtonProps>(),
-  {
-    tag: 'button',
-  },
-);
+const props = withDefaults(defineProps<FitxButtonProps>(), {
+  tag: 'button',
+});
 
 const slots = useSlots();
 const hasIcons = computed(() => !!slots['icon-start'] || !!slots['icon-end']);

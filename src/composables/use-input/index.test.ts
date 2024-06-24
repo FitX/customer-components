@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { defineComponent, type PropType, ref, nextTick, computed, defineExpose } from 'vue'
-import type * as VueUse from '@vueuse/core'
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { defineComponent, type PropType, ref, nextTick, defineExpose } from 'vue';
 import { flushPromises, mount } from '@vue/test-utils';
 import { type SharedInputProps, useInput } from './index';
 /*
@@ -25,9 +24,9 @@ const TestComponent = defineComponent({
     },
   },
   setup(props) {
-    defineExpose({ ...useInput(props.propsAsObject, ref(props.modelValue))})
+    defineExpose({ ...useInput(props.propsAsObject, ref(props.modelValue)) });
     return {
-      ...useInput(props.propsAsObject, ref(props.modelValue))
+      ...useInput(props.propsAsObject, ref(props.modelValue)),
     };
   },
   template: `
@@ -49,8 +48,8 @@ const TestComponent = defineComponent({
 
 describe('useInput', () => {
   afterEach(() => {
-    vi.restoreAllMocks()
-  })
+    vi.restoreAllMocks();
+  });
 
   it('should initialize correctly', () => {
     const wrapper = mount(TestComponent, {
@@ -116,9 +115,9 @@ describe('useInput', () => {
         },
       },
       setup(props) {
-        defineExpose({ ...useInput(props.propsAsObject, ref(props.modelValue))})
+        defineExpose({ ...useInput(props.propsAsObject, ref(props.modelValue)) });
         return {
-          ...useInput(props.propsAsObject, ref(props.modelValue))
+          ...useInput(props.propsAsObject, ref(props.modelValue)),
         };
       },
       template: `
@@ -136,12 +135,12 @@ describe('useInput', () => {
         },
         modelValue: '',
       },
-      attachTo: document.body
+      attachTo: document.body,
     });
 
     const input = wrapper.find('input');
     input.element.focus();
-    await flushPromises()
+    await flushPromises();
     expect(document.activeElement).toBe(input.element);
   });
 
@@ -198,5 +197,4 @@ describe('useInput', () => {
 
     expect(wrapper.classes()).toContain('input--has-error');
   });
-
 });

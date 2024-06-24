@@ -1,4 +1,4 @@
-import type { SharedInputProps } from '@/composables/use-input'
+import type { SharedInputProps } from '@/composables/use-input';
 
 export type InputProps = SharedInputProps & {
   type?: HTMLInputElement['type'];

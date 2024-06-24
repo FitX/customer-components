@@ -1,7 +1,6 @@
-
 <script lang="ts" setup>
 import { IconExclamationmark } from '@/components/icons';
-import type { FitxErrorMessageProps } from '@/components/fitx-error-message/types'
+import type { FitxErrorMessageProps } from '@/components/fitx-error-message/types';
 
 const props = defineProps<FitxErrorMessageProps>();
 </script>

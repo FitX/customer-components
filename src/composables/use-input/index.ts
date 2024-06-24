@@ -1,7 +1,7 @@
-import { computed, type Ref, ref, toValue, useSlots } from 'vue'
+import { computed, type Ref, ref, toValue, useSlots } from 'vue';
 import type { Theme } from '@/types';
-import { useFocusWithin } from '@vueuse/core'
-import { getModifierClasses } from '@/utils/css-modifier'
+import { useFocusWithin } from '@vueuse/core';
+import { getModifierClasses } from '@/utils/css-modifier';
 
 export type SharedInputModifier = 'disabled';
 export type SharedInputProps = {
@@ -17,7 +17,7 @@ export type SharedInputProps = {
    * Currently only disabled.
    * Same as disabled attribute, but with focus state
    */
-  modifier?: SharedInputModifier,
+  modifier?: SharedInputModifier;
   /**
    * ## Dev Mode Only
    * Just for presentation in Storybook
@@ -25,7 +25,10 @@ export type SharedInputProps = {
    */
   fakeModifier?: 'none' | 'hover' | 'focus'; // Dev Mode only @TODO remove from export on build
 };
-export const useInput = <ModelValue = string>(props: SharedInputProps, modelValue: Ref<ModelValue>) => {
+export const useInput = <ModelValue = string>(
+  props: SharedInputProps,
+  modelValue: Ref<ModelValue>,
+) => {
   const slots = useSlots();
 
   const wrapperEl = ref();

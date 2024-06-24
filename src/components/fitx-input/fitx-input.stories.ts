@@ -53,7 +53,7 @@ export const WithIcons: Story = {
 export const WithError: Story = {
   args: {
     label: 'Input with Error',
-    errorMessage: 'This Field has a Error'
+    errorMessage: 'This Field has a Error',
   },
 };
 

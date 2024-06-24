@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { FitxLabel, FitxErrorMessage } from '@/components';
 import type { InputProps } from '@/components/fitx-input/types';
-import { useInput } from '@/composables/use-input'
+import { useInput } from '@/composables/use-input';
 
 const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
@@ -21,12 +21,7 @@ defineSlots<{
 
 const modelValue = defineModel<string | number>({ default: '' });
 
-const {
-  wrapperEl,
-  isDisabled,
-  componentClasses,
-} = useInput<string | number>(props, modelValue);
-
+const { wrapperEl, isDisabled, componentClasses } = useInput<string | number>(props, modelValue);
 </script>
 
 <template>
@@ -46,8 +41,7 @@ const {
         :disabled="props.disabled"
         :id="props.id"
         :type="type"
-        v-model="modelValue"
-      />
+        v-model="modelValue" />
       <span class="input__icon input__icon--start">
         <slot name="icon-start"></slot>
       </span>
@@ -75,17 +69,41 @@ const {
   --_input-color-label-default: var(--input-color-label-light, var(--brand-color-gray-carbon));
   --_input-color-surface-default: var(--input-color-surface-light, transparent);
 
-  --_input-color-border-disabled: var(--_input-color-border-disabled-light, var(--brand-color-gray-stone));
-  --_input-color-label-disabled: var(--_input-color-label-disabled-light, var(--brand-color-gray-cement));
-  --_input-color-input-disabled: var(--_input-color-input-disabled-light, var(--brand-color-gray-cement));
-  --_input-color-surface-disabled: var(--_input-color-surface-disabled-light, var(--brand-color-gray-chalk));
+  --_input-color-border-disabled: var(
+    --_input-color-border-disabled-light,
+    var(--brand-color-gray-stone)
+  );
+  --_input-color-label-disabled: var(
+    --_input-color-label-disabled-light,
+    var(--brand-color-gray-cement)
+  );
+  --_input-color-input-disabled: var(
+    --_input-color-input-disabled-light,
+    var(--brand-color-gray-cement)
+  );
+  --_input-color-surface-disabled: var(
+    --_input-color-surface-disabled-light,
+    var(--brand-color-gray-chalk)
+  );
 
-  --_input-color-border-error: var(--input-color-border-error-light, var(--functional-color-error-0));
+  --_input-color-border-error: var(
+    --input-color-border-error-light,
+    var(--functional-color-error-0)
+  );
   --_input-color-label-error: var(--input-color-label-error-light, var(--functional-color-error-0));
-  --_input-color-surface-error: var(--input-color-surface-error-light, var(--functional-color-error-1-light));
+  --_input-color-surface-error: var(
+    --input-color-surface-error-light,
+    var(--functional-color-error-1-light)
+  );
 
-  --_input-color-border-hover: var(--input-color-border-hover-light, var(--brand-color-gray-graphite));
-  --_input-color-border-focus: var(--input-color-border-focus-light, var(--brand-color-anthracite-0));
+  --_input-color-border-hover: var(
+    --input-color-border-hover-light,
+    var(--brand-color-gray-graphite)
+  );
+  --_input-color-border-focus: var(
+    --input-color-border-focus-light,
+    var(--brand-color-anthracite-0)
+  );
 
   --_input-color-border: var(--_input-color-border-default);
   --_input-color-input: var(--_input-color-input-default);
@@ -104,17 +122,41 @@ const {
 
   &:is([data-theme='dark']) {
     /* States / Modifiers */
-    --_input-color-border-disabled: var(--_input-color-border-disabled-dark, var(--brand-color-gray-graphite));
-    --_input-color-label-disabled: var(--_input-color-label-disabled-dark, var(--brand-color-gray-graphite));
+    --_input-color-border-disabled: var(
+      --_input-color-border-disabled-dark,
+      var(--brand-color-gray-graphite)
+    );
+    --_input-color-label-disabled: var(
+      --_input-color-label-disabled-dark,
+      var(--brand-color-gray-graphite)
+    );
     // --_input-color-input-disabled: var(--_input-color-input-disabled-dark, var(--brand-color-gray-cement));
-    --_input-color-surface-disabled: var(--_input-color-surface-disabled-dark, var(--brand-color-anthracite-3));
+    --_input-color-surface-disabled: var(
+      --_input-color-surface-disabled-dark,
+      var(--brand-color-anthracite-3)
+    );
 
-    --_input-color-border-error: var(--input-color-border-error-dark, var(--functional-color-error-0));
-    --_input-color-label-error: var(--input-color-label-error-dark, var(--functional-color-error-0));
-    --_input-color-surface-error: var(--input-color-surface-error-dark, var(--functional-color-error-1-dark));
+    --_input-color-border-error: var(
+      --input-color-border-error-dark,
+      var(--functional-color-error-0)
+    );
+    --_input-color-label-error: var(
+      --input-color-label-error-dark,
+      var(--functional-color-error-0)
+    );
+    --_input-color-surface-error: var(
+      --input-color-surface-error-dark,
+      var(--functional-color-error-1-dark)
+    );
 
-    --_input-color-border-hover: var(--input-color-border-hover-dark, var(--brand-color-gray-stone));
-    --_input-color-border-focus: var(--input-color-border-focus-dark, var(--brand-color-gray-stone));
+    --_input-color-border-hover: var(
+      --input-color-border-hover-dark,
+      var(--brand-color-gray-stone)
+    );
+    --_input-color-border-focus: var(
+      --input-color-border-focus-dark,
+      var(--brand-color-gray-stone)
+    );
 
     --_input-color-border-default: var(--input-color-border-dark, var(--brand-color-gray-stone));
     --_input-color-input-default: var(--input-color-input-dark, var(--brand-color-white-0));
@@ -166,7 +208,7 @@ const {
     grid:
       'icon-start label icon-end' var(--_input-label-size)
       'icon-start input icon-end' calc(100% - var(--_input-label-size)) /
-    minmax(0, var(--_input-icon-size-start, 0)) 1fr minmax(0, var(--_input-icon-size-end, 0));
+      minmax(0, var(--_input-icon-size-start, 0)) 1fr minmax(0, var(--_input-icon-size-end, 0));
     block-size: var(--_input-block-size);
     padding-block: var(--_input-spacing-block);
     padding-inline: var(--_input-spacing-inline);
@@ -198,7 +240,6 @@ const {
       grid-area: icon-end;
     }
   }
-
 
   &__label {
     grid-area: label;
