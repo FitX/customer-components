@@ -158,9 +158,9 @@ const { wrapperEl, isDisabled, componentClasses } = useInput<string | number>(pr
       var(--brand-color-gray-stone)
     );
 
-    --_input-color-border-default: var(--input-color-border-dark, var(--brand-color-gray-stone));
+    --_input-color-border-default: var(--input-color-border-dark, var(--brand-color-gray-graphite));
     --_input-color-input-default: var(--input-color-input-dark, var(--brand-color-white-0));
-    --_input-color-label-default: var(--input-color-label-dark, var(--brand-color-gray-graphite));
+    --_input-color-label-default: var(--input-color-label-dark, var(--brand-color-gray-stone));
   }
 
   &:hover,
