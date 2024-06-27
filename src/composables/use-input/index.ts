@@ -3,6 +3,7 @@ import type { Theme } from '@/types';
 import { useFocusWithin } from '@vueuse/core';
 import { getModifierClasses } from '@/utils/css-modifier';
 
+export type SharedInputInternalType = 'input' | 'textarea';
 export type SharedInputModifier = 'disabled';
 export type SharedInputProps = {
   theme?: Theme;
@@ -28,6 +29,7 @@ export type SharedInputProps = {
 export const useInput = <ModelValue = string>(
   props: SharedInputProps,
   modelValue: Ref<ModelValue>,
+  type: SharedInputInternalType = 'input',
 ) => {
   const slots = useSlots();
 
@@ -41,15 +43,15 @@ export const useInput = <ModelValue = string>(
   const hasIconEnd = computed(() => !!slots['icon-end']);
 
   const componentClasses = computed(() => [
-    'input',
-    ...getModifierClasses('input', toValue(isFilled) ? 'is-filled' : []),
-    ...getModifierClasses('input', toValue(isActive) ? 'is-active' : []),
-    ...getModifierClasses('input', toValue(isDisabled) ? 'disabled' : []),
-    ...getModifierClasses('input', toValue(hasIconStart) ? 'has-icon-start' : []),
-    ...getModifierClasses('input', toValue(hasIconEnd) ? 'has-icon-end' : []),
-    ...getModifierClasses('input', props.errorMessage ? 'has-error' : []),
-    ...getModifierClasses('input', props.fakeModifier ? `fake-${props.fakeModifier}` : []),
-    ...getModifierClasses('input', toValue(modelValue) ? 'is-filled' : []),
+    type,
+    ...getModifierClasses(type, toValue(isFilled) ? 'is-filled' : []),
+    ...getModifierClasses(type, toValue(isActive) ? 'is-active' : []),
+    ...getModifierClasses(type, toValue(isDisabled) ? 'disabled' : []),
+    ...getModifierClasses(type, toValue(hasIconStart) ? 'has-icon-start' : []),
+    ...getModifierClasses(type, toValue(hasIconEnd) ? 'has-icon-end' : []),
+    ...getModifierClasses(type, props.errorMessage ? 'has-error' : []),
+    ...getModifierClasses(type, props.fakeModifier ? `fake-${props.fakeModifier}` : []),
+    ...getModifierClasses(type, toValue(modelValue) ? 'is-filled' : []),
   ]);
 
   return {
