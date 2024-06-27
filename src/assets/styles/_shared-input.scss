@@ -1,3 +1,28 @@
+@mixin input-element-styles ($self) {
+  grid-area: input;
+  font: inherit;
+  font-size: var(--_input-font-size-input);
+  color: var(--_input-color-input);
+  background: none;
+  padding: 0;
+  border: unset;
+  outline: 0;
+
+  /**
+  Overwrite label grid column to get rid of gap (2/2)
+  reset if icons shown
+   */
+  grid-column: icon-start / icon-end;
+
+  #{$self}--has-icon-start & {
+    grid-column-start: input;
+  }
+
+  #{$self}--has-icon-end & {
+    grid-column-end: input;
+  }
+}
+
 /**
 $type: input | textarea
  */
@@ -212,27 +237,6 @@ $type: input | textarea
   }
 
   &__input {
-    grid-area: input;
-    font: inherit;
-    font-size: var(--_input-font-size-input);
-    color: var(--_input-color-input);
-    background: none;
-    padding: 0;
-    border: unset;
-    outline: 0;
-
-    /**
-    Overwrite label grid column to get rid of gap (2/2)
-    reset if icons shown
-     */
-    grid-column: icon-start / icon-end;
-
-    #{$self}--has-icon-start & {
-      grid-column-start: input;
-    }
-
-    #{$self}--has-icon-end & {
-      grid-column-end: input;
-    }
+    @include input-element-styles(&);
   }
 }

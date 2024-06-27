@@ -27,7 +27,9 @@ const currentLength = computed(() => modelValue.value.length || 0);
     ref="wrapperEl"
     :data-theme="props.theme"
     :class="componentClasses">
-    <div class="textarea__ui">
+    <div
+      :data-replicated-value="modelValue"
+      class="textarea__ui">
       <fitx-label
         class="textarea__label"
         :text="props.label"
@@ -68,15 +70,38 @@ const currentLength = computed(() => modelValue.value.length || 0);
   --_input-inline-size: var(--textarea-inline-size, 100%);
   --_input-block-size: var(--textarea-block-size, 6.25rem);
 
+  // block-size: auto;
+  // min-block-size: var(--_input-block-size);
   inline-size: var(--_input-inline-size);
 
   &__label {
     align-content: start;
   }
 
+  &__input {
+    overflow: hidden;
+    resize: both;
+  }
+
   &__ui {
     // min-block-size: var(--_input-block-size);
     align-content: start;
+    block-size: auto;
+    min-block-size: var(--_input-block-size);
+
+    &::after {
+      @include shared-input.input-element-styles(&);
+
+      // grid-area: input;
+      /* Note the weird space! Needed to prevent jumpy behavior */
+      content: attr(data-replicated-value) " ";
+      /* This is how textarea text behaves */
+      white-space: pre-wrap;
+      /* Hidden from view, clicks, and screen readers */
+      visibility: hidden;
+      // color: red;
+      // opacity: 0.4;
+    }
   }
 }
 
