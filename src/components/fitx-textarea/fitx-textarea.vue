@@ -3,9 +3,11 @@ import { FitxLabel, FitxErrorMessage } from '@/components';
 import type { TextareaProps } from './types';
 import { useInput } from '@/composables/use-input';
 import { computed } from 'vue';
+import { getModifierClasses } from '@/utils/css-modifier'
 
 const props = withDefaults(defineProps<TextareaProps>(), {
   id: () => crypto.randomUUID(),
+  errorMessageMaxLength: 'Die maximale Anzahl an Zeichen ist erreicht.',
 });
 
 defineSlots<{
@@ -20,13 +22,19 @@ const modelValue = defineModel<string>({ default: '' });
 const { wrapperEl, isDisabled, componentClasses } = useInput<string>(props, modelValue, 'textarea');
 
 const currentLength = computed(() => modelValue.value.length || 0);
+const errorMessage = computed(() => {
+  if (props.maxLength && (props.maxLength < currentLength.value)) {
+    return props.errorMessageMaxLength;
+  }
+  return props.errorMessage;
+});
 </script>
 
 <template>
   <div
     ref="wrapperEl"
     :data-theme="props.theme"
-    :class="componentClasses">
+    :class="[...componentClasses, ...getModifierClasses('textarea', errorMessage ? 'has-error' : [])]">
     <div
       :data-replicated-value="modelValue"
       class="textarea__ui">
@@ -39,6 +47,7 @@ const currentLength = computed(() => modelValue.value.length || 0);
         placeholder=""
         :readonly="isDisabled || !!$attrs.readonly"
         :disabled="props.disabled"
+        :maxlength="props.maxLength"
         :id="props.id"
         v-model="modelValue" />
     </div>
@@ -49,10 +58,10 @@ const currentLength = computed(() => modelValue.value.length || 0);
         <fitx-error-message
           v-if="errorMessage"
           class="additional__error"
-          :text="props.errorMessage || ''" />
+          :text="errorMessage || ''" />
       </span>
       <span class="additional__text">
-        <slot name="count">
+        <slot name="count" v-bind="{ currentLength }">
           <span v-if="props.maxLength">
             {{ currentLength }} / {{ props.maxLength }} Zeichen
           </span>
@@ -80,27 +89,24 @@ const currentLength = computed(() => modelValue.value.length || 0);
 
   &__input {
     overflow: hidden;
-    resize: both;
+    resize: none;
   }
 
   &__ui {
-    // min-block-size: var(--_input-block-size);
     align-content: start;
     block-size: auto;
     min-block-size: var(--_input-block-size);
 
     &::after {
+      // same shared styles as native input/textarea
       @include shared-input.input-element-styles(&);
 
-      // grid-area: input;
       /* Note the weird space! Needed to prevent jumpy behavior */
       content: attr(data-replicated-value) " ";
       /* This is how textarea text behaves */
       white-space: pre-wrap;
       /* Hidden from view, clicks, and screen readers */
       visibility: hidden;
-      // color: red;
-      // opacity: 0.4;
     }
   }
 }
