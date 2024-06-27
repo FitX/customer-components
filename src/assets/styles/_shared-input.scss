@@ -143,12 +143,10 @@ $type: input | textarea
     --_input-color-border: var(--_input-color-border-focus);
   }
 
-  &--is-active,
+  &--is-active:not(#{$self}--disabled),
   &--is-filled {
-    &:not(#{$self}--disabled) {
-      --_input-label-size: 1rem;
-      --_input-font-size-label: 0.875rem;
-    }
+    --_input-label-size: 1rem;
+    --_input-font-size-label: 0.875rem;
   }
 
   &--disabled {
