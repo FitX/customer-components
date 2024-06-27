@@ -48,6 +48,7 @@ const errorMessage = computed(() => {
         :readonly="isDisabled || !!$attrs.readonly"
         :disabled="props.disabled"
         :maxlength="props.maxLength"
+        :rows="props.rows"
         :id="props.id"
         v-model="modelValue" />
     </div>

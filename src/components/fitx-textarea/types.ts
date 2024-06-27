@@ -5,4 +5,5 @@ import type { SharedInputProps } from '@/composables/use-input';
 export type TextareaProps = SharedInputProps & {
   maxLength?: number;
   errorMessageMaxLength?: string,
+  rows?: number,
 };
