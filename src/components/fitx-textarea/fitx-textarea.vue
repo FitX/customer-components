@@ -65,9 +65,19 @@ const currentLength = computed(() => modelValue.value.length || 0);
 .textarea {
   @include shared-input.use-input('textarea');
 
-  --_input-inline-size: var(--input-inline-size, 100%);
+  --_input-inline-size: var(--textarea-inline-size, 100%);
+  --_input-block-size: var(--textarea-block-size, 6.25rem);
 
   inline-size: var(--_input-inline-size);
+
+  &__label {
+    align-content: start;
+  }
+
+  &__ui {
+    // min-block-size: var(--_input-block-size);
+    align-content: start;
+  }
 }
 
 .additional {
