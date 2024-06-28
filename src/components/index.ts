@@ -4,4 +4,6 @@ export * from './fitx-loading';
 export * from './fitx-switch';
 export * from './fitx-error-message';
 export * from './fitx-label';
+export * from './fitx-input';
+export * from './fitx-textarea';
 export * from './icons';
