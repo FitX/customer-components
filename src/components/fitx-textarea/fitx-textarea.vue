@@ -8,6 +8,7 @@ import { getModifierClasses } from '@/utils/css-modifier'
 const props = withDefaults(defineProps<TextareaProps>(), {
   id: () => crypto.randomUUID(),
   errorMessageMaxLength: 'Die maximale Anzahl an Zeichen ist erreicht.',
+  fieldSizing: true,
 });
 
 defineSlots<{
@@ -34,7 +35,11 @@ const errorMessage = computed(() => {
   <div
     ref="wrapperEl"
     :data-theme="props.theme"
-    :class="[...componentClasses, ...getModifierClasses('textarea', errorMessage ? 'has-error' : [])]">
+    :class="[
+      ...componentClasses,
+      ...getModifierClasses('textarea', errorMessage ? 'has-error' : []),
+      ...getModifierClasses('textarea', props.fieldSizing ? 'auto-height' : []),
+      ]">
     <div
       :data-replicated-value="modelValue"
       class="textarea__ui">
@@ -75,6 +80,7 @@ const errorMessage = computed(() => {
 <style lang="scss" scoped>
 @use '@/assets/styles/shared-input.scss' as shared-input;
 .textarea {
+  $self: &;
   @include shared-input.use-input('textarea');
 
   --_input-inline-size: var(--textarea-inline-size, 100%);
@@ -89,25 +95,34 @@ const errorMessage = computed(() => {
   }
 
   &__input {
-    overflow: hidden;
     resize: none;
+    #{$self}--auto-height & {
+      overflow: hidden;
+    }
   }
 
   &__ui {
     align-content: start;
     block-size: auto;
     min-block-size: var(--_input-block-size);
+    #{$self}--auto-height &::after {
+      @supports (field-sizing: content) {
+        field-sizing: content;
+      }
+      /**
+      Fallback Styles for auto resize
+       */
+      @supports not (field-sizing: content) {
+        // same shared styles as native input/textarea
+        @include shared-input.input-element-styles(&);
 
-    &::after {
-      // same shared styles as native input/textarea
-      @include shared-input.input-element-styles(&);
-
-      /* Note the weird space! Needed to prevent jumpy behavior */
-      content: attr(data-replicated-value) " ";
-      /* This is how textarea text behaves */
-      white-space: pre-wrap;
-      /* Hidden from view, clicks, and screen readers */
-      visibility: hidden;
+        /* Note the weird space! Needed to prevent jumpy behavior */
+        content: attr(data-replicated-value) " ";
+        /* This is how textarea text behaves */
+        white-space: pre-wrap;
+        /* Hidden from view, clicks, and screen readers */
+        visibility: hidden;
+      }
     }
   }
 }

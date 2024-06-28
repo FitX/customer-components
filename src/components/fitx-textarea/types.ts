@@ -6,4 +6,5 @@ export type TextareaProps = SharedInputProps & {
   maxLength?: number;
   errorMessageMaxLength?: string,
   rows?: number,
+  fieldSizing?: boolean,
 };
