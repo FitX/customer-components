@@ -22,13 +22,15 @@ describe('FitxInput', () => {
     expect(wrapper.html()).toContain('label--disabled');
   });
 
-  it('respects error state', () => {
+  it('respects error state', async () => {
     const wrapper = mount(FitxLabel, {
       props: {
         text: 'Hello disabled Label',
-        error: true,
+        error: false,
       },
     });
+    expect(wrapper.html()).not.toContain('label--has-error');
+    await wrapper.setProps({ error: true });
     expect(wrapper.html()).toContain('label--has-error');
   });
 
