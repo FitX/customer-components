@@ -50,12 +50,12 @@ const errorMessage = computed(() => {
       <textarea
         class="textarea__input"
         placeholder=""
+        v-model="modelValue"
         :readonly="isDisabled || !!$attrs.readonly"
         :disabled="props.disabled"
         :maxlength="props.maxLength"
         :rows="props.rows"
-        :id="props.id"
-        v-model="modelValue" />
+        :id="props.id" />
     </div>
     <div
       data-v-if="errorMessage || $slots.count || props.maxLength"
@@ -64,7 +64,7 @@ const errorMessage = computed(() => {
         <fitx-error-message
           v-if="errorMessage"
           class="additional__error"
-          :text="errorMessage || ''" />
+          :text="errorMessage" />
       </span>
       <span class="additional__text">
         <slot name="count" v-bind="{ currentLength }">

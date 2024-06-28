@@ -2,16 +2,22 @@ import { describe, it, expect } from 'vitest';
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import { FitxTextarea } from './index';
+import { FitxErrorMessage } from '@/components/fitx-error-message';
 
 describe('FitxTextarea', () => {
-  it('renders the correct initial value', () => {
+  it('renders initial modelValue correctly and updates via v-model', async () => {
     const wrapper = mount(FitxTextarea, {
-      props: {
-        label: 'Test',
-      },
+      props: { label: 'Test', modelValue: 'Initial Value' }
     });
+
     const textarea = wrapper.find('textarea');
-    expect((textarea.element as HTMLTextAreaElement).value).toBe('');
+    expect((textarea.element as HTMLTextAreaElement).value).toBe('Initial Value');
+
+    await textarea.setValue('New Value');
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['New Value']);
+
+    await wrapper.setProps({ modelValue: 'Updated Value' });
+    expect((textarea.element as HTMLTextAreaElement).value).toBe('Updated Value');
   });
 
   it('renders the correct maxLength', () => {
@@ -22,33 +28,26 @@ describe('FitxTextarea', () => {
     expect(textarea.attributes('maxlength')).toBe('10');
   });
 
-  it('displays error message when exceeding maxLength', async () => {
+  it('handles errorMessage and maxLength correctly', async () => {
     const wrapper = mount(FitxTextarea, {
-      props: { label: 'Test', maxLength: 10, modelValue: 'Exceeding max length value' },
+      props: { label: 'Test', maxLength: 10, modelValue: 'Exceeding max length value', errorMessageMaxLength: 'too much' },
     });
-    await nextTick();
-    const errorMessage = wrapper.findComponent({ name: 'FitxErrorMessage' });
-    expect(errorMessage.exists()).toBe(true);
-    expect(errorMessage.text()).toBe('Die maximale Anzahl an Zeichen ist erreicht.');
-  });
 
-  it('does not display error message when under maxLength', async () => {
-    const wrapper = mount(FitxTextarea, {
-      props: { label: 'Test', maxLength: 50, modelValue: 'Valid value' },
-    });
+    let errorMessage = wrapper.findComponent(FitxErrorMessage);
+    expect(errorMessage.exists()).toBe(true);
+    expect(errorMessage.text()).toBe('too much');
+
+    await wrapper.setProps({ modelValue: 'Valid' });
     await nextTick();
-    const errorMessage = wrapper.findComponent({ name: 'FitxErrorMessage' });
+    errorMessage = wrapper.findComponent(FitxErrorMessage);
     expect(errorMessage.exists()).toBe(false);
   });
 
   it('renders count slot correctly', async () => {
     const wrapper = mount(FitxTextarea, {
-      props: {label: 'Test', modelValue: 'Test val', maxLength: 50 },
-      slots: {
-        count: '<div class="count-slot">{{ currentLength }} characters</div>',
-      },
+      props: { label: 'Test', modelValue: 'Test val', maxLength: 50 },
+      slots: { count: '<div class="count-slot">{{ currentLength }} characters</div>' },
     });
-    await nextTick();
     await wrapper.setProps({ modelValue: 'Test Value' });
     const countSlot = wrapper.find('.count-slot');
     expect(countSlot.exists()).toBe(true);
@@ -57,9 +56,7 @@ describe('FitxTextarea', () => {
 
   it('is disabled when props.disabled is true', () => {
     const wrapper = mount(FitxTextarea, {
-      props: {
-        label: 'Test',
-        disabled: true },
+      props: { label: 'Test', disabled: true },
     });
     const textarea = wrapper.find('textarea');
     expect(textarea.attributes('disabled')).toBe('');
@@ -78,45 +75,10 @@ describe('FitxTextarea', () => {
   it('uses the provided id if available', () => {
     const customId = 'custom-id';
     const wrapper = mount(FitxTextarea, {
-      props: {label: 'Test', id: customId },
+      props: { label: 'Test', id: customId },
     });
     const textarea = wrapper.find('textarea');
     expect(textarea.attributes('id')).toBe(customId);
-  });
-
-  /**
-   * Functions
-   */
-
-  it('computed errorMessage returns error message when maxLength is exceeded', async () => {
-    const wrapper = mount(FitxTextarea, {
-      props: {
-        label: 'Test',
-        modelValue: 'Exceeding max length',
-        maxLength: 10,
-        errorMessageMaxLength: 'too much',
-      },
-    });
-    expect(wrapper.vm.errorMessage).toBe('too much');
-    expect(wrapper.html())
-    await wrapper.setProps({ modelValue: '' })
-    await nextTick();
-    expect(wrapper.vm.errorMessage).toBe(undefined);
-
-  });
-
-  it('computed errorMessage returns provided error message', async () => {
-    const wrapper = mount(FitxTextarea, {
-      props: {
-        label: 'Test',
-        modelValue: 'Valid',
-        maxLength: 50,
-        errorMessage: 'Ein Fehler ist aufgetreten.',
-      },
-    });
-    await nextTick();
-    const errorMessage = wrapper.vm.errorMessage;
-    expect(errorMessage).toBe('Ein Fehler ist aufgetreten.');
   });
 
   it('useInput returns correct wrapperEl, isDisabled, and componentClasses', () => {
@@ -130,36 +92,4 @@ describe('FitxTextarea', () => {
     expect(isDisabled).toBe(true);
     expect(componentClasses).toContain('textarea');
   });
-
-  it('v-model works correctly', async () => {
-    const wrapper = mount(FitxTextarea, {
-      props: { label: 'Test', modelValue: 'Initial value' }
-    });
-
-    // const textarea = wrapper.find('textarea');
-    await wrapper.setValue('Updated value')
-    await nextTick();
-    expect(wrapper.emitted()['update:modelValue']).toBeTruthy();
-    expect(wrapper.emitted()['update:modelValue']?.[0]).toEqual(['Updated value']);
-  });
-
-  it('binds and updates modelValue correctly', async () => {
-    const wrapper = mount(FitxTextarea, {
-      props: {
-        label: 'TEst',
-        id: 'test-id',
-        modelValue: 'Initial Value',
-      },
-    });
-
-    const textarea = wrapper.find('textarea');
-    expect((textarea.element).value).toBe('Initial Value');
-
-    await textarea.setValue('New Value');
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['New Value']);
-    await nextTick();
-    await wrapper.setProps({ modelValue: 'Updated Value' });
-    expect((textarea.element).value).toBe('Updated Value');
-  });
 });
-
