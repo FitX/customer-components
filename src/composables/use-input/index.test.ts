@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { defineComponent, type PropType, ref, nextTick, defineExpose } from 'vue';
+import { defineComponent, type PropType, ref, nextTick } from 'vue';
 import { flushPromises, mount } from '@vue/test-utils';
 import { type SharedInputProps, useInput } from './index';
 /*
@@ -24,7 +24,7 @@ const TestComponent = defineComponent({
     },
   },
   setup(props) {
-    defineExpose({ ...useInput(props.propsAsObject, ref(props.modelValue)) });
+    // defineExpose({ ...useInput(props.propsAsObject, ref(props.modelValue)) });
     return {
       ...useInput(props.propsAsObject, ref(props.modelValue)),
     };
@@ -115,7 +115,7 @@ describe('useInput', () => {
         },
       },
       setup(props) {
-        defineExpose({ ...useInput(props.propsAsObject, ref(props.modelValue)) });
+        // defineExpose({ ...useInput(props.propsAsObject, ref(props.modelValue)) });
         return {
           ...useInput(props.propsAsObject, ref(props.modelValue)),
         };

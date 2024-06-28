@@ -27,6 +27,7 @@ describe('FitxInput', () => {
   it('renders slots correctly', () => {
     const wrapper = mount(FitxInput, {
       props: {
+        label: 'Test',
         id: 'test-id',
       },
       slots: {
@@ -41,6 +42,7 @@ describe('FitxInput', () => {
   it('binds v-model correctly', async () => {
     const wrapper = mount(FitxInput, {
       props: {
+        label: 'Test',
         id: 'test-id',
         modelValue: 'Initial Value',
       },
@@ -55,6 +57,7 @@ describe('FitxInput', () => {
   it('applies disabled attribute correctly', () => {
     const wrapper = mount(FitxInput, {
       props: {
+        label: 'Test',
         id: 'test-id',
         disabled: true,
       },
@@ -66,6 +69,7 @@ describe('FitxInput', () => {
   it('displays error message when provided', () => {
     const wrapper = mount(FitxInput, {
       props: {
+        label: 'Test',
         id: 'test-id',
         errorMessage: 'Test Error',
       },
