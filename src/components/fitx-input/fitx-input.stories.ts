@@ -67,7 +67,7 @@ export const Disabled: Story = {
 export const DisabledModifierFilled: Story = {
   args: {
     label: 'Input Disabled',
-    modelValue: '', // some Content
+    modelValue: 'Lorem Ipsum', // some Content
     modifier: 'disabled',
   },
 };

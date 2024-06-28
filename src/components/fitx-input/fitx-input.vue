@@ -51,7 +51,7 @@ const { wrapperEl, isDisabled, componentClasses } = useInput<string | number>(pr
     </div>
     <fitx-error-message
       v-if="errorMessage"
-      :text="props.errorMessage || ''" />
+      :text="props.errorMessage" />
   </div>
 </template>
 
