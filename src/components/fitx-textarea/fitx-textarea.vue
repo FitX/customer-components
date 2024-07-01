@@ -98,6 +98,9 @@ const errorMessage = computed(() => {
     resize: none;
     #{$self}--auto-height & {
       overflow: hidden;
+      @supports (field-sizing: content) {
+        field-sizing: content;
+      }
     }
   }
 
@@ -106,9 +109,6 @@ const errorMessage = computed(() => {
     block-size: auto;
     min-block-size: var(--_input-block-size);
     #{$self}--auto-height &::after {
-      @supports (field-sizing: content) {
-        field-sizing: content;
-      }
       /**
       Fallback Styles for auto resize
        */
