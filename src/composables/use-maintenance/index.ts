@@ -40,7 +40,7 @@ export const useMaintenance = (options: MaintenanceModeOptions): MaintenanceMode
     }
   };
 
-  const { resume } = useIntervalFn(() => reCheck, interval, {
+  const { resume } = useIntervalFn(reCheck, interval, {
     immediate: true,
     immediateCallback: true,
   });
