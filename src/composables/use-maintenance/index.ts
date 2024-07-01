@@ -5,9 +5,9 @@ import {
   type Ref,
   readonly,
   ref,
-  toValue,
 } from 'vue';
 import { useIntervalFn } from '@vueuse/core';
+import type { Pausable } from '@vueuse/shared'
 
 export interface MaintenanceModeOptions {
   interval?: MaybeRefOrGetter<number>; // in ms
@@ -15,7 +15,7 @@ export interface MaintenanceModeOptions {
 }
 
 export interface MaintenanceModeMethods {
-  startMaintenanceObserver: () => void;
+  startMaintenanceObserver: Pausable['resume'];
   reCheck: () => Promise<void>;
   isInMaintenanceMode: DeepReadonly<UnwrapNestedRefs<Ref<boolean>>>;
 }
@@ -23,40 +23,31 @@ export interface MaintenanceModeMethods {
 const DEFAULT_INTERVAL = 600000; // 600000 = 10 minutes
 
 export const useMaintenance = (options: MaintenanceModeOptions): MaintenanceModeMethods => {
-  const { interval: intervalFromOptions = DEFAULT_INTERVAL, getMaintenanceStatus } = options;
+  const { interval = ref(DEFAULT_INTERVAL), getMaintenanceStatus } = options;
 
-  const interval = ref(toValue(intervalFromOptions));
   const isInMaintenanceMode = ref(false);
 
-  const reCheck = async (getMaintenanceStatus: MaintenanceModeOptions['getMaintenanceStatus']) => {
-    let status: boolean = isInMaintenanceMode.value;
+  const reCheck = async () => {
     if (typeof getMaintenanceStatus === 'boolean') {
-      status = getMaintenanceStatus;
+      isInMaintenanceMode.value = getMaintenanceStatus;
     } else {
       const result = getMaintenanceStatus;
       if (result instanceof Promise) {
-        status = await result;
+        isInMaintenanceMode.value = await result;
       } else {
-        status = await result();
+        isInMaintenanceMode.value = await result();
       }
     }
-    isInMaintenanceMode.value = status;
   };
 
-  const startMaintenanceObserver = (
-    getMaintenanceStatus: MaintenanceModeOptions['getMaintenanceStatus'],
-    interval?: MaybeRefOrGetter<number>,
-  ) => {
-    return useIntervalFn(() => reCheck(getMaintenanceStatus), interval || DEFAULT_INTERVAL, {
+  const { resume } = useIntervalFn(() => reCheck, interval, {
       immediate: true,
       immediateCallback: true,
     });
-  };
 
   return {
-    startMaintenanceObserver: () =>
-      startMaintenanceObserver(getMaintenanceStatus, interval).resume(),
-    reCheck: () => reCheck(getMaintenanceStatus),
+    startMaintenanceObserver: resume,
+    reCheck,
     isInMaintenanceMode: readonly(isInMaintenanceMode),
   };
 };

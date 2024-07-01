@@ -1,13 +1,18 @@
-import { ref } from 'vue';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { type Ref, nextTick, ref } from 'vue'
+import { type Mock, describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { type MaintenanceModeOptions, useMaintenance } from './index';
 // import * as vueuse from '@vueuse/core';
 import { useIntervalFn } from '@vueuse/core';
 
+const getMaintenanceStatusMock = vi.fn().mockReturnValueOnce(true);
 vi.mock('@vueuse/core', () => ({
-  useIntervalFn: vi.fn(() => ({
-    resume: vi.fn(),
-  })),
+  useIntervalFn: vi.fn().mockImplementation((fn, interval, options) => {
+    return {
+      resume: getMaintenanceStatusMock,
+      pause: vi.fn(),
+      isActive: ref(false),
+    };
+  }),
 }));
 
 describe('useMaintenance', () => {
@@ -53,7 +58,7 @@ describe('useMaintenance', () => {
   it('should call useIntervalFn with correct arguments', () => {
     const options: MaintenanceModeOptions = {
       getMaintenanceStatus: true,
-      interval: 5000,
+      interval: ref(5000),
     };
     const { startMaintenanceObserver } = useMaintenance(options);
     startMaintenanceObserver();
@@ -63,16 +68,37 @@ describe('useMaintenance', () => {
     });
   });
 
-  it('should use default interval if none is provided', () => {
+  it('should call useIntervalFn with updated interval', () => {
+    const interval = ref(2000);
     const options: MaintenanceModeOptions = {
       getMaintenanceStatus: true,
+      interval,
     };
+    interval.value = 5000;
     const { startMaintenanceObserver } = useMaintenance(options);
     startMaintenanceObserver();
-    const intervalValue = 600000;
-    expect(useIntervalFn).toHaveBeenCalledWith(expect.any(Function), ref(intervalValue), {
+    expect(useIntervalFn).toHaveBeenCalledWith(expect.any(Function), ref(5000), {
       immediate: true,
       immediateCallback: true,
     });
+  });
+});
+
+describe('useMaintenance', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  })
+  it('should call useIntervalFn with reCheck and correct arguments', async () => {
+    const options: MaintenanceModeOptions = {
+      getMaintenanceStatus: getMaintenanceStatusMock,
+    };
+
+    expect(getMaintenanceStatusMock).not.toHaveBeenCalled();
+    expect(useIntervalFn).not.toHaveBeenCalled();
+    const { startMaintenanceObserver } = useMaintenance(options);
+    startMaintenanceObserver();
+
+    expect(getMaintenanceStatusMock).toHaveBeenCalled();
+    expect(useIntervalFn).toHaveBeenCalled();
   });
 });
