@@ -7,7 +7,7 @@ import {
   ref,
 } from 'vue';
 import { useIntervalFn } from '@vueuse/core';
-import type { Pausable } from '@vueuse/shared'
+import type { Pausable } from '@vueuse/shared';
 
 export interface MaintenanceModeOptions {
   interval?: MaybeRefOrGetter<number>; // in ms
@@ -41,9 +41,9 @@ export const useMaintenance = (options: MaintenanceModeOptions): MaintenanceMode
   };
 
   const { resume } = useIntervalFn(() => reCheck, interval, {
-      immediate: true,
-      immediateCallback: true,
-    });
+    immediate: true,
+    immediateCallback: true,
+  });
 
   return {
     startMaintenanceObserver: resume,

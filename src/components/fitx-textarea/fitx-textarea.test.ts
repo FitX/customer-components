@@ -7,7 +7,7 @@ import { FitxErrorMessage } from '@/components/fitx-error-message';
 describe('FitxTextarea', () => {
   it('renders initial modelValue correctly and updates via v-model', async () => {
     const wrapper = mount(FitxTextarea, {
-      props: { label: 'Test', modelValue: 'Initial Value' }
+      props: { label: 'Test', modelValue: 'Initial Value' },
     });
 
     const textarea = wrapper.find('textarea');
@@ -30,7 +30,12 @@ describe('FitxTextarea', () => {
 
   it('handles errorMessage and maxLength correctly', async () => {
     const wrapper = mount(FitxTextarea, {
-      props: { label: 'Test', maxLength: 10, modelValue: 'Exceeding max length value', errorMessageMaxLength: 'too much' },
+      props: {
+        label: 'Test',
+        maxLength: 10,
+        modelValue: 'Exceeding max length value',
+        errorMessageMaxLength: 'too much',
+      },
     });
 
     let errorMessage = wrapper.findComponent(FitxErrorMessage);
@@ -63,7 +68,7 @@ describe('FitxTextarea', () => {
   });
 
   it('generates a random id if not provided', () => {
-    const wrapper = mount(FitxTextarea, { props: { label: 'Test' }});
+    const wrapper = mount(FitxTextarea, { props: { label: 'Test' } });
     const textarea = wrapper.find('textarea');
     const generatedId = textarea.attributes('id');
 
@@ -83,7 +88,7 @@ describe('FitxTextarea', () => {
 
   it('useInput returns correct wrapperEl, isDisabled, and componentClasses', () => {
     const wrapper = mount(FitxTextarea, {
-      props: { label: 'Test', disabled: true }
+      props: { label: 'Test', disabled: true },
     });
 
     const { wrapperEl, isDisabled, componentClasses } = wrapper.vm;

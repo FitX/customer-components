@@ -1,12 +1,12 @@
-import { type Ref, nextTick, ref } from 'vue'
-import { type Mock, describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { ref } from 'vue';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { type MaintenanceModeOptions, useMaintenance } from './index';
 // import * as vueuse from '@vueuse/core';
 import { useIntervalFn } from '@vueuse/core';
 
 const getMaintenanceStatusMock = vi.fn().mockReturnValueOnce(true);
 vi.mock('@vueuse/core', () => ({
-  useIntervalFn: vi.fn().mockImplementation((fn, interval, options) => {
+  useIntervalFn: vi.fn().mockImplementation(() => {
     return {
       resume: getMaintenanceStatusMock,
       pause: vi.fn(),
@@ -87,7 +87,7 @@ describe('useMaintenance', () => {
 describe('useMaintenance', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-  })
+  });
   it('should call useIntervalFn with reCheck and correct arguments', async () => {
     const options: MaintenanceModeOptions = {
       getMaintenanceStatus: getMaintenanceStatusMock,

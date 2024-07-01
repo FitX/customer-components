@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { FitxInput } from './index';
 
@@ -79,4 +79,3 @@ describe('FitxInput', () => {
     expect(errorMessage.text()).toBe('Test Error');
   });
 });
-

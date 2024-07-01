@@ -4,7 +4,7 @@ import type { SharedInputProps } from '@/composables/use-input';
 // export type TextareaProps = SharedInputProps & TextareaHTMLAttributes;
 export type TextareaProps = SharedInputProps & {
   maxLength?: number;
-  errorMessageMaxLength?: string,
-  rows?: number,
-  fieldSizing?: boolean,
+  errorMessageMaxLength?: string;
+  rows?: number;
+  fieldSizing?: boolean;
 };

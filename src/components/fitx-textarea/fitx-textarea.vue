@@ -3,7 +3,7 @@ import { FitxLabel, FitxErrorMessage } from '@/components';
 import type { TextareaProps } from './types';
 import { useInput } from '@/composables/use-input';
 import { computed } from 'vue';
-import { getModifierClasses } from '@/utils/css-modifier'
+import { getModifierClasses } from '@/utils/css-modifier';
 
 const props = withDefaults(defineProps<TextareaProps>(), {
   id: () => crypto.randomUUID(),
@@ -24,7 +24,7 @@ const { wrapperEl, isDisabled, componentClasses } = useInput<string>(props, mode
 
 const currentLength = computed(() => modelValue.value.length || 0);
 const errorMessage = computed(() => {
-  if (props.maxLength && (props.maxLength < currentLength.value)) {
+  if (props.maxLength && props.maxLength < currentLength.value) {
     return props.errorMessageMaxLength;
   }
   return props.errorMessage;
@@ -39,7 +39,7 @@ const errorMessage = computed(() => {
       ...componentClasses,
       ...getModifierClasses('textarea', errorMessage ? 'has-error' : []),
       ...getModifierClasses('textarea', props.fieldSizing ? 'auto-height' : []),
-      ]">
+    ]">
     <div
       :data-replicated-value="modelValue"
       class="textarea__ui">
@@ -67,10 +67,10 @@ const errorMessage = computed(() => {
           :text="errorMessage" />
       </span>
       <span class="additional__text">
-        <slot name="count" v-bind="{ currentLength }">
-          <span v-if="props.maxLength">
-            {{ currentLength }} / {{ props.maxLength }} Zeichen
-          </span>
+        <slot
+          name="count"
+          v-bind="{ currentLength }">
+          <span v-if="props.maxLength"> {{ currentLength }} / {{ props.maxLength }} Zeichen </span>
         </slot>
       </span>
     </div>
@@ -117,7 +117,7 @@ const errorMessage = computed(() => {
         @include shared-input.input-element-styles(&);
 
         /* Note the weird space! Needed to prevent jumpy behavior */
-        content: attr(data-replicated-value) " ";
+        content: attr(data-replicated-value) ' ';
         /* This is how textarea text behaves */
         white-space: pre-wrap;
         /* Hidden from view, clicks, and screen readers */
