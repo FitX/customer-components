@@ -58,7 +58,7 @@ const componentClasses = computed(() => [
   --_button-content-gap: var(--button-content-gap, var(--size-px-2));
   // primary Styles
   --_button-color-surface: var(--button-color-primary-surface-light, var(--brand-color-orange-0));
-  --_button-color-border: var(--button-color-primary-border-light, var(--brand-color-orange-0));
+  --_button-color-border: var(--button-color-primary-border-light, var(--_button-color-surface));
   --_button-color-surface-hover: var(
     --button-color-primary-surface-hover-light,
     var(--brand-color-orange-1)
@@ -81,7 +81,7 @@ const componentClasses = computed(() => [
   &--size-small {
     --_button-spacing-inline: var(--button-spacing-inline, var(--size-px-4));
     --_button-spacing-block: var(--button-spacing-block, var(--size-px-2));
-    --_button-radius: var(--button-radius, var(--radius-7));
+    --_button-radius: var(--button-radius, var(--radius-8));
     --_button-font-size: var(--_button-font-size-small);
   }
 
@@ -261,6 +261,7 @@ const componentClasses = computed(() => [
     grid-template-columns: repeat(3, auto);
     gap: var(--_button-content-gap);
     align-items: center;
+    line-height: 1;
   }
 
   background: var(--_button-color-surface);
