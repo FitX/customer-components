@@ -121,9 +121,9 @@ export const Examples: Story = {
         }
 
         .is-any {
-        --badge-color-background-light: var(brand-color-anthracite-6);
+        --badge-color-background-light: var(--brand-color-anthracite-6);
         --badge-color-text-light: var(--brand-color-white-0);
-        --badge-color-background-dark: var(brand-color-anthracite-6);
+        --badge-color-background-dark: var(--brand-color-anthracite-6);
         --badge-color-text-dark: var(--brand-color-white-0);
         }
 
