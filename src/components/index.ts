@@ -6,4 +6,5 @@ export * from './fitx-error-message';
 export * from './fitx-label';
 export * from './fitx-input';
 export * from './fitx-textarea';
+export * from './fitx-badge';
 export * from './icons';

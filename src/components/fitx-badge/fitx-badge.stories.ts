@@ -53,10 +53,11 @@ export const Examples: Story = {
     },
     setup() {
       return {
-        examples: [{
-          text: 'Primary',
-          class: 'is-primary',
-        },
+        examples: [
+          {
+            text: 'Primary',
+            class: 'is-primary',
+          },
           {
             text: 'Success',
             class: 'is-success',
@@ -68,7 +69,8 @@ export const Examples: Story = {
           {
             text: 'Dont know',
             class: 'is-any',
-          }],
+          },
+        ],
         theme: computed(() => args.theme),
       };
     },
