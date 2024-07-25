@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
 import { FitxTextButton, textButtonStates } from './index';
 import { IconClose } from '@/components/icons/index';
-import { computed, onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -78,9 +78,12 @@ export const Overview: Story = {
         _theme.value = document.documentElement.dataset['theme'];
       });
 
-      watch(() => args.theme, (val) => {
-        _theme.value = val;
-      })
+      watch(
+        () => args.theme,
+        (val) => {
+          _theme.value = val;
+        },
+      );
       return {
         theme: _theme,
       };
@@ -148,9 +151,12 @@ export const WithIcons: Story = {
         _theme.value = document.documentElement.dataset['theme'];
       });
 
-      watch(() => args.theme, (val) => {
-        _theme.value = val;
-      })
+      watch(
+        () => args.theme,
+        (val) => {
+          _theme.value = val;
+        },
+      );
       return {
         theme: _theme,
       };

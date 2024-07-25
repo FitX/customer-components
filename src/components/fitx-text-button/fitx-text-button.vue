@@ -30,8 +30,7 @@ const componentClasses = computed(() => [
         <span />
       </slot>
       <slot name="default"> </slot>
-      <slot name="icon-end">
-      </slot>
+      <slot name="icon-end"> </slot>
     </span>
   </component>
 </template>
@@ -58,7 +57,10 @@ const componentClasses = computed(() => [
     --text-button-color-primary-surface-hover-light,
     var(--brand-color-gray-chalk)
   );
-  --_text-button-color-text: var(--text-button-color-primary-text-light, var(--brand-color-orange-0));
+  --_text-button-color-text: var(
+    --text-button-color-primary-text-light,
+    var(--brand-color-orange-0)
+  );
   // disabled
   --_text-button-color-surface-disabled: var(
     --text-button-color-primary-surface-disabled-light,
@@ -75,12 +77,12 @@ const componentClasses = computed(() => [
 
   &:is([data-theme='dark']) {
     --_text-button-color-surface-hover: var(
-        --text-button-color-primary-surface-hover-dark,
-        var(--brand-color-anthracite-3)
+      --text-button-color-primary-surface-hover-dark,
+      var(--brand-color-anthracite-3)
     );
     --_text-button-color-text-disabled: var(
-        --text-button-color-primary-text-disabled-dark,
-        var(--brand-color-gray-cement)
+      --text-button-color-primary-text-disabled-dark,
+      var(--brand-color-gray-cement)
     );
   }
 
