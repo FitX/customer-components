@@ -89,3 +89,31 @@ export const Examples: Story = {
   }),
 };
 */
+/*
+export const AutoFill: Story = {
+  args: {
+    label: 'Input Disabled',
+    type: 'password',
+  },
+  render: (args) => ({
+    components: {
+      FitxInput,
+    },
+    setup(props, ctx) {
+      const foo = () => {
+        console.log('blubb');
+        window.history.pushState('blubb', 'blbuber')
+      }
+      return { foo }
+    },
+    template: `
+      <form @submit.prevent="foo">
+        <fitx-input id="email" type="email" label="With Icon on Start" />
+        <fitx-input id="password" type="password" label="With Icon on Start" />
+        <button>n button</button>
+      </form>
+
+    `,
+  }),
+};
+*/

@@ -236,5 +236,17 @@ $type: input | textarea
 
   &__input {
     @include input-element-styles(&);
+
+
+    /**
+    You know, Chrome Autofill Magic 2024
+     */
+    &:-webkit-autofill {
+      transition: background-color 600000s 0s, color 600000s 0s;
+    }
+
+    &[data-autocompleted] {
+      background-color: transparent;
+    }
   }
 }
