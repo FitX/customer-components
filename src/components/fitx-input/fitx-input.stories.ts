@@ -100,15 +100,28 @@ export const AutoFill: Story = {
       FitxInput,
     },
     setup(props, ctx) {
+      const inputAttrs = {
+        required: 'required',
+        placeholder: 'lorem Ipsum Dolore ewrgknbkn ',
+      };
+      const labelAttributes = {
+        name: 'deine mama'
+      };
       const foo = () => {
         console.log('blubb');
-        window.history.pushState('blubb', 'blbuber')
+        window.history.pushState('blubb', 'blbuber');
       }
-      return { foo }
+      return { foo, inputAttrs, labelAttributes }
     },
     template: `
       <form @submit.prevent="foo">
-        <fitx-input id="email" type="email" label="With Icon on Start" />
+        <fitx-input
+          id="email"
+          type="email"
+          label="With Icon on Start"
+          :input-attributes="inputAttrs"
+          :label-attributes="labelAttributes"
+        />
         <fitx-input id="password" type="password" label="With Icon on Start" />
         <button>n button</button>
       </form>

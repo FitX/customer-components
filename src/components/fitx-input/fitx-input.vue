@@ -32,11 +32,12 @@ const { wrapperEl, isDisabled, componentClasses } = useInput<string | number>(pr
     <div class="input__ui">
       <fitx-label
         class="input__label"
+        v-bind="props.labelAttributes"
         :text="props.label"
         :for="props.id" />
       <input
         class="input__input"
-        placeholder=""
+        v-bind="props.inputAttributes"
         :readonly="isDisabled || !!$attrs.readonly"
         :disabled="props.disabled"
         :id="props.id"
