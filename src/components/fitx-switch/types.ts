@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes } from '@vue';
+import type { InputHTMLAttributes } from 'vue';
 import type { SharedInputProps } from '@/composables/use-input';
 
 export type SwitchModifier = 'disabled';
