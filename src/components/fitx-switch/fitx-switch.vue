@@ -1,32 +1,9 @@
-<script lang="ts">
-import type { Theme } from '@/types';
-
-export type SwitchModifier = 'disabled';
-
-export type FitxSwitchProps = {
-  label: string;
-  theme?: Theme;
-  id?: string;
-  /**
-   * Native disabled Attribute
-   */
-  disabled?: boolean;
-  textOn?: string;
-  textOff?: string;
-  modifier?: SwitchModifier;
-  /**
-   * ## Dev Mode Only
-   * Just for presentation in Storybook
-   * don't use this in Production
-   */
-  fakeModifier?: 'none' | 'hover' | 'focus'; // Dev Mode only @TODO remove from export on build
-};
-</script>
 <script lang="ts" setup>
 import { computed, toValue } from 'vue';
 import { IconCheckmark } from '@/components/icons';
 import { getModifierClasses } from '@/utils/css-modifier';
-const props = withDefaults(defineProps<FitxSwitchProps>(), {
+import type { SwitchProps } from '@/components/fitx-switch/types';
+const props = withDefaults(defineProps<SwitchProps>(), {
   id: () => crypto.randomUUID(),
   textOn: 'An',
   textOff: 'Aus',

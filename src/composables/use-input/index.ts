@@ -1,11 +1,16 @@
-import { computed, type Ref, ref, toValue, useSlots } from 'vue';
+import { type InputHTMLAttributes, type LabelHTMLAttributes, type Ref, computed, ref, toValue, useSlots } from 'vue';
 import type { Theme } from '@/types';
 import { useFocusWithin } from '@vueuse/core';
 import { getModifierClasses } from '@/utils/css-modifier';
 
 export type SharedInputInternalType = 'input' | 'textarea';
 export type SharedInputModifier = 'disabled';
-export type SharedInputProps = {
+export type SharedInputProps<InputAttrs = InputHTMLAttributes, LabelAttrs = LabelHTMLAttributes> = {
+  /**
+   * Optional Input Attributes excluding pre-defined props
+   */
+  inputAttributes?: Omit<InputAttrs, keyof SharedInputProps>;
+  labelAttributes?: LabelAttrs,
   theme?: Theme;
   label: string;
   id?: string;
