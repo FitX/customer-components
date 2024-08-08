@@ -96,12 +96,8 @@ npm run storybook
 npm run build-storybook
 ```
 
-## Development
-For Local Component Testing see [Sandbox](./sandbox/) Implementation.
-
-
 ## Update Lib
-Make sure to update [component index file](src/components/index.ts) after add new Components. and run
+Make sure to update [component index file](src/components/index.ts) after add new Components and run
 ```
 npm run build:lib
 ```
@@ -110,13 +106,3 @@ npm run build:lib
 npm publish --access public
 ```
 
-## Release to NPM and publish to netlify
-As soon as you merge or push into branch 'release' GitHub Actions starts a workflow:
-- run unit tests
-- after success:
-- publish to NPM
-- netlify will trigger build for manually deployment
-
-- On update Master, Netlify will build and deploy automatically
-
-❗ If version in package.json is not updated, NPM release will fail ❗

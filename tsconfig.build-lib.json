@@ -1,8 +1,8 @@
 {
-
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/index.js"],
-  "exclude": [ "node_modules", "src/**/*.test.ts"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": [ "node_modules", "src/**/*.test.ts", "src/**/*.stories.ts", "src/stories", "src/App.vue", "src/main.ts"],
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
@@ -14,10 +14,13 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "declaration": true,
-    "emitDeclarationOnly": true,
     "declarationDir": "./dist/types",
+    "outDir": "./dist",
     "isolatedModules": true,
     "skipLibCheck": true,
+    "noEmit": false,
+    "importHelpers": true,
+    "forceConsistentCasingInFileNames": true,
     "types": [
       "vite/client"
     ],
