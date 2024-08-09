@@ -1,7 +1,6 @@
-
 import { addons } from '@storybook/manager-api';
-import fitxTheme from './fitx-theme';
+import theme from './theme';
 
 addons.setConfig({
-  theme: fitxTheme,
+  theme,
 });

@@ -1,0 +1,34 @@
+/*
+Storybook specific theming @TODO adjust for fitx colors
+*/
+:root {
+  --storybook-background-color: #fff;
+  --storybook-color: var(--brand-color-anthracite-0);
+}
+
+[data-theme=dark] {
+  --storybook-background-color: var(--brand-color-anthracite-0);
+  --storybook-color: #fff;
+}
+
+/**
+ For root, storys and docs. without auto generated docs.
+ */
+:root,
+.sbdocs.sbdocs-preview,
+.sbdocs.sbdocs-wrapper:not(:has(#stories)) {
+  background: var(--storybook-background-color);
+  color: var(--storybook-color);
+
+  a {
+    color: var(--brand-color-orange-0);
+  }
+}
+
+/* .sbdocs-wrapper:not(:has(#stories)) .custom-docs-content * {
+  color: var(--storybook-color);
+} */
+
+.sbdocs-wrapper:not(:has(#stories)) .custom-docs-content :is(h1, h2, h3, h4, h5, h6, p, ul ,ol) {
+  color: var(--storybook-color);
+}
