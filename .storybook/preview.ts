@@ -1,102 +1,56 @@
-import type { Preview } from '@storybook/vue3';
-import { useArgs, addons } from '@storybook/preview-api';
-import { UPDATE_GLOBALS, UPDATE_STORY_ARGS } from '@storybook/core-events'
-import '../src/assets/styles/lib.scss';
-import { Theme } from '../src/types'
+import { type Preview } from '@storybook/vue3';
+import { themes } from '@storybook/theming';
+import { themeDecorator } from './theme-decorator';
+import { ThemedContainer } from './docs-theme-provider';
+import { computed } from 'vue';
 
-const themeOptions: Theme[] = ['light', 'dark'] as const;
+import './sb-theme-overwrites.css';
+import '@/assets/styles/fonts.css';
+import '@/assets/styles/colors.css';
 
-let lastComponentId: string = null;
-const toggleDocumentStyles = (name: typeof themeOptions[number]) => {
-  if (name) {
-    document.documentElement.setAttribute('data-theme', name);
-  }
-};
+/* import '@/assets/styles/normalize.css'; */
+
+export const decorators = [
+  themeDecorator,
+  (story, context) => {
+    /* if (context.viewMode === 'story') {
+      console.log('context.globals.theme', context.globals.theme)
+      console.log('themes.dark', themes.dark)
+      context.hooks.renderListener((e) => {
+        console.log('context?????????????', e)
+      })
+
+      // console.log('story only', store.globals.globals.theme === 'dark' ? themes.dark : themes.light)
+    }*/
+    return {
+      setup(props) {
+
+        return {
+          story,
+          theme: computed(() => context.viewMode === 'story' ? context.globals.theme : undefined),
+        }
+      },
+      template: '<div :data-theme-story="theme"><story /></div>',
+    };
+  },
+];
 
 const preview: Preview = {
-  globalTypes: {
-    theme: {
-      description: 'Global theme for components',
-      toolbar: {
-        title: 'Theme',
-        icon: 'circlehollow',
-        items: themeOptions,
-        dynamicTitle: true,
-      },
-    },
-  },
-
-  argTypes: {
-    theme: {
-      description: 'FitX Theme Options. At the moment we only use dark mode. Light mode corresponds to unset.',
-      options: themeOptions,
-      control: 'select',
-      table: {
-        type: { summary: themeOptions.map((theme) => `"${theme}"`).toString().replace(',',' | ') },
-      },
-    },
-  },
-
-  args: {
-    theme: themeOptions[0],
-  },
-
   parameters: {
-    backgrounds: {
-      disable: true,
+    docs: {
+      // theme: ensure(themes.dark),
+      theme: themes.dark,
+      container: ThemedContainer,
+      inline: false,
     },
-    options: {
-      storySort: {
-        order: ['Welcome', ['Docs', 'Install and Use', 'Colors', 'Icons'], 'Components', 'Composables', '*', 'Tests'],
+    /* controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
-    },
+    }, */
   },
-
-  decorators: [
-    (story, context) => {
-      const [_, updateArgs] = useArgs();
-
-      const newContextId = context.id;
-
-      // overwrite args default
-      if (newContextId !== lastComponentId) {
-        const newThemeName = context.globals.theme;
-        updateArgs({
-          theme: newThemeName,
-        });
-        toggleDocumentStyles(newThemeName);
-      }
-
-      // set theme by story args
-      addons.getChannel().on(UPDATE_STORY_ARGS, (val) => {
-        toggleDocumentStyles(val.updatedArgs.theme);
-      });
-
-      // overwrite args by global change
-      addons.getChannel().on(UPDATE_GLOBALS, (val) => {
-        // prevent multiple events
-        if (context.abortSignal.aborted) return;
-
-        const newThemeName = val.globals.theme;
-        updateArgs({
-          theme: newThemeName,
-        })
-      });
-
-      lastComponentId = newContextId;
-
-      return {
-        setup(props, ctx) {
-          return {
-            story,
-          }
-        },
-        template: '<story />',
-      };
-    },
-  ],
-
-  // tags: ['autodocs']
+  decorators,
 };
 
 export default preview;
