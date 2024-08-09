@@ -1,0 +1,108 @@
+# useLoading
+
+This composable provides an easy way to manage loading and error states.
+It allows you to start and stop loading processes and to store errors that occur during loading.
+The composable can be combined with the component [fitx-loading](?path=/docs/components-loading--docs).
+
+## Usage
+
+### Import and Initialize
+
+```ts
+import { useLoading } from '@fitx/customer-components';
+
+const asyncFn = async () => {
+  return 'result';
+};
+
+const {
+  execute,
+  isLoading,
+  hasError,
+  errorLoadingStates,
+  activeLoadingStates,
+} = useLoading({
+  asyncFn,
+  id: 'uniqueId',
+  loadingText: 'Loading...',
+});
+```
+
+### Properties and Methods
+
+#### Options
+- **asyncFn**: The asynchronous function to be executed. Can either be a function returning a Promise or a synchronous function.
+- **id**: A unique ID to identify the loading state.
+- **loadingText**: Optional text displayed during the loading process. Default is `'Loading...'`.
+
+#### Return Values
+- **isLoading**: `Ref<boolean>` - Indicates whether the current loading process is active.
+- **hasError**: `Ref<boolean>` - Indicates whether there was an error in the current loading process.
+- **execute**: `() => Promise<T | undefined>` - Executes the asynchronous function and manages the loading state.
+- **activeLoadingStates**: `ComputedRef<LoadingInfo[]>` - List of all active loading processes.
+- **errorLoadingStates**: `ComputedRef<LoadingInfo[]>` - List of all loading processes with errors.
+
+### Example
+
+```html
+<!-- some-component.vue -->
+<script lang="ts" setup>
+import { computed } from 'vue';
+import { type LoadingInfo, useLoading } from '@fitx/customer-components';
+
+type ExtendedLoadingInfo<K extends string> = LoadingInfo & { id: K };
+
+const someCall = async () => {
+  // Simulate an API call
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  return 'Data loaded successfully';
+};
+
+const otherCall = async () => {
+  // Simulate an API call
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  return 'Data loaded successfully too';
+};
+
+const {
+  execute,
+  isLoading,
+  hasError,
+} = useLoading({
+  asyncFn: someCall,
+  id: 'get-data',
+  loadingText: 'Loading Data from some call...',
+});
+
+const {
+  loadingState,
+  execute: anotherCallExecute,
+  isLoading: anotherCallIsLoading,
+  hasError: anotherCallHasError,
+} = useLoading({
+  asyncFn: otherCall,
+  id: 'another',
+  loadingText: 'Loading Data from some call...',
+});
+
+const allLoadingStatesWithContainingText = computed<ExtendedLoadingInfo<string>[]>(() => [...Array.from(loadingState).reduce((acc, [key, value]) => {
+  if (value.loadingText.includes('from some call')) {
+    acc.set(key, { ...value, id: key });
+  }
+  return acc;
+}, new Map()).values()])
+</script>
+<template>
+  <div>
+    <button @click="execute">Load Data</button>
+    <p v-if="isLoading">Loading...</p>
+    <p v-if="hasError">{{ loadingState.get('get-data')?.error }}</p>
+  </div>
+
+  <div>
+    <button @click="anotherCallExecute">Load Data too</button>
+    <p v-if="anotherCallIsLoading">Loading...</p>
+    <p v-if="anotherCallHasError">{{ loadingState.get('another')?.error }}</p>
+  </div>
+</template>
+```

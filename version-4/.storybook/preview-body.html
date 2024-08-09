@@ -1,0 +1,22 @@
+<style>
+  [data-theme=dark] {
+    &, .sbdocs-preview {
+      background: var(--brand-color-anthracite-0);
+    }
+  }
+
+  .docblock-colorpalette {
+    --weight: 600;
+    & *:has(> span) {
+      &, & span {
+        font-weight: var(--weight);
+      }
+
+      & span {
+        --weight: 300;
+      }
+    }
+  }
+</style>
+<div id="custom-root">
+</div>

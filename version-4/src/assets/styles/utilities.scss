@@ -1,0 +1,24 @@
+/**
+.visually-hidden:not(:focus):not(:active) {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+ */
+@mixin visually-hidden() {
+  overflow: hidden;
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+
+:is(.visually-hidden:not(:focus):not(:active)) {
+  @include visually-hidden();
+}

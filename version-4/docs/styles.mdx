@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Welcome/Styles" />
+
+# Styles
+@TODO global styles
+
+## Component Styles
+All components are based on the FitX styles.
+The component styles are scoped, but they can be customized via CSS custom properties.
+Since @property is not yet supported by all browsers we use, we fall back on [Lea Verou's 3+1 strategy](https://verou.me/blog/2021/10/custom-properties-with-defaults/).
+
+### Example
+
+```css
+/* @/components/fitx-button/fitx-button.vue */
+
+  /* ... */
+  --_button-spacing-inline: var(--button-spacing-inline, var(--size-px-8));
+  --_button-spacing-block: var(--button-spacing-block, var(--size-px-3));
+  --_button-radius: var(--button-radius, var(--radius-10));
+  --_button-border-width: var(--button-border-width, 2px);
+  --_button-font-size: var(--button-font-size, 1.125rem);
+  --_button-font-size-small: var(--button-font-size-small, 1rem);
+  --_button-icon-size: var(--button-icon-size, calc(var(--_button-font-size) / 2));
+  --_button-content-gap: var(--button-content-gap, var(--size-px-2));
+
+  /* primary Styles */
+  --_button-color-surface: var(--button-color-primary-surface-light, var(--brand-color-orange-0));
+  --_button-color-border: var(--button-color-primary-border-light, var(--brand-color-orange-0));
+  --_button-color-surface-hover: var(--button-color-primary-surface-hover-light, var(--brand-color-orange-1));
+  --_button-color-text: var(--button-color-primary-text-light, var(--brand-color-white-0));
+
+  /* disabled */
+  --_button-color-surface-disabled: var(
+    --button-color-primary-surface-disabled-light,
+    var(--brand-color-gray-chalk)
+  );
+  --_button-color-border-disabled: var(
+    --button-color-primary-border-disabled-light,
+    var(--brand-color-gray-chalk)
+  );
+  --_button-color-text-disabled: var(
+    --button-color-primary-text-disabled-light,
+    var(--brand-color-gray-cement)
+  );
+  /* ... */
+```
