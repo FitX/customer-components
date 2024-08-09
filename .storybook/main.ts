@@ -1,5 +1,5 @@
 import type { StorybookConfig } from '@storybook/vue3-vite';
-import { createTheme } from '../utils/create-custom-theme';
+import { storybookFitxThemeDark, storybookFitxThemeLight } from '../utils/create-custom-theme';
 
 const config: StorybookConfig = {
   stories: ['../docs/**/*.mdx', '../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -32,7 +32,8 @@ const config: StorybookConfig = {
      * Because no other solution to add css extension to manager.ts/theme.ts
      * @link https://github.com/storybookjs/storybook/blob/8e51bf9b2452c501c18bafb824b4f48a57e824b3/code/core/src/builder-manager/index.ts#L52
      */
-    CUSTOM_THEME: createTheme(),
+    CUSTOM_THEME_DARK: storybookFitxThemeDark,
+    CUSTOM_THEME_LIGHT: storybookFitxThemeLight,
   }),
 };
 export default config;

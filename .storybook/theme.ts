@@ -6,6 +6,6 @@ import FitxLogo from '../public/fitx-logo.png';
  */
 export default create({
   // @ts-ignore
-  ...process.env.CUSTOM_THEME,
+  ...process.env.CUSTOM_THEME_LIGHT,
   brandImage: FitxLogo,
 });
