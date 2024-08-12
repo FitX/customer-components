@@ -1,17 +1,15 @@
 import { create } from '@storybook/theming/create';
 import FitxLogo from '../public/fitx-logo.png';
 
-/**
- * Defined in main.ts
- */
 export const fitxLight = create({
-  // @ts-ignore
-  ...process.env.CUSTOM_THEME_LIGHT,
+  base: 'light',
   brandImage: FitxLogo,
-});
+  fontBase: '"Niveau Grotesk"',
 
-export const fitxDark = create({
-  // @ts-ignore
-  ...process.env.CUSTOM_THEME_DARK,
-  brandImage: FitxLogo,
+  brandTitle: 'FitX Components',
+  brandUrl: 'https://components-dev.fitx.de',
+  brandTarget: '_self',
+
+  colorPrimary: 'hotpink', // @TODO usage?
+  colorSecondary: '#ed6a12', //     --brand-color-orange-0: #ed6a12;
 });

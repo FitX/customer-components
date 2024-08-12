@@ -6,7 +6,7 @@ Storybook specific theming @TODO adjust for fitx colors
   --storybook-color: var(--brand-color-anthracite-0);
 }
 
-[data-theme=dark] {
+[data-theme=dark], [data-theme=touchpoint-dark] {
   --storybook-background-color: var(--brand-color-anthracite-0);
   --storybook-color: #fff;
 }
@@ -31,4 +31,11 @@ Storybook specific theming @TODO adjust for fitx colors
 
 .sbdocs-wrapper:not(:has(#stories)) .custom-docs-content :is(h1, h2, h3, h4, h5, h6, p, ul ,ol) {
   color: var(--storybook-color);
+}
+
+/**
+ currently no support for unit test styles
+ */
+#übersicht-der-unit-tests + iframe {
+  background: #fff;
 }

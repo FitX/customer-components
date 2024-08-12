@@ -8,6 +8,8 @@ export const themeDecorator = withThemeByDataAttribute<VueRenderer>({
   themes: {
     light: 'light',
     dark: 'dark',
+    'touchpoint-light': 'touchpoint light',
+    'touchpoint-dark': 'touchpoint dark',
   },
   defaultTheme: 'light',
   attributeName: 'data-theme',

@@ -74,6 +74,9 @@ const getStorybookFitxThemeLight = (ColorsRaw: string) => ({
   inputTextColor: getCustomPropertyValue(ColorsRaw, '--primary-brand-color-anthracite'),
 });
 
+/**
+ * @deprecated because storybook theming is the hell
+ */
 export const createTheme = (theme: string, css: string) => {
   if (theme === 'dark') return getStorybookFitxThemeDark(css);
   return getStorybookFitxThemeLight(css);
