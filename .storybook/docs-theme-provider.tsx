@@ -10,7 +10,6 @@ export function ThemedContainer(props: PropsWithChildren<{ context: DocsContextP
    * Therefore, the manual update here in the Theme Provider
    */
   const theme = (props.context as any).store.globals.globals.theme;
-  console.log('theme', theme);
   document.documentElement.setAttribute('data-theme', theme);
 
   return (

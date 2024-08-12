@@ -1,4 +1,4 @@
-# customer-components
+# fitx-components
 
 FitX Vue 3 Component and Widget Library. [Overview](https://customer-components.netlify.app)
 
@@ -13,14 +13,14 @@ FitX Vue 3 Component and Widget Library. [Overview](https://customer-components.
 ### Install
 
 ```shell
-$ npm install @fitx/customer-components --save
+$ npm install @fitx/fitx-components --save
 ```
 
 ### Use
 
 ```vue
 <script lang="ts" setup>
-  import { FitxButton } from '@fitx/customer-components';
+  import { FitxButton } from '@fitx/fitx-components';
 </script>
 <template>
   <fitx-button>Nice</fitx-button>
@@ -32,7 +32,7 @@ $ npm install @fitx/customer-components --save
 Normally via main.ts
 
 ```js
-import '@fitx/customer-components/styles.css';
+import '@fitx/fitx-components/styles.css';
 ```
 
 ## Type Support for `.vue` Imports in TS
