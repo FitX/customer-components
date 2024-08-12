@@ -5,8 +5,7 @@ import { themeDecorator } from './theme-decorator';
 import { ThemedContainer } from './docs-theme-provider';
 
 import './sb-theme-overwrites.css';
-import '@/assets/styles/fonts.css';
-import '@/assets/styles/colors.css';
+import '@/assets/styles/fitx-brand.css';
 
 export const decorators = [
   themeDecorator,

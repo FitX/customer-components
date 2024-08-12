@@ -29,7 +29,20 @@ Storybook specific theming @TODO adjust for fitx colors
   color: var(--storybook-color);
 } */
 
-.sbdocs-wrapper:not(:has(#stories)) .custom-docs-content :is(h1, h2, h3, h4, h5, h6, p, ul ,ol) {
+.sbdocs-wrapper:not(:has(#stories)) .custom-docs-content :is(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  li,
+  .docblock-colorpalette *,
+  .sb-unstyled *
+) {
   color: var(--storybook-color);
 }
 
