@@ -1,15 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { FitxMaintenance, FitxButton, useMaintenance } from './index';
+import { FitxErrorMessage } from './index';
 
 describe('components', () => {
   it('should be defined', () => {
-    expect(FitxMaintenance).toBeDefined();
-    expect(FitxButton).toBeDefined();
+    expect(FitxErrorMessage).toBeDefined();
   });
 });
 
-describe('composables', () => {
+describe.skip('composables', () => {
   it('should be defined', () => {
-    expect(useMaintenance).toBeDefined();
   });
 });

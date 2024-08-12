@@ -1,6 +1,5 @@
-import type { Theme } from '@/types';
+// import type { UIState } from '@/types'
 
-export type FitxErrorMessageProps = {
+export interface FitxErrorMessageProps {
   text?: string;
-  theme?: Theme;
-};
+}

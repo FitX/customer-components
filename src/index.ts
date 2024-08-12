@@ -1,3 +1,2 @@
-export * from './composables';
-export * from './components';
-export * from './assets/styles/lib.scss';
+export type * from './types';
+export * from './components/index';
