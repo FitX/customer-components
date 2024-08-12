@@ -1,11 +1,6 @@
-import fs from 'fs-extra';
-import { join } from 'node:path';
 import { getCustomPropertyValue } from './custom-property';
 
-const ColorsPath = join(__dirname, '../src/assets/styles/colors.css');
-const ColorsRaw = fs.readFileSync(ColorsPath, 'utf-8');
-
-const storybookFitxShared = {
+const getStorybookFitxShared = (ColorsRaw: string) => ({
   // Typography
   fontBase: '"Niveau Grotesk"',
   fontCode: 'monospace',
@@ -19,11 +14,18 @@ const storybookFitxShared = {
 
   appBorderRadius: 4,
   inputBorderRadius: 2,
-};
 
-export const storybookFitxThemeDark = {
+  // @TODO define
+  booleanBg: 'red',
+  booleanSelectedBg: 'red',
+  buttonBg: getCustomPropertyValue(ColorsRaw, '--brand-color-gray-cement'),
+  buttonBorder: getCustomPropertyValue(ColorsRaw, '--brand-color-blue'),
+  textMutedColor: getCustomPropertyValue(ColorsRaw, '--brand-color-anthracite-3'),
+});
+
+const getStorybookFitxThemeDark = (ColorsRaw: string) => ({
   base: "dark",
-  ...storybookFitxShared,
+  ...getStorybookFitxShared(ColorsRaw),
 
   appBg: getCustomPropertyValue(ColorsRaw, '--brand-color-anthracite-1'),
   appContentBg: getCustomPropertyValue(ColorsRaw, '--primary-brand-color-anthracite'),
@@ -44,11 +46,11 @@ export const storybookFitxThemeDark = {
   inputBg: getCustomPropertyValue(ColorsRaw, '--primary-brand-color-anthracite'),
   inputBorder: getCustomPropertyValue(ColorsRaw, '--brand-color-gray-coal'),
   inputTextColor: getCustomPropertyValue(ColorsRaw, '--brand-color-white-0'),
-};
+});
 
-export const storybookFitxThemeLight = {
+const getStorybookFitxThemeLight = (ColorsRaw: string) => ({
   base: 'light',
-  ...storybookFitxShared,
+  ...getStorybookFitxShared(ColorsRaw),
 
   // UI
   appBg: '#ffffff',
@@ -70,5 +72,9 @@ export const storybookFitxThemeLight = {
   inputBg: '#ffffff',
   inputBorder: getCustomPropertyValue(ColorsRaw, '--primary-brand-color-anthracite'),
   inputTextColor: getCustomPropertyValue(ColorsRaw, '--primary-brand-color-anthracite'),
-};
+});
 
+export const createTheme = (theme: string, css: string) => {
+  if (theme === 'dark') return getStorybookFitxThemeDark(css);
+  return getStorybookFitxThemeLight(css);
+};
