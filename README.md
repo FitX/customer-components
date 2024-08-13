@@ -1,4 +1,4 @@
-# fitx-components
+# @fitx/components
 
 FitX Vue 3 Component and Widget Library. [Overview](https://customer-components.netlify.app)
 

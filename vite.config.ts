@@ -33,7 +33,7 @@ export default defineConfig({
         'styles/typo': fileURLToPath(new URL('./src/assets/styles/typo.css', import.meta.url)), */
       },
       formats: ['es'],
-      name: '@fitx/fitx-components',
+      name: '@fitx/components',
       fileName: 'index',
     },
     rollupOptions: {
