@@ -1,0 +1,15 @@
+:where(html) {
+  --fitx-border-size-1: 1px;
+  --fitx-border-size-2: 2px;
+
+  --fitx-radius-1: 2px;
+  --fitx-radius-2: 4px;
+  --fitx-radius-3: 6px;
+  --fitx-radius-4: 8px;
+  --fitx-radius-5: 10px;
+  --fitx-radius-6: 12px;
+  --fitx-radius-7: 16px;
+  --fitx-radius-8: 18px;
+  --fitx-radius-9: 24px;
+  --fitx-radius-10: 26px;
+}

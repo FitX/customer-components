@@ -1,0 +1,13 @@
+/**
+  @TODO clear flexibility rem vs px vs fluid use cases
+  @TODO inflexible naming
+ */
+:where(html) {
+  --fitx-size-micro: 4px;
+  --fitx-size-tiny: 8px;
+  --fitx-size-small: 16px;
+  --fitx-size-standard: 24px;
+  --fitx-size-semi: 32px;
+  --fitx-size-large: 48px;
+  --fitx-size-x-large: 64px;
+}
