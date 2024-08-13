@@ -40,9 +40,12 @@ Storybook specific theming @TODO adjust for fitx colors
   ul,
   ol,
   li,
-  .docblock-colorpalette *,
-  .sb-unstyled *
+  .docblock-colorpalette *
 ) {
+  color: var(--storybook-color);
+}
+
+.sb-unstyled:not(.docblock-source):not(.sbdocs-preview) * {
   color: var(--storybook-color);
 }
 

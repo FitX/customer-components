@@ -29,6 +29,14 @@ const preview: Preview = {
       container: ThemedContainer,
       inline: false,
     },
+    backgrounds: {
+      disable: true,
+    },
+    options: {
+      storySort: {
+        order: ['Welcome', ['Docs', 'Install and Use', 'Colors', 'Icons'], 'Components', 'Composables', '*', 'Tests'],
+      },
+    },
   },
   decorators,
 };
