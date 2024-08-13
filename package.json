@@ -1,6 +1,6 @@
 {
   "name": "@fitx/components",
-  "version": "5.0.0",
+  "version": "5.0.0-beta-3",
   "files": [
     "dist",
     "src"
@@ -12,7 +12,8 @@
       "import": "./dist/index.js",
       "types": "./dist/types/index.d.ts"
     },
-    "./*.css": "./dist/styles/*.css"
+    "./*.css": "./dist/styles/*.css",
+    "./icons/*.svg": "./src/assets/icons/*.svg"
   },
   "type": "module",
   "scripts": {

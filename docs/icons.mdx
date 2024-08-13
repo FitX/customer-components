@@ -36,10 +36,12 @@ All SVG icons are provided both as SVG files and as Vue components. The Vue comp
 Accordingly, icons can be implemented using either
 ```ts
 import { IconMarker } from '@fitx/components';
+// <icon-marker />
 ```
 or
 ```ts
-import Marker from '@fitx/components/icons'
+import Marker from '@fitx/components/icons/marker.svg?url';
+// <img :src="Marker" alt="">
 ```
 
 The provided SVG icons are designed to be easily customizable through CSS variables.
