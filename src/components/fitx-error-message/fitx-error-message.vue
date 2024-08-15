@@ -1,7 +1,18 @@
 <script lang="ts" setup>
-import { GymxButton } from '@fitx/gymx-ui';
-import { IconError } from '@/components/icons';
+import { GymxErrorMessage } from '@fitx/gymx-ui';
+import type { FitxErrorMessageProps } from '@/components';
 
+const props = defineProps<FitxErrorMessageProps>();
 </script>
-<template>Error Message <icon-error /><gymx-button>Test</gymx-button></template>
-<style scoped></style>
+<template>
+  <gymx-error-message class="error-message" :text="props.text" />
+</template>
+<style scoped lang="scss">
+.error-message {
+  --error-message-color: var(--color-error-text);
+  --error-message-font-size: 1rem;
+  --error-message-icon-size: var(--icon-size-px-medium);
+  --error-message-gap: var(--fitx-size-tiny);
+  --icon-fill: var(--gymx-color-error-text);
+}
+</style>

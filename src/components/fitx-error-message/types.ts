@@ -1,5 +1,4 @@
 // import type { UIState } from '@/types'
+import { type GymxErrorMessageProps } from '@fitx/gymx-ui';
 
-export interface FitxErrorMessageProps {
-  text?: string;
-}
+export interface FitxErrorMessageProps extends GymxErrorMessageProps {}
