@@ -4,6 +4,7 @@ Storybook specific theming @TODO adjust for fitx colors
 :root {
   --storybook-background-color: #fff;
   --storybook-color: var(--brand-color-anthracite-0);
+  --icon-fill: var(--storybook-color);
 }
 
 [data-theme=dark], [data-theme=touchpoint-dark] {
@@ -12,9 +13,19 @@ Storybook specific theming @TODO adjust for fitx colors
 }
 
 /**
+@container style(--storybook-color) {
+ */
+@container style(color: #C9CDCF) {
+  p {
+    font-weight: bold !important;
+    padding: 4rem !important;
+  }
+}
+
+/**
  For root, storys and docs. without auto generated docs.
  */
-:root,
+/* :root,
 .sbdocs.sbdocs-preview,
 .sbdocs.sbdocs-wrapper:not(:has(#stories)) {
   background: var(--storybook-background-color);
@@ -24,10 +35,6 @@ Storybook specific theming @TODO adjust for fitx colors
     color: var(--brand-color-orange-0);
   }
 }
-
-/* .sbdocs-wrapper:not(:has(#stories)) .custom-docs-content * {
-  color: var(--storybook-color);
-} */
 
 .sbdocs-wrapper:not(:has(#stories)) .custom-docs-content :is(
   h1,
@@ -47,6 +54,15 @@ Storybook specific theming @TODO adjust for fitx colors
 
 .sb-unstyled:not(.docblock-source):not(.sbdocs-preview) * {
   color: var(--storybook-color);
+} */
+
+:where(html),
+#storybook-docs,
+:where(.docs-story > div) {
+
+  /* background: var(--storybook-background-color);
+  color: var(--storybook-color); */
+
 }
 
 /**
@@ -55,3 +71,11 @@ Storybook specific theming @TODO adjust for fitx colors
 #übersicht-der-unit-tests + iframe {
   background: #fff;
 }
+
+/**
+ Fix Storybook Bugs -.-
+ */
+.custom-docs-content > :is(h1, h2, h3, h4, h5, h6) > a[aria-hidden] {
+  margin-left: -24px;
+}
+

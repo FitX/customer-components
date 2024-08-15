@@ -1,0 +1,9 @@
+:where(html) {
+  --font-stack-normal: 'Niveau Grotesk', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue',
+  'Helvetica', 'Arial', sans-serif;
+  --color-error-text: var(--functional-color-error-0);
+}
+
+:where(html) {
+  font-family: var(--font-stack-normal);
+}
