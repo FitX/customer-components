@@ -1,6 +1,6 @@
 :where(html) {
   --font-stack-normal: 'Niveau Grotesk', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue',
-  'Helvetica', 'Arial', sans-serif;
+    'Helvetica', 'Arial', sans-serif;
   --color-error-text: var(--functional-color-error-0);
 }
 
@@ -13,7 +13,7 @@
   --fitx-label-color-error: var(--color-error-text);
 }
 
-:where([data-theme="dark"], [data-theme="touchpoint-dark"]) {
+:where([data-theme='dark'], [data-theme='touchpoint-dark']) {
   --fitx-label-color: var(--brand-color-gray-stone);
   --fitx-label-color-activated: var(--brand-color-gray-cement);
 }

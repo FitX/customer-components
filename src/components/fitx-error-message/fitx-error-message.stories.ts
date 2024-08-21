@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { default as FitxErrorMessage } from './fitx-error-message.vue';
 import ContentDe from './readme.de.md?raw';
 import ContentEn from './readme.en.md?raw';
-import { getMarkdownDocsTranslationBlock } from '../../../utils/docs-translation'
+import { getMarkdownDocsTranslationBlock } from '../../../utils/docs-translation';
 
 const ComponentDescription = getMarkdownDocsTranslationBlock(ContentDe, ContentEn);
 
@@ -19,7 +19,7 @@ const meta = {
         component: ComponentDescription,
       },
     },
-  }
+  },
 } satisfies Meta<typeof FitxErrorMessage>;
 
 export default meta;

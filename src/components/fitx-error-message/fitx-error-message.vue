@@ -5,7 +5,9 @@ import type { FitxErrorMessageProps } from '@/components';
 const props = defineProps<FitxErrorMessageProps>();
 </script>
 <template>
-  <gymx-error-message class="error-message" :text="props.text" />
+  <gymx-error-message
+    class="error-message"
+    :text="props.text" />
 </template>
 <style scoped lang="scss">
 .error-message {

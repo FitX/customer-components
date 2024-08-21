@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { default as FitxLabel } from './fitx-label.vue';
 import ContentDe from './readme.de.md?raw';
 // import ContentEn from './readme.en.md?raw';
-import { getMarkdownDocsTranslationBlock } from '../../../utils/docs-translation'
+import { getMarkdownDocsTranslationBlock } from '../../../utils/docs-translation';
 
 const ComponentDescription = getMarkdownDocsTranslationBlock(ContentDe);
 
@@ -19,7 +19,7 @@ const meta = {
         component: ComponentDescription,
       },
     },
-  }
+  },
 } satisfies Meta<typeof FitxLabel>;
 
 export default meta;
@@ -52,8 +52,8 @@ export const DisabledByProp: Story = {
       description: {
         story: `
 Disabled über den State entfernt zusätzlich die Focusierbarkeit.
-Im Normalfall bitte über Disabled-Attribut Lösen um Zugänglichkeit zu gewähren.`
-      }
-    }
+Im Normalfall bitte über Disabled-Attribut Lösen um Zugänglichkeit zu gewähren.`,
+      },
+    },
   },
 };

@@ -8,6 +8,5 @@ describe('components', () => {
 });
 
 describe.skip('composables', () => {
-  it('should be defined', () => {
-  });
+  it('should be defined', () => {});
 });
