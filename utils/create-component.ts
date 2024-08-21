@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 /**
- * Usage: npx ts-node utils/create-component.ts fancy-button
+ * Usage: npx tsx utils/create-component.ts fancy-button
  */
 
 /**
