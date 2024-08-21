@@ -6,4 +6,14 @@
 
 :where(html) {
   font-family: var(--font-stack-normal);
+
+  --fitx-label-color: var(--brand-color-gray-carbon);
+  --fitx-label-color-activated: var(--fitx-label-color);
+  --fitx-label-color-disabled: var(--brand-color-gray-cement);
+  --fitx-label-color-error: var(--color-error-text);
+}
+
+:where([data-theme="dark"], [data-theme="touchpoint-dark"]) {
+  --fitx-label-color: var(--brand-color-gray-stone);
+  --fitx-label-color-activated: var(--brand-color-gray-cement);
 }
