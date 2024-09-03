@@ -22,8 +22,28 @@ const props = defineProps<FitxButtonProps>();
 </template>
 <style lang="scss" scoped>
 .button {
+  $self: &;
+
   --button-color: var(--fitx-button-color, var(--primary-brand-color-white));
   --button-color-background: var(--fitx-button-color-background, var(--primary-brand-color-orange));
+
+  --button-padding-inline: var(--fitx-size-large);
+  --button-padding-block: var(--fitx-size-small);
+  --button-radius: var(--fitx-radius-10);
+  --button-font-weight: 400;
+
+  --_button-border-width: 2px;
+  --_button-border-color: var(--button-color-background);
+
+  --button-border: var(--_button-border-width) solid var(--_button-border-color);
+  --button-font-size: inherit;
+  --button-font-family: inherit;
+
+  &:is(:hover, &--hover, :active, &--active) {
+    --button-color-background: var(--brand-color-orange-1);
+  }
+
+  // --button-color-background-hover: var(--brand-color-orange-1);
 
   :is(&--disabled, [disabled]) {
   }
