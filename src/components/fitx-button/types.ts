@@ -1,7 +1,12 @@
 import type { GymxButtonProps, GymxButtonSlots } from '@fitx/gymx-ui';
 
+export type ButtonSize = 'default' | 'small';
+export const buttonStates = ['primary', 'secondary', 'tertiary'] as const;
+export type ButtonState = (typeof buttonStates)[number];
+
 export interface FitxButtonProps extends GymxButtonProps{
-// @TODO Define your props here
+  size?: ButtonSize;
+  modifier?: ButtonState;
 }
 
 export type FitxButtonSlots = GymxButtonSlots;

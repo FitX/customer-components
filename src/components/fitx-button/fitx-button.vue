@@ -3,12 +3,18 @@
 import { GymxButton } from '@fitx/gymx-ui';
 
 import type { FitxButtonProps, FitxButtonSlots } from './types';
+import { getModifierClasses } from '@/utils/css-modifier';
 defineSlots<FitxButtonSlots>();
 
 const props = defineProps<FitxButtonProps>();
 </script>
 <template>
-  <gymx-button class="button">
+  <gymx-button
+    class="btn"
+    :class="[
+      getModifierClasses('btn', [props.size, props.modifier]),
+    ]"
+    :state="props.state">
     <template #icon-start>
       <slot name="icon-start"></slot>
     </template>
@@ -21,7 +27,7 @@ const props = defineProps<FitxButtonProps>();
   </gymx-button>
 </template>
 <style lang="scss" scoped>
-.button {
+.btn {
   $self: &;
 
   --button-color: var(--fitx-button-color, var(--primary-brand-color-white));
@@ -39,13 +45,25 @@ const props = defineProps<FitxButtonProps>();
   --button-font-size: inherit;
   --button-font-family: inherit;
 
+  &:is(&--small) {
+    --button-padding-inline: var(--fitx-size-standard);
+    --button-padding-block: var(--fitx-size-tiny);
+  }
+
   &:is(:hover, &--hover, :active, &--active) {
     --button-color-background: var(--brand-color-orange-1);
   }
 
-  // --button-color-background-hover: var(--brand-color-orange-1);
-
-  :is(&--disabled, [disabled]) {
+  &:is(:disabled, &--disabled) {
+    --button-color: var(--brand-color-gray-cement);
+    --button-color-background: var(--brand-color-gray-chalk);
   }
+
+  &:is(&--secondary) {
+    --button-color: var(--brand-color-anthracite-0);
+    --button-color-background: transparent;
+  }
+
+  // --button-color-background-hover: var(--brand-color-orange-1);
 }
 </style>
