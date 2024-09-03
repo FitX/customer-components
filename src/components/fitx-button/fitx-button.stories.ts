@@ -32,7 +32,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Default: Story = {
   args: {
-    // text: 'This is an error message',
+    default: 'Klick mich',
   },
 };
 

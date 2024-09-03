@@ -2,25 +2,13 @@
 <script lang="ts" setup>
 import { GymxButton } from '@fitx/gymx-ui';
 
-import type { FitxButtonProps } from './types';
-const slots = defineSlots<{
-  'icon-start'(): any,
-  default(): any,
-  'icon-end'(): any,
-}>();
+import type { FitxButtonProps, FitxButtonSlots } from './types';
+defineSlots<FitxButtonSlots>();
 
 const props = defineProps<FitxButtonProps>();
 </script>
 <template>
-  <gymx-button>
-   <template
-      v-for="(_, slotName) in $slots"
-      v-slot:[slotName]="slotProps"
-    >
-      <slot :name="slotName" v-bind="slotProps ?? {}" />
-    </template>
-  </gymx-button>
-  <!--<gymx-button>
+  <gymx-button class="button">
     <template #icon-start>
       <slot name="icon-start"></slot>
     </template>
@@ -30,6 +18,14 @@ const props = defineProps<FitxButtonProps>();
     <template #icon-end>
       <slot name="icon-end"></slot>
     </template>
-  </gymx-button>-->
+  </gymx-button>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.button {
+  --button-color: var(--fitx-button-color, var(--primary-brand-color-white));
+  --button-color-background: var(--fitx-button-color-background, var(--primary-brand-color-orange));
+
+  :is(&--disabled, [disabled]) {
+  }
+}
+</style>
