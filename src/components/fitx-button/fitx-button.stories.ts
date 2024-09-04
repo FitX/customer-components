@@ -27,7 +27,7 @@ const demoStylesOverview = `section, .demo {
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
-  title: 'components/WIP/Button',
+  title: 'components/Button',
   component: FitxButton,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
@@ -39,6 +39,9 @@ const meta = {
       },
     },
   },
+  args: {
+    default: 'Klick mich',
+  }
 } satisfies Meta<typeof FitxButton>;
 
 export default meta;
@@ -49,9 +52,7 @@ type Story = StoryObj<typeof meta>;
  * to learn how to use render functions.
  */
 export const Default: Story = {
-  args: {
-    default: 'Klick mich',
-  },
+  args: {},
 };
 
 export const Slots: Story = {
@@ -167,4 +168,10 @@ export const Tertiary: Story = {
       </section>
     `,
   }),
+};
+
+export const Loading: Story = {
+  args: {
+    isIdle: true,
+  },
 };

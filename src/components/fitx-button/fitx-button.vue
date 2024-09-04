@@ -4,17 +4,22 @@ import { GymxButton } from '@fitx/gymx-ui';
 
 import type { FitxButtonProps, FitxButtonSlots } from './types';
 import { getModifierClasses } from '@/utils/css-modifier';
-defineSlots<FitxButtonSlots>();
+const slots = defineSlots<FitxButtonSlots>();
 
-const props = defineProps<FitxButtonProps>();
+const props = withDefaults(defineProps<FitxButtonProps>(), {
+  size: 'default',
+  modifier: 'primary',
+});
 </script>
 <template>
   <gymx-button
     class="btn"
     :class="[
       getModifierClasses('btn', [props.size, props.modifier]),
+      getModifierClasses('btn', props.isIdle ? 'is-idle' : undefined),
     ]"
-    :state="props.state">
+    :state="props.state"
+    :tag="props.tag">
     <template #icon-start>
       <slot name="icon-start"></slot>
     </template>
@@ -22,7 +27,11 @@ const props = defineProps<FitxButtonProps>();
       <slot name="default"></slot>
     </template>
     <template #icon-end>
-      <slot name="icon-end"></slot>
+      <slot name="icon-end">
+      </slot>
+      <span
+        v-if="props.isIdle"
+        class="btn__loading" />
     </template>
   </gymx-button>
 </template>
@@ -38,12 +47,17 @@ const props = defineProps<FitxButtonProps>();
   --button-radius: var(--fitx-radius-10);
   --button-font-weight: 500;
 
+  --button-icon-size: var(--icon-size-px-mini);
+  --button-icon-size-start: var(--btn-icon-size);
+  --button-icon-size-end: var(--btn-icon-size);
+
   --_button-border-width: 2px;
   --_button-border-color: var(--button-color-background);
 
   --button-border: var(--_button-border-width) solid var(--_button-border-color);
   --button-font-size: inherit;
   --button-font-family: var(--font-stack-normal);
+  --button-idle-color: var(--brand-color-white-0);
 
   &:is(&--small) {
     --button-padding-inline: var(--fitx-size-standard);
@@ -63,6 +77,7 @@ const props = defineProps<FitxButtonProps>();
     --_button-border-color: var(--brand-color-anthracite-0);
     --button-color: var(--brand-color-anthracite-0);
     --button-color-background: transparent;
+    --button-idle-color: var(--button-color);
 
     &:is(:hover, #{$self}--hover, :focus-visible) {
       --button-color-background: var(--brand-color-gray-chalk);
@@ -78,6 +93,7 @@ const props = defineProps<FitxButtonProps>();
   &:is(&--tertiary) {
     --button-color: var(--brand-color-anthracite-0);
     --button-color-background: var(--brand-color-white-0);
+    --button-idle-color: var(--button-color);
 
     &:is(:hover, #{$self}--hover, :focus-visible) {
       --button-color-background: var(--brand-color-gray-chalk);
@@ -89,6 +105,34 @@ const props = defineProps<FitxButtonProps>();
     }
   }
 
-  // --button-color-background-hover: var(--brand-color-orange-1);
+  &--is-idle {
+    transition: 0.4s ease grid-template-columns;
+
+    #{$self}__loading {
+      display: inline-block;
+      aspect-ratio: 1;
+      max-height: var(--_button-icon-size, 18px);
+
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 0.2rem solid var(--button-idle-color);
+        border-color: var(--button-idle-color) transparent var(--button-idle-color) transparent;
+        animation: ring 1s linear infinite;
+      }
+
+      @keyframes ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
 }
 </style>
