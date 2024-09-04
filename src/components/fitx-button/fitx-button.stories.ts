@@ -156,7 +156,7 @@ export const Tertiary: Story = {
         <h1>Tertiary</h1>
         <fitx-button modifier="tertiary">Tertiary</fitx-button>
         <fitx-button modifier="tertiary" state="hover">Tertiary (hover|focus|active)</fitx-button>
-        <fitx-button :modifier="['tertiary', 'disabled']">Tertiary disabled</fitx-button>
+        <fitx-button modifier="tertiary" disabled="disabled">Tertiary disabled</fitx-button>
       </section>
 
       <section>
