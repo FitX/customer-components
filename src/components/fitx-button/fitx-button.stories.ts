@@ -9,7 +9,7 @@ const ComponentDescription = getMarkdownDocsTranslationBlock(ContentDe);
 
 const demoStylesOverview = `section, .demo {
           --demo-text-color: inherit;
-          &:is([data-theme=dark]) {
+          [data-theme=dark] & {
             --demo-text-color: white;
           }
 

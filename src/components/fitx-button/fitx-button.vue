@@ -4,7 +4,7 @@ import { GymxButton } from '@fitx/gymx-ui';
 
 import type { FitxButtonProps, FitxButtonSlots } from './types';
 import { getModifierClasses } from '@/utils/css-modifier';
-const slots = defineSlots<FitxButtonSlots>();
+defineSlots<FitxButtonSlots>();
 
 const props = withDefaults(defineProps<FitxButtonProps>(), {
   size: 'default',
@@ -42,6 +42,9 @@ const props = withDefaults(defineProps<FitxButtonProps>(), {
   --button-color: var(--fitx-button-color, var(--primary-brand-color-white));
   --button-color-background: var(--fitx-button-color-background, var(--primary-brand-color-orange));
 
+  /**
+  @TODO
+   */
   --button-padding-inline: var(--fitx-size-large);
   --button-padding-block: var(--fitx-size-small);
   --button-radius: var(--fitx-radius-10);
@@ -52,9 +55,12 @@ const props = withDefaults(defineProps<FitxButtonProps>(), {
   --button-icon-size-end: var(--btn-icon-size);
 
   --_button-border-width: 2px;
-  --_button-border-color: var(--button-color-background);
+  /**
+  ??
+   */
+  --button-border-color: var(--fitx-button-color-border, var(--button-color-background));
 
-  --button-border: var(--_button-border-width) solid var(--_button-border-color);
+  --button-border: var(--_button-border-width) solid var(--button-border-color);
   --button-font-size: inherit;
   --button-font-family: var(--font-stack-normal);
   --button-idle-color: var(--brand-color-white-0);
@@ -65,43 +71,43 @@ const props = withDefaults(defineProps<FitxButtonProps>(), {
   }
 
   &:is(:hover, &--hover, :focus-visible, :active, &--active) {
-    --button-color-background: var(--brand-color-orange-1);
+    --button-color-background: var(--fitx-button-color-background-hover, var(--brand-color-orange-1));
   }
 
   &:is(:disabled, &--disabled) {
-    --button-color: var(--brand-color-gray-cement);
-    --button-color-background: var(--brand-color-gray-chalk);
+    --button-color: var(--fitx-button-color-disabled, var(--brand-color-gray-cement));
+    --button-color-background: var(--fitx-button-color-background-disabled, var(--brand-color-gray-chalk));
   }
 
   &:is(&--secondary) {
-    --_button-border-color: var(--brand-color-anthracite-0);
-    --button-color: var(--brand-color-anthracite-0);
-    --button-color-background: transparent;
+    --button-border-color: var(--fitx-button-color-border-secondary, var(--brand-color-anthracite-0));
+    --button-color: var(--fitx-button-color-secondary, var(--brand-color-anthracite-0));
+    --button-color-background: var(--fitx-button-color-background-secondary, transparent);
     --button-idle-color: var(--button-color);
 
     &:is(:hover, #{$self}--hover, :focus-visible) {
-      --button-color-background: var(--brand-color-gray-chalk);
+      --button-color-background: var(--fitx-button-color-background-hover-secondary, var(--brand-color-gray-chalk));
     }
 
     &:is(:disabled, #{$self}--disabled) {
-      --_button-border-color: var(--brand-color-gray-ash);
-      --button-color: var(--brand-color-gray-cement);
-      --button-color-background: transparent;
+      --button-border-color: var(--fitx-button-color-border-secondary, var(--brand-color-gray-ash));
+      --button-color: var(--fitx-button-color-disabled-secondary, var(--brand-color-gray-cement));
+      --button-color-background: var(--fitx-button-color-background-disabled-secondary, transparent);
     }
   }
 
   &:is(&--tertiary) {
-    --button-color: var(--brand-color-anthracite-0);
-    --button-color-background: var(--brand-color-white-0);
+    --button-color: var(--fitx-button-color-tertiary, var(--brand-color-anthracite-0));
+    --button-color-background: var(--fitx-button-color-background-tertiary, var(--brand-color-white-0));
     --button-idle-color: var(--button-color);
 
     &:is(:hover, #{$self}--hover, :focus-visible) {
-      --button-color-background: var(--brand-color-gray-chalk);
+      --button-color-background: var(--fitx-button-color-background-hover-tertiary, var(--brand-color-gray-chalk));
     }
 
     &:is(:disabled, #{$self}--disabled) {
-      --button-color: var(--brand-color-gray-cement);
-      --button-color-background: var(--brand-color-white-0);
+      --button-color: var(--fitx-button-color-disabled-tertiary, var(--brand-color-gray-cement));
+      --button-color-background: var(--fitx-button-color-background-disabled-tertiary, var(--brand-color-white-0));
     }
   }
 

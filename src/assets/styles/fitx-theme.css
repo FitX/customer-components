@@ -17,3 +17,43 @@
   --fitx-label-color: var(--brand-color-gray-stone);
   --fitx-label-color-activated: var(--brand-color-gray-cement);
 }
+
+:where(html) {
+  --fitx-button-color: var(--primary-brand-color-white);
+  --fitx-button-color-background: var(--primary-brand-color-orange);
+  --fitx-button-color-background-hover: var(--brand-color-orange-1);
+  --fitx-button-color-disabled: var(--brand-color-gray-cement);
+  --fitx-button-color-background-disabled: var(--brand-color-gray-chalk);
+
+  --fitx-button-color-secondary: var(--brand-color-anthracite-0);
+  --fitx-button-color-background-secondary: transparent;
+  --fitx-button-color-background-hover-secondary: var(--brand-color-gray-chalk);
+  --fitx-button-color-disabled-secondary: var(--brand-color-gray-cement);
+  --fitx-button-color-background-disabled-secondary: transparent;
+  --fitx-button-color-border-secondary: var(--brand-color-anthracite-0);
+
+  --fitx-button-color-tertiary: var(--brand-color-anthracite-0);
+  --fitx-button-color-background-tertiary: var(--brand-color-white-0);
+  --fitx-button-color-background-hover-tertiary: var(--brand-color-gray-chalk);
+  --fitx-button-color-disabled-tertiary: var(--brand-color-gray-cement);
+  --fitx-button-color-background-disabled-tertiary: var(--brand-color-white-0);
+  --fitx-button-color-border-tertiary: var(--brand-color-gray-ash);
+}
+
+:where([data-theme='dark'], [data-theme='touchpoint-dark']) {
+  --fitx-button-color-background-disabled: var(--brand-color-anthracite-3);
+
+  --fitx-button-color-secondary: var(--brand-color-white-0);
+
+  --fitx-button-color-background-hover-secondary: var(--brand-color-anthracite-3);
+  --fitx-button-color-border-secondary: var(--brand-color-white-0);
+
+  --fitx-button-color-tertiary: var(--brand-color-white-0);
+  --fitx-button-color-background-tertiary: transparent;
+  --fitx-button-color-background-hover-tertiary: var(--brand-color-anthracite-3);
+  --fitx-button-color-background-disabled-tertiary: transparent;
+
+  .btn--secondary:is([disabled], .btn--disabled) {
+    --fitx-button-color-border-secondary: var(--brand-color-anthracite-3);
+  }
+}
