@@ -6,6 +6,9 @@
 
 :where(html) {
   font-family: var(--font-stack-normal);
+  color: var(--fitx-color-text);
+
+  --fitx-color-text: var(--brand-color-anthracite-0);
 
   --fitx-label-color: var(--brand-color-gray-carbon);
   --fitx-label-color-activated: var(--fitx-label-color);
@@ -19,6 +22,8 @@
 }
 
 :where(html) {
+  --fitx-color-text: var(--primary-brand-color-white);
+
   --fitx-button-color: var(--primary-brand-color-white);
   --fitx-button-color-background: var(--primary-brand-color-orange);
   --fitx-button-color-background-hover: var(--brand-color-orange-1);
