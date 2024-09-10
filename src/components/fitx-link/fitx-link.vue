@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<FitxLinkProps>(), {
   --_fitx-link-color-secondary: var(--fitx-link-color-secondary, var(--brand-color-anthracite-1));
   --_fitx-link-color-secondary-hover: var(--fitx-link-color-secondary-hover, var(--brand-color-gray-carbon));
 
-  --_fitx-link-icon-size: var(--fitx-link-icon-size, 18px);
+  --_fitx-link-icon-size: var(--fitx-link-icon-size, auto);
   --_fitx-link-gap: var(--fitx-link-gap, 2px);
   --icon-fill: var(--fitx-link-icon-fill, currentColor);
 
