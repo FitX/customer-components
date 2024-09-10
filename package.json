@@ -32,7 +32,7 @@
     "temp-fix-copy-storybook": "cp ./coverage/index.html ./storybook-static/coverage/index.html"
   },
   "dependencies": {
-    "@fitx/gymx-ui": "^0.6.2",
+    "@fitx/gymx-ui": "^0.6.3",
     "vue": "^3.4.29"
   },
   "devDependencies": {
