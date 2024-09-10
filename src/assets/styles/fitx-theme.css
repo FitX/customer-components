@@ -61,4 +61,7 @@
   .btn--secondary:is([disabled], .btn--disabled) {
     --fitx-button-color-border-secondary: var(--brand-color-anthracite-3);
   }
+
+  --fitx-link-color-secondary: var(--brand-color-white-0);
+  --fitx-link-color-secondary-hover: var(--brand-color-white-2);
 }
