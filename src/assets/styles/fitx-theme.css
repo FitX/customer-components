@@ -64,4 +64,7 @@
 
   --fitx-link-color-secondary: var(--brand-color-white-0);
   --fitx-link-color-secondary-hover: var(--brand-color-white-2);
+
+
+  --maintenance-color-bg: var(--brand-color-anthracite-0);
 }

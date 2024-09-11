@@ -37,7 +37,7 @@ export default defineConfig({
       fileName: 'index',
     },
     rollupOptions: {
-      external: ['vue'],
+      external: ['vue'], // @TODO check to add vueuse
       output: {
         globals: {
           vue: 'Vue',

@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@fitx/gymx-ui": "^0.6.4",
+    "@vueuse/core": "^11.0.3",
     "vue": "^3.4.29"
   },
   "devDependencies": {
