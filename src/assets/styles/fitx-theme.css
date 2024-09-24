@@ -16,7 +16,8 @@
   --fitx-label-color-error: var(--color-error-text);
 }
 
-:where([data-theme='dark'], [data-theme='touchpoint-dark']) {
+/* :where([data-theme='dark'], [data-theme='touchpoint-dark']) { */
+:where([data-theme*="dark"]) {
   --fitx-label-color: var(--brand-color-gray-stone);
   --fitx-label-color-activated: var(--brand-color-gray-cement);
 }
@@ -45,7 +46,7 @@
   --fitx-button-color-border-tertiary: var(--brand-color-gray-ash);
 }
 
-:where([data-theme='dark'], [data-theme='touchpoint-dark']) {
+:where([data-theme*="dark"]) {
   --fitx-button-color-background-disabled: var(--brand-color-anthracite-3);
 
   --fitx-button-color-secondary: var(--brand-color-white-0);

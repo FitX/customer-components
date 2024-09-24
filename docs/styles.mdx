@@ -1,4 +1,9 @@
 import { Meta } from '@storybook/blocks';
+import HTMLExample from './assets/html-elements.html?raw';
+
+export const HtmlContent = () => (
+<div dangerouslySetInnerHTML={{ __html: HTMLExample }} />
+);
 
 <Meta title="Welcome/Styles" />
 
@@ -46,3 +51,9 @@ Since @property is not yet supported by all browsers we use, we fall back on [Le
   );
   /* ... */
 ```
+
+<h2>WIP Content Styles</h2>
+
+<div className="example-styles">
+  <HtmlContent />
+</div>
