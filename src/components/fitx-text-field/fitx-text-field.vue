@@ -68,12 +68,14 @@ const componentClasses = computed(() => ([
 
   /* --input-color-hover: red;
   --input-color-background-hover: red; */
+  // --input-color-hover: inherit;
   --input-color-border-hover: var(--brand-color-gray-graphite);
 
   --input-color-disabled: var(--brand-color-gray-cement);
   --input-color-background-disabled: var(--brand-color-gray-chalk);
   --input-color-border-disabled: var(--brand-color-gray-stone);
 
+  --input-color-border-focused: var(--brand-color-anthracite-0);
 
   /* Other */
   --input-radius: var(--fitx-radius-4);
@@ -95,27 +97,13 @@ const componentClasses = computed(() => ([
 
 
   position: relative;
-  // height: var(--input-height);
-
-
-  /*
-  &:has(.input--hover, input:hover) {
-    --input-color-border: var(--brand-color-gray-graphite);
-  }
-  &:has(.input--focused), &:focus-within {
-    --input-color-border: var(--brand-color-anthracite-0);
-  }
-   */
-
-  /* &:has(.input--hover) {
-    --input-color-hover: red;
-    --input-color-background-hover: red;
-    --input-color-border-hover: red; // var(--brand-color-gray-graphite);
-    border-width: 20px;;
-  } */
 
   &:has(.input--disabled) {
     --label-color: var(--brand-color-gray-graphite);
+    --input-color-hover: var(--input-color-disabled);
+    --input-color-background-hover: var(--input-color-background-disabled);
+    --input-color-border-hover: var(--input-color-border-disabled);
+    --input-color-border: var(--input-color-border-disabled);
   }
 
   &--has-error {
@@ -144,7 +132,6 @@ const componentClasses = computed(() => ([
   :deep(#{$self}__additional) {
     font-size: var(--font-size-0);
     color: var(--brand-color-gray-carbon);
-    // -top: var(--fitx-size-tiny);
   }
 
 
@@ -156,6 +143,10 @@ const componentClasses = computed(() => ([
       padding-block-start: calc(var(--input-padding-block) + var(--label-font-size));
       // padding-block-end: calc(var(--input-padding-block) - var(--label-font-size));
     }
+  }
+
+  &:focus-within, &:has(.input--focused) {
+    --input-color-border: var(--input-color-border-focused);
   }
 
   :deep(#{$self}__label) {
