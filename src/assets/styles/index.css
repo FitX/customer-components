@@ -1,5 +1,7 @@
+@import 'reset.css';
 @import '@fitx/gymx-ui/index.css';
 @import 'fitx-brand.css';
+@import 'colors.css';
 @import 'sizes.css';
 @import 'border.css';
 @import 'icons.css';

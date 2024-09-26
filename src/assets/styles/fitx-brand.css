@@ -1,11 +1,8 @@
 @import 'colors.css';
 @import 'fonts.css';
+@import 'tokens/typo.css';
 
 :where(html) {
   --font-stack-normal: 'Niveau Grotesk', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue',
   'Helvetica', 'Arial', sans-serif;
-}
-
-:root {
-  font-family: var(--font-stack-normal);
 }

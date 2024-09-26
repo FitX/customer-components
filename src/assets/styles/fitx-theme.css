@@ -5,15 +5,15 @@
 }
 
 :where(html) {
-  font-family: var(--font-stack-normal);
-  color: var(--fitx-color-text);
-
   --fitx-color-text: var(--brand-color-anthracite-0);
 
   --fitx-label-color: var(--brand-color-gray-carbon);
   --fitx-label-color-activated: var(--fitx-label-color);
   --fitx-label-color-disabled: var(--brand-color-gray-cement);
   --fitx-label-color-error: var(--color-error-text);
+
+  font-family: var(--font-stack-normal);
+  color: var(--fitx-color-text);
 }
 
 /* :where([data-theme='dark'], [data-theme='touchpoint-dark']) { */
@@ -23,7 +23,7 @@
 }
 
 :where(html) {
-  --fitx-color-text: var(--primary-brand-color-white);
+  /* --fitx-color-text: var(--primary-brand-color-white); */
 
   --fitx-button-color: var(--primary-brand-color-white);
   --fitx-button-color-background: var(--primary-brand-color-orange);
