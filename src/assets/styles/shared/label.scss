@@ -1,0 +1,16 @@
+@mixin label-styles() {
+  $self: &;
+
+  --label-color: var(--fitx-label-color);
+  --label-color-hover: var(--label-color);
+
+  &:is(#{$self}--disabled, [disabled]) {
+    --label-color: var(--fitx-label-color-disabled);
+  }
+
+  &--error {
+    --label-color: var(--fitx-label-color-error);
+  }
+
+  // --fitx-label-color-activated just in input context
+}

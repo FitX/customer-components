@@ -14,17 +14,9 @@ const props = defineProps<FitxLabelProps>();
   </gymx-label>
 </template>
 <style lang="scss" scoped>
+@use "@/assets/styles/shared/label" as sharedLabel;
+
 .label {
-  --label-color: var(--fitx-label-color);
-  --label-color-hover: var(--label-color);
-
-  :is(&--disabled, [disabled]) {
-    --label-color: var(--fitx-label-color-disabled);
-  }
-  &--error {
-    --label-color: var(--fitx-label-color-error);
-  }
-
-  // --fitx-label-color-activated just in input context
+  @include sharedLabel.label-styles();
 }
 </style>
