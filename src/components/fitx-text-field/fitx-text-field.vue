@@ -62,20 +62,27 @@ const componentClasses = computed(() => ([
   --input-font-size: 20px; //var(--font-size-1);
 
   /* UI States */
-  --input-color: var(--brand-color-gray-carbon);
-  --input-color-background: var(--fitx-input-color-background);
-  --input-color-border: var(--brand-color-gray-stone);
+  --input-color: var(--fitx-input-color, var(--brand-color-gray-carbon));
+  --input-color-background: var(--fitx-input-color-background, transparent);
+  --input-color-border: var(--fitx-input-color-border, var(--brand-color-gray-stone));
 
   /* --input-color-hover: red;
   --input-color-background-hover: red; */
-  // --input-color-hover: inherit;
-  --input-color-border-hover: var(--brand-color-gray-graphite);
+  --input-color-hover: var(--fitx-input-color);
+  --input-color-border-hover: var(--fitx-input-color-border-hover, var(--brand-color-gray-graphite));
 
-  --input-color-disabled: var(--brand-color-gray-cement);
-  --input-color-background-disabled: var(--brand-color-gray-chalk);
-  --input-color-border-disabled: var(--brand-color-gray-stone);
+  --input-color-disabled: var(--fitx-input-color-disabled, var(--brand-color-gray-cement));
+  --input-color-background-disabled: var(--fitx-input-color-background-disabled, var(--brand-color-gray-chalk));
+  --input-color-border-disabled: var(--fitx-input-color-border-disabled, var(--brand-color-gray-stone));
 
-  --input-color-border-focused: var(--brand-color-anthracite-0);
+  --input-color-border-focused: var(--fitx-input-color-border-focused, var(--brand-color-anthracite-0));
+
+  --input-color-border-error: var(--fitx-input-color-border-error, var(--functional-color-error-0));
+  --input-color-error: var(--fitx-input-color-error, inherit);
+  --label-color-error: var(--fitx-label-color-error, var(--functional-color-error-0));
+  --input-color-background-error: var(--fitx-input-color-background-error, var(--functional-color-error-1-light));
+
+  --icon-fill: var(--label-color);
 
   /* Other */
   --input-radius: var(--fitx-radius-4);
@@ -98,22 +105,38 @@ const componentClasses = computed(() => ([
 
   position: relative;
 
-  &:has(.input--disabled) {
+  /* &:has(.input--disabled) {
     --label-color: var(--brand-color-gray-graphite);
     --input-color-hover: var(--input-color-disabled);
     --input-color-background-hover: var(--input-color-background-disabled);
     --input-color-border-hover: var(--input-color-border-disabled);
     --input-color-border: var(--input-color-border-disabled);
-  }
+  } */
 
   &--has-error {
-    --input-color-border: var(--functional-color-error-0);
-    --label-color: var(--functional-color-error-0);
-    --input-color-background: var(--functional-color-error-1-light);
+    --input-color: var(--input-color-error);
+    --input-color-border: var(--input-color-border-error);
+    --label-color: var(--label-color-error);
+    --input-color-background: var(--input-color-background-error);
+
+    --input-color-border-hover: var(--input-color-border-error);
+    --label-color-hover: var(--label-color-error);
+    --input-color-background-hover: var(--input-color-background-error);
   }
 
   &:has(.input__start:not(:empty)) :deep(label) {
     margin-inline-start: calc(var(--icon-width) + var(--input-gap));
+    background: red;
+
+    /* &::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: red;
+    } */
   }
 
   &:deep(input) {
@@ -143,6 +166,16 @@ const componentClasses = computed(() => ([
       padding-block-start: calc(var(--input-padding-block) + var(--label-font-size));
       // padding-block-end: calc(var(--input-padding-block) - var(--label-font-size));
     }
+
+    :deep(.input__start),
+    :deep(.input__end) {
+      translate: 0 calc((var(--input-padding-block)) * -1);
+    }
+  }
+
+  :deep(.input__start),
+  :deep(.input__end) {
+    display: flex;
   }
 
   &:focus-within, &:has(.input--focused) {
