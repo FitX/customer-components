@@ -69,3 +69,25 @@
 
   --maintenance-color-bg: var(--brand-color-anthracite-0);
 }
+
+[data-theme*="dark"] {
+  /* Input Styles */
+  --label-color: var(--brand-color-gray-stone);
+  --fitx-input-color: var(--brand-color-white-0);
+  --fitx-input-color-background: transparent;
+  --fitx-input-color-border: var(--brand-color-gray-graphite);
+
+  --fitx-input-color-hover: var(--brand-color-white-0);
+  --fitx-input-color-border-hover: var(--brand-color-gray-stone);
+
+  --fitx-input-color-disabled: var(--brand-color-gray-cement);
+  --fitx-input-color-background-disabled: var(--brand-color-anthracite-3);
+  --fitx-input-color-border-disabled: var(--brand-color-gray-graphite);
+
+  --fitx-input-color-border-focused: var(--brand-color-gray-stone);
+
+  --fitx-input-color-border-error: var(--functional-color-error-0);
+  --fitx-input-color-error: var(--fitx-input-color);
+  --fitx-label-color-error: var(--functional-color-error-0); /* @TODO nur label? */
+  --fitx-input-color-background-error: var(--functional-color-error-1-dark);
+}

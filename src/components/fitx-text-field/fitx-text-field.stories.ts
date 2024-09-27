@@ -66,7 +66,7 @@ export const Slots: Story = {
     label: 'Firstname',
     modelValue: 'Jane',
     'input-start': () => h(IconCheckmark),
-    'input-end': '!!!',
+    'input-end': '🐨',
   },
 };
 
@@ -75,7 +75,6 @@ export const ErrorMessage: Story = {
     label: 'Firstname',
     modelValue: 'Jane',
     'input-start': () => h(IconSearch),
-    'input-end': '!!!',
     errorMessage: 'Please enter your Name',
   },
 };
