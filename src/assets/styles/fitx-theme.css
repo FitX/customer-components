@@ -47,6 +47,7 @@
 }
 
 :where([data-theme*="dark"]) {
+  color-scheme: dark;
   --fitx-button-color-background-disabled: var(--brand-color-anthracite-3);
 
   --fitx-button-color-secondary: var(--brand-color-white-0);
