@@ -1,4 +1,5 @@
 @import 'reset.css';
+@import 'utils.css';
 @import '@fitx/gymx-ui/index.css';
 @import 'fitx-brand.css';
 @import 'colors.css';
