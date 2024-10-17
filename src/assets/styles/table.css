@@ -1,0 +1,42 @@
+@import "@fitx/gymx-ui/ui/table.css";
+
+.table {
+  --gymx-table-font-size: 1rem;
+  --icon-fill-1: var(--fitx-table-color-sort-inactive, var(--brand-color-gray-cement));
+  --icon-fill-2: var(--fitx-table-color-sort-inactive, var(--brand-color-gray-cement));
+  --icon-fill-active: var(--fitx-table-color-sort-active, var(--brand-color-anthracite-0));
+  --gymx-table-color-row-hover: var(--fitx-table-color-row-hover, var(--brand-color-gray-chalk));
+  --gymx-table-border: none;
+
+  --gymx-table-cell-spacing-block: 1.125rem;
+  --gymx-table-cell-spacing-inline: 1rem;
+
+  text-align: left;
+  width: 100%;
+  font-weight: 400;
+  color: var(--fitx-table-color, var(--brand-color-anthracite-0));
+
+  tr {
+    border-bottom: 1px solid var(--fitx-table-color-row-border, var(--brand-color-gray-ash));
+  }
+
+  th {
+    color: inherit;
+    font-weight: 700;
+    font-size: inherit;
+  }
+}
+
+.table-sort {
+  color: inherit;
+  font-size: inherit;
+  justify-content: start;
+  gap: var(--fitx-size-micro);
+}
+
+[aria-sort="ascending"] {
+  --icon-fill-2: var(--icon-fill-active);
+}
+[aria-sort="descending"] {
+  --icon-fill-1: var(--icon-fill-active);
+}

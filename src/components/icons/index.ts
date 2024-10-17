@@ -69,6 +69,7 @@ export { default as IconScaleRegular } from '@/assets/icons/scale-regular.svg';
 export { default as IconSearch } from '@/assets/icons/search.svg';
 export { default as IconSettings } from '@/assets/icons/settings.svg';
 export { default as IconSignal } from '@/assets/icons/signal.svg';
+export { default as IconSort } from '@/assets/icons/sort.svg';
 export { default as IconSound } from '@/assets/icons/sound.svg';
 export { default as IconStar } from '@/assets/icons/star.svg';
 export { default as IconSupport } from '@/assets/icons/support.svg';
