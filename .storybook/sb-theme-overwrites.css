@@ -76,6 +76,22 @@ Storybook specific theming @TODO adjust for fitx colors
  Fix Storybook Bugs -.-
  */
 .custom-docs-content > :is(h1, h2, h3, h4, h5, h6) > a[aria-hidden] {
-  margin-left: -24px;
+  /* margin-left: -24px; */
 }
 
+/**
+ Storybook -.-
+ If .custom-docs-content is rendered, flex is not working,
+ */
+.custom-docs-content {
+  display: contents;
+  /* all: initial; */
+}
+
+/**
+ Strange behavior of storybook docs
+ because rendered empty div with width: 10rem after parent of .custom-docs-content
+ */
+:has(.custom-docs-content) + div {
+  display: none;
+}
