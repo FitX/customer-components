@@ -89,6 +89,8 @@ const focusInput = (event: PointerEvent) => {
   --label-color-error: var(--fitx-label-color-error, var(--functional-color-error-0));
   --input-color-background-error: var(--fitx-input-color-background-error, var(--functional-color-error-1-light));
 
+  --_input-color-additional: var(--fitx-input-color-additional, var(--brand-color-gray-carbon));
+
   --icon-fill: var(--label-color);
 
   /* Other */
@@ -155,7 +157,7 @@ const focusInput = (event: PointerEvent) => {
 
   :deep(#{$self}__additional) {
     font-size: var(--font-size-0);
-    color: var(--brand-color-gray-carbon);
+    color: var(--_input-color-additional);
   }
 
 

@@ -2,6 +2,7 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import { FitxTextField } from './index';
+import { FitxSelectField } from '@/components';
 
 describe('FitxTextField', () => {
   it('is a Vue instance', () => {
@@ -135,4 +136,18 @@ describe('FitxTextField', () => {
       // Check if custom slot content is rendered
       expect(wrapper.find('.slot-input-end').exists()).toBe(true);
     });
+
+  it('modelValue should be updated', async () => {
+    const wrapper = mount(FitxTextField, {
+      attachTo: document.body,
+      props: {
+        modelValue: undefined,
+        options: [1,2,3],
+      },
+    });
+    const input = wrapper.find('input');
+    await input.setValue('foo');
+    const emitted = await wrapper.emitted('update:modelValue');
+    expect(emitted[0][0]).toBe('foo')
+  });
 });

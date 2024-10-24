@@ -11,7 +11,7 @@ const options = [{ text: 'Item 1', demoField: 1 },{ text: 'Item 2', demoField: 2
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
-  title: 'components/WIP/select-field',
+  title: 'components/Select Field',
   component: FitxSelectField,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
@@ -41,15 +41,22 @@ export const Default: Story = {
   },
 };
 
+export const Hover: Story = {
+  args: {
+    state: 'hover'
+  },
+};
+
 export const Selected: Story = {
   args: {
+    state: 'selected',
     modelValue: options[1],
   },
 };
 
 export const Disabled: Story = {
   args: {
-    disabled: true,
+    state: 'disabled',
   },
 };
 
@@ -61,7 +68,7 @@ export const Hint: Story = {
 
 export const ErrorMessage: Story = {
   args: {
-    errorMessage: 'Please enter your Name',
+    errorMessage: 'Please select an item',
   },
 };
 

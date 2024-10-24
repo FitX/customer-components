@@ -7,36 +7,25 @@ import type {
 } from '@/components/fitx-select-field/types';
 import { FitxErrorMessage } from '@/components';
 import { getModifierClasses } from '@/utils/css-modifier';
-import { computed, ref, toValue } from 'vue';
+import { computed } from 'vue';
 
 const slots = defineSlots<FitxSelectFieldSlots>();
 const props = defineProps<FitxSelectFieldProps>();
 
-const field = ref();
-
-const modelValue = defineModel<string | number>({ default: '' });
-const isFilled = computed(() => modelValue.value);
+const modelValue = defineModel();
+const isFilled = computed(() => !!modelValue.value);
 
 const componentRootClass = 'select-field';
 const componentClasses = computed(() => ([
   componentRootClass,
-  getModifierClasses(componentRootClass, toValue(isFilled) ? 'is-filled' : undefined),
-  getModifierClasses(componentRootClass, props.isValid ? 'is-valid' : undefined),
+  getModifierClasses(componentRootClass, isFilled.value ? 'is-filled' : undefined),
   getModifierClasses(componentRootClass, props.errorMessage ? 'has-error' : undefined),
 ]));
-
-const focusInput = (event: PointerEvent) => {
-  if (event?.target instanceof HTMLElement && event?.target?.classList?.contains('select')) {
-    event?.target?.querySelector('select')?.focus()
-  }
-};
 </script>
 <template>
   <gymx-select-field
-    @click="focusInput"
-    ref="field"
     :class="componentClasses"
-    class="select-field" v-bind="props">
+    class="select-field" v-bind="props" v-model="modelValue">
     <template #input-hint>
       <slot name="input-hint"></slot>
     </template>
@@ -79,6 +68,8 @@ const focusInput = (event: PointerEvent) => {
   --select-color-error: var(--fitx-input-color-error, inherit);
   --label-color-error: var(--fitx-label-color-error, var(--functional-color-error-0));
   --select-color-background-error: var(--fitx-input-color-background-error, var(--functional-color-error-1-light));
+
+  --_select-color-additional: var(--fitx-select-color-additional, var(--brand-color-gray-carbon));
 
   --icon-fill: var(--label-color);
 
@@ -126,11 +117,8 @@ const focusInput = (event: PointerEvent) => {
     padding-inline: 0;
     padding-block: 0;
     border: 0;
-    border: 1px solid green;
     margin: 0;
-    option {
-      margin: 0;
-    }
+    appearance: none;
   }
 
   :deep(#{$self}__input) {
@@ -142,7 +130,7 @@ const focusInput = (event: PointerEvent) => {
 
   :deep(#{$self}__additional) {
     font-size: var(--font-size-0);
-    color: var(--brand-color-gray-carbon);
+    color: var(--_select-color-additional);
   }
 
 
@@ -150,7 +138,6 @@ const focusInput = (event: PointerEvent) => {
     --label-font-size: 0.875rem;
     --label-position-block-start: calc(var(--select-padding-inline) + 2px);
     --select-color-border: var(--select-color-border-focused);
-    background: red !important;
 
     :deep(#{$self}__input) {
       padding-block-start: calc(var(--select-padding-block) + var(--label-font-size));

@@ -92,6 +92,7 @@
   --fitx-input-color-error: var(--fitx-input-color);
   --fitx-label-color-error: var(--functional-color-error-0); /* @TODO nur label? */
   --fitx-input-color-background-error: var(--functional-color-error-1-dark);
+  --fitx-input-color-additional: var(--brand-color-gray-graphite);
 
 
   --fitx-table-color: var(--primary-brand-color-white);
@@ -99,4 +100,7 @@
   --fitx-table-color-row-border: var(--brand-color-gray-carbon);
   --fitx-table-color-sort-inactive: var(--brand-color-gray-cement);
   --fitx-table-color-sort-active: var(--primary-brand-color-white);
+
+
+  --fitx-select-color-additional: var(--brand-color-gray-graphite);
 }
