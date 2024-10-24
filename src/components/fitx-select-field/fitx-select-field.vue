@@ -1,9 +1,10 @@
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="SelectItem extends FitxSelectFieldOption<SelectItem>">
 import { GymxSelectField } from '@fitx/gymx-ui';
 import type {
   FitxSelectFieldProps,
   FitxSelectFieldSlots,
+  FitxSelectFieldOption,
 } from '@/components/fitx-select-field/types';
 import { FitxErrorMessage } from '@/components';
 import { getModifierClasses } from '@/utils/css-modifier';
@@ -12,7 +13,7 @@ import { computed } from 'vue';
 const slots = defineSlots<FitxSelectFieldSlots>();
 const props = defineProps<FitxSelectFieldProps>();
 
-const modelValue = defineModel();
+const modelValue = defineModel<SelectItem | SelectItem[]>();
 const isFilled = computed(() => !!modelValue.value);
 
 const componentRootClass = 'select-field';
