@@ -6,13 +6,14 @@ import type {
   FitxSelectFieldSlots,
   FitxSelectFieldOption,
 } from '@/components/fitx-select-field/types';
-import { FitxErrorMessage } from '@/components';
+import { FitxErrorMessage, IconExpand } from '@/components';
 import { getModifierClasses } from '@/utils/css-modifier';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const slots = defineSlots<FitxSelectFieldSlots>();
 const props = defineProps<FitxSelectFieldProps>();
 
+const field = ref();
 const modelValue = defineModel<SelectItem | SelectItem[]>();
 const isFilled = computed(() => !!modelValue.value);
 
@@ -22,11 +23,20 @@ const componentClasses = computed(() => ([
   getModifierClasses(componentRootClass, isFilled.value ? 'is-filled' : undefined),
   getModifierClasses(componentRootClass, props.errorMessage ? 'has-error' : undefined),
 ]));
+
+const focusInput = (event: PointerEvent) => {
+  if (event?.target instanceof HTMLElement && event?.target?.classList?.contains('select')) {
+    event?.target?.querySelector('select')?.focus();
+  }
+};
 </script>
 <template>
   <gymx-select-field
+    @click="focusInput"
+    ref="field"
     :class="componentClasses"
     class="select-field" v-bind="props" v-model="modelValue">
+    <template #select-end><icon-expand aria-hidden="true" class="select-field__icon" /></template>
     <template #input-hint>
       <slot name="input-hint"></slot>
     </template>
@@ -73,6 +83,7 @@ const componentClasses = computed(() => ([
   --_select-color-additional: var(--fitx-select-color-additional, var(--brand-color-gray-carbon));
 
   --icon-fill: var(--label-color);
+  --select-icon-position-top: 50%;
 
   /* Other */
   --select-radius: var(--fitx-radius-4);
@@ -91,7 +102,6 @@ const componentClasses = computed(() => ([
 
   --icon-width: 24px;
   --icon-height: 24px;
-
 
   position: relative;
 
@@ -139,6 +149,7 @@ const componentClasses = computed(() => ([
     --label-font-size: 0.875rem;
     --label-position-block-start: calc(var(--select-padding-inline) + 2px);
     --select-color-border: var(--select-color-border-focused);
+    --select-icon-position-top: calc(50% - var(--select-padding-block));
 
     :deep(#{$self}__input) {
       padding-block-start: calc(var(--select-padding-block) + var(--label-font-size));
@@ -155,9 +166,18 @@ const componentClasses = computed(() => ([
     line-height: var(--label-font-size);
   }
 
-  /*
-  --_input-border: var(--select-border, var(--gymx-border-size-1) solid var(--_input-color-border));
-  --_input-outline: var(--select-outline, var(--_input-border));
-   */
+  :deep(.select__input-wrapper) {
+    position: relative;
+  }
+
+  &__icon {
+    --icon-fill: currentColor;
+
+    position: absolute;
+    top: var(--select-icon-position-top);
+    right: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
 }
 </style>
