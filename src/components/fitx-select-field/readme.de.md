@@ -4,7 +4,7 @@ Sofern für Eingaben mehrere feste Möglichkeiten existieren,
 können diese per Select ausgewählt werden.
 
 #### Verwendung:
-Das Select beispielsweise zur Auswahl von vordefinierten Sperrgründen oder Zonenzuordnungen verwendet. 
+Das Select wird beispielsweise zur Auswahl von vordefinierten Sperrgründen oder Zonenzuordnungen verwendet. 
 Die Anzahl der Einträge soll überschaubar sein (wünschenswert zwischen 4 und 20).
 
 #### Verhalten:
