@@ -10,10 +10,17 @@ const props = withDefaults(defineProps<FitxDialogProps>(), {
 
 defineSlots<FitxDialogSlots>();
 
-defineEmits(['update:modelValue', 'opened', 'closed']);
+// const model = defineModel<boolean>();
+
+const emit = defineEmits(['update:modelValue', 'opened', 'closed']);
 </script>
 <template>
-  <gymx-dialog v-bind="props" class="dialog">
+  <gymx-dialog
+    class="dialog"
+    v-bind="props"
+    @update:model-value="emit('update:modelValue', $event)"
+    @opened="emit('opened')"
+    @closed="emit('closed')">
     <template #header>
       <slot name="header" />
     </template>

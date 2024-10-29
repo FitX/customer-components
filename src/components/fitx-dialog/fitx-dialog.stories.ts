@@ -29,6 +29,7 @@ const meta = {
   decorators: [() => ({ template: '<div style="height: 50vh;"><story/></div>' })],
 } satisfies Meta<typeof FitxDialog>;
 
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 /*
@@ -48,7 +49,6 @@ export const Example: Story = {
   args: {
     modelValue: false,
     title: 'Custom Content',
-    onClosed: (e) => console.log('e', e)
   },
   render: (args) => ({
     components: { FitxDialog, FitxButton },
