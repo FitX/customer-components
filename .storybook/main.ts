@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     { from: '../src/assets', to: '/lib-assets'}
   ],
   addons: [
-    '@storybook/addon-onboarding',
+    // '@storybook/addon-onboarding',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',

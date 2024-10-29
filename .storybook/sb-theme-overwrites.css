@@ -95,3 +95,7 @@ Storybook specific theming @TODO adjust for fitx colors
 :has(.custom-docs-content) + div {
   display: none;
 }
+
+:is(html, body, [data-theme-story]):has(.dialog) {
+  /* height: 100%; */
+}

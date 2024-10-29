@@ -1,4 +1,4 @@
-export const getMarkdownDocsTranslationBlock = (contentGer: string, contentEn: string) => {
+export const getMarkdownDocsTranslationBlock = (contentGer?: string, contentEn?: string) => {
   if (!contentEn || !contentEn) return contentEn || contentGer;
   return `
 <details open>
