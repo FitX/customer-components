@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 import { GymxDialog } from '@fitx/gymx-ui';
 import type { FitxDialogProps, FitxDialogSlots } from './types';
@@ -54,7 +53,9 @@ const emit = defineEmits(['update:modelValue', 'opened', 'closed']);
   width: 70vw;
   &__header {
     color: var(--fitx-color-text);
-    font-feature-settings: 'liga' off, 'clig' off;
+    font-feature-settings:
+      'liga' off,
+      'clig' off;
 
     // font-size: var(--font-size-2);
     font-style: normal;
@@ -67,7 +68,8 @@ const emit = defineEmits(['update:modelValue', 'opened', 'closed']);
     background-color: light-dark(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.25));
   }
 
-  :deep(.dialog__body), :deep(.dialog__footer) {
+  :deep(.dialog__body),
+  :deep(.dialog__footer) {
     padding-block-start: 0;
   }
 

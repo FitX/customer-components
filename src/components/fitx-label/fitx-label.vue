@@ -14,7 +14,7 @@ const props = defineProps<FitxLabelProps>();
   </gymx-label>
 </template>
 <style lang="scss" scoped>
-@use "@/assets/styles/shared/label" as sharedLabel;
+@use '@/assets/styles/shared/label' as sharedLabel;
 
 .label {
   @include sharedLabel.label-styles();

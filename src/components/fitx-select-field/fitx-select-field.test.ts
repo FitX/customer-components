@@ -1,9 +1,6 @@
-
-import { flushPromises, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import { FitxSelectField } from './index';
-import { defineComponent, nextTick, ref } from 'vue';
-import { FitxTextField } from '@/components/fitx-text-field';
 
 const options = [{ text: 1 }, { text: 2 }, { text: 3 }];
 
@@ -46,26 +43,25 @@ describe('FitxSelectField', () => {
     expect(wrapper.findComponent({ name: 'FitxErrorMessage' }).text()).toBe('This is an error');
   });
 
-
-    it('modelValue should be updated', async () => {
-      const wrapper = mount(FitxSelectField, {
-        attachTo: document.body,
-        props: {
-          modelValue: undefined,
-          options: [1,2,3],
-        },
-      });
-      const select = wrapper.find('select');
-      await select.setValue(2);
-       const emitted = await wrapper.emitted('update:modelValue');
-      expect(emitted[0][0]).toBe(2)
+  it('modelValue should be updated', async () => {
+    const wrapper = mount(FitxSelectField, {
+      attachTo: document.body,
+      props: {
+        modelValue: undefined,
+        options: [1, 2, 3],
+      },
     });
+    const select = wrapper.find('select');
+    await select.setValue(2);
+    const emitted = await wrapper.emitted('update:modelValue');
+    expect(emitted[0][0]).toBe(2);
+  });
 
   it('focuses input when the text field is clicked', async () => {
     const wrapper = mount(FitxSelectField, {
       props: {
         modelValue: undefined,
-        options: [1,2,3],
+        options: [1, 2, 3],
       },
       attachTo: document.body, // Attach to document for DOM-related events
     });
@@ -81,5 +77,4 @@ describe('FitxSelectField', () => {
     // Check that the input's focus method was called
     expect(focusMock).toHaveBeenCalled();
   });
-
 });

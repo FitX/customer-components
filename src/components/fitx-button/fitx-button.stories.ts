@@ -1,4 +1,3 @@
-
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { default as FitxButton } from './fitx-button.vue';
 import ContentDe from './readme.de.md?raw';
@@ -41,7 +40,7 @@ const meta = {
   },
   args: {
     default: 'Klick mich',
-  }
+  },
 } satisfies Meta<typeof FitxButton>;
 
 export default meta;
@@ -59,7 +58,7 @@ export const Slots: Story = {
   args: {
     default: 'blubb',
     'icon-start': '(:',
-    'icon-end': '!!!'
+    'icon-end': '!!!',
   },
 };
 
@@ -67,7 +66,7 @@ export const Primary: Story = {
   args: {
     // state: 'hover',
   },
-  render: (args) => ({
+  render: () => ({
     components: {
       FitxButton,
     },
@@ -102,7 +101,7 @@ export const Secondary: Story = {
   args: {
     // state: 'hover',
   },
-  render: (args) => ({
+  render: () => ({
     components: {
       FitxButton,
     },
@@ -138,7 +137,7 @@ export const Tertiary: Story = {
   args: {
     // state: 'hover',
   },
-  render: (args) => ({
+  render: () => ({
     components: {
       FitxButton,
     },

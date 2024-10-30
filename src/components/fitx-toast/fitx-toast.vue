@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { GymxToast } from '@fitx/gymx-ui';
@@ -10,7 +9,7 @@ const props = withDefaults(defineProps<FitxToastProps>(), {
   closeText: 'Benachrichtigung Schließen',
 });
 
-const icon = computed(() => props.type === 'success' ? IconCheckmark : IconError);
+const icon = computed(() => (props.type === 'success' ? IconCheckmark : IconError));
 </script>
 <template>
   <gymx-toast
@@ -28,16 +27,11 @@ const icon = computed(() => props.type === 'success' ? IconCheckmark : IconError
   --toast-icon-fill: currentColor;
   --toast-icon-gap: 1rem;
 
-  --toast-color-success:
-    var(--brand-color-white-0);
-  --toast-color-background-success:
-    var(--functional-color-success-0);
+  --toast-color-success: var(--brand-color-white-0);
+  --toast-color-background-success: var(--functional-color-success-0);
 
-
-  --toast-color-error:
-    var(--primary-brand-color-white);
-  --toast-color-background-error:
-    var(--functional-color-error-0);
+  --toast-color-error: var(--primary-brand-color-white);
+  --toast-color-background-error: var(--functional-color-error-0);
 
   font-size: var(--font-size-2);
 

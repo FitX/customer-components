@@ -1,4 +1,3 @@
-
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { default as FitxTextField } from './fitx-text-field.vue';
 import IconCheckmark from '@/assets/icons/checkmark.svg';
@@ -25,7 +24,7 @@ const meta = {
     },
   },
   args: {
-    label: 'Username'
+    label: 'Username',
   },
 } satisfies Meta<typeof FitxTextField>;
 
@@ -44,20 +43,20 @@ export const Default: Story = {
 
 export const Hover: Story = {
   args: {
-    state: 'hover'
+    state: 'hover',
   },
 };
 
 export const Focused: Story = {
   args: {
-    state: 'focused'
+    state: 'focused',
   },
 };
 
 export const Disabled: Story = {
   args: {
     state: 'disabled',
-    modelValue: 'Jon Doe'
+    modelValue: 'Jon Doe',
   },
 };
 

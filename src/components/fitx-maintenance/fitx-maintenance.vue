@@ -1,10 +1,8 @@
-
 <script lang="ts" setup>
 import BrandGorilla from '@/assets/brand/gorilla.svg';
 </script>
 <template>
-  <section
-    class="maintenance">
+  <section class="maintenance">
     <div class="maintenance__content">
       <brand-gorilla class="maintenance__image" />
       <h1 class="maintenance__title">

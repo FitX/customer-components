@@ -1,9 +1,7 @@
 import type { GymxTextFieldProps, GymxTextFieldSlots } from '@fitx/gymx-ui';
 
 export interface FitxTextFieldProps extends GymxTextFieldProps {
-  isValid?: true,
+  isValid?: true;
 }
 
-export interface FitxTextFieldSlots extends GymxTextFieldSlots {
-
-}
+export interface FitxTextFieldSlots extends GymxTextFieldSlots {}

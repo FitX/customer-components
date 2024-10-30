@@ -1,4 +1,3 @@
-
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
 import { FitxLink } from './index';
@@ -23,7 +22,8 @@ describe('FitxLink', () => {
       slots: {
         'icon-start': 'lets',
         'icon-end': 'go',
-      } });
+      },
+    });
     expect(wrapper.html()).toContain('lets');
     expect(wrapper.html()).toContain('go');
   });

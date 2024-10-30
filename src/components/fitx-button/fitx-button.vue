@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 import { GymxButton } from '@fitx/gymx-ui';
 
@@ -27,8 +26,7 @@ const props = withDefaults(defineProps<FitxButtonProps>(), {
       <slot name="default"></slot>
     </template>
     <template #icon-end>
-      <slot name="icon-end">
-      </slot>
+      <slot name="icon-end"> </slot>
       <span
         v-if="props.isIdle"
         class="btn__loading" />
@@ -71,43 +69,67 @@ const props = withDefaults(defineProps<FitxButtonProps>(), {
   }
 
   &:is(:hover, &--hover, :focus-visible, :active, &--active) {
-    --button-color-background: var(--fitx-button-color-background-hover, var(--brand-color-orange-1));
+    --button-color-background: var(
+      --fitx-button-color-background-hover,
+      var(--brand-color-orange-1)
+    );
   }
 
   &:is(:disabled, &--disabled) {
     --button-color: var(--fitx-button-color-disabled, var(--brand-color-gray-cement));
-    --button-color-background: var(--fitx-button-color-background-disabled, var(--brand-color-gray-chalk));
+    --button-color-background: var(
+      --fitx-button-color-background-disabled,
+      var(--brand-color-gray-chalk)
+    );
   }
 
   &:is(&--secondary) {
-    --button-border-color: var(--fitx-button-color-border-secondary, var(--brand-color-anthracite-0));
+    --button-border-color: var(
+      --fitx-button-color-border-secondary,
+      var(--brand-color-anthracite-0)
+    );
     --button-color: var(--fitx-button-color-secondary, var(--brand-color-anthracite-0));
     --button-color-background: var(--fitx-button-color-background-secondary, transparent);
     --button-idle-color: var(--button-color);
 
     &:is(:hover, #{$self}--hover, :focus-visible) {
-      --button-color-background: var(--fitx-button-color-background-hover-secondary, var(--brand-color-gray-chalk));
+      --button-color-background: var(
+        --fitx-button-color-background-hover-secondary,
+        var(--brand-color-gray-chalk)
+      );
     }
 
     &:is(:disabled, #{$self}--disabled) {
       --button-border-color: var(--fitx-button-color-border-secondary, var(--brand-color-gray-ash));
       --button-color: var(--fitx-button-color-disabled-secondary, var(--brand-color-gray-cement));
-      --button-color-background: var(--fitx-button-color-background-disabled-secondary, transparent);
+      --button-color-background: var(
+        --fitx-button-color-background-disabled-secondary,
+        transparent
+      );
     }
   }
 
   &:is(&--tertiary) {
     --button-color: var(--fitx-button-color-tertiary, var(--brand-color-anthracite-0));
-    --button-color-background: var(--fitx-button-color-background-tertiary, var(--brand-color-white-0));
+    --button-color-background: var(
+      --fitx-button-color-background-tertiary,
+      var(--brand-color-white-0)
+    );
     --button-idle-color: var(--button-color);
 
     &:is(:hover, #{$self}--hover, :focus-visible) {
-      --button-color-background: var(--fitx-button-color-background-hover-tertiary, var(--brand-color-gray-chalk));
+      --button-color-background: var(
+        --fitx-button-color-background-hover-tertiary,
+        var(--brand-color-gray-chalk)
+      );
     }
 
     &:is(:disabled, #{$self}--disabled) {
       --button-color: var(--fitx-button-color-disabled-tertiary, var(--brand-color-gray-cement));
-      --button-color-background: var(--fitx-button-color-background-disabled-tertiary, var(--brand-color-white-0));
+      --button-color-background: var(
+        --fitx-button-color-background-disabled-tertiary,
+        var(--brand-color-white-0)
+      );
     }
   }
 

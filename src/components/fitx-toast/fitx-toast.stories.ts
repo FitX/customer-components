@@ -1,4 +1,3 @@
-
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { default as FitxToast } from './fitx-toast.vue';
 import ContentDe from './readme.de.md?raw';
@@ -33,13 +32,13 @@ type Story = StoryObj<typeof meta>;
 export const Success: Story = {
   args: {
     type: 'success',
-    text: 'Großartige Arbeit heute!'
+    text: 'Großartige Arbeit heute!',
   },
 };
 
 export const Error: Story = {
   args: {
     type: 'error',
-    text: 'Du hast keine Zugriffsberechtigung.'
+    text: 'Du hast keine Zugriffsberechtigung.',
   },
 };

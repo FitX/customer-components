@@ -1,4 +1,3 @@
-
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 import { default as FitxMaintenance } from './fitx-maintenance.vue';
@@ -142,4 +141,4 @@ export const ExampleCustomCheck: Story = {
       </fitx-maintenance>
         </main>`,
   }),
-}
+};

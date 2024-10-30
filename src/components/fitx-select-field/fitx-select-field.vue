@@ -1,4 +1,3 @@
-
 <script lang="ts" setup generic="SelectItem extends FitxSelectFieldOption<SelectItem>">
 import { GymxSelectField } from '@fitx/gymx-ui';
 import type {
@@ -10,7 +9,7 @@ import { FitxErrorMessage, IconExpand } from '@/components';
 import { getModifierClasses } from '@/utils/css-modifier';
 import { computed, ref } from 'vue';
 
-const slots = defineSlots<FitxSelectFieldSlots>();
+defineSlots<FitxSelectFieldSlots>();
 const props = defineProps<FitxSelectFieldProps>();
 
 const field = ref();
@@ -18,11 +17,11 @@ const modelValue = defineModel<SelectItem | SelectItem[]>();
 const isFilled = computed(() => !!modelValue.value);
 
 const componentRootClass = 'select-field';
-const componentClasses = computed(() => ([
+const componentClasses = computed(() => [
   componentRootClass,
   getModifierClasses(componentRootClass, isFilled.value ? 'is-filled' : undefined),
   getModifierClasses(componentRootClass, props.errorMessage ? 'has-error' : undefined),
-]));
+]);
 
 const focusInput = (event: PointerEvent) => {
   if (event?.target instanceof HTMLElement && event?.target?.classList?.contains('select')) {
@@ -35,24 +34,31 @@ const focusInput = (event: PointerEvent) => {
     @click="focusInput"
     ref="field"
     :class="componentClasses"
-    class="select-field" v-bind="props" v-model="modelValue">
-    <template #select-end><icon-expand aria-hidden="true" class="select-field__icon" /></template>
+    class="select-field"
+    v-bind="props"
+    v-model="modelValue">
+    <template #select-end
+      ><icon-expand
+        aria-hidden="true"
+        class="select-field__icon"
+    /></template>
     <template #input-hint>
       <slot name="input-hint"></slot>
     </template>
     <template #input-error-message>
-      <fitx-error-message :text="props.errorMessage" v-if="errorMessage" />
+      <fitx-error-message
+        :text="props.errorMessage"
+        v-if="errorMessage" />
     </template>
   </gymx-select-field>
 </template>
 
 <style lang="scss" scoped>
-@use "@/assets/styles/shared/label" as sharedLabel;
+@use '@/assets/styles/shared/label' as sharedLabel;
 .select-field {
   $self: &;
   @include sharedLabel.label-styles();
 }
-
 
 .select-field {
   $self: &;
@@ -67,18 +73,36 @@ const focusInput = (event: PointerEvent) => {
   /* --select-color-hover: red;
   --select-color-background-hover: red; */
   --select-color-hover: var(--fitx-input-color);
-  --select-color-border-hover: var(--fitx-input-color-border-hover, var(--brand-color-gray-graphite));
+  --select-color-border-hover: var(
+    --fitx-input-color-border-hover,
+    var(--brand-color-gray-graphite)
+  );
 
   --select-color-disabled: var(--fitx-input-color-disabled, var(--brand-color-gray-cement));
-  --select-color-background-disabled: var(--fitx-input-color-background-disabled, var(--brand-color-gray-chalk));
-  --select-color-border-disabled: var(--fitx-input-color-border-disabled, var(--brand-color-gray-stone));
+  --select-color-background-disabled: var(
+    --fitx-input-color-background-disabled,
+    var(--brand-color-gray-chalk)
+  );
+  --select-color-border-disabled: var(
+    --fitx-input-color-border-disabled,
+    var(--brand-color-gray-stone)
+  );
 
-  --select-color-border-focused: var(--fitx-input-color-border-focused, var(--brand-color-anthracite-0));
+  --select-color-border-focused: var(
+    --fitx-input-color-border-focused,
+    var(--brand-color-anthracite-0)
+  );
 
-  --select-color-border-error: var(--fitx-input-color-border-error, var(--functional-color-error-0));
+  --select-color-border-error: var(
+    --fitx-input-color-border-error,
+    var(--functional-color-error-0)
+  );
   --select-color-error: var(--fitx-input-color-error, inherit);
   --label-color-error: var(--fitx-label-color-error, var(--functional-color-error-0));
-  --select-color-background-error: var(--fitx-input-color-background-error, var(--functional-color-error-1-light));
+  --select-color-background-error: var(
+    --fitx-input-color-background-error,
+    var(--functional-color-error-1-light)
+  );
 
   --_select-color-additional: var(--fitx-select-color-additional, var(--brand-color-gray-carbon));
 
@@ -144,8 +168,8 @@ const focusInput = (event: PointerEvent) => {
     color: var(--_select-color-additional);
   }
 
-
-  &--is-filled, &:focus-within {
+  &--is-filled,
+  &:focus-within {
     --label-font-size: 0.875rem;
     --label-position-block-start: calc(var(--select-padding-inline) + 2px);
     --select-color-border: var(--select-color-border-focused);

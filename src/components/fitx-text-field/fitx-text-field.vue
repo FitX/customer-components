@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 import { GymxTextField } from '@fitx/gymx-ui';
 import { FitxErrorMessage, IconCheckmark } from '@/components';
@@ -6,7 +5,7 @@ import type { FitxTextFieldProps, FitxTextFieldSlots } from '@/components/fitx-t
 import { computed, ref, toValue } from 'vue';
 import { getModifierClasses } from '@/utils/css-modifier';
 
-const slots = defineSlots<FitxTextFieldSlots>();
+defineSlots<FitxTextFieldSlots>();
 const props = defineProps<FitxTextFieldProps>();
 
 const field = ref();
@@ -15,16 +14,16 @@ const modelValue = defineModel<string | number>({ default: '' });
 const isFilled = computed(() => `${modelValue.value}`?.length > 0);
 
 const componentRootClass = 'text-field';
-const componentClasses = computed(() => ([
+const componentClasses = computed(() => [
   componentRootClass,
   getModifierClasses(componentRootClass, toValue(isFilled) ? 'is-filled' : undefined),
   getModifierClasses(componentRootClass, props.isValid ? 'is-valid' : undefined),
   getModifierClasses(componentRootClass, props.errorMessage ? 'has-error' : undefined),
-]));
+]);
 
 const focusInput = (event: PointerEvent) => {
   if (event?.target instanceof HTMLElement && event?.target?.classList?.contains('input')) {
-    event?.target?.querySelector('input')?.focus()
+    event?.target?.querySelector('input')?.focus();
   }
 };
 </script>
@@ -46,17 +45,21 @@ const focusInput = (event: PointerEvent) => {
       <slot name="input-hint"></slot>
     </template>
     <template #input-error-message>
-      <fitx-error-message :text="props.errorMessage" v-if="errorMessage" />
+      <fitx-error-message
+        :text="props.errorMessage"
+        v-if="errorMessage" />
     </template>
     <template #input-end>
       <slot name="input-end">
-        <IconCheckmark class="icon-valid" v-if="props.isValid" />
+        <IconCheckmark
+          class="icon-valid"
+          v-if="props.isValid" />
       </slot>
     </template>
-</gymx-text-field>
+  </gymx-text-field>
 </template>
 <style lang="scss" scoped>
-@use "@/assets/styles/shared/label" as sharedLabel;
+@use '@/assets/styles/shared/label' as sharedLabel;
 
 .text-field {
   $self: &;
@@ -76,18 +79,33 @@ const focusInput = (event: PointerEvent) => {
   /* --input-color-hover: red;
   --input-color-background-hover: red; */
   --input-color-hover: var(--fitx-input-color);
-  --input-color-border-hover: var(--fitx-input-color-border-hover, var(--brand-color-gray-graphite));
+  --input-color-border-hover: var(
+    --fitx-input-color-border-hover,
+    var(--brand-color-gray-graphite)
+  );
 
   --input-color-disabled: var(--fitx-input-color-disabled, var(--brand-color-gray-cement));
-  --input-color-background-disabled: var(--fitx-input-color-background-disabled, var(--brand-color-gray-chalk));
-  --input-color-border-disabled: var(--fitx-input-color-border-disabled, var(--brand-color-gray-stone));
+  --input-color-background-disabled: var(
+    --fitx-input-color-background-disabled,
+    var(--brand-color-gray-chalk)
+  );
+  --input-color-border-disabled: var(
+    --fitx-input-color-border-disabled,
+    var(--brand-color-gray-stone)
+  );
 
-  --input-color-border-focused: var(--fitx-input-color-border-focused, var(--brand-color-anthracite-0));
+  --input-color-border-focused: var(
+    --fitx-input-color-border-focused,
+    var(--brand-color-anthracite-0)
+  );
 
   --input-color-border-error: var(--fitx-input-color-border-error, var(--functional-color-error-0));
   --input-color-error: var(--fitx-input-color-error, inherit);
   --label-color-error: var(--fitx-label-color-error, var(--functional-color-error-0));
-  --input-color-background-error: var(--fitx-input-color-background-error, var(--functional-color-error-1-light));
+  --input-color-background-error: var(
+    --fitx-input-color-background-error,
+    var(--functional-color-error-1-light)
+  );
 
   --_input-color-additional: var(--fitx-input-color-additional, var(--brand-color-gray-carbon));
 
@@ -110,7 +128,6 @@ const focusInput = (event: PointerEvent) => {
 
   --icon-width: 24px;
   --icon-height: 24px;
-
 
   position: relative;
 
@@ -160,8 +177,8 @@ const focusInput = (event: PointerEvent) => {
     color: var(--_input-color-additional);
   }
 
-
-  &--is-filled, &:focus-within {
+  &--is-filled,
+  &:focus-within {
     --label-font-size: 0.875rem;
     --label-position-block-start: calc(var(--input-padding-inline) + 2px);
 
@@ -181,7 +198,8 @@ const focusInput = (event: PointerEvent) => {
     display: flex;
   }
 
-  &:focus-within, &:has(.input--focused) {
+  &:focus-within,
+  &:has(.input--focused) {
     --input-color-border: var(--input-color-border-focused);
   }
 

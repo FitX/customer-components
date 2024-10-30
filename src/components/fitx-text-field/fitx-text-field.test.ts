@@ -1,8 +1,6 @@
-
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import { FitxTextField } from './index';
-import { FitxSelectField } from '@/components';
 
 describe('FitxTextField', () => {
   it('is a Vue instance', () => {
@@ -10,66 +8,66 @@ describe('FitxTextField', () => {
     expect(wrapper.exists()).toBeTruthy();
   });
 
-    it('renders the component', () => {
-      const wrapper = mount(FitxTextField, {
-        props: {
-          modelValue: '',
-          isValid: false,
-          errorMessage: null,
-        },
-      });
-
-      expect(wrapper.exists()).toBe(true);
-      expect(wrapper.find('.text-field').exists()).toBe(true);
+  it('renders the component', () => {
+    const wrapper = mount(FitxTextField, {
+      props: {
+        modelValue: '',
+        isValid: false,
+        errorMessage: null,
+      },
     });
 
-    it('applies "is-filled" class when input is not empty', async () => {
-      const wrapper = mount(FitxTextField, {
-        props: {
-          modelValue: '',
-        },
-      });
+    expect(wrapper.exists()).toBe(true);
+    expect(wrapper.find('.text-field').exists()).toBe(true);
+  });
 
-      // By default, modelValue is empty, so "is-filled" should not be present
-      expect(wrapper.classes()).not.toContain('is-filled');
-
-      // Set a non-empty modelValue and check if the class is applied
-      await wrapper.setProps({ modelValue: '123' });
-      expect(wrapper.classes()).toContain('text-field--is-filled');
+  it('applies "is-filled" class when input is not empty', async () => {
+    const wrapper = mount(FitxTextField, {
+      props: {
+        modelValue: '',
+      },
     });
 
-    it('adds "is-valid" class when the isValid prop is true', async () => {
-      const wrapper = mount(FitxTextField, {
-        props: {
-          isValid: false,
-        },
-      });
+    // By default, modelValue is empty, so "is-filled" should not be present
+    expect(wrapper.classes()).not.toContain('is-filled');
 
-      // Initially, isValid is false, so "is-valid" class should not be present
-      expect(wrapper.classes()).not.toContain('is-valid');
+    // Set a non-empty modelValue and check if the class is applied
+    await wrapper.setProps({ modelValue: '123' });
+    expect(wrapper.classes()).toContain('text-field--is-filled');
+  });
 
-      // Set isValid to true and check if the class is applied
-      await wrapper.setProps({ isValid: true });
-      expect(wrapper.classes()).toContain('text-field--is-valid');
+  it('adds "is-valid" class when the isValid prop is true', async () => {
+    const wrapper = mount(FitxTextField, {
+      props: {
+        isValid: false,
+      },
     });
 
-    it('shows error message when errorMessage is passed', async () => {
-      const wrapper = mount(FitxTextField, {
-        props: {
-          errorMessage: null,
-        },
-      });
+    // Initially, isValid is false, so "is-valid" class should not be present
+    expect(wrapper.classes()).not.toContain('is-valid');
 
-      // By default, errorMessage is null, so it should not be rendered
-      expect(wrapper.findComponent({ name: 'FitxErrorMessage' }).exists()).toBe(false);
+    // Set isValid to true and check if the class is applied
+    await wrapper.setProps({ isValid: true });
+    expect(wrapper.classes()).toContain('text-field--is-valid');
+  });
 
-      // Set errorMessage and check if the error message is rendered
-      await wrapper.setProps({ errorMessage: 'This is an error' });
-      expect(wrapper.findComponent({ name: 'FitxErrorMessage' }).exists()).toBe(true);
-      expect(wrapper.findComponent({ name: 'FitxErrorMessage' }).text()).toBe('This is an error');
+  it('shows error message when errorMessage is passed', async () => {
+    const wrapper = mount(FitxTextField, {
+      props: {
+        errorMessage: null,
+      },
     });
 
-    /* it('focuses input when the text field is clicked', async () => {
+    // By default, errorMessage is null, so it should not be rendered
+    expect(wrapper.findComponent({ name: 'FitxErrorMessage' }).exists()).toBe(false);
+
+    // Set errorMessage and check if the error message is rendered
+    await wrapper.setProps({ errorMessage: 'This is an error' });
+    expect(wrapper.findComponent({ name: 'FitxErrorMessage' }).exists()).toBe(true);
+    expect(wrapper.findComponent({ name: 'FitxErrorMessage' }).text()).toBe('This is an error');
+  });
+
+  /* it('focuses input when the text field is clicked', async () => {
       const focusMock = vi.fn();
       const wrapper = mount(FitxTextField, {
         props: {
@@ -109,45 +107,44 @@ describe('FitxTextField', () => {
   });
 
   it('renders the IconCheckmark when isValid is true', async () => {
-      const wrapper = mount(FitxTextField, {
-        props: {
-          isValid: true,
-        },
-      });
-
-      const iconCheckmark = wrapper.findComponent('.icon-valid');
-      expect(iconCheckmark.exists()).toBe(true);
-      expect(iconCheckmark.classes()).toContain('icon-valid');
+    const wrapper = mount(FitxTextField, {
+      props: {
+        isValid: true,
+      },
     });
 
+    const iconCheckmark = wrapper.findComponent('.icon-valid');
+    expect(iconCheckmark.exists()).toBe(true);
+    expect(iconCheckmark.classes()).toContain('icon-valid');
+  });
 
   it('renders slots properly', () => {
-      const wrapper = mount(FitxTextField, {
-        props: {
-          modelValue: '',
-          isValid: true,
-          errorMessage: 'An error occurred',
-        },
-        slots: {
-          'input-end': '<div class="slot-input-end">Custom End Slot</div>',
-        },
-      });
-
-      // Check if custom slot content is rendered
-      expect(wrapper.find('.slot-input-end').exists()).toBe(true);
+    const wrapper = mount(FitxTextField, {
+      props: {
+        modelValue: '',
+        isValid: true,
+        errorMessage: 'An error occurred',
+      },
+      slots: {
+        'input-end': '<div class="slot-input-end">Custom End Slot</div>',
+      },
     });
+
+    // Check if custom slot content is rendered
+    expect(wrapper.find('.slot-input-end').exists()).toBe(true);
+  });
 
   it('modelValue should be updated', async () => {
     const wrapper = mount(FitxTextField, {
       attachTo: document.body,
       props: {
         modelValue: undefined,
-        options: [1,2,3],
+        options: [1, 2, 3],
       },
     });
     const input = wrapper.find('input');
     await input.setValue('foo');
     const emitted = await wrapper.emitted('update:modelValue');
-    expect(emitted[0][0]).toBe('foo')
+    expect(emitted[0][0]).toBe('foo');
   });
 });

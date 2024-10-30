@@ -1,4 +1,3 @@
-
 #### Beschreibung:
 
 Zur Anzeige eines Wartungsmodus.

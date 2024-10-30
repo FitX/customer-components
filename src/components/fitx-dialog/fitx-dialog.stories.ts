@@ -1,11 +1,9 @@
-
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { FitxButton } from '@/components';
 import { default as FitxDialog } from './fitx-dialog.vue';
 import ContentDe from './readme.de.md?raw';
 // import ContentEn from './readme.en.md?raw';
 import { getMarkdownDocsTranslationBlock } from '../../../utils/docs-translation';
-import { ref, watch } from 'vue';
 
 const ComponentDescription = getMarkdownDocsTranslationBlock(ContentDe);
 
@@ -28,7 +26,6 @@ const meta = {
   },
   decorators: [() => ({ template: '<div style="height: 50vh;"><story/></div>' })],
 } satisfies Meta<typeof FitxDialog>;
-
 
 export default meta;
 type Story = StoryObj<typeof meta>;

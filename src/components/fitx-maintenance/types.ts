@@ -1,4 +1,3 @@
-
 export interface FitxMaintenanceProps {
-// @TODO Define your props here
+  // @TODO Define your props here
 }

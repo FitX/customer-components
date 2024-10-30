@@ -1,10 +1,8 @@
-
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
 import { GymxToast } from '@fitx/gymx-ui';
 import { IconError, IconCheckmark } from '@/components';
 import { FitxToast } from './index';
-
 
 describe('FitxToast', () => {
   it('is a Vue instance', () => {

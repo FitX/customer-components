@@ -1,4 +1,3 @@
-
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { h } from 'vue';
 import { default as FitxLink } from './fitx-link.vue';
@@ -26,7 +25,7 @@ const meta = {
   },
   args: {
     default: 'link',
-  }
+  },
 } satisfies Meta<typeof FitxLink>;
 
 export default meta;
@@ -44,24 +43,24 @@ export const Default: Story = {
 
 export const Hover: Story = {
   args: {
-    state: 'hover'
+    state: 'hover',
   },
 };
 
 export const Secondary: Story = {
   args: {
-    modifier: 'secondary'
+    modifier: 'secondary',
   },
 };
 
-export const withIconStart: Story = {
+export const WithIconStart: Story = {
   args: {
     'icon-start': () => h(IconArrowLeft),
   },
 };
 
-export const withIconEnd: Story = {
+export const WithIconEnd: Story = {
   args: {
-    'icon-end': () => h(IconArrowRight)
+    'icon-end': () => h(IconArrowRight),
   },
 };

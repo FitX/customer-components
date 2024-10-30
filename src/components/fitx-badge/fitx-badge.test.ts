@@ -1,4 +1,3 @@
-
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
 import { FitxBadge } from './index';
@@ -19,8 +18,8 @@ describe('FitxBadge', () => {
   it('renders the default slot content', () => {
     const wrapper = mount(FitxBadge, {
       props: {
-        text: 'Demo'
-      }
+        text: 'Demo',
+      },
     });
 
     expect(wrapper.text()).toContain('Demo');
@@ -30,7 +29,7 @@ describe('FitxBadge', () => {
     const wrapper = mount(FitxBadge, {
       props: {
         isRound: true,
-      }
+      },
     });
 
     expect(wrapper.html()).toContain('badge--round');
@@ -42,8 +41,8 @@ describe('FitxBadge', () => {
     const wrapper = mount(FitxBadge, {
       props: {
         text: 'Demo',
-        icon: TestIcon
-      }
+        icon: TestIcon,
+      },
     });
 
     expect(wrapper.find('.test-icon').exists()).toBe(true);
@@ -52,8 +51,8 @@ describe('FitxBadge', () => {
   it('does not render the icon when props.icon is not passed', () => {
     const wrapper = mount(FitxBadge, {
       props: {
-        text: 'Demo'
-      }
+        text: 'Demo',
+      },
     });
 
     expect(wrapper.find('svg').exists()).toBe(false);
@@ -62,11 +61,11 @@ describe('FitxBadge', () => {
   it('renders the custom slot content', () => {
     const wrapper = mount(FitxBadge, {
       props: {
-        text: 'Demo'
+        text: 'Demo',
       },
       slots: {
-        default: '<div>Custom Slot Content</div>'
-      }
+        default: '<div>Custom Slot Content</div>',
+      },
     });
 
     expect(wrapper.html()).toContain('Custom Slot Content');

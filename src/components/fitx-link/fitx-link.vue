@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 import type { FitxLinkProps } from '@/components/fitx-link/types';
 import { GymxLink } from '@fitx/gymx-ui';
@@ -6,14 +5,12 @@ import { getModifierClasses } from '@/utils/css-modifier';
 
 const props = withDefaults(defineProps<FitxLinkProps>(), {
   modifier: 'primary',
-})
+});
 </script>
 <template>
   <gymx-link
     class="link"
-    :class="[
-      getModifierClasses('link', props.modifier),
-    ]"
+    :class="[getModifierClasses('link', props.modifier)]"
     :state="props.state"
     :tag="props.tag">
     <template #icon-start>
@@ -23,8 +20,7 @@ const props = withDefaults(defineProps<FitxLinkProps>(), {
       <slot name="default"></slot>
     </template>
     <template #icon-end>
-      <slot name="icon-end">
-      </slot>
+      <slot name="icon-end"> </slot>
     </template>
   </gymx-link>
 </template>
@@ -34,7 +30,10 @@ const props = withDefaults(defineProps<FitxLinkProps>(), {
   --_fitx-link-color-hover: var(--fitx-link-color-hover, var(--brand-color-orange-1));
 
   --_fitx-link-color-secondary: var(--fitx-link-color-secondary, var(--brand-color-anthracite-1));
-  --_fitx-link-color-secondary-hover: var(--fitx-link-color-secondary-hover, var(--brand-color-gray-carbon));
+  --_fitx-link-color-secondary-hover: var(
+    --fitx-link-color-secondary-hover,
+    var(--brand-color-gray-carbon)
+  );
 
   --_fitx-link-icon-size: var(--fitx-link-icon-size, auto);
   --_fitx-link-gap: var(--fitx-link-gap, 2px);

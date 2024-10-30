@@ -1,4 +1,3 @@
-
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { default as FitxBadge } from './fitx-badge.vue';
 import ContentDe from './readme.de.md?raw';
@@ -52,7 +51,7 @@ export const WithIcon: Story = {
         args,
       };
     },
-    template: '<fitx-badge text="Badge" :icon="args.icon"></fitx-badge>'
+    template: '<fitx-badge text="Badge" :icon="args.icon"></fitx-badge>',
   }),
 };
 
@@ -66,7 +65,7 @@ export const Examples: Story = {
       disable: true,
     },
   },
-  render: (args) => ({
+  render: () => ({
     components: {
       FitxBadge,
     },

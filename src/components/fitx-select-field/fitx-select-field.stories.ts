@@ -1,4 +1,3 @@
-
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { default as FitxSelectField } from './fitx-select-field.vue';
 import ContentDe from './readme.de.md?raw';
@@ -7,7 +6,11 @@ import { getMarkdownDocsTranslationBlock } from '../../../utils/docs-translation
 
 const ComponentDescription = getMarkdownDocsTranslationBlock(ContentDe);
 
-const options = [{ text: 'Item 1', demoField: 1 },{ text: 'Item 2', demoField: 2 },{ text: 'Item 3', demoField: 3 }]
+const options = [
+  { text: 'Item 1', demoField: 1 },
+  { text: 'Item 2', demoField: 2 },
+  { text: 'Item 3', demoField: 3 },
+];
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -25,8 +28,8 @@ const meta = {
   },
   args: {
     options,
-    label: 'Select Field Demo'
-  }
+    label: 'Select Field Demo',
+  },
 } satisfies Meta<typeof FitxSelectField>;
 
 export default meta;
@@ -37,13 +40,12 @@ type Story = StoryObj<typeof meta>;
  * to learn how to use render functions.
  */
 export const Default: Story = {
-  args: {
-  },
+  args: {},
 };
 
 export const Hover: Story = {
   args: {
-    state: 'hover'
+    state: 'hover',
   },
 };
 
@@ -71,5 +73,3 @@ export const ErrorMessage: Story = {
     errorMessage: 'Please select an item',
   },
 };
-
-

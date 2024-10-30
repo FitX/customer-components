@@ -1,4 +1,4 @@
-@import "@fitx/gymx-ui/ui/table.css";
+@import '@fitx/gymx-ui/ui/table.css';
 
 .table {
   --gymx-table-font-size: 1rem;
@@ -34,9 +34,9 @@
   gap: var(--fitx-size-micro);
 }
 
-[aria-sort="ascending"] {
+[aria-sort='ascending'] {
   --icon-fill-2: var(--icon-fill-active);
 }
-[aria-sort="descending"] {
+[aria-sort='descending'] {
   --icon-fill-1: var(--icon-fill-active);
 }
