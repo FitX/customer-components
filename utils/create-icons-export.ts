@@ -24,7 +24,7 @@ const toCamelCase = (str: string) => {
 const iconsDir = path.join('src', 'assets', `icons`);
 const outputFilePath = path.join('src', 'components', `icons`, 'index.ts');
 /**
- * Usage: npx tsx ./utils//create-icons-export.ts
+ * Usage: npx tsx ./utils/create-icons-export.ts
  */
 const generateExports = () => {
   const files = fs.readdirSync(iconsDir);

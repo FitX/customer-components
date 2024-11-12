@@ -13,6 +13,7 @@ export { default as IconCheckbox } from '@/assets/icons/checkbox.svg';
 export { default as IconCheckedIdentificationDocuments } from '@/assets/icons/checked-identification-documents.svg';
 export { default as IconCheckmark } from '@/assets/icons/checkmark.svg';
 export { default as IconCircledPlay } from '@/assets/icons/circled-play.svg';
+export { default as IconClearFilled } from '@/assets/icons/clear-filled.svg';
 export { default as IconClearRegular } from '@/assets/icons/clear-regular.svg';
 export { default as IconClear } from '@/assets/icons/clear.svg';
 export { default as IconClock } from '@/assets/icons/clock.svg';

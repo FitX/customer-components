@@ -115,12 +115,7 @@
     color: var(--_input-color-additional);
   }
 
-
-  /**
-  Duplicate Code Fragment
-  @see fitx-auto-suggest
-  @TODO refactor
-   */
+  .is-filled &,
   &--is-filled,
   &:focus-within {
     --label-font-size: 0.875rem;

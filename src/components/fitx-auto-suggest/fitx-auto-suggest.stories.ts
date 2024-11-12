@@ -495,6 +495,11 @@ const demoGetAllStudios = () :Promise<StudioResponse[]> => new Promise((resolve)
   }, 1000)
 });
 
+const demoOptions = new Array(50).fill('').map((_, index) => ({
+  text: `Option ${index}`,
+  value: `Option ${index}`,
+}));
+
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'components/WIP/auto-suggest',
@@ -510,7 +515,7 @@ const meta = {
     },
   },
   args: {
-    options: [],
+    options: demoOptions,
     label: 'AutoSuggest',
     name: 'auto-suggest',
   },
