@@ -1,9 +1,6 @@
-
 <script lang="ts" setup>
 import { GymxAutoSuggest } from '@fitx/gymx-ui';
-import type {
-  FitxAutoSuggestProps,
-} from './types';
+import type { FitxAutoSuggestProps } from './types';
 import { IconClearFilled } from '@/components';
 import { computed, ref } from 'vue';
 
@@ -32,12 +29,14 @@ const focusInput = (event: PointerEvent) => {
     v-bind="props"
     @click="focusInput"
     ref="component"
-    :class="[{ 'is-filled' : isFilled }]">
+    :class="[{ 'is-filled': isFilled }]">
     <template #input-end>
       <button
         v-if="isFilled"
         class="reset-button"
-        @click="reset()"><icon-clear-filled aria-hidden="true" /><span class="sr-only">{{ props.resetText}}</span></button>
+        @click="reset()">
+        <icon-clear-filled aria-hidden="true" /><span class="sr-only">{{ props.resetText }}</span>
+      </button>
     </template>
   </gymx-auto-suggest>
 </template>
@@ -50,7 +49,7 @@ const focusInput = (event: PointerEvent) => {
   @include text-field.text-field-custom-properties();
 
   --auto-suggest-border-radius: var(--fitx-radius-5);
-  --auto-suggest-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.10);
+  --auto-suggest-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
 
   --auto-suggest-list-block-size: auto;
   --auto-suggest-list-inline-size: 100%;
@@ -95,7 +94,6 @@ const focusInput = (event: PointerEvent) => {
     }
   }
 
-
   &__option {
     background: red;
   }
@@ -118,4 +116,3 @@ const focusInput = (event: PointerEvent) => {
   display: inline-flex;
 }
 </style>
-

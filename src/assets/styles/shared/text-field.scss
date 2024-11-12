@@ -13,31 +13,31 @@
   --input-color-background-hover: red; */
   --input-color-hover: var(--fitx-input-color);
   --input-color-border-hover: var(
-      --fitx-input-color-border-hover,
-      var(--brand-color-gray-graphite)
+    --fitx-input-color-border-hover,
+    var(--brand-color-gray-graphite)
   );
 
   --input-color-disabled: var(--fitx-input-color-disabled, var(--brand-color-gray-cement));
   --input-color-background-disabled: var(
-      --fitx-input-color-background-disabled,
-      var(--brand-color-gray-chalk)
+    --fitx-input-color-background-disabled,
+    var(--brand-color-gray-chalk)
   );
   --input-color-border-disabled: var(
-      --fitx-input-color-border-disabled,
-      var(--brand-color-gray-stone)
+    --fitx-input-color-border-disabled,
+    var(--brand-color-gray-stone)
   );
 
   --input-color-border-focused: var(
-      --fitx-input-color-border-focused,
-      var(--brand-color-anthracite-0)
+    --fitx-input-color-border-focused,
+    var(--brand-color-anthracite-0)
   );
 
   --input-color-border-error: var(--fitx-input-color-border-error, var(--functional-color-error-0));
   --input-color-error: var(--fitx-input-color-error, inherit);
   --label-color-error: var(--fitx-label-color-error, var(--functional-color-error-0));
   --input-color-background-error: var(
-      --fitx-input-color-background-error,
-      var(--functional-color-error-1-light)
+    --fitx-input-color-background-error,
+    var(--functional-color-error-1-light)
   );
 
   --_input-color-additional: var(--fitx-input-color-additional, var(--brand-color-gray-carbon));

@@ -102,7 +102,7 @@
   --fitx-select-color-additional: var(--brand-color-gray-graphite);
 
   .auto-suggest {
-    --auto-suggest-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.10);
+    --auto-suggest-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
     --auto-suggest-list-color-background: var(--brand-color-anthracite-4);
     --auto-suggest-list-border: 1px solid var(--brand-color-anthracite-3);
     --auto-suggest-scrollbar-track: var(--brand-color-anthracite-1);

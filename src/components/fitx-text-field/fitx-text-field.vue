@@ -59,5 +59,5 @@ const focusInput = (event: PointerEvent) => {
   </gymx-text-field>
 </template>
 <style lang="scss">
-  @import '@/assets/styles/shared/text-field.scss';
+@import '@/assets/styles/shared/text-field.scss';
 </style>
