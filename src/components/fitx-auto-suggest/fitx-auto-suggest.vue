@@ -19,11 +19,18 @@ const reset = () => {
   component.value.inputValue = '';
   component.value.inputElement.focus();
 };
+
+const focusInput = (event: PointerEvent) => {
+  if (event?.target instanceof HTMLElement && event?.target?.classList?.contains('input')) {
+    event?.target?.querySelector('input')?.focus();
+  }
+};
 </script>
 <template>
   <gymx-auto-suggest
     class="auto-suggest"
     v-bind="props"
+    @click="focusInput"
     ref="component"
     :class="[{ 'is-filled' : isFilled }]">
     <template #input-end>

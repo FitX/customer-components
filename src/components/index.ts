@@ -1,3 +1,4 @@
+export * from './fitx-auto-suggest';
 export * from './fitx-error-message';
 export * from './fitx-label';
 export * from './fitx-button';

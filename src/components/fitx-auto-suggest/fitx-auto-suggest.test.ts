@@ -1,6 +1,6 @@
 
 import { mount } from '@vue/test-utils';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { FitxAutoSuggest } from './index';
 import { nextTick } from 'vue';
 
@@ -45,5 +45,22 @@ describe('FitxAutoSuggest', () => {
 
     expect(componentRef.inputValue).toBe('');
     expect(document.activeElement).toBe(componentRef.inputElement);
+  });
+
+  it('focuses input when the text field is clicked', async () => {
+    const wrapper = mount(FitxAutoSuggest, { props: defaultProps, attachTo: document.body });
+
+    // Simulate the structure where the input is inside an element with class 'input'
+    const inputContainer = wrapper.find('.input');
+    const inputElement = wrapper.find('input');
+
+    // Mock the focus method on the input element
+    const focusMock = vi.spyOn(inputElement.element, 'focus');
+
+    // Trigger click on the input container
+    await inputContainer.trigger('click');
+
+    // Check that the input's focus method was called
+    expect(focusMock).toHaveBeenCalled();
   });
 });
