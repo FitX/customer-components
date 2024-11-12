@@ -27,10 +27,23 @@ describe('FitxAutoSuggest', () => {
     expect(wrapper.vm.isFilled).toBe(false);
   });
 
-  it.only('isFilled is true when inputValue is present', async () => {
+  it('isFilled is true when inputValue is present', async () => {
     const wrapper = mount(FitxAutoSuggest, { props: defaultProps});
     const componentRef = wrapper.vm.$refs.component;
     componentRef.inputValue = 'Test';
     expect(wrapper.vm.isFilled).toBe(true);
+  });
+
+  it('reset function resets and trigger focus', async () => {
+    const wrapper = mount(FitxAutoSuggest, { props: defaultProps, attachTo: document.body });
+    const componentRef = wrapper.vm.$refs.component;
+    componentRef.inputValue = 'Test';
+    await nextTick();
+    const resetButton = wrapper.find('.reset-button');
+    await resetButton.trigger('click');
+    await nextTick();
+
+    expect(componentRef.inputValue).toBe('');
+    expect(document.activeElement).toBe(componentRef.inputElement);
   });
 });

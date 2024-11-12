@@ -502,7 +502,7 @@ const demoOptions = new Array(50).fill('').map((_, index) => ({
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
-  title: 'components/WIP/auto-suggest',
+  title: 'components/Auto Suggest',
   component: FitxAutoSuggest,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
