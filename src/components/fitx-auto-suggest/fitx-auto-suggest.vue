@@ -5,7 +5,7 @@ import type {
   FitxAutoSuggestProps,
 } from './types';
 import { IconClearFilled } from '@/components';
-import { computed, ref, getCurrentInstance } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = withDefaults(defineProps<FitxAutoSuggestProps>(), {
   noResultsText: 'Keine Ergebnisse gefunden.',
@@ -64,12 +64,30 @@ const reset = () => {
 
   --auto-suggest-item-color-selected: inherit;
   --auto-suggest-item-color-background-selected: inherit;
+  --auto-suggest-scrollbar-track: var(--brand-color-gray-ash);
 
   &__list {
     box-shadow: var(--auto-suggest-shadow);
     overflow-y: auto;
     max-height: var(--auto-suggest-list-max-block-size, 300px);
+    border-radius: var(--fitx-radius-5);
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: var(--auto-suggest-scrollbar-track);
+      border-radius: var(--auto-suggest-border-radius);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: inherit;
+      border: 2px solid var(--auto-suggest-scrollbar-track);
+      border-radius: var(--auto-suggest-border-radius);
+    }
   }
+
 
   &__option {
     background: red;
